@@ -49,14 +49,16 @@ namespace Inafocam.core.Repository
 
         public void Save(ScholarshipProgramUniversity model)
         {
+            var now = DateTime.Now;
+
             if(model.ScholarshipProgramUniversityId != 0)
             {
-
+                model.UpgradeDate = now;
                 _context.ScholarshipProgramUniversity.Update(model);
             }
             else
             {
-              
+                model.CreationDate = now;
                 _context.Add(model);
             }
 

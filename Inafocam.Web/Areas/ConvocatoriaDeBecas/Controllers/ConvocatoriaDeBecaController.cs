@@ -53,7 +53,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
             return View("Crear", scholarshipProgramUniversityModel);
         }
 
-        public IActionResult Crear(ScholarshipProgramUniversity model)
+        public IActionResult Crear(ScholarshipProgramUniversityModel model)
         {
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
             ViewBag.Nivel = new SelectList(_scholarshipLevel.ScholarshipsLevel, "ScholarshipLevelId", "ScholarshipLevelName");
@@ -61,6 +61,25 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
 
             return View();
+        }
+
+        public IActionResult GuardarConvocatoriaDeBeca(ScholarshipProgramUniversityModel model)
+        {
+            var data = CopyPropierties.Convert<ScholarshipProgramUniversityModel, ScholarshipProgramUniversity>(model);
+
+            try
+            {
+                _scholarshipProgramUniversity.Save(data);
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
+            }
+
+
+            var scholarshipProgramUniversity = _scholarshipProgramUniversity.ScholarshipProgramUniversity.ToList();
+
+            return View("Index",scholarshipProgramUniversity);
         }
 
 
