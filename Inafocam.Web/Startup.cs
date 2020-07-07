@@ -290,6 +290,10 @@ namespace Andamios.Web
             services.AddScoped<IUserRole, UserRoleRepository> ();
             services.AddScoped<IContact, ContactRepository> ();
             services.AddScoped<IScholarshipProgramUniversityAgreement, ScholarshipProgramUniversityAgreementRepository> ();
+            services.AddScoped<ITeacherHiringType, TeacherHiringTypeRepository> ();
+            services.AddScoped<ITeacherFile, TeacherFileRepository> ();
+            services.AddScoped<IContactAddress, ContactAddressRepository>();
+            services.AddScoped<IContactCommunication, ContactCommunicationRepository>();
 
 
             #endregion

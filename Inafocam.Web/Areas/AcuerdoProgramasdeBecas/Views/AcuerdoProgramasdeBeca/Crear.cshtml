@@ -229,6 +229,7 @@
                             <label for="select2User" class="col s12">Tipo de Acuerdo</label>
                         </div>
                         <select asp-for="Agreement.AgreementTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AgreementTypes">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
                     </div>
@@ -344,7 +345,7 @@
 
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
-                placeholder: "Select a state",
+                placeholder: "Seleccione una Opción",
             });
         });
 

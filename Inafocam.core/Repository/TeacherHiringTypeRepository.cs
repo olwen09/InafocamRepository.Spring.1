@@ -8,16 +8,17 @@ using System.Text;
 
 namespace Inafocam.core.Repository
 {
-    public class TeacherFileTypeRepository : ITeacherFileType
+    public class TeacherHiringTypeRepository : ITeacherHiringType
     {
         private readonly inafocam_tracingContext _context;
 
-        public TeacherFileTypeRepository(inafocam_tracingContext context)
+        public TeacherHiringTypeRepository(inafocam_tracingContext context)
         {
             _context = context;
         }
-        public IQueryable<TeacherFileType> GetAll => _context.TeacherFileType;
-            //.Include(x => x.Status);
-            //.Include(x => x.TeacherFile);
+        public IQueryable<TeacherHiringType> GetAll => _context.TeacherHiringType
+            .Include(x => x.Teacher)
+            .Include(x => x.Status);
+          
     }
 }

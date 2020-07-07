@@ -23,5 +23,22 @@ namespace Inafocam.core.Repository
             .Include(x => x.TeacherNavigation)
             .Include(x => x.Teacher)
             .Include(x => x.TracingStudyPlanDevelopment);
+
+        public void Save(TeacherEducation model)
+        {
+            var now = DateTime.Now;
+            if(model.TeacherEducationId != 0)
+            {
+                model.UpgradeDate = now;
+                _context.TeacherEducation.Update(model);
+            }
+            else
+            {
+                model.CreationDate = now;
+                _context.Add(model);
+            }
+            _context.SaveChanges();
+
+        }
     }
 }

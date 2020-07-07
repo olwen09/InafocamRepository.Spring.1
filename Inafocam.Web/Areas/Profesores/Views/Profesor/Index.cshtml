@@ -118,4 +118,36 @@
         <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>*@
 
     <script src="/app-assets/js/scripts/advance-ui-modals.js"></script>
+
+    <script>
+            @*if ("@mensaje.Tipo".length > 0) {
+            $.confirm({
+                title: '@mensaje.Titulo',
+                content: '@mensaje.Texto',
+                type: '@mensaje.Tipo',
+                typeAnimated: true,
+                boxWidth: '500px',
+                autoClose: 'cerrar|5000',
+                useBootstrap: false,
+                buttons: {
+                    btnClass: 'btn-' +@mensaje.Tipo,
+                    text:'Cerrar',
+                    cerrar: {
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function() {
+                    // before the modal is hidden.
+                    $.ajax({
+                        type: 'get',
+                        url: '/home/ClearTempData',
+                        success: function() {
+
+                        }
+                    });
+                }
+            });
+        }*@
+    </script>
 }

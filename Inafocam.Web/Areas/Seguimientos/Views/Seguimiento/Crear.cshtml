@@ -87,7 +87,8 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Nombre de Programa</label>
                         </div>
-                        <select class="form-control js-example-basic-single" style="width: 100%">
+                        <select asp-for="id" class="form-control js-example-basic-single" style="width: 100%">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -99,6 +100,7 @@
                             <label for="select2User" class="col s12">Cordinador</label>
                         </div>
                         <select asp-for="CoordinatorId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Coordinator">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -109,6 +111,7 @@
                             <label for="select2User" class="col s12">Tecnico</label>
                         </div>
                         <select asp-for="TechnicalId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Technical">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -137,6 +140,7 @@
                             <label for="select2User" class="col s12">Estado</label>
                         </div>
                         <select asp-for="StatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Status">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 

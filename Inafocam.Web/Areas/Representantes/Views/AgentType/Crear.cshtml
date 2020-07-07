@@ -80,6 +80,7 @@
                             <label for="select2User" class="col s12">Estado</label>
                         </div>
                         <select asp-for="StatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Status">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -178,7 +179,7 @@
 
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
-                placeholder: "Select a state",
+                placeholder: "Seleccione una Opción",
             });
         });
 

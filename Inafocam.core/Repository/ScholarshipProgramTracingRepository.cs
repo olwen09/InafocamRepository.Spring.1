@@ -40,5 +40,24 @@ namespace Inafocam.core.Repository
         {
             return ScholarshipProgramTracing.FirstOrDefault(x => x.ScholarshipProgramTracingId == id);
         }
+
+        public void Save(ScholarshipProgramTracing model)
+        {
+         
+            var now = DateTime.Now;
+
+          if(model.ScholarshipProgramTracingId != 0)
+            {
+                model.UpgradeDate = now;
+                _context.ScholarshipProgramTracing.Update(model);
+            }
+            else
+            {
+                model.CreationDate = now;
+                _context.Add(model);
+            }
+
+            _context.SaveChanges();
+        }
     }
 }

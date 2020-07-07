@@ -12,6 +12,10 @@ namespace Inafocam.core.Interfaces
         IQueryable<Teacher> GetAll { get; }
 
         Teacher GetById(int id);
+        
+        int GetContactId(int id);
+
+
 
         void Save(Teacher model);
     }

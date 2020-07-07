@@ -26,7 +26,7 @@
             <th>Nombre Completo</th>
             <th>Titulo</th>
             <th>Estado</th>
-            <th>Acciones</th>
+            <th class="center">Acciones</th>
             @*<th>Estado</th>
                 <th style="width: 69px;"></th>*@
         </tr>
@@ -40,9 +40,25 @@
                 <td>@item.Contact.ContactName @item.Contact.ContactLastname</td>
                 <td>@item.HigherTeacherEducation?.TeacherEducationTitle</td>
                 <td>@item.Status?.StatusName</td>
-                <td>
+                <td class="center">
                     <a asp-area="Profesores" asp-controller="Profesor" asp-action="Editar" asp-route-id="@item.TeacherId">
                         <i class="material-icons">edit</i>
+                    </a>
+                    
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="TeacherEducation" asp-route-id="@item.TeacherId">
+                        <i class="material-icons">school</i>
+                    </a>  
+                    
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarDocumento" asp-route-id="@item.TeacherId">
+                        <i class="material-icons">folder_open</i>
+                    </a>
+                    
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarDireccion" asp-route-id="@item.TeacherId">
+                        <i class="material-icons">add_location</i>
+                    </a>  
+                    
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarComunicacion" asp-route-id="@item.TeacherId">
+                        <i class="material-icons">add_ic_call</i>
                     </a>
                 </td>
             </tr>

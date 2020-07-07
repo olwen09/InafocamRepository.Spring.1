@@ -1,17 +1,15 @@
 ﻿using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Text;
 
 namespace Inafocam.core.Interfaces
 {
-  public  interface ITeacherEducation
+   public  interface ICommunication
     {
-        IQueryable<TeacherEducation> GetAll { get; }
+        IQueryable<Communication> GetAll { get; }
 
-        void Save(TeacherEducation model);
         
     }
 }

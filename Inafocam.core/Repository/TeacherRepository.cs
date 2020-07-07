@@ -41,18 +41,26 @@ namespace Inafocam.core.Repository
            return GetAll.FirstOrDefault(x => x.TeacherId == id);
         }
 
+        public int GetContactId(int id)
+        {
+            return (int)GetAll.FirstOrDefault(x => x.TeacherId == id).ContactId; ;
+        }
+
         public void Save(Teacher model)
         {
+
+            var now = DateTime.Now;
+
             if (model.TeacherId !=0)
             {
-                model.HigherTeacherEducation.TeacherId = model.TeacherId;
-
+                model.UpgradeDate = now;
+                //model.HigherTeacherEducation.TeacherId = model.TeacherId;
                 _context.Teacher.Update(model);
 
             }
             else
             {
-                //model.HigherTeacherEducation.TeacherId = model.TeacherId;
+                model.CreationDate = now;               
                 _context.Add(model);
             }
 

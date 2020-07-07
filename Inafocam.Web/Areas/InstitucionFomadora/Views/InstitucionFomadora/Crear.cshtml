@@ -61,16 +61,16 @@
                 <div class="row ">
 
 
-                    <div class="input-field col s12 m6 l1">
+                    @*<div class="input-field col s12 m6 l1">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
+
 
                         <input value="INST-0000" id="codigo" type="text" class="validat" disabled style=" font-weight: bold;">
 
                         <label>Id Universidad</label>
 
 
-                    </div>
+                    </div>*@
 
                     <div class="input-field col s12 m6 l3">
 
@@ -83,7 +83,7 @@
                     </div>
 
 
-                    <div class="input-field col s12 m6 l2">
+                    <div class="input-field col s12 m6 l3">
 
                         <input asp-for="UniversityAcronym" id="Siglas" type="text" class="validat">
 
@@ -104,7 +104,8 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Estado</label>
                         </div>
-                        <select asp-for="StatusId"  class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Status">
+                        <select asp-for="StatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Status">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -178,6 +179,7 @@
                         <label for="select2User" class="col s12">Tipo de Dirección </label>
                     </div>
                     <select asp-for="Address.AddressTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AddressType">
+                        <option value="" disabled selected>Seleccione una Opción</option>
                     </select>
 
 
@@ -190,6 +192,7 @@
                         <label for="select2User" class="col s12">Pais</label>
                     </div>
                     <select asp-for="Address.CountryId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Country">
+                        <option value="" disabled selected>Seleccione una Opción</option>
                     </select>
 
 
@@ -201,6 +204,7 @@
                         <label for="select2User" class="col s12">Provincia</label>
                     </div>
                     <select asp-for="Address.ProvinceId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Province">
+                        <option value="" disabled selected>Seleccione una Opción</option>
                     </select>
 
 
@@ -212,6 +216,7 @@
                         <label for="select2User" class="col s12">Ciudad</label>
                     </div>
                     <select asp-for="Address.CityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.City">
+                        <option value="" disabled selected>Seleccione una Opción</option>
                     </select>
 
 
@@ -337,7 +342,7 @@
 
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
-                placeholder: "Select a state",
+                placeholder: "Seleccione una Opción",
             });
         });
 

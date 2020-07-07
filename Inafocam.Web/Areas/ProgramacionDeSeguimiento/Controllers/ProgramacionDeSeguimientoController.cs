@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Andamios.Web.Helpers;
+using Humanizer;
 using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
@@ -46,9 +47,7 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
         {
             var scholarshipProgramTracing = _scholarshipProgramTracing.ScholarshipProgramTracing;
 
-            var prueba = _agent.GetCoordinators.ToList();
-            var prueba2 = _agent.GetTechnicals.ToList();
-            var prueba3 = _agent.GetCoordinators.Where(x => x.AgentTypeId == 1).Select(x => x.Contact.ContactName);
+
 
             return View(scholarshipProgramTracing);
         }
@@ -56,15 +55,19 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
         public IActionResult Crear()
         {
 
-            var prueba3 = _agent.GetCoordinators.Where(x => x.AgentTypeId == 1).Select(x => x.Contact.ContactName).ToString();
-            ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
-            ViewBag.ScholarshipProgram = new SelectList(_scholarshipProgram.GetAll, "ScholarshipProgramId", "ScholarshipProgramName");
-            //ViewBag.Coordinator = new SelectList(_agent.GetCoordinators, "AgentTypeId", );
-            //ViewBag.Technical = new SelectList(_agentType.GetTechnicals, "AgentTypeId", "AgentTypeName");
+            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
+               .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
+
+
+       
+            ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramName");
+            ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId","FullName");
+            ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
-            //ViewBag.ScholarshipProgram = new SelectList(_scholarshipProgram, "ScholarshipProgramId", "ScholarshipProgramName");
-            //ViewBag.Agent = new SelectList(_agent.Agents, "AgentId", );
-            //ViewBag.Agent = new SelectList(_agent.Agents, "", "UniversityName");
+            ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
+
             return View();
         }
 
@@ -72,41 +75,44 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
         {
             var scholarshipProgramTracing = _scholarshipProgramTracing.GetById(id);
 
-            //var scholarshipProgramTracingModel = new ScholarshipProgramTracingModel
-            //{
-            //    ScholarshipProgramTracingId = scholarshipProgramTracing.ScholarshipProgramTracingId,
-            //    UniversityId = scholarshipProgramTracing.UniversityId,
-            //    ScholarshipProgramUniversityId = scholarshipProgramTracing.ScholarshipProgramUniversityId,
-            //    CoordinatorId = scholarshipProgramTracing.CoordinatorId,
-            //    TechnicalId = scholarshipProgramTracing.TechnicalId,
-            //    StartDate = scholarshipProgramTracing.StartDate,
-            //    EndDate = scholarshipProgramTracing.EndDate,
-            //    CreationUserId = scholarshipProgramTracing.CreationUserId,
-            //    UpgradeUserId = scholarshipProgramTracing.UpgradeUserId,
-            //    CreationDate = scholarshipProgramTracing.CreationDate,
-            //    UpgradeDate = scholarshipProgramTracing.UpgradeDate,
-            //    StatusId = scholarshipProgramTracing.StatusId,
-            //    Coordinator = scholarshipProgramTracing.Coordinator,
-            //    CreationUser = scholarshipProgramTracing.CreationUser,
-            //    ScholarshipProgramUniversity = scholarshipProgramTracing.ScholarshipProgramUniversity,
-            //    Status = scholarshipProgramTracing.Status,
-            //    Technical = scholarshipProgramTracing.Technical,
-            //    ScholarshipProgramTracingAgreement = scholarshipProgramTracing.ScholarshipProgramTracingAgreement,
-            //    ScholarshipProgramTracingCourse = scholarshipProgramTracing.ScholarshipProgramTracingCourse,
-            //    ScholarshipProgramTracingCourseFile = scholarshipProgramTracing.ScholarshipProgramTracingCourseFile,
-            //    ScholarshipProgramTracingPractice = scholarshipProgramTracing.ScholarshipProgramTracingPractice,
-            //    ScholarshipProgramTracingPracticePlanning = scholarshipProgramTracing.ScholarshipProgramTracingPracticePlanning,
-            //    ScholarshipProgramTracingQualitySystem = scholarshipProgramTracing.ScholarshipProgramTracingQualitySystem,
-            //    ScholarshipProgramTracingStudentPractice = scholarshipProgramTracing.ScholarshipProgramTracingStudentPractice,
-            //    ScholarshipProgramTracingStudentSupport = scholarshipProgramTracing.ScholarshipProgramTracingStudentSupport,
-            //    TracingStudyPlanDevelopment = scholarshipProgramTracing.TracingStudyPlanDevelopment
-            //};
+           
 
             var scholarshipProgramTracingModel = CopyPropierties.Convert<ScholarshipProgramTracing, ScholarshipProgramTracingModel>(scholarshipProgramTracing);
+            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
+               .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
 
+
+
+            ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramName");
+            ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
+            ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
+            ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
 
             return View("Crear", scholarshipProgramTracingModel);
+        }
+
+        public IActionResult GuardarScholarshipProgramTracing(ScholarshipProgramTracingModel model)
+        {
+            var data = CopyPropierties.Convert< ScholarshipProgramTracingModel, ScholarshipProgramTracing>(model);
+            var scholarshipProgramTracing = _scholarshipProgramTracing.ScholarshipProgramTracing;
+
+            try
+            {
+                _scholarshipProgramTracing.Save(data);
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("Editar", new { id = model.ScholarshipProgramTracingId });
+            }
+
+            
+
+
+
+            return View("Index",scholarshipProgramTracing);
         }
     }
 }

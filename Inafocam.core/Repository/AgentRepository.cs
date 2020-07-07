@@ -37,9 +37,9 @@ namespace Inafocam.core.Repository
         //.Include(x => x.ScholarshipProgramUniversityTechnical);
         //.Include(x => x.Contact.ContactCommunicatio);
 
-        public IQueryable<Agent> GetCoordinators => Agents.Where(x => x.AgentId == 1);
+        public IQueryable<Agent> GetCoordinators => Agents.Where(x => x.AgentTypeId == 1);
 
-        public IQueryable<Agent> GetTechnicals => Agents.Where(x => x.AgentId == 2);
+        public IQueryable<Agent> GetTechnicals => Agents.Where(x => x.AgentTypeId == 2);
 
         public Agent GetById(int id)
         {

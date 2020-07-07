@@ -38,4 +38,6 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models
         public virtual ICollection<ScholarshipProgramTracingStudentSupport> ScholarshipProgramTracingStudentSupport { get; set; }
         public virtual ICollection<TracingStudyPlanDevelopment> TracingStudyPlanDevelopment { get; set; }
     }
+
+  
 }

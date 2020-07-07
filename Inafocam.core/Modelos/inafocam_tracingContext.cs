@@ -2472,6 +2472,13 @@ namespace Inafocam.core.Modelos
                     .HasColumnType("bit(1)");
 
                 entity.Property(e => e.TeacherResearchProcess).HasColumnName("teacher_research_process");
+                
+                
+                entity.Property(e => e.HigherTeacherEducationId).HasColumnName("higher_teacher_education_id");
+
+
+
+
 
                 entity.Property(e => e.TeacherResearchPublished).HasColumnName("teacher_research_published");
 
@@ -2496,10 +2503,10 @@ namespace Inafocam.core.Modelos
                     .HasForeignKey(d => d.StatusId)
                     .HasConstraintName("FK_teacher_status");
 
-                entity.HasOne(d => d.TeacherHiringType)
-                    .WithMany(p => p.Teacher)
-                    .HasForeignKey(d => d.TeacherHiringTypeId)
-                    .HasConstraintName("FK_teacher_teacher_hiring_type");
+                //entity.HasOne(d => d.TeacherHiringType)
+                //    .WithMany(p => p.Teacher)
+                //    .HasForeignKey(d => d.TeacherHiringTypeId)
+                //    .HasConstraintName("FK_teacher_teacher_hiring_type");
             });
 
             modelBuilder.Entity<TeacherEducation>(entity =>

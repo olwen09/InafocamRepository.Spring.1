@@ -35,9 +35,9 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" method="post">
+    <form class="col s12 formValidate" method="post" asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="GuardarScholarshipProgramTracing">
         <input asp-for="ScholarshipProgramTracingId" type="hidden" />
-
+        <
 
         @* Detalles del programa*@
         <div>
@@ -60,45 +60,46 @@
                 <div class="row ">
 
 
-                    <div class="input-field col s12 m6 l2">
-
-                        @*<i class="material-icons prefix">contacts</i>*@
+                    @*<div class="input-field col s12 m6 l2">
 
                         <input value="TRACING-00001" id="codigo" type="text" class="validat" disabled style=" font-weight: bold;">
 
                         <label>Id Seguimiento</label>
 
 
-                    </div>
+                    </div>*@
 
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l4">
                         <div class="row">
                             <label for="select2User" class="col s12">Universidad</label>
                         </div>
                         <select asp-for="UniversityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.University">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
                     </div>
 
 
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l4">
 
                         <div class="row">
                             <label for="select2User" class="col s12">Nombre de Programa</label>
                         </div>
-                        <select class="form-control js-example-basic-single" style="width: 100%">
+                        <select asp-for="ScholarshipProgramUniversityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ScholarshipProgram">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
                     </div>
 
 
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l4">
                         <div class="row">
                             <label for="select2User" class="col s12">Cordinador</label>
                         </div>
-                        <select class="form-control js-example-basic-single" style="width: 100%" >
+                        <select asp-for="CoordinatorId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Coordinator">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -109,29 +110,31 @@
                 <div class="row">
 
 
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l4">
                         <div class="row">
                             <label for="select2User" class="col s12">Tecnico</label>
                         </div>
-                        <select class="form-control js-example-basic-single" style="width: 100%">
+                        <select asp-for="TechnicalId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Technical">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
                     </div>
 
 
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l4">
 
                         <div class="row">
                             <label for="select2User" class="col s12">Estado</label>
                         </div>
                         <select asp-for="StatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Status">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
                     </div>
 
-                    <div class="s6 m6 l5">
+                    <div class="s6 m6 l4">
 
 
                         <div class="input-field col s12 m6 l2">
@@ -173,17 +176,17 @@
 
                 <div class="input-field col s12">
 
-                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                    <button class="teal btn waves-effect waves-light" type="submit">
                         <i class="material-icons left">save</i>
                         Guardar
                     </button>
 
-                    <a class="red btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                    <a class="red btn waves-effect waves-light" onclick="onValidate(this.parent)">
                         <i class="material-icons left">cancel</i>
                         Anular
                     </a>
 
-                    <a class="white btn waves-effect waves-light black-text" type="submit" onclick="onValidate(this.parent)">
+                    <a class="white btn waves-effect waves-light black-text" onclick="onValidate(this.parent)">
                         <i class="material-icons left">cleaning_services</i>
                         Limpiar
                     </a>
@@ -241,7 +244,7 @@
 
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
-                placeholder: "Select a state",
+                placeholder: "Seleccione una Opción",
             });
         });
 

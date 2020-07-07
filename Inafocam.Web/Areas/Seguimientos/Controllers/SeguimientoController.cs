@@ -48,12 +48,17 @@ namespace Inafocam.Web.Areas.Seguimientos.Controllers
         public IActionResult Crear(ScholarshipProgramTracingModel model)
         {
 
+            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
+               .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
+
 
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
             //ViewBag.ScholarshipProgramUniversity = new SelectList(_scholarshipProgramUniversity.ScholarshipProgramUniversity, "ScholarshipProgramUniversityId", );
-            //ViewBag.ScholarshipProgram = new SelectList(_scholarshipProgramUniversity.ScholarshipProgramUniversity,);
-            //ViewBag.Coordinator = new SelectList(_agentType.GetCoordinators, "AgentTypeId", "AgentTypeName");
-            //ViewBag.Technical = new SelectList(_agentType.GetTechnicals, "AgentTypeId", "AgentTypeName");
+            ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramName");
+            ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
+            ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View(model);
         }
@@ -63,13 +68,16 @@ namespace Inafocam.Web.Areas.Seguimientos.Controllers
             var data =  _scholarshipProgramTracing.GetById(id);
 
             var model = CopyPropierties.Convert<ScholarshipProgramTracing, ScholarshipProgramTracingModel>(data);
-
+            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
+               .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
 
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
             //ViewBag.ScholarshipProgramUniversity = new SelectList(_scholarshipProgramUniversity.ScholarshipProgramUniversity, "ScholarshipProgramUniversityId", );
-            //ViewBag.ScholarshipProgram = new SelectList(_scholarshipProgramUniversity.ScholarshipProgramUniversity,);
-            //ViewBag.Coordinator = new SelectList(_agentType.GetCoordinators, "AgentTypeId", "AgentTypeName");
-            //ViewBag.Technical = new SelectList(_agentType.GetTechnicals, "AgentTypeId", "AgentTypeName");
+            ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramName");
+            ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
+            ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View("Crear",model);
         }

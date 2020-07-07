@@ -35,7 +35,7 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" method="post" asp-area="Profesores" asp-controller="Profesor" asp-action="Guardar">
+    <form class="col s12 formValidate" method="post" asp-area="Profesores" asp-controller="Profesor" asp-action="GuardarTeacher">
 
         @*@{ Model.HigherTeacherEducation.TeacherId = Model.TeacherId; }*@
 
@@ -44,14 +44,14 @@
         <input type="hidden" asp-for="Contact.ContactId" />
         <input type="hidden" asp-for="Contact.StatusId" />
         <input type="hidden" asp-for="StatusId" />
-        <input type="hidden" asp-for="HigherTeacherEducationId" />
+        @*<input type="hidden" asp-for="HigherTeacherEducationId" />*@
 
 
-        <input type="hidden" asp-for="HigherTeacherEducation.StatusId" />
+        @*<input type="hidden" asp-for="HigherTeacherEducation.StatusId" />
         <input type="hidden" asp-for="HigherTeacherEducation.TeacherId" />
         <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
         <input type="hidden" asp-for="HigherTeacherEducationId" />
-        <input type="hidden" asp-for="TeacherHiringTypeId" />
+        <input type="hidden" asp-for="TeacherHiringTypeId" />*@
 
 
 
@@ -97,7 +97,9 @@
                         </div>
                         <select class="form-control js-example-basic-single" style="width: 100%">
 
-                            @*<option value="" disabled selected>Choose your option</option>*@
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                            <option value="MASCULINO">MASCULINO</option>
+                            <option value="FEMENINO">FEMENINO</option>
                         </select>
 
 
@@ -108,6 +110,7 @@
                             <label class="col s12">Tipo de Contacto</label>
                         </div>
                         <select asp-for="Contact.ContactTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ContactTypes">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -123,7 +126,8 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Tipo de Documento</label>
                         </div>
-                        <select asp-for="Contact.DocumentType" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.DocumentType">
+                        <select asp-for="Contact.DocumentTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.DocumentType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -141,7 +145,7 @@
                             <label for="select2User" class="col s12">Nacionalidad</label>
                         </div>
                         <select asp-for="Contact.ContactNationalityId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Nationality">
-                            <option></option>
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -182,6 +186,7 @@
                             <label for="select2User" class="col s12">Estado de Material</label>
                         </div>
                         <select asp-for="Contact.ContactMaritalStatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.MatirialStatus">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -211,7 +216,8 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Tipo de Contratación</label>
                         </div>
-                        <select asp-for="TeacherHiringTypeId" class="form-control js-example-basic-single" style="width: 100%">
+                        <select asp-for="TeacherHiringTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.TeacherHiringType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -253,20 +259,21 @@
                             </label>
                         </p>
                     </div>
+
                     <div class="input-field col s12 m6 l4">
                         <label>Tiene funciones administrativas?</label>
                         <br />
                         <br />
                         <p>
                             <label>
-                                <input type="checkbox" />
+                                <input name="TeacherHasAdminFunctions" value="1" type="radio" @(Html.Raw(Model.TeacherHasAdminFunctions == 1 ? "checked=\" checked\"" : "")) />
                                 <span>SI</span>
                             </label>
                         </p>
 
                         <p>
                             <label>
-                                <input type="checkbox" />
+                                <input name="TeacherHasAdminFunctions" value="0" type="radio" @(Html.Raw(Model.TeacherHasAdminFunctions == 0 ? "checked=\" checked\"" : "")) />
                                 <span>NO</span>
                             </label>
                         </p>
@@ -278,14 +285,14 @@
                         <br />
                         <p>
                             <label>
-                                <input type="checkbox" />
+                                <input name="TeacherWorkForOtherInstitutions" value="1" type="radio" @(Html.Raw(Model.TeacherWorkForOtherInstitutions == 1 ? "checked=\" checked\"" : "")) />
                                 <span>SI</span>
                             </label>
                         </p>
 
                         <p>
                             <label>
-                                <input type="checkbox" />
+                                <input name="TeacherWorkForOtherInstitutions" value="0" type="radio" @(Html.Raw(Model.TeacherWorkForOtherInstitutions == 0 ? "checked=\" checked\"" : "")) />
                                 <span>NO</span>
                             </label>
                         </p>
@@ -316,7 +323,7 @@
         </div>
 
 
-        <div class="card">
+        @*<div class="card">
             <div class="card-content">
 
                 <h4 class="card-title">Agregar Preparación Académica</h4>
@@ -357,7 +364,7 @@
                 <table>
                     <thead>
                         <tr>
-                            @*<th style="border: solid 1px; border-color: #e0e0e0;">Id</th>*@
+            
                             <th style="border: solid 1px; border-color: #e0e0e0;">Titulo</th>
                             <th style="border: solid 1px; border-color: #e0e0e0;">Tipo de Educacion</th>
                             <th style="border: solid 1px; border-color: #e0e0e0;">Institución</th>
@@ -370,12 +377,7 @@
                         @if (Model.TeacherEducation == null)
                         {
             <tr>
-                @*<td style="border: solid 1px; border-color: #e0e0e0;" class="red-text center">x</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@Model.ScholarshipProgramUniversity?.University?.UniversityName</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@Model.ScholarshipProgramUniversity?.ScatProgramCode</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@Model.ScholarshipProgramUniversity?.ContractNumber</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@Model.ScholarshipProgramUniversity?.AnnouncementStartDate - @Model.ScholarshipProgramUniversity?.AnnouncementEndDate</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@Model.ScholarshipProgramUniversity?.StartDate - @Model.ScholarshipProgramUniversity?.EndDate</td>*@
+                
             </tr> }
 
                         else
@@ -387,12 +389,12 @@
     <tr>
 
 
-        @*<td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationId</td>*@
+        
         <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationTitle</td>
         <td style="border: solid 1px; border-color: #e0e0e0;">@item?.EducationType?.EducationTypeName</td>
         <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationInstitution</td>
         <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationFinishDate</td>
-        @*<td style="border: solid 1px; border-color: #e0e0e0;">@item?.StartDate - @item.EndDate</td>*@
+     
         <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
             <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
                 <i class="material-icons ">delete</i>
@@ -407,7 +409,7 @@
 
             </div>
 
-        </div>
+        </div>*@
 
         <div class="input-field col s12">
 

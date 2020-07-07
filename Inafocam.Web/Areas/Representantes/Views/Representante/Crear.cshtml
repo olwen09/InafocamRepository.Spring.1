@@ -111,7 +111,10 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Genero</label>
                         </div>
-                        <select class="form-control js-example-basic-single" style="width: 100%">
+                        <select asp-for="Contact.ContactGender" class="form-control js-example-basic-single" style="width: 100%">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                            <option value="MASCULINO" disabled selected>MASCULINO</option>
+                            <option value="FEMENINO" disabled selected>FEMENINO</option>
                         </select>
 
 
@@ -126,6 +129,7 @@
                             <label for="select2User" class="col s12">Tipo de Contacto</label>
                         </div>
                         <select asp-for="Contact.ContactTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.ContactType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -136,6 +140,7 @@
                             <label for="select2User" class="col s12">Tipo de Agente</label>
                         </div>
                         <select asp-for="AgentTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AgentType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -273,6 +278,7 @@
                         <label for="select2User" class="col s12">Pais</label>
                     </div>
                     <select asp-for="Contact.ContactAddres.Address.CountryId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Countries">
+                        <option value="" disabled selected>Seleccione una Opción</option>
                     </select>
 
                 </div>
@@ -282,6 +288,7 @@
                         <label for="select2User" class="col s12">Tipo de Dirección</label>
                     </div>
                     <select asp-for="Contact.ContactAddres.Address.AddressTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AddressType">
+                        <option value="" disabled selected>Seleccione una Opción</option>
                     </select>
 
 
@@ -294,6 +301,7 @@
                         <label for="select2User" class="col s12">Provincia</label>
                     </div>
                     <select asp-for="Contact.ContactAddres.Address.ProvinceId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Provinces">
+                        <option value="" disabled selected>Seleccione una Opción</option>
                     </select>
 
                 </div>
@@ -304,6 +312,7 @@
                         <label for="select2User" class="col s12">Ciudad</label>
                     </div>
                     <select asp-for="Contact.ContactAddres.Address.CityId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Cities">
+                        <option value="" disabled selected>Seleccione una Opción</option>
                     </select>
 
                 </div>
@@ -407,7 +416,7 @@
 
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
-                placeholder: "Select a state",
+                placeholder: "Seleccione una Opción",
             });
         });
 
