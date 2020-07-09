@@ -39,6 +39,7 @@
     @*<form class="col s12 formValidate" method="post" asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Guardar">*@
 
         <input  asp-for="ScholarshipProgramUniversityId" type="hidden"/>
+        <input  asp-for="CreationDate" type="hidden"/>
         <input  asp-for="ScholarshipProgramId" type="hidden"/>
         <input  asp-for="ScholarshipLevelId" type="hidden"/>
         <input  asp-for="CoordinatorId" type="hidden"/>
@@ -277,7 +278,7 @@
                                 <td style="border: solid 1px; border-color: #e0e0e0;">@item.ScholarshipProgramUniversityAgreementId</td>
                                 <td style="border: solid 1px; border-color: #e0e0e0;">@item.ScholarshipProgramUniversityAgreement1</td>
                                 <td style="border: solid 1px; border-color: #e0e0e0;">@item?.AgreementType?.AgreementTypeName</td>
-                                <td style="border: solid 1px; border-color: #e0e0e0;" class="red-text center">x</td>
+                                <td style="border: solid 1px; border-color: #e0e0e0;" class="red-text center tooltipped" data-position="top" data-tooltip="Eliminar" ><i class="material-icons">delete</i></td>
                             </tr>
                         }
 

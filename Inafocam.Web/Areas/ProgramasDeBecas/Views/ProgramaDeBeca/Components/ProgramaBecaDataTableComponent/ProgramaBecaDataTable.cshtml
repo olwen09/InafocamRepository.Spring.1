@@ -36,12 +36,12 @@
             {
 
                 <tr>
-                    <td>@item.ScholarshipProgramId</td>
-                    <td>@item.ScholarshipProgramName</td>
-                    <td>@item.ScholarshipLevel.ScholarshipLevelName</td>
-                    <td>@item.Status.StatusName</td>
+                    <td>@item?.ScholarshipProgramId</td>
+                    <td>@item?.ScholarshipProgramName</td>
+                    <td>@item?.ScholarshipLevel?.ScholarshipLevelName</td>
+                    <td>@item?.Status?.StatusName</td>
                     <td>
-                        <a asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="Editar" asp-route-id="@item.ScholarshipProgramId">
+                        <a asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="Editar" asp-route-id="@item.ScholarshipProgramId" class="tooltipped" data-position="top" data-tooltip="Editar">
                             <i class="material-icons">edit</i>
                         </a>
                     </td>

@@ -24,9 +24,9 @@
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google.">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <title>Login | Andamios Dominicanos</title>
+    <title>Login | Inafocam</title>
     <link rel="apple-touch-icon" href="~/app-assets/images/favicon/apple-touch-icon-152x152.png">
-    <link rel="shortcut icon" type="image/x-icon" href="~/app-assets/images/favicon/favicon-32x32.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/app-assets/images/favicon/inafocam-icon.jpg">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- BEGIN: VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/vendors.min.css">
@@ -44,13 +44,13 @@
 </head>
 <!-- END: Head-->
 
-<body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 1-column   blank-page blank-page " data-open="click" data-menu="vertical-dark-menu" data-col="1-column">
+<body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 1-column blank-page blank-page " data-open="click" data-menu="vertical-dark-menu" data-col="1-column">
     <div class="row">
         <div class="col s12">
             <div class="container">
                 <div id="login-page" class="row">
                     <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-9 animated fadeIn">
-                        <form class="login-form" asp-area="Identity" asp-controller="Identity" asp-action="Login" method="post">
+                        <form class="login-form" asp-area="Usuarios" asp-controller="Usuario" asp-action="Login" method="post">
                             <div class="row">
                                 <div class="input-field col s12">
                                     <h5 class="ml-4">Inicio de Sesión</h5>
@@ -59,9 +59,9 @@
                             <div class="row margin">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-2">person_outline</i>
-                                    <input id="username" type="text" asp-for="@Model.UserLogin">
+                                    <input id="username" type="text" asp-for="@Model.UserName">
                                     <label for="username" class="center-align">Usuario</label>
-                                    <span asp-validation-for="@Model.UserLogin" class="red-text"></span>
+                                    <span asp-validation-for="@Model.UserName" class="red-text"></span>
 
                                 </div>
                             </div>
@@ -76,26 +76,26 @@
 
                                 </div>
                             </div>
-                            @*<div class="row">
+                            <div class="row">
                                 <div class="col s12 m12 l12 ml-2 mt-1">
                                     <p>
                                         <label>
                                             <input type="checkbox" asp-for="RememberMe" />
-                                            <span>@ShareLocalizer["Recordarme"]</span>
+                                            <span>Recordarme</span>
                                         </label>
                                     </p>
                                 </div>
 
 
-                            </div>*@
+                            </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <button type="submit" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Iniciar Sesión</button>
+                                    <button type="submit" class="btn waves-effect waves-light border-round  col s12">Iniciar Sesión</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s6 m6 l6">
-                                    <p class="margin medium-small"><a>Registrarme</a></p>
+                                    <p class="margin medium-small "><a asp-action="Register" asp-controller="Usuario">Registrarme</a></p>
                                 </div>
                                 <!-- <div class="input-field col s6 m6 l6">
                                     <p class="margin right-align medium-small"><a asp-controller="Usuario" asp-action="ResetPasswordByEmail" asp-route-Email="">Olvidó su contraseña ?</a></p>

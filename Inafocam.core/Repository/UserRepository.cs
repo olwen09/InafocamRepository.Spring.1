@@ -46,12 +46,16 @@ namespace Inafocam.core.Repository
 
         public void Save(User model)
         {
+
+            var now = DateTime.Now;
             if(model.UserId != 0)
             {
+                model.UpgradeDate = now;
                 _cotext.User.Update(model);
             }
             else
             {
+                model.CreationDate = now;
                 _cotext.Add(model);
             }
 

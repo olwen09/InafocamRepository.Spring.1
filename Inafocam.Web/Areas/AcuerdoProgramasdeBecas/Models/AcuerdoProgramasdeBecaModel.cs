@@ -1,6 +1,7 @@
 ﻿using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,9 +19,14 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Models
         public string ContractNumber { get; set; }
         public long? CoordinatorId { get; set; }
         public long? TechnicalId { get; set; }
+        [Display(Name = "Fecha de Inicio")]
         public DateTime? AnnouncementStartDate { get; set; }
+        [Display(Name = "Fecha de Inicio")]
         public DateTime? AnnouncementEndDate { get; set; }
+        [Display(Name = "Fecha de Inicio")]
         public DateTime? StartDate { get; set; }
+
+        [Display(Name ="Fecha de Termino")]
         public DateTime? EndDate { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }

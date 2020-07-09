@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Inafocam.core.Modelos
 {
-    public partial class inafocam_tracingContext : DbContext
+    public partial class inafocam_tracingContext : IdentityDbContext<Usuario, Role, string>
     {
         public inafocam_tracingContext()
         {
@@ -82,6 +83,9 @@ namespace Inafocam.core.Modelos
         public virtual DbSet<UserUniversity> UserUniversity { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -93,6 +97,10 @@ namespace Inafocam.core.Modelos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Usuario>().ToTable("Usuarios");
+            modelBuilder.Entity<Role>().ToTable("Roles");
+
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.ToTable("address");

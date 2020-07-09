@@ -34,14 +34,16 @@ namespace Inafocam.core.Repository
 
         public void GuardarScholarshipProgram(ScholarshipProgram model)
         {
+            var now = DateTime.Now;
+
             if(model.ScholarshipProgramId != 0)
             {
-                
-
+                model.UpgradeDate = now;
                 _context.ScholarshipProgram.Update(model);
             }
             else
             {
+                model.CreationDate = now;
                 _context.Add(model);
             }
 

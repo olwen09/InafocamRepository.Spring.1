@@ -7,7 +7,7 @@
     <thead>
         <tr>
 
-            <th>Convocatoria <br /> Id</th>
+            <th class="center"> Id </th>
             <th>Programa</th>
             <th>Universidad</th>
             <th>Periodo de Convocatoria</th>
@@ -23,11 +23,11 @@
         @foreach (ScholarshipProgramUniversity item in Model)
         {
         <tr>
-            <td>@item.ScholarshipProgramUniversityId</td>
-            <td>@item.ScholarshipProgram.ScholarshipProgramName</td>
-            <td>@item.University.UniversityName</td>
+            <td>@item?.ScholarshipProgramUniversityId</td>
+            <td>@item?.ScholarshipProgram?.ScholarshipProgramName</td>
+            <td>@item?.University?.UniversityName</td>
             <td>@item.AnnouncementStartDate?.ToString("D", CultureInfo.GetCultureInfo("es")) - @item.AnnouncementEndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
-            <td>@item.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es")) - @item.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+            <td>@item.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es")) - @item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
             <td>@item.ScholarshipLevel?.ScholarshipLevelName</td>
             <td>@item.Status?.StatusName</td>
             

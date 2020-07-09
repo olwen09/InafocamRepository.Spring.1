@@ -21,14 +21,14 @@
         @foreach (ScholarshipProgramTracing item in Model)
         {
             <tr>
-                <td>@item.ScholarshipProgramTracingId</td>
-                <td>@item.CreationDate</td>
-                <td>@item.ScholarshipProgramUniversity.ScholarshipProgram.ScholarshipProgramName</td>
-                <td>@item.ScholarshipProgramUniversity.University.UniversityName</td>
-                <td>@item.Technical.Contact.ContactName @item.Technical.Contact.ContactLastname</td>
-                <td>@item.Status.StatusName</td>
+                <td>@item?.ScholarshipProgramTracingId</td>
+                <td>@item?.CreationDate</td>
+                <td>@item?.ScholarshipProgramUniversity?.ScholarshipProgram?.ScholarshipProgramName</td>
+                <td>@item?.ScholarshipProgramUniversity?.University?.UniversityName</td>
+                <td>@item?.Technical.Contact?.ContactName @item.Technical.Contact?.ContactLastname</td>
+                <td>@item?.Status?.StatusName</td>
                 <td class="blue-text">
-                    <a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="Seguimientos" asp-controller="Seguimiento" asp-action="Editar" asp-route-id="@item.ScholarshipProgramTracingId">
+                    <a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="Seguimientos" asp-controller="Seguimiento" asp-action="Editar" asp-route-id="@item?.ScholarshipProgramTracingId">
                         <i class="material-icons">edit</i>
 
                     </a>

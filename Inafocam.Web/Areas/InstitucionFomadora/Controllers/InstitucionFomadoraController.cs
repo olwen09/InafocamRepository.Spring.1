@@ -7,6 +7,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.InstitucionFomadora.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -15,6 +16,7 @@ namespace Inafocam.Web.Areas.InstitucionFomadora.Controllers
 
     [Area("InstitucionFomadora"), ReturnArea("InstitucionFomadora")]
     [ReturnControllador("Institucion Fomadora"), ReturnController("InstitucionFomadora")]
+    [Authorize]
     public class InstitucionFomadoraController : Controller
     {
         private readonly IUniversity _university;

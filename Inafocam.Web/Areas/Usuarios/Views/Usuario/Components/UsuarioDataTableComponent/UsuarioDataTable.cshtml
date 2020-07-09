@@ -7,32 +7,78 @@
     <thead>
         <tr>
 
-            <th> ID</th>
+        
+            @*<th>Codigo</th>*@
             <th>Usuario</th>
             <th>Nombre</th>
-            <th>Apellido</th>
+            <th>Email</th>
+          
             <th>Estado</th>
-            <th>Acciones</th>
+            <th class="center">Acciones</th>
 
 
         </tr>
     </thead>
     <tbody>
-        @foreach (User item in Model)
+        @foreach (Usuario usuario in Model)
         {
-            <tr>
-                <td>@item.UserId</td>
-                <td>@item.UserLogin</td>
-                <td>@item.Contact?.ContactName</td>
-                <td>@item.Contact?.ContactLastname</td>
-                <td>@item.Status?.StatusName</td>
+    <tr>
+        @*<td>
+            <div class="row">
+                <div class="col s12 m12 l12 ml-2 mt-1">
+                    <p>
+                        <label>
+                            <input type="checkbox">
+                            <span>@num</span>
+                        </label>
+                    </p>
+                </div>
+            </div>
+        </td>*@
+        <td>@usuario?.UserName</td>
+        <td>@usuario?.Nombre @usuario?.Apellido</td>
+        <td>@usuario?.Email</td>
+        @*<td><a class=" modal-trigger" href="#permisosmodal_@usuario.Id">@usuario.Role</a></td>*@
+        @if (usuario.Estado)
+        {
+            <td>
 
-                <td>
-                    <a asp-area="Usuarios" asp-controller="Usuario" asp-action="PerfilUsuarioAdmin" asp-route-id="@item.UserId" class="tooltipped" data-position="top" data-tooltip="Editar">
-                        <i class="material-icons">edit</i>
-                    </a>
-                </td>
-            </tr>
+                <span class="badge green white-text text-accent-2">Activo</span>
+                @*<a class="modal-trigger white-text" href="#">
+                    Activo
+                </a>*@
+
+            </td>
+        }
+        else
+        {
+
+            <td>
+                <span class="badge orange  white-text text-accent-2">Inactivo</span>
+            </td>
+            @*<td>
+                Inactivo
+            </td>*@
+        }
+        <td class="center">
+            @*<a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="Usuarios" asp-controller="Usuario" asp-action="PerfilUsuarioAdmin" asp-route-id="@usuario.Id" asp-route-returnUrl="@Url.Action("PerfilUsuarioAdmin", "Usuario", new{ area = "Usuarios", id = usuario.Id})">
+                <i class="material-icons">create</i>
+            </a>*@
+
+            <a class="modal-trigger tooltipped disabled" href="#formularioestado" data-position="top" data-tooltip="Cambiar estado" onclick="CambiarEstadoModal('@usuario.Id')">
+
+                <i class="material-icons">sync</i>
+                @*asp-area="Usuarios" asp-controller="Usuario" asp-action="CambiarEstado" asp-route-id="@usuario.Id"*@
+            </a>
+            <a class="modal-trigger tooltipped" href="#formulariopassword" data-toggle="modal" data-position="top" data-tooltip="Cambiar Contraseña" onclick="ResetPasswordModal('@usuario.Id')">
+
+                <i class="material-icons">
+                    lock_open
+                </i>
+            </a>
+
+        </td>
+        </tr>
         }
 
 
@@ -41,13 +87,13 @@
     </tbody>
     <tfoot>
         <tr>
-
-            <th> ID</th>
+            @*<th>Codigo</th>*@
             <th>Usuario</th>
             <th>Nombre</th>
-            <th>Apellido</th>
+            <th>Email</th>
+
             <th>Estado</th>
-            <th>Acciones</th>
+            <th class="center">Acciones</th>
 
         </tr>
     </tfoot>

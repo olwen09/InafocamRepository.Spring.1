@@ -37,6 +37,8 @@
 <div class="row">
     <form class="col s12 formValidate" method="post">
         <input asp-for="ScholarshipProgramTracingId" type="hidden" />
+        <input asp-for="CreationDate" type="hidden" />
+        <input asp-for="CreationUserId" type="hidden" />
 
 
         @* Detalles del programa*@
@@ -87,7 +89,7 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Nombre de Programa</label>
                         </div>
-                        <select asp-for="id" class="form-control js-example-basic-single" style="width: 100%">
+                        <select class="form-control js-example-basic-single" style="width: 100%">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 

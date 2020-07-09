@@ -7,6 +7,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Materias.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -14,6 +15,7 @@ namespace Inafocam.Web.Areas.Materias.Controllers
 {
     [Area("Materias"),ReturnArea("Materias")]
     [ReturnControllador("Materias"),ReturnController("Materia")]
+    [Authorize]
     public class MateriaController : Controller
     {
 

@@ -54,10 +54,12 @@ namespace Andamios.Web
                options.UseMySQL(
                    Configuration.GetConnectionString("InafocamContext")));
 
-            //services.AddIdentity<User, UserRole>()
-            //    .AddRoles<UserRole>()
-            //    .AddEntityFrameworkStores<inafocam_tracingContext>()
-            //    .AddDefaultTokenProviders();
+            services.AddIdentity<Usuario, Role>()
+                .AddRoles<Role>()
+                .AddEntityFrameworkStores<inafocam_tracingContext>()
+                .AddDefaultTokenProviders();
+
+
             //services.AddScoped<IInventario, InventarioRepository>();
 
 
@@ -91,9 +93,9 @@ namespace Andamios.Web
                 .AddCookie(options =>
                 {
                     options.Cookie.HttpOnly = true;
-                    //options.LoginPath = "/Usuarios/Usuario/Login";
-                    //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-                    // options.Cookie.Expiration = TimeSpan.FromHours (1);
+                    options.LoginPath = "/Usuarios/Usuario/Login";
+                    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                    options.Cookie.Expiration = TimeSpan.FromHours(1);
                 });
 
             //////
@@ -104,7 +106,7 @@ namespace Andamios.Web
 
                 //options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-                options.LoginPath = "/identity/Account/Login";
+                options.LoginPath = "/Usuarios/Usuario/Login";
                 options.AccessDeniedPath = "/identity/Account/AccessDenied";
                 //options.SlidingExpiration = true;
             });
@@ -294,6 +296,8 @@ namespace Andamios.Web
             services.AddScoped<ITeacherFile, TeacherFileRepository> ();
             services.AddScoped<IContactAddress, ContactAddressRepository>();
             services.AddScoped<IContactCommunication, ContactCommunicationRepository>();
+            services.AddScoped<IUsuario, UsuarioRepository>();
+            services.AddScoped<IRole, RoleRepository>();
 
 
             #endregion

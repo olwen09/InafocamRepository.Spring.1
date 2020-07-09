@@ -1,0 +1,79 @@
+﻿@model Andamios.Web.Areas.Usuarios.Models.EditarUsuarioModel
+
+
+<form class="register-form" asp-area="Usuarios" asp-controller="Usuario" asp-action="CambiarEstado" method="post">
+
+    <h4 class="teal-text lighten-2">Cambiar Estado</h4>
+    <h6 class="grey-text lighten-2 ml-2">Nombre del usuario: <strong>@Model?.UserName</strong>  </h6>
+
+    @if (Model?.Estado == true)
+    {
+        <h5 class="grey-text lighten-2">Si el estado cambia, este usuario no podrá iniciar sesión</h5>
+    }
+    else
+    {
+        <h5 class="grey-text lighten-2">Si el estado cambia, este usuario podrá iniciar sesión </h5>
+
+    }
+
+    <div class="mt-4"></div>
+
+    <div class="row">
+
+        @*<div class="col s7 l7 m7">
+                <p class="flow-text">Si Cambia el estado este usuario este no podra iniciar seccion</p>
+            </div>*@
+
+        <div class="col s3 l3 m3 ml-10 ">
+            <a class="mr-2 waves-effect right">Cambiar Estado</a>
+        </div>
+
+        <div class="col s2 l2">
+            <div class="switch  left">
+                <a class="mr-2 waves-effect">
+
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Nombre" />
+                    <input type="hidden" asp-for="Apellido" />
+                    <input type="hidden" asp-for="Email" />
+                    <input type="hidden" asp-for="UserName" />
+                    <input type="hidden" asp-for="Role" />
+                    <input type="hidden" asp-for="Imagen" />
+
+
+                    <label class="mt-5 left">
+
+                        <input type="checkbox" asp-for="Estado" class="left">
+                        <span class="lever" style="margin-bottom: 5px;"></span>
+                    </label>
+                </a>
+            </div>
+        </div>
+
+
+
+        @*<br />
+            <br />*@
+        <div class=" col s3 m3 l3 left ">
+
+            <button type="submit" class="btn waves-effect waves-light border-round teal col s12 btn-small left mb-7 ">
+                <i class="material-icons dp48">save</i>
+                Guardar
+            </button>
+            @*  </div>*@
+        </div>
+    </div>
+
+    @*<div class="row ">
+
+            <div class="input-field col s3 m3 l3">
+
+                <button type="submit" class="btn waves-effect waves-light border-round teal col s12 btn-small  ">
+                    <i class="material-icons dp48">save</i>
+                    Guardar
+                </button>
+
+            </div>
+        </div>*@
+
+</form>

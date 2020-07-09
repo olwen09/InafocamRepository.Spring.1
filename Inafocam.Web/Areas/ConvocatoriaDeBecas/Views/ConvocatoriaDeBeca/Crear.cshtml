@@ -38,8 +38,9 @@
     <form class="col s12 formValidate" method="post" asp-area="ConvocatoriaDeBecas" asp-controller="ConvocatoriaDeBeca" asp-action="GuardarConvocatoriaDeBeca">
 
         <input asp-for="ScholarshipProgramUniversityId" type="hidden" />
-        <input asp-for="CoordinatorId" type="hidden" />
-        <input asp-for="TechnicalId" type="hidden" />
+        <input asp-for="CreationDate" type="hidden" />
+        @*<input asp-for="CoordinatorId" type="hidden" />
+        <input asp-for="TechnicalId" type="hidden" />*@
         @* Detalles del programa*@
         <div>
             <span asp-validation-sumary=""></span>
@@ -54,7 +55,7 @@
                 <div class="row ">
 
 
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <div class="row">
                             <label for="select2User" class="col s12">Universidad</label>
                         </div>
@@ -65,10 +66,39 @@
 
                     </div>
 
+                    <div class="input-field col s12 m6 l3">
+                        <div class="row">
+                            <label for="select2User" class="col s12">Programa de Becas</label>
+                        </div>
+                        <select asp-for="ScholarshipProgramId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.scholarshipProgram">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
+
+
+                    </div>
+
+                    <div class="input-field col s12 m6 l3">
+                        <input asp-for="ScatProgramCode" id="codigodescat" type="text" class="validate">
+                        <label for="codigodescat">Codigo de SCAT</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
+                    <div class="input-field col s12 m6 l3">
+                        <input asp-for="ContractNumber" id="nocontrato" type="text" class="validate">
+                        <label for="nocontrato">No. Contrato</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
+                   
 
 
 
-                    <div class="input-field col s12 m6 l4">
+
+                </div>
+
+                <div class="row">
+
+                    <div class="input-field col s12 m6 l3">
                         <div class="row">
                             <label for="select2User" class="col s12">Nivel</label>
                         </div>
@@ -79,7 +109,7 @@
 
                     </div>
 
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <div class="row">
                             <label for="select2User" class="col s12">Estado</label>
                         </div>
@@ -90,38 +120,30 @@
 
                     </div>
 
-
-
-
-                </div>
-
-                <div class="row">
-
-
-
-
-
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <div class="row">
-                            <label for="select2User" class="col s12">Programa de Becas</label>
+                            <label for="select2User" class="col s12">Tecnico</label>
                         </div>
-                        <select asp-for="ScholarshipProgramId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.scholarshipProgram">
+                        <select asp-for="TechnicalId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Technical">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
                     </div>
-                    <div class="input-field col s12 m6 l4">
-                        <input asp-for="ScatProgramCode" id="codigodescat" type="text" class="validate">
-                        <label for="codigodescat">Codigo de SCAT</label>
-                        <span class="red-text validationDisplay"></span>
+
+                    <div class="input-field col s12 m6 l3">
+                        <div class="row">
+                            <label for="select2User" class="col s12">Coordinador</label>
+                        </div>
+                        <select asp-for="CoordinatorId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Coordinator">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
+
+
                     </div>
 
-                    <div class="input-field col s12 m6 l4">
-                        <input asp-for="ContractNumber" id="nocontrato" type="text" class="validate">
-                        <label for="nocontrato">No. Contrato</label>
-                        <span class="red-text validationDisplay"></span>
-                    </div>
+
+
 
 
                 </div>

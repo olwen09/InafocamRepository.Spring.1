@@ -3,6 +3,7 @@ using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -38,12 +39,17 @@ namespace Inafocam.core.Repository
 
         public void Save(AgentType model)
         {
+            var now = DateTime.Now;
+
             if(model.AgentTypeId != 0)
             {
+                model.UpgradeDate = now;
+                
                 _context.AgentType.Update(model);
             }
             else
             {
+                model.CreationDate = now;
                 _context.Add(model);
             }
 

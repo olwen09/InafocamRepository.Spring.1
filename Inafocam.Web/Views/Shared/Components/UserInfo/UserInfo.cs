@@ -9,20 +9,19 @@ namespace Andamios.Web.Views.Shared.Components.SharedComponents
     {
 
 
-        //private readonly UserManager<User> _userManager;
+        private readonly UserManager<Usuario> _userManager;
 
-        //public UserInfo(UserManager<User> userManager)
-        //{
-        //    _userManager = userManager;
-        //}
-
+        public UserInfo(UserManager<Usuario> userManager)
+        {
+            _userManager = userManager;
+        }
         public IViewComponentResult Invoke()
         {
-            //var id = _userManager.GetUserId(UserClaimsPrincipal);
+            var id = _userManager.GetUserId(UserClaimsPrincipal);
 
-            //var user = _userManager.FindByIdAsync(id).Result;
+            Usuario user = _userManager.FindByIdAsync(id).Result;
 
-            return View("UserInfo");
+            return View("UserInfo", user);
         }
     }
 }

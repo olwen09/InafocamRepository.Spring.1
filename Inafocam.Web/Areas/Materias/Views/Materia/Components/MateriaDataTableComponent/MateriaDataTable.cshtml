@@ -20,10 +20,10 @@
         @foreach (SubjectMatter item in Model)
         {
             <tr>
-                <td>@item.SubjectMatterId</td>
-                <td>@item.SubjectMatterCode</td>
-                <td>@item.SubjectMatterName</td>
-                <td>@item.Status.StatusName</td>
+                <td>@item?.SubjectMatterId</td>
+                <td>@item?.SubjectMatterCode</td>
+                <td>@item?.SubjectMatterName</td>
+                <td>@item?.Status?.StatusName</td>
 
                 <td>
                     <a asp-area="Materias" asp-controller="Materia" asp-action="Editar" asp-route-id="@item.SubjectMatterId" class="tooltipped" data-position="top" data-tooltip="Editar">

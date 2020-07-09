@@ -1,6 +1,7 @@
 ﻿using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +31,13 @@ namespace Inafocam.core.Repository
 
         public void Save(University data)
         {
+
+            var now = DateTime.Now;
+
             if(data.UniversityId != 0)
             {
 
-
+                data.UpgradeDate = now;
                  _context.University.Update(data);
 
 
@@ -41,6 +45,7 @@ namespace Inafocam.core.Repository
 
             else
             {
+                data.CreationDate = now;
                 _context.Add(data);
             }
 

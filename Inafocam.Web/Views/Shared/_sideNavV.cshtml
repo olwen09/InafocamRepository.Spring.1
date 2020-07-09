@@ -161,38 +161,41 @@
                         </a>
                         <div class="collapsible-body">
                             <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+
                                 <li>
-                                    <a class="collapsible-body" data-i18n="">
-                                        <span>Programa de Beca</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="collapsible-body" data-i18n="">
-                                        <span>Institucion Fomadora</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="collapsible-body" data-i18n="">
+                                    <a asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Index" class="collapsible-body" data-i18n="">
                                         <span>Acuerdo en Programas de Becas</span>
                                     </a>
                                 </li>
+
                                 <li>
-                                    <a class="collapsible-body" data-i18n="">
-                                        <span>Programacion de Seguimientos</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="collapsible-body" data-i18n="">
+                                    <a asp-area="ConvocatoriaDeBecas" asp-controller="ConvocatoriaDeBeca" asp-action="Index" class="collapsible-body" data-i18n="">
                                         <span>Convocatorias de Becas</span>
 
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="collapsible-body" data-i18n="">
-                                        <span>Mantenimiento</span>
 
+
+
+                                <li>
+                                    <a asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="Index" class="collapsible-body" data-i18n="">
+                                        <span>Programa de Beca</span>
                                     </a>
                                 </li>
+
+
+                                <li>
+                                    <a asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="Index" class="collapsible-body" data-i18n="">
+                                        <span>Programacion de Seguimientos</span>
+                                    </a>
+                                </li>
+
+                                @*<li>
+            <a class="collapsible-body" data-i18n="">
+                <span>Mantenimiento</span>
+
+            </a>
+        </li>*@
                                 <li>
                                     <div class="divider"></div>
                                 </li>
@@ -222,7 +225,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    
+
                                     <a asp-area="Representantes" asp-controller="AgentType" asp-action="Index" class="collapsible-body" data-i18n="">
                                         <span>Tipos de Representantes</span>
                                     </a>
@@ -234,6 +237,34 @@
                         </div>
                     </li>
 
+
+
+                    <li class="bold">
+                        <a class="collapsible-header waves-effect waves-cyan " href="#">
+                            <i class="material-icons">build</i><span class="menu-title" data-i18n="">Acciones</span>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                                <li>
+                                    <a asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="Index" class="collapsible-body" data-i18n="">
+                                        <span>Institucion Fomadora</span>
+                                    </a>
+                                </li>  
+                                
+                                <li>
+                                    <a asp-area="Usuarios" asp-controller="Usuario" asp-action="Index" class="collapsible-body" data-i18n="">
+                                        <span>Seguridad</span>
+                                    </a>
+                                </li>
+
+                                
+
+                                <li>
+                                    <div class="divider"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
 

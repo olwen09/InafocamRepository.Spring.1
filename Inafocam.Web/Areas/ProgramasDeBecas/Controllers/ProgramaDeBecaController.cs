@@ -4,6 +4,7 @@ using Andamios.Web.Helpers;
 using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.Web.Areas.ProgramasDeBecas.Modelos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -12,6 +13,7 @@ namespace Inafocam.Web.Areas.ProgramasDeBeca.Controllers
 
     [Area("ProgramasDeBecas"), ReturnArea("ProgramasDeBecas")]
     [ReturnControllador("Programa De Beca"), ReturnController("ProgramaDeBeca")]
+    [Authorize]
     public class ProgramaDeBecaController : Controller
     {
         private readonly IScholarshipProgram _scholarshipProgram;

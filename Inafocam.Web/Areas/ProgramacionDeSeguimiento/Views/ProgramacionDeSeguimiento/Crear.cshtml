@@ -37,7 +37,9 @@
 <div class="row">
     <form class="col s12 formValidate" method="post" asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="GuardarScholarshipProgramTracing">
         <input asp-for="ScholarshipProgramTracingId" type="hidden" />
-        <
+        <input asp-for="CreationDate" type="hidden" />
+        <input asp-for="CreationUserId" type="hidden" />
+      
 
         @* Detalles del programa*@
         <div>

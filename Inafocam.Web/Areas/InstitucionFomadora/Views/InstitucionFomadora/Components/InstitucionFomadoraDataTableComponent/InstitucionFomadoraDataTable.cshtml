@@ -35,13 +35,13 @@
         @foreach (University item in Model)
         {
         <tr>
-            <td>@item.UniversityId</td>
-            <td>@item.UniversityName</td>
-            <td>@item.UniversityAcronym</td>
-            <td>@item.UniversityCampus</td>
-            <td>@item.Status.StatusName</td>
+            <td>@item?.UniversityId</td>
+            <td>@item?.UniversityName</td>
+            <td>@item?.UniversityAcronym</td>
+            <td>@item?.UniversityCampus</td>
+            <td>@item.Status?.StatusName</td>
             <td>
-                <a asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="Editar" asp-route-id="@item.UniversityId">
+                <a asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="Editar" asp-route-id="@item.UniversityId" class="tooltipped" data-position="top" data-tooltip="Editar">
                     <i class="material-icons">edit</i>
                 </a>
             </td>

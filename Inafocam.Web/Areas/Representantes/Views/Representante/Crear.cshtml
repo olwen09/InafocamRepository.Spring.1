@@ -40,29 +40,31 @@
         <input type="hidden" asp-for="AgentId" />
         <input type="hidden" asp-for="UserId" />
         <input type="hidden" asp-for="ContactId" />
+        <input type="hidden" asp-for="Contact.ContactAddres.AddressId" />
         <input type="hidden" asp-for="Contact.ContactNationalityId" />
-        <input type="hidden" asp-for="Contact.ContactTypeId" />
+        <input type="hidden" asp-for="Contact.CreationUserId" />
+        <input type="hidden" asp-for="Contact.UpgradeUserId" />
+        <input type="hidden" asp-for="Contact.ContactAddres.Address.UpgradeUserId" />
+        <input type="hidden" asp-for="Contact.ContactAddres.ContactAddressId" />
+        <input type="hidden" asp-for="Contact.ContactId" />
+        <input type="hidden" asp-for="CreationDate" />
+        @*<input type="hidden" asp-for="Contact.ContactTypeId" />
+        <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
         <input type="hidden" asp-for="Contact.UpgradeUserId" />
         <input type="hidden" asp-for="Contact.DocumentTypeId" />
-        <input type="hidden" asp-for="Contact.CreationUserId" />
-        <input type="hidden" asp-for="Contact.UpgradeUserId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.AddressId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.Address.AddressId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.Address.AddressTypeId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.Address.UpgradeUserId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.Address.StatusId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.ContactAddressId" />
+        <input type="hidden" asp-for="Contact.ContactAddres.AddressId" />*@
+        @*<input type="hidden" asp-for="Contact.ContactAddres.Address.AddressId" />*@
+        @*<input type="hidden" asp-for="Contact.ContactAddres.Address.AddressTypeId" />*@
+        @*<input type="hidden" asp-for="Contact.ContactAddres.Address.StatusId" />
         <input type="hidden" asp-for="Contact.ContactAddres.ContactId" />
         <input type="hidden" asp-for="Contact.ContactJobInformationId" />
-        <input type="hidden" asp-for="Contact.ContactId" />
         <input type="hidden" asp-for="Contact.StatusId" />
         <input type="hidden" asp-for="Contact.CreationUserId" />
-        <input type="hidden" asp-for="Contact.UpgradeUserId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.StatusId" />
-        <input type="hidden" asp-for="StatusId" />
+        <input type="hidden" asp-for="Contact.UpgradeUserId" />*@
+        @*<input type="hidden" asp-for="Contact.ContactAddres.StatusId" />
+        <input type="hidden" asp-for="StatusId" />*@
         @*<input type="hidden" asp-for="HigherTeacherEducation.StatusId" />
         <input type="hidden" asp-for="HigherTeacherEducation.TeacherId" />
-        <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
         <input type="hidden" asp-for="HigherTeacherEducationId" />
         <input type="hidden" asp-for="TeacherHiringTypeId" />*@
 
@@ -113,8 +115,8 @@
                         </div>
                         <select asp-for="Contact.ContactGender" class="form-control js-example-basic-single" style="width: 100%">
                             <option value="" disabled selected>Seleccione una Opción</option>
-                            <option value="MASCULINO" disabled selected>MASCULINO</option>
-                            <option value="FEMENINO" disabled selected>FEMENINO</option>
+                            <option value="MASCULINO" >MASCULINO</option>
+                            <option value="FEMENINO" >FEMENINO</option>
                         </select>
 
 
@@ -151,6 +153,7 @@
                             <label for="select2User" class="col s12">Tipo de Documento</label>
                         </div>
                         <select asp-for="Contact.DocumentTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.DocumentType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
 
@@ -193,7 +196,16 @@
 
 
 
+                    <div class="input-field col s12 m6 l4">
+                        <div class="row">
+                            <label for="select2User" class="col s12">Estado</label>
+                        </div>
+                        <select asp-for="StatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Status">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
 
+
+                    </div>
 
 
 

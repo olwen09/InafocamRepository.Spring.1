@@ -53,11 +53,14 @@ namespace Inafocam.core.Repository
             if(model.AgentId != 0)
             {
                 model.UpgradeDate = now;
+                //model.CreationDate = now;
+                model.Contact.UpgradeDate = now;
                 _context.Agent.Update(model);
             }
             else
             {
                 model.CreationDate = now;
+                model.Contact.CreationDate = now;
                 _context.Add(model);
             }
 

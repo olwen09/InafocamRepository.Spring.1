@@ -21,14 +21,14 @@
         @foreach (Agent item in Model)
         {
             <tr>
-                <td>@item.AgentId</td>
-                <td>@item.Contact.ContactName</td>
-                <td>@item.AgentType.AgentTypeName</td>
-                <td>@item.CreationDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
-                <td>@item.Status?.StatusName</td>
+                <td>@item?.AgentId</td>
+                <td>@item?.Contact?.ContactName</td>
+                <td>@item?.AgentType?.AgentTypeName</td>
+                <td>@item?.CreationDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+                <td>@item?.Status?.StatusName</td>
                 
                <td>
-                    <a asp-area="Representantes"  asp-controller="Representante" asp-action="Editar" asp-route-id="@item.AgentId" class="tooltipped" data-position="top" data-tooltip="Editar">
+                    <a asp-area="Representantes"  asp-controller="Representante" asp-action="Editar" asp-route-id="@item?.AgentId" class="tooltipped" data-position="top" data-tooltip="Editar">
                         <i class="material-icons">edit</i>
                     </a>
                </td>

@@ -36,28 +36,28 @@
         {
 
             <tr>
-                <td>@item.TeacherId</td>
-                <td>@item.Contact.ContactName @item.Contact.ContactLastname</td>
+                <td>@item?.TeacherId</td>
+                <td>@item?.Contact?.ContactName @item?.Contact?.ContactLastname</td>
                 <td>@item.HigherTeacherEducation?.TeacherEducationTitle</td>
                 <td>@item.Status?.StatusName</td>
                 <td class="center">
-                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="Editar" asp-route-id="@item.TeacherId">
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="Editar" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Editar" >
                         <i class="material-icons">edit</i>
                     </a>
                     
-                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="TeacherEducation" asp-route-id="@item.TeacherId">
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="TeacherEducation" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Agregar Educacion" >
                         <i class="material-icons">school</i>
                     </a>  
                     
-                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarDocumento" asp-route-id="@item.TeacherId">
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarDocumento" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Agregar Documanto" >
                         <i class="material-icons">folder_open</i>
                     </a>
                     
-                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarDireccion" asp-route-id="@item.TeacherId">
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarDireccion" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Agregar Dirección" >
                         <i class="material-icons">add_location</i>
                     </a>  
                     
-                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarComunicacion" asp-route-id="@item.TeacherId">
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarComunicacion" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Agregar Comunicación">
                         <i class="material-icons">add_ic_call</i>
                     </a>
                 </td>

@@ -38,12 +38,16 @@ namespace Inafocam.core.Repository
 
         public void Save(Contact model)
         {
+            var now = DateTime.Now;
+            
             if(model.ContactId != 0)
             {
+                model.UpgradeDate = now;
                 _context.Contact.Update(model);
             }
             else
             {
+                model.CreationDate = now;
                 _context.Add(model);
             }
 

@@ -7,6 +7,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Seguimientos.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -15,6 +16,7 @@ namespace Inafocam.Web.Areas.Seguimientos.Controllers
 
     [Area("Seguimientos"),ReturnArea("Seguimientos")]
     [ReturnControllador("Seguimiento"),ReturnController("Seguimiento")]
+    [Authorize]
     public class SeguimientoController : Controller
     {
         private readonly IScholarshipProgramTracing _scholarshipProgramTracing;

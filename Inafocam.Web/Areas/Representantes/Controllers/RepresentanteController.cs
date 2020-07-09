@@ -7,6 +7,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Representantes.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MoreLinq.Extensions;
@@ -17,6 +18,7 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
 
     [Area("Representantes"), ReturnArea("Representantes")]
     [ReturnControllador("Representante"), ReturnController("Representante")]
+    [Authorize]
     public class RepresentanteController : Controller
     {
         private readonly IAgent _agent;
@@ -27,11 +29,14 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
         private readonly ICountry _country;
         private readonly IProvince _province;
         private readonly ICity _city;
+        private readonly IStatus _status;
+
 
 
 
         public RepresentanteController(IAgent agent,IContactType contactType, IDocumentType documentType,
-            IAgentType agentType,IAddressType addressType,ICountry country,IProvince province,ICity city)
+            IAgentType agentType,IAddressType addressType,ICountry country,IProvince province,ICity city,
+            IStatus status)
         {
             _agent = agent;
             _contactType = contactType;
@@ -41,6 +46,9 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
             _country = country;
             _province = province;
             _city = city;
+            _city = city;
+            _status = status;
+            _status = status;
         }
 
         public IActionResult Index()
@@ -61,6 +69,7 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
             ViewBag.Countries = new SelectList(_country.GetAll, "CountryId", "CountryName");
             ViewBag.Provinces = new SelectList(_province.Provinces, "ProvinceId", "ProvinceName");
             ViewBag.Cities = new SelectList(_city.Cities, "CityId", "CityName");
+            ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
 
             return View();
         }
@@ -81,6 +90,7 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
             ViewBag.Countries = new SelectList(_country.GetAll, "CountryId", "CountryName");
             ViewBag.Provinces = new SelectList(_province.Provinces, "ProvinceId", "ProvinceName");
             ViewBag.Cities = new SelectList(_city.Cities, "CityId", "CityName");
+            ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View("Crear",model);
         }
 

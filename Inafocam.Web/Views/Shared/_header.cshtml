@@ -31,7 +31,7 @@
                     </li>
                 </ul>
 
-                
+
                 @*<h2 class="center">Plataforma de Seguimiento y EvaluaciCanci&oacute;n </h2">*@
 
                 @*<div class="header-search-wrapper hide-on-med-and-down">
@@ -112,320 +112,364 @@
                         <a class="dropdown-menu" href="#" data-target="TemplatesDropdown"><i class="material-icons">dvr</i><span>Modulos@*<i class="material -icons right">keyboard_arrow_down</i>*@</span></a>
                         <ul class="dropdown-content dropdown-horizontal-list" id="TemplatesDropdown" tabindex="0">
                             <li data-menu="" tabindex="0">
+                                <a asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Index">Acuerdo en Programas de Becas</a>
+                            </li>
+
+                            <li data-menu="" tabindex="0">
+                                <a asp-area="ConvocatoriaDeBecas" asp-controller="ConvocatoriaDeBeca" asp-action="Index">Convocatoria de Becas</a>
+                            </li>
+
+                            <li data-menu="" tabindex="0">
                                 <a asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="Index">Programa de Beca</a>
                             </li>
                             @*&eacute;*@
-                            <li data-menu="" tabindex="0">
-                                <a href="#">Instituci&oacute;n Formadora</a>
-                            </li>
-                            <li data-menu="" tabindex="0">
-                                <a href="#">Acuerdo en Programas de Becas</a>
-                            </li>
-                            <li data-menu="" tabindex="0">
-                                <a href="#">Programaci&oacute;n de Seguimientos</a>
-                            </li>
-                            <li data-menu="" tabindex="0">
-                                <a href="#">Convocatoria de Becas</a>
-                            </li>
-                            <li data-menu="" tabindex="0">
-                                <a href="#">Mantenimiento</a>
-                            </li>
+                            @*<li data-menu="" tabindex="0">
+                                    <a href="#">Instituci&oacute;n Formadora</a>
+                                </li>*@
+
+
+
 
                             <li data-menu="" tabindex="0">
-                                <a asp-area="Usuarios" asp-controller="Usuario" asp-action="Index">Seguridad</a>
+                                <a asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="Index" >Programaci&oacute;n de Seguimientos</a>
                             </li>
                             @*<li data-menu="" tabindex="0">
-            <a href="../vertical-menu-nav-dark-template/">Navbar Dark</a>
-        </li>
-        <li data-menu="" tabindex="0">
-            <a href="../vertical-gradient-menu-template/">Gradient Menu</a>
-        </li>
-        <li data-menu="" tabindex="0">
-            <a href="../vertical-dark-menu-template/">Dark Menu</a>
-        </li>
-        <li data-menu="" tabindex="0">
-            <a href="../horizontal-menu-template/">Horizontal Menu</a>
-        </li>*@
-                        </ul>
+                                    <a href="#">Mantenimiento</a>
+                                </li>
 
-                    </li>
-                    <li>
-                        <a class="dropdown-menu " href="#" data-target="AppsDropdown">
-                            <i class="material-icons">mail_outline</i><span>Mantenimientos</span>
-                        </a>
-                        <ul class="dropdown-content dropdown-horizontal-list" id="AppsDropdown" tabindex="0">
-                            <li data-menu="" tabindex="0">
-                                <a asp-area="Profesores" asp-controller="Profesor" asp-action="Index"><i class="mail_outline"></i>Maestros</a>
-                            </li>
-                            <li data-menu="" tabindex="0">
-                                <a asp-area="Materias" asp-controller="Materia" asp-action="Index" ><i class="mail_outline"></i>Materias</a>
-                            </li>
-                            
-                            <li data-menu="" tabindex="0">
-                                <a asp-area="Representantes" asp-controller="Representante" asp-action="Index"><i class="mail_outline"></i>Representantes</a>
-                            </li>
-                            
-                            <li data-menu="" tabindex="0">
-                                <a asp-area="Representantes" asp-controller="AgentType" asp-action="Index"><i class="mail_outline"></i>Tipos de Representates</a>
-                            </li>    
-                            
-                            <li data-menu="" tabindex="0">
-                                <a asp-area="Seguimientos" asp-controller="Seguimiento" asp-action="Index"><i class="mail_outline"></i>Seguimiento</a>
-                            </li>
+                                <li data-menu="" tabindex="0">
+                                    <a asp-area="Usuarios" asp-controller="Usuario" asp-action="Index">Seguridad</a>
+                                </li>*@
                             @*<li data-menu="" tabindex="0">
-                                    <a href="app-chat.html"><i class="chat_bubble_outline"></i>Chat</a>
+                                    <a href="../vertical-menu-nav-dark-template/">Navbar Dark</a>
                                 </li>
                                 <li data-menu="" tabindex="0">
-                                    <a href="app-todo.html"><i class="check"></i>ToDo</a>
+                                    <a href="../vertical-gradient-menu-template/">Gradient Menu</a>
                                 </li>
                                 <li data-menu="" tabindex="0">
-                                    <a href="app-contacts.html"><i class="contacts"></i>Contacts</a>
+                                    <a href="../vertical-dark-menu-template/">Dark Menu</a>
                                 </li>
                                 <li data-menu="" tabindex="0">
-                                    <a href="app-calendar.html"><i class="today"></i>Calendar</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="eCommerce-products-page.html">Products Page</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="eCommerce-pricing.html">Pricing</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="eCommerce-invoice.html">Invoice</a>
+                                    <a href="../horizontal-menu-template/">Horizontal Menu</a>
                                 </li>*@
                         </ul>
 
                     </li>
+
+
+
                     <li>
-                        <a class="dropdown-menu " asp-controller="Home" asp-action="Instrucciones">
-                            <i class="material-icons">help_outline</i><span>Instrucciones</span>
-                        </a>
+                        <a class="dropdown-menu" href="#" data-target="acciones"><i class="material-icons">extension</i><span>Acciones</span></a>
+                        <ul class="dropdown-content dropdown-horizontal-list" id="acciones" tabindex="0">
+
+                            @*&eacute;*@
+                            <li data-menu="" tabindex="0">
+                                <a asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="Index">Instituci&oacute;n Formadora</a>
+                            </li>
+
                     </li>
-                    <li>
-                        <a class="dropdown-menu " asp-controller="Home" asp-action="Soporte">
-                            <i class="material-icons">headset_mic</i><span>Soporte</span>
-                        </a>
+                    @*<li data-menu="" tabindex="0">
+                        <a href="#">Mantenimiento</a>
+                    </li>*@
+
+                    <li data-menu="" tabindex="0">
+                        <a asp-area="Usuarios" asp-controller="Usuario" asp-action="Index">Seguridad</a>
                     </li>
-                    @*<li>
-                            <a class="dropdown-menu" href="#" data-target="PageDropdown"><i class="material-icons">content_paste</i><span>Pages<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="PageDropdown" tabindex="0">
-                                <li data-menu="" tabindex="0">
-                                    <a href="page-contact.html">Contact</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="page-blog-list.html">Blog</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="page-search.html">Search</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="page-knowledge.html">Knowledge</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="page-faq.html">FAQs</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="page-blank.html">Page Blank</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="user-profile-page.html">User Profile</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="user-login.html">Login</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="user-register.html">Register</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="user-forgot-password.html">Forgot Password</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="user-lock-screen.html">Lock Screen</a>
-                                </li>
-                            </ul>
-
+                    @*<li data-menu="" tabindex="0">
+                            <a href="../vertical-menu-nav-dark-template/">Navbar Dark</a>
                         </li>
-                        <li>
-                            <a class="dropdown-menu" href="#" data-target="Cards"><i class="material-icons">cast</i><span>Cards<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="Cards" tabindex="0">
-                                <li data-menu="" tabindex="0">
-                                    <a href="cards-basic.html">Cards</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="cards-advance.html">Cards Advance</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="cards-extended.html">Cards Extended</a>
-                                </li>
-                            </ul>
-
+                        <li data-menu="" tabindex="0">
+                            <a href="../vertical-gradient-menu-template/">Gradient Menu</a>
                         </li>
-                        <li>
-                            <a class="dropdown-menu" href="#" data-target="CssDropdown"><i class="material-icons">invert_colors</i><span>CSS<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="CssDropdown" tabindex="0">
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-typography.html">Typograpy</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-color.html">Color</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-grid.html">Grid</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-helpers.html">Helpers</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-media.html">Media</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-pulse.html">Pulse</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-sass.html">Sass</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-shadow.html">Shadow</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-animations.html">Animations</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="css-transitions.html">Transitions</a>
-                                </li>
-                            </ul>
-
+                        <li data-menu="" tabindex="0">
+                            <a href="../vertical-dark-menu-template/">Dark Menu</a>
                         </li>
-                        <li>
-                            <a class="dropdown-menu" href="#" data-target="BasicUIDropdown"><i class="material-icons">photo_filter</i><span>Basic UI<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="BasicUIDropdown" tabindex="0">
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-basic-buttons.html">Basic Buttons</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-extended-buttons.html">Extended Buttons</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-icons.html">Icons</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-alerts.html">Alerts</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-badges.html">Badges</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-breadcrumbs.html">Breadcrumbs</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-chips.html">Chips</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-collections.html">Collections</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-navbar.html">Navbar</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-pagination.html">Pagination</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="ui-preloader.html">Preloader</a>
-                                </li>
-                            </ul>
-
-                        </li>
-                        <li>
-                            <a class="dropdown-menu" href="#" data-target="AdvancedUIDropdown"><i class="material-icons">settings_brightness</i><span>Advanced UI<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="AdvancedUIDropdown" tabindex="0">
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-carousel.html">Carousel</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-collapsibles.html">Collapsibles</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-toasts.html">Toasts</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-tooltip.html">Tooltip</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-dropdown.html">Dropdown</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-feature-discovery.html">Discovery</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-media.html">Media</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-modals.html">Modals</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-scrollspy.html">Scrollspy</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-tabs.html">Tabs</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="advance-ui-waves.html">Waves</a>
-                                </li>
-                            </ul>
-
-                        </li>
-                        <li>
-                            <a class="dropdown-menu" href="#" data-target="ExtraComponentsDropdown"><i class="material-icons">add_to_queue</i><span>Extra Components<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="ExtraComponentsDropdown" tabindex="0">
-                                <li data-menu="" tabindex="0">
-                                    <a href="extra-components-range-slider.html">Range Slider</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="extra-components-sweetalert.html">Sweetalert</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="extra-components-nestable.html">Nestable</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="extra-components-translation.html">Translation</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="extra-components-highlight.html">Highlight</a>
-                                </li>
-                            </ul>
-
-                        </li>
-                        <li>
-                            <a class="dropdown-menu" href="#" data-target="formsTables"><i class="material-icons">chrome_reader_mode</i><span>Forms &amp; Tables<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="formsTables" tabindex="0">
-                                <li data-menu="" tabindex="0">
-                                    <a href="table-basic.html"><i class="border_all"></i>Basic Tables</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="table-data-table.html"><i class="border_all"></i>Data Tables</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="form-elements.html">Form Elements</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="form-validation.html">Form Validation</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="form-masks.html">Form Masks</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="form-file-uploads.html">File Uploads</a>
-                                </li>
-                            </ul>
-
-                        </li>
-                        <li>
-                            <a class="dropdown-menu" href="#" data-target="ChartDropdown"><i class="material-icons">pie_chart_outlined</i><span>Chart<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="ChartDropdown" tabindex="0">
-                                <li data-menu="" tabindex="0">
-                                    <a href="charts-chartjs.html">ChartJS</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="charts-chartist.html">Chartist</a>
-                                </li>
-                                <li data-menu="" tabindex="0">
-                                    <a href="charts-sparklines.html">Sparkline Charts</a>
-                                </li>
-                            </ul>
-
+                        <li data-menu="" tabindex="0">
+                            <a href="../horizontal-menu-template/">Horizontal Menu</a>
                         </li>*@
+                </ul>
+
+                </li>
+
+
+                <li>
+                    <a class="dropdown-menu " href="#" data-target="AppsDropdown">
+                        <i class="material-icons">mail_outline</i><span>Mantenimientos</span>
+                    </a>
+                    <ul class="dropdown-content dropdown-horizontal-list" id="AppsDropdown" tabindex="0">
+                        <li data-menu="" tabindex="0">
+                            <a asp-area="Profesores" asp-controller="Profesor" asp-action="Index"><i class="mail_outline"></i>Maestros</a>
+                        </li>
+                        <li data-menu="" tabindex="0">
+                            <a asp-area="Materias" asp-controller="Materia" asp-action="Index"><i class="mail_outline"></i>Materias</a>
+                        </li>
+
+                        <li data-menu="" tabindex="0">
+                            <a asp-area="Representantes" asp-controller="Representante" asp-action="Index"><i class="mail_outline"></i>Representantes</a>
+                        </li>
+
+                        <li data-menu="" tabindex="0">
+                            <a asp-area="Representantes" asp-controller="AgentType" asp-action="Index"><i class="mail_outline"></i>Tipos de Representates</a>
+                        </li>
+
+                        @*<li data-menu="" tabindex="0">
+                            <a asp-area="Seguimientos" asp-controller="Seguimiento" asp-action="Index"><i class="mail_outline"></i>Seguimiento</a>
+                        </li>*@
+
+                        @*<li data-menu="" tabindex="0">
+                                <a href="app-chat.html"><i class="chat_bubble_outline"></i>Chat</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="app-todo.html"><i class="check"></i>ToDo</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="app-contacts.html"><i class="contacts"></i>Contacts</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="app-calendar.html"><i class="today"></i>Calendar</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="eCommerce-products-page.html">Products Page</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="eCommerce-pricing.html">Pricing</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="eCommerce-invoice.html">Invoice</a>
+                            </li>*@
+                    </ul>
+
+                </li>
+                <li>
+                    <a class="dropdown-menu " asp-controller="Home" asp-action="Instrucciones">
+                        <i class="material-icons">help_outline</i><span>Instrucciones</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-menu " asp-controller="Home" asp-action="Soporte">
+                        <i class="material-icons">headset_mic</i><span>Soporte</span>
+                    </a>
+                </li>
+                @*<li>
+                        <a class="dropdown-menu" href="#" data-target="PageDropdown"><i class="material-icons">content_paste</i><span>Pages<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="PageDropdown" tabindex="0">
+                            <li data-menu="" tabindex="0">
+                                <a href="page-contact.html">Contact</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="page-blog-list.html">Blog</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="page-search.html">Search</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="page-knowledge.html">Knowledge</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="page-faq.html">FAQs</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="page-blank.html">Page Blank</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="user-profile-page.html">User Profile</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="user-login.html">Login</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="user-register.html">Register</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="user-forgot-password.html">Forgot Password</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="user-lock-screen.html">Lock Screen</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a class="dropdown-menu" href="#" data-target="Cards"><i class="material-icons">cast</i><span>Cards<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="Cards" tabindex="0">
+                            <li data-menu="" tabindex="0">
+                                <a href="cards-basic.html">Cards</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="cards-advance.html">Cards Advance</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="cards-extended.html">Cards Extended</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a class="dropdown-menu" href="#" data-target="CssDropdown"><i class="material-icons">invert_colors</i><span>CSS<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="CssDropdown" tabindex="0">
+                            <li data-menu="" tabindex="0">
+                                <a href="css-typography.html">Typograpy</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-color.html">Color</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-grid.html">Grid</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-helpers.html">Helpers</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-media.html">Media</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-pulse.html">Pulse</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-sass.html">Sass</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-shadow.html">Shadow</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-animations.html">Animations</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="css-transitions.html">Transitions</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a class="dropdown-menu" href="#" data-target="BasicUIDropdown"><i class="material-icons">photo_filter</i><span>Basic UI<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="BasicUIDropdown" tabindex="0">
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-basic-buttons.html">Basic Buttons</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-extended-buttons.html">Extended Buttons</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-icons.html">Icons</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-alerts.html">Alerts</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-badges.html">Badges</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-breadcrumbs.html">Breadcrumbs</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-chips.html">Chips</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-collections.html">Collections</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-navbar.html">Navbar</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-pagination.html">Pagination</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="ui-preloader.html">Preloader</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a class="dropdown-menu" href="#" data-target="AdvancedUIDropdown"><i class="material-icons">settings_brightness</i><span>Advanced UI<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="AdvancedUIDropdown" tabindex="0">
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-carousel.html">Carousel</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-collapsibles.html">Collapsibles</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-toasts.html">Toasts</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-tooltip.html">Tooltip</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-dropdown.html">Dropdown</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-feature-discovery.html">Discovery</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-media.html">Media</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-modals.html">Modals</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-scrollspy.html">Scrollspy</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-tabs.html">Tabs</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="advance-ui-waves.html">Waves</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a class="dropdown-menu" href="#" data-target="ExtraComponentsDropdown"><i class="material-icons">add_to_queue</i><span>Extra Components<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="ExtraComponentsDropdown" tabindex="0">
+                            <li data-menu="" tabindex="0">
+                                <a href="extra-components-range-slider.html">Range Slider</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="extra-components-sweetalert.html">Sweetalert</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="extra-components-nestable.html">Nestable</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="extra-components-translation.html">Translation</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="extra-components-highlight.html">Highlight</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a class="dropdown-menu" href="#" data-target="formsTables"><i class="material-icons">chrome_reader_mode</i><span>Forms &amp; Tables<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="formsTables" tabindex="0">
+                            <li data-menu="" tabindex="0">
+                                <a href="table-basic.html"><i class="border_all"></i>Basic Tables</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="table-data-table.html"><i class="border_all"></i>Data Tables</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="form-elements.html">Form Elements</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="form-validation.html">Form Validation</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="form-masks.html">Form Masks</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="form-file-uploads.html">File Uploads</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a class="dropdown-menu" href="#" data-target="ChartDropdown"><i class="material-icons">pie_chart_outlined</i><span>Chart<i class="material-icons right">keyboard_arrow_down</i></span></a><ul class="dropdown-content dropdown-horizontal-list" id="ChartDropdown" tabindex="0">
+                            <li data-menu="" tabindex="0">
+                                <a href="charts-chartjs.html">ChartJS</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="charts-chartist.html">Chartist</a>
+                            </li>
+                            <li data-menu="" tabindex="0">
+                                <a href="charts-sparklines.html">Sparkline Charts</a>
+                            </li>
+                        </ul>
+
+                    </li>*@
                 </ul>
             </div>
             <!-- END: Horizontal nav start-->

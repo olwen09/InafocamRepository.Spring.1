@@ -10,6 +10,7 @@ using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Profesores.Models;
 using Inafocam.Web.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
 {
     [Area("Profesores"), ReturnArea("Profesores")]
     [ReturnControllador("Profesores"), ReturnController("Profesores")]
+    [Authorize]
     public class ProfesorController : Controller
     {
         private readonly ITeacher _teacher;

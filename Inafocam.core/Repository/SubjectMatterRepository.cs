@@ -31,12 +31,16 @@ namespace Inafocam.core.Repository
 
         public void Save(SubjectMatter model)
         {
+            var now = DateTime.Now;
+
            if(model.SubjectMatterId != 0)
             {
+                model.UpgradeDate = now;
                 _context.SubjectMatter.Update(model);
             }
             else
             {
+                model.CreationDate = now;
                 _context.Add(model);
             }
 
