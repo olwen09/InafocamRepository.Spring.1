@@ -1,4 +1,4 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ScholarshipProgramUniversityModel
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.InformacionPrincipalViewModel
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -8,7 +8,12 @@
 
         mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-    } }
+
+
+    }
+    
+    
+  }
 
 @section Style
 {
@@ -60,13 +65,13 @@
 
                         @*<i class="material-icons prefix">contacts</i>*@
 
-                        <input id="Nombre" asp-for="University.UniversityName" type="text" class="validat">
+                        <input id="Nombre" asp-for="University.UniversityName" type="text" class="validat black-text" readonly disabled>
 
                         <label for="Nombre">Universidad</label>
                     </div>
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="University.UniversityCampus" id="Campus" type="text" class="validat">
+                        <input asp-for="University.UniversityCampus" id="Campus" type="text" class="validat black-text" readonly disabled>
 
                         <label for="Campus">Plan de Estudio</label>
 
@@ -75,7 +80,7 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input asp-for="University.UniversityCampus" id="UniversityCampus" type="text" class="validat">
+                        <input asp-for="University.UniversityCampus" id="UniversityCampus" type="text" class="validat black-text" readonly disabled>
 
                         <label for="UniversityCampus">Campus o Recinto</label>
 
@@ -85,7 +90,7 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input id="StartDate" type="text" class="validat">
+                        <input id="StartDate" type="text" class="validat black-text" readonly disabled>
 
                         <label for="StartDate">Fecha de inicio Cohorte</label>
 
@@ -103,7 +108,7 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input asp-for="EndDate" id="StartDate" type="text" class="validat">
+                        <input asp-for="EndDate" id="StartDate" type="text" class="validat black-text" readonly disabled>
 
                         <label for="StartDate">Fecha de Cierre</label>
 
@@ -119,7 +124,7 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Cordinador Responsable</label>
                         </div>
-                        <select asp-for="CoordinatorId" class="form-control js-example-basic-single" style="width: 100%">
+                        <select id="CoordinatorId" class="CoordinatorId form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Coordinator">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
@@ -128,7 +133,7 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input id="email" type="text" class="validat">
+                        <input id="email" type="text" class="validat black-text" placeholder="" readonly>
 
                         <label for="email">Correo Electrónico</label>
 
@@ -137,7 +142,7 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input id="Telefono" type="text" class="validat">
+                        <input id="Telefono" type="text" class="validat black-text Telefono" placeholder="" readonly>
 
                         <label for="Telefono">Telefono</label>
 
@@ -205,53 +210,55 @@
 
                 <div class="row ">
 
-                    <div class="input-field col s12 m6 l6">
+                    <div class="input-field col s12 m6 l4">
 
-                        <input id="totalasignaturas" type="number" class="validat">
+                        <input id="totalasignaturas" type="number" class="validat black-text" value="0" readonly disabled>
 
                         <label for="totalasignaturas">Total Asignaturas</label>
                     </div>
 
 
-                    <div class="input-field col s12 m6 l6">
+                    <div class="input-field col s12 m6 l4">
 
-                        <input id="totalcreditos" type="number" class="validat">
+                        <input id="totalcreditos" type="number" class="validat black-text" value="0" readonly disabled>
 
                         <label for="totalcreditos">Total Créditos</label>
                     </div>
 
-                    <div class="input-field col s12 m6 l6">
+                    <div class="input-field col s12 m6 l4">
 
-                        <input id="totalHoras" type="number" class="validat">
+                        <input id="totalHoras" type="number" class="validat black-text" value="0" readonly disabled>
 
                         <label for="totalHoras">Total Horas</label>
                     </div>
 
+                    </div>
 
-                    <div class="input-field col s12 m6 l6">
+                <div class="row">
+                    <div class="input-field col s12 m6 l3">
 
-                        <input id="totalhoraspracticas" type="number" class="validat">
+                        <input id="totalhoraspracticas" type="number" class="validat black-text" value="0" readonly disabled>
 
                         <label for="totalhoraspracticas">Total Horas Practicas</label>
                     </div>
 
-                    <div class="input-field col s12 m6 l6">
+                    <div class="input-field col s12 m6 l3">
 
-                        <input id="becadosactivos" type="number" class="validat">
+                        <input id="becadosactivos" type="number" class="validat black-text" value="0" readonly disabled>
 
                         <label for="becadosactivos">Número de becados activos</label>
                     </div>
 
-                    <div class="input-field col s12 m6 l6">
+                    <div class="input-field col s12 m6 l3">
 
-                        <input id="femenino" type="number" class="validat">
+                        <input id="femenino" type="number" class="validat black-text" value="0" readonly disabled>
 
                         <label for="femenino">Femenino</label>
                     </div>
 
-                    <div class="input-field col s12 m6 l6">
+                    <div class="input-field col s12 m6 l3">
 
-                        <input id="masculino" type="number" class="validat">
+                        <input id="masculino" type="number" class="validat black-text" value="0" readonly disabled>
 
                         <label for="masculino">Masculino</label>
                     </div>
@@ -273,7 +280,7 @@
                Atras
             </a>
 
-            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Acuerdos">
+            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Acuerdos"  asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-ScholarshipProgramTracingId="@Model?.ScholarshipProgramTracingId">
 
                 Siguiente
             </a>
@@ -321,6 +328,45 @@
                 placeholder: "Seleccione una Opción",
             });
         });
+
+        $(document).ready(function () {
+            $("select.CoordinatorId").change(function () {
+                var selectedId = $(this).children("option:selected").val();
+                GetEmail(selectedId);
+                GetTelefono(selectedId);
+                console.log(selectedId);
+
+            });
+        });
+
+   
+
+        function GetEmail(CoordinatorId) {
+            var route = "@Url.Action("GetCoordinatorEmail", "SeguimientoDeUniversida", new {area = "SeguimientoDeUniversidades" })";
+
+            var url = route + "?id=" + CoordinatorId;
+
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    $("#email").val(data);
+                }
+            })
+        }
+
+
+        function GetTelefono(CoordinatorId) {
+            var route = "@Url.Action("GetCoordinatorTelelofo", "SeguimientoDeUniversida", new {area = "SeguimientoDeUniversidades" })";
+
+            var url = route + "?id=" + CoordinatorId;
+
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    $("#Telefono").val(data);
+                }
+            })
+        }
 
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.datepicker');

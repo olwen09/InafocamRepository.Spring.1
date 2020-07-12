@@ -10,6 +10,8 @@ namespace Inafocam.core.Interfaces
     {
         IQueryable<Agent> Agents { get; }
         IQueryable<Agent> GetCoordinators { get; }
+
+        Agent GetCoordinatorById(int id);
         IQueryable<Agent> GetTechnicals { get; }
         Agent GetById(int id);
 

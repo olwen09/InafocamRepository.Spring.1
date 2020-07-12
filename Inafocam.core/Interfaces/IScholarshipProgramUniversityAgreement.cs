@@ -10,6 +10,8 @@ namespace Inafocam.core.Interfaces
     {
         IEnumerable<ScholarshipProgramUniversityAgreement> GetAll { get; }
 
+        IEnumerable<ScholarshipProgramUniversityAgreement> GetAllByScholarshipProgramUniversityId(int id);
+
         void Save(ScholarshipProgramUniversityAgreement model);
     }
 }

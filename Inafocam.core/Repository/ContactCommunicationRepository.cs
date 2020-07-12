@@ -22,9 +22,14 @@ namespace Inafocam.core.Repository
             .Include(x => x.Communication)
             .Include(x => x.Contact);
 
-        public IEnumerable<ContactCommunication> GetByContactId(int id)
+        public IEnumerable<ContactCommunication> GetAllByContactId(int id)
         {
             return GetAll.Where(x => x.ContactId == id);
+        }
+
+        public ContactCommunication GetByContactId(int id)
+        {
+            return GetAll.FirstOrDefault(x => x.ContactId == id);
         }
 
         //.Include(x=> x.)

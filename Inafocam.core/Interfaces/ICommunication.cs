@@ -10,6 +10,6 @@ namespace Inafocam.core.Interfaces
     {
         IQueryable<Communication> GetAll { get; }
 
-        
+        Communication GetById(int id);
     }
 }

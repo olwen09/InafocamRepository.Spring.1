@@ -300,6 +300,10 @@ namespace Andamios.Web
             services.AddScoped<IRole, RoleRepository>();
             services.AddScoped<IScholarshipProgramTracingCourse, ScholarshipProgramTracingCourseRepository>();
             services.AddScoped<IScholarshipProgramTracingStudentSupport, ScholarshipProgramTracingStudentSupportRepository>();
+            services.AddScoped<IScholarshipProgramTracingAgreement, ScholarshipProgramTracingAgreementRepository>();
+            services.AddScoped<IScholarshipProgramTracingCourseFile, ScholarshipProgramTracingCourseFileRepository>();
+            services.AddScoped<IScholarshipProgramTracingAgreementFile, ScholarshipProgramTracingAgreementFileRepository>();
+            services.AddScoped<ITracingStudyPlanDevelopment, TracingStudyPlanDevelopmentRepository>();
 
 
             #endregion

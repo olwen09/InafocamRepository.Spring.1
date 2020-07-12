@@ -10,7 +10,9 @@ namespace Inafocam.core.Interfaces
     {
         IQueryable<ContactCommunication> GetAll { get; }
 
-        IEnumerable<ContactCommunication> GetByContactId(int id);
+        IEnumerable<ContactCommunication> GetAllByContactId(int id);
+
+        ContactCommunication GetByContactId(int id);
 
         void Save(ContactCommunication model);
     }

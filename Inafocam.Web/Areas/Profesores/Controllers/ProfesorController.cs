@@ -317,7 +317,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             model.ContactId = contactId;
             model.TeacherId = teacherById.TeacherId;
             model.TeacherFullName = teacherById.Contact.ContactName + " " + teacherById.Contact.ContactLastname;
-            model.CommunicationList = _contactCommunication.GetByContactId(contactId).ToList();
+            model.CommunicationList = _contactCommunication.GetAllByContactId(contactId).ToList();
 
             return View(model);
         }

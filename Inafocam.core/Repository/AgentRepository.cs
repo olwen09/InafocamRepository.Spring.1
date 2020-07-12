@@ -46,6 +46,11 @@ namespace Inafocam.core.Repository
             return Agents.FirstOrDefault(x => x.AgentId == id);
         }
 
+        public Agent GetCoordinatorById(int id)
+        {
+            return GetCoordinators.FirstOrDefault(x => x.AgentId == id);
+        } 
+
         public void Save(Agent model)
         {
             var now = DateTime.Now;

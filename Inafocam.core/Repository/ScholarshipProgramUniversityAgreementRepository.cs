@@ -26,6 +26,11 @@ namespace Inafocam.core.Repository
             .Include(x => x.CreationUser)
             .Include(x => x.UpgradeUser);
 
+        public IEnumerable<ScholarshipProgramUniversityAgreement> GetAllByScholarshipProgramUniversityId(int id)
+        {
+            return GetAll.Where(x => x.ScholarshipProgramUniversityId == id).ToList();
+        }
+
         public void Save(ScholarshipProgramUniversityAgreement model)
         {
             var now = DateTime.Now;
