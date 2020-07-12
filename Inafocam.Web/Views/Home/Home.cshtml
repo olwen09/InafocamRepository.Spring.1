@@ -1,28 +1,28 @@
 ﻿@*@using Andamios.Core.Interfaces
 
-@inject IUsuario Usuarios*@
+    @inject IUsuario Usuarios*@
+@model Inafocam.core.Modelos.Usuario
+@{ MensajesViewModel accessoDenegado = new MensajesViewModel();
 
-@{
-    MensajesViewModel accessoDenegado = new MensajesViewModel();
+                if (TempData["accessoDenegado"] != null)
+                {
 
-    if (TempData["accessoDenegado"] != null)
-    {
+                    accessoDenegado = TempData.Get<MensajesViewModel>
+                        ("accessoDenegado");
 
-        accessoDenegado = TempData.Get<MensajesViewModel>
-            ("accessoDenegado");
-
-    }
+                }
 
 
-    MensajesViewModel mensaje = new MensajesViewModel();
+                MensajesViewModel mensaje = new MensajesViewModel();
 
-    if (TempData["mensaje"] != null)
-    {
+                if (TempData["mensaje"] != null)
+                {
 
-        mensaje = TempData.Get<MensajesViewModel>("mensaje");
+                    mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-    }
-}
+
+
+                } }
 
 @section Style {
 
@@ -113,9 +113,9 @@
                     <div class="col s12 display-flex amber-text accent-2">
                         <div id="sales-bar-4"></div>
                         @*<p class="mt-4 ">
-                            <i class="material-icons dp48 vertical-align-bottom">arrow_downward</i>
-                            15%
-                        </p>*@
+                                <i class="material-icons dp48 vertical-align-bottom">arrow_downward</i>
+                                15%
+                            </p>*@
                     </div>
                 </div>
             </div>
@@ -275,7 +275,7 @@
                 <div class="card hoverable animate fadeUp">
                     <div class="card-image blue darken-1 waves-effect">
 
-                        
+
                         <div class="card-title mt-5">Institución Formadora</div>
 
                         <div class="price blue darken-1 mt-5">
@@ -284,37 +284,77 @@
 
                         </div>
                     </div>
-              
+
                 </div>
             </div>
         </a>
 
-        <a href="#">
-            <div class="col s12 m6 l4">
-                <div class="card hoverable animate fadeLeft">
-                    <div class="card-image blue darken-1 waves-effect">
-                       
-                        
-                        <div class="card-title mt-5 mb-5">Mantenimientos</div>
+        @if (Model != null && !String.IsNullOrEmpty(Model.Role))
+        {
+    @if (Model.Role == "GESTIÓN UNIVERSITARIA")
+    {
+    <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Index">
+        <div class="col s12 m6 l4">
+            <div class="card hoverable animate fadeLeft">
+                <div class="card-image blue darken-1 waves-effect">
 
-                       
-                    </div>
-                   
+
+                    <div class="card-title mt-5 mb-5">Seguimientos Asignados</div>
+
+
                 </div>
+
             </div>
-        </a>
+        </div>
+    </a> }
+
+                    else
+                    {
+    <a >
+        <div class="col s12 m6 l4">
+            <div class="card hoverable animate fadeLeft">
+                <div class="card-image blue darken-1 waves-effect">
+
+
+                    <div class="card-title mt-5 mb-5">Mantenimientos</div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </a>} }
+                else
+                {
+                    <a href="#">
+                        <div class="col s12 m6 l4">
+                            <div class="card hoverable animate fadeLeft">
+                                <div class="card-image blue darken-1 waves-effect">
+
+
+                                    <div class="card-title mt-5 mb-5">Mantenimientos</div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </a>
+                }
+
+
 
         <div class="col s12 m6 l4">
             <a asp-area="Usuarios" asp-controller="Usuario" asp-action="Index">
                 <div class="card hoverable animate fadeRight">
                     <div class="card-image blue darken-1 waves-effect">
-                      
-                        
+
+
                         <div class="card-title mt-5 mb-5">SEGURIDAD</div>
 
-               
+
                     </div>
-               
+
                 </div>
 
 

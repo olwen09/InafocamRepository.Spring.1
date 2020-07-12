@@ -3121,8 +3121,8 @@ namespace Inafocam.core.Modelos
                 entity.HasIndex(e => e.UniversityId)
                     .HasName("FK__university");
 
-                entity.HasIndex(e => e.UserId)
-                    .HasName("FK__user");
+                //entity.HasIndex(e => e.UserId)
+                //    .HasName("FK__user");
 
                 entity.Property(e => e.UserUniversityId).HasColumnName("user_university_id");
 
@@ -3136,7 +3136,7 @@ namespace Inafocam.core.Modelos
 
                 entity.Property(e => e.UserCreationId).HasColumnName("user_creation_id");
 
-                entity.Property(e => e.UserId).HasColumnName("user_id");
+                entity.Property(e => e.UsuarioId).HasColumnName("usuario_id");
 
                 entity.Property(e => e.UserUpgradeId).HasColumnName("user_upgrade_id");
 
@@ -3150,10 +3150,10 @@ namespace Inafocam.core.Modelos
                     .HasForeignKey(d => d.UniversityId)
                     .HasConstraintName("FK__university");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserUniversity)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__user");
+                //entity.HasOne(d => d.User)
+                //    .WithMany(p => p.UserUniversity)
+                //    .HasForeignKey(d => d.UserId)
+                //    .HasConstraintName("FK__user");
             });
 
             modelBuilder.Entity<Users>(entity =>

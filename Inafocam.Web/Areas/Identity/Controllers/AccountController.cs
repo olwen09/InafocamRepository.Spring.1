@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using System;
 using Inafocam.Web.Helpers;
+using System.Security.Claims;
+using Inafocam.Web.Areas.Usuarios.Models;
 
 namespace Inafocam.Web.Areas.Identity.Controllers
 {
@@ -90,7 +92,8 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
 
 
-
+                        //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                        //Usuario user = _userManager.FindByIdAsync(userId).Result;
                         // _logger.LogInformation("User logged in.");
 
                         return RedirectToAction("Home", "Home", new { area = "" });

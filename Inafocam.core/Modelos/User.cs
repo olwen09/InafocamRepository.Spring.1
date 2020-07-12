@@ -43,7 +43,7 @@ namespace Inafocam.core.Modelos
             UserMapRole = new HashSet<UserMapRole>();
             UserRoleCreationUser = new HashSet<UserRole>();
             UserRoleUpgradeUser = new HashSet<UserRole>();
-            UserUniversity = new HashSet<UserUniversity>();
+            //UserUniversity = new HashSet<UserUniversity>();
         }
 
         public long UserId { get; set; }
@@ -104,6 +104,6 @@ namespace Inafocam.core.Modelos
         public virtual ICollection<UserMapRole> UserMapRole { get; set; }
         public virtual ICollection<UserRole> UserRoleCreationUser { get; set; }
         public virtual ICollection<UserRole> UserRoleUpgradeUser { get; set; }
-        public virtual ICollection<UserUniversity> UserUniversity { get; set; }
+        //public virtual ICollection<UserUniversity> UserUniversity { get; set; }
     }
 }

@@ -1,0 +1,62 @@
+﻿
+@using Andamios.Web.Areas.Clientes.Models
+@using Andamios.Web.Helpers
+@using Microsoft.AspNetCore.Razor.Language.CodeGeneration
+@model Andamios.Web.Areas.Usuarios.Models.RoleModel
+
+@{
+    ViewData["Title"] = "Create";
+
+    MensajesViewModel mensaje = new MensajesViewModel();
+
+    if (TempData["mensaje"] != null)
+    {
+        mensaje = TempData.Get<MensajesViewModel>("mensaje");
+
+    }
+
+
+}
+
+@section Style
+{
+    <link href="~/app-assets/vendors/noUiSlider/nouislider.css" rel="stylesheet" />
+    <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
+    <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
+    <link href="~/lib/jquery-confirm/css/jquery-confirm.css" rel="stylesheet" />
+
+}
+
+
+@* BREADCRUMB *@
+
+@await Component.InvokeAsync("BreadcrumbComponent", new
+{
+    area = (string)ViewData["area"],
+    controlador = (string)ViewData["controlador"],
+    controller = (string)ViewData["controller"],
+    vista = (string)ViewData["vista"]
+})
+@* END BREADCRUMB *@
+
+@*<div class="input-field col s12">
+        <a class="btn waves-effect waves-light" asp-area="Usuarios" asp-controller="Role" asp-action="Index">
+            Regresar
+            <i class="material-icons right">arrow_back</i>
+        </a>
+    </div>*@
+
+<div class="row">
+    <div class="col s1">
+
+    </div>
+
+    <form class="col s10 formValidate" method="post" asp-area="Usuarios" asp-controller="Usuario" asp-action="GuardarRole" >
+        @* datos personales del clientes *@
+        @Html.HiddenFor(model => model.Id)
+        <div class="card">
+           
+            <button type="submit"></button>
+                </div>
+</form>
+                </div>

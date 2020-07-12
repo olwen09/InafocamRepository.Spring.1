@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inafocam.core.Modelos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -66,6 +67,11 @@ namespace Andamios.Web.Areas.Usuarios.Models
         public bool Estado { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public long? UniversityId { get; set; }
+
+   
+        public University University { get; set; }
 
         public RoleModel Roles { get; set; }
 

@@ -15,15 +15,19 @@ using Microsoft.Extensions.Logging;
 
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
+using Inafocam.core.Modelos;
+using System.Security.Claims;
+
 
 namespace Andamios.Web.Controllers {
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
-  
+        private readonly UserManager<Usuario> _userManager;
 
-        public HomeController (ILogger<HomeController> logger) {
+
+        public HomeController (ILogger<HomeController> logger, UserManager<Usuario> userManager) {
             _logger = logger;
-        
+            _userManager = userManager;
         }
 
         [Layout ("_layout")]
@@ -37,6 +41,11 @@ namespace Andamios.Web.Controllers {
                         c.Value
                 }).ToList ();
 
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Usuario user = _userManager.FindByIdAsync(userId).Result;
+            //var id = _userManager.GetUserId(UserClaimsPrincipal);
+
+            //Usuario user = _userManager.FindByIdAsync(id).Result;
             //foreach (var role in roles.ToList())
             //     {
             //         foreach(var modulo in _modulo.GetAll.ToList())
@@ -73,7 +82,7 @@ namespace Andamios.Web.Controllers {
 
 
             //return View(nameof(StartPage));
-            return View("Home");
+            return View("Home",user);
         }
 
         public IActionResult Lock () {
@@ -83,7 +92,10 @@ namespace Andamios.Web.Controllers {
         [Layout ("_layout")]
         public IActionResult Home () {
 
-            return View ();
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Usuario user = _userManager.FindByIdAsync(userId).Result;
+            return View (user);
         }
 
         public IActionResult StartPage () {

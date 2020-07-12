@@ -9,7 +9,7 @@ namespace Inafocam.core.Modelos
         {
             ScholarshipProgramTracing = new HashSet<ScholarshipProgramTracing>();
             ScholarshipProgramUniversity = new HashSet<ScholarshipProgramUniversity>();
-            UserUniversity = new HashSet<UserUniversity>();
+            //UserUniversity = new HashSet<UserUniversity>();
         }
 
         public long UniversityId { get; set; }

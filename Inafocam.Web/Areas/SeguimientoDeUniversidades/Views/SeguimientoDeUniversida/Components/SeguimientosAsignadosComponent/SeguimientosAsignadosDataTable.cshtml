@@ -1,0 +1,73 @@
+﻿@using Inafocam.core.Modelos
+@using System.Globalization;
+
+<table id="page-length-option" class="display">
+
+
+    <thead>
+        <tr>
+
+            <th>Programa</th>
+            <th>Coordinador</th>
+            <th>Fecha de Apertura</th>
+            <th>Fecha de Cierree</th>
+            <th>Porcentaje de Completado</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ScholarshipProgramTracing item in Model)
+        {
+<tr>
+    <td>@item?.ScholarshipProgramUniversity.ScholarshipProgram.ScholarshipProgramName</td>
+    <td>@item?.Coordinator.Contact.ContactName</td>
+    <td>@item?.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+    <td>@item?.EndDate</td>
+    <td>@item?.Status?.StatusName</td> 
+    <td>
+        @if (item?.Status.StatusName == "Activo")
+        {
+              @item?.Status?.StatusName
+        }
+        else
+        {
+             @item?.Status?.StatusName
+        }
+
+    </td>
+    <td>
+        <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-id="@item?.ScholarshipProgramTracingId" class="tooltipped" data-position="top" data-tooltip="Comenzar">
+            <i class="material-icons">edit</i>
+        </a>
+    </td>
+</tr>}
+
+
+
+
+    </tbody>
+    <tfoot>
+        <tr>
+
+            <th>Programa</th>
+            <th>Coordinador</th>
+            <th>Fecha de Apertura</th>
+            <th>Fecha de Cierree</th>
+            <th>Porcentaje de Completado</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+
+        </tr>
+    </tfoot>
+</table>
+
+<div class="modal mt-4" id="formulariopassword"></div>
+
+<div class="row ">
+    <div class="col s5 center ml-10 mt-5 modal " id="formularioestado">
+
+    </div>
+</div>

@@ -10,6 +10,7 @@ using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Usuarios.Models;
 using Inafocam.Web.Helpers;
+using Inafocam.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Inafocam.Web.Areas.Usuarios.Controllers
 {
-    [Area("Usuarios"),ReturnArea("Usuarios")]
-    [ReturnControllador("Usuarios"),ReturnController("Usuario")]
+    [Area("Usuarios"), ReturnArea("Usuarios")]
+    [ReturnControllador("Usuarios"), ReturnController("Usuario")]
     [Authorize]
     public class UsuarioController : Controller
     {
@@ -28,10 +29,13 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
         private readonly IUsuario _usuario;
         private readonly IUserRole _userRole;
         private readonly IRole _role;
+        private readonly IUniversity _university;
         private readonly SignInManager<Usuario> _signInManager;
         private readonly UserManager<Usuario> _userManager;
+        private readonly RoleManager<Role> _roleManger;
 
-        public UsuarioController(IUser user, IUserRole userRole, SignInManager<Usuario> signInManager, UserManager<Usuario> userManager, IUsuario usuario,IRole role)
+        public UsuarioController(IUser user, IUserRole userRole, SignInManager<Usuario> signInManager,
+            UserManager<Usuario> userManager, IUsuario usuario, IRole role, IUniversity university, RoleManager<Role> roleManger)
         {
             _user = user;
             _usuario = usuario;
@@ -39,12 +43,15 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
             _role = role;
             _signInManager = signInManager;
             _userManager = userManager;
+            _university = university;
+            _roleManger = roleManger;
         }
 
         public IActionResult Index()
         {
 
             var data = _usuario.Usuarios;
+
 
             return View(data);
         }
@@ -71,17 +78,114 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
         public IActionResult PerfilUsuario()
         {
             return View();
-        }   public IActionResult PerfilUsuarioAdmin(int id)
+        }
+        public async Task<IActionResult> PerfilUsuarioAdmin(string id)
         {
+            Usuario user = _usuario.GetUsuarioById(id);
+            MensajesViewModel mensaje = new MensajesViewModel();
+            var userId = _userManager.GetUserId(User);
 
-            var data = _user.GetByID(id);
 
-            var model = CopyPropierties.Convert<User, UserModel>(data);
 
-            ViewBag.UserRole = new SelectList(_userRole.GetAll, "UserRoleId", "UserRoleName");
+            if (string.IsNullOrEmpty(id))
+            {
+                //EnviarMensaje.Enviar(TempData, "orange", "Debe de seleccionar una categoría válida!");
+                return View("Login");
+            }
+
+            // 1. traer el usuairo
+
+            //Usuario user = _usuario.GetUsuarioById(id);
+
+            if (user == null)
+            {
+                //EnviarMensaje.Enviar(TempData, "orange", "Debe de seleccionar una categoría válida!");
+                return View("Login");
+
+            }
+
+            // 2. Crear el modelo de resset password
+
+            ResetPasswordViewModel rpvm = new ResetPasswordViewModel
+            {
+                UserName = user.UserName,
+                Code = await _userManager.GeneratePasswordResetTokenAsync(user)
+            };
+
+            //3.Crear el modelo  de UserUniversity
+            //var userUniversity = new UserUniversityModel
+            //{
+            //    UsuarioId = user.Id,
+
+            //}
+
+
+            // 4. crear el modelo de la vista
+
+            var model = new PerfilUsuario
+            {
+
+                EditarUsuarioModel = CopyPropierties.Convert<Usuario, EditarUsuarioModel>(user),
+                ResetPasswordViewModel = rpvm,
+                Universidades = _university.Universities,
+                //UserUniversityModel = 
+
+            };
+
+            
+
+            ViewBag.Role = new SelectList(_role.Roles, "Name", "Name");
+
 
             return View(model);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //[Authorize(Policy = Constante.UsuarioCanUpdate)]
+        public async Task<IActionResult> Editar(PerfilUsuario model)
+        {
+            //var editar = model.EditarUsuarioModel;  
+            //MensajesViewModel mensaje = new MensajesViewModel();
+
+            if (TryValidateModel(model.EditarUsuarioModel))
+            {
+
+                var usuarioCreado = _usuario.GetUsuarioById(model.EditarUsuarioModel.Id);
+
+                PropertiesParser<EditarUsuarioModel, Usuario>
+                    .CopyPropertiesTo<EditarUsuarioModel, Usuario>(model.EditarUsuarioModel, usuarioCreado);
+
+                await _userManager.UpdateAsync(usuarioCreado);
+
+                var roles = await _userManager.GetRolesAsync(usuarioCreado);
+                if (!string.IsNullOrEmpty(model.EditarUsuarioModel.Role))
+                {
+                    if (!roles.Contains(model.EditarUsuarioModel.Role))
+                        await _userManager.AddToRoleAsync(usuarioCreado, model.EditarUsuarioModel.Role);
+                }
+
+                //mensaje.Titulo = "Usuario Actualizado";
+                //mensaje.Texto = usuarioCreado.Nombre + " " + usuarioCreado.Apellido + "ha sido actualizado correctamente";
+                //mensaje.Tipo = "green";
+
+                EnviarMensaje.Enviar(TempData, "green", 3);
+
+
+
+
+                return View("Index", _usuario.Usuarios);
+
+            }
+
+            //mensaje.Titulo = "Hubo un error";
+            //mensaje.Texto = "verifique los campos que desea cambiar";
+            //mensaje.Tipo = "red";
+
+            return View("PerfilUsuario", model);
+
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -163,7 +267,7 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
             }
 
 
-           return View(model);
+            return View(model);
 
 
         }
@@ -495,6 +599,77 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
 
             return View("PerfilUsuarioAdmin", perfilmodel);
         }
+
+
+
+
+
+ //       [HttpPost]
+ //       [ValidateAntiForgeryToken]
+ //       public async Task<IActionResult> GuardarRole(RoleModel model, string returnUrl)
+ //       {
+ //           var mensaje = new MensajesViewModel();
+
+
+ //           //if (model.Name == null || model.Descripcion == null)
+ //           //{
+ //           //    TempData.Enviar("red", "El nombre del rol y la descripcion son necesarios, vuelva a intentarlo");
+
+ //           //    var roleModel = new RoleModel(returnUrl);
+
+ //           //    roleModel.Modulos = _modulo.GetAll
+ //           //        .Select(x => new ModuloModel()
+ //           //        {
+ //           //            Nombre = x.Nombre,
+ //           //            ModuloId = x.ModuloId,
+ //           //            Descripcion = x.Descripcion,
+ //           //            Estado = x.Estado,
+ //           //            Codigo = x.Codigo
+ //           //        }).ToList();
+
+
+
+ //           //    return View(nameof(Crear), roleModel);
+ //           //}
+
+
+ //           model.Name = "Usuario Ejecutivo";
+ //           model.Descripcion = "Encargados del area de consulta";
+
+ //           if (ModelState.IsValid)
+ //           {
+ //               var role = await _roleManger.FindByIdAsync(model.Id);
+
+ //               //var moduloList = model.Modulos.Where(x => x.Permisos.Any(a => a.Estado)).ToList();
+
+ //               if (role == null)
+ //               {
+
+ //                   role = new Role { Name = model.Name.ToUpper(), Descripcion = model.Descripcion };
+
+
+
+ //                   var result = await _roleManger.CreateAsync(role);
+
+ //                   if (result.Succeeded)
+ //                   {
+ //                       // Buscar el permiso por roleID
+
+ //                       var roleId = await _roleManger.GetRoleIdAsync(role);
+
+ //                   }
+ //               }
+ //           }
+
+ //           return View();
+ //       }
+
+
+ //public IActionResult CrearRole()
+ //       {
+ //           return View();
+ //       }
+
 
     }
 }

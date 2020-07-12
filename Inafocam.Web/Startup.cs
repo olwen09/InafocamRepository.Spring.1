@@ -298,6 +298,8 @@ namespace Andamios.Web
             services.AddScoped<IContactCommunication, ContactCommunicationRepository>();
             services.AddScoped<IUsuario, UsuarioRepository>();
             services.AddScoped<IRole, RoleRepository>();
+            services.AddScoped<IScholarshipProgramTracingCourse, ScholarshipProgramTracingCourseRepository>();
+            services.AddScoped<IScholarshipProgramTracingStudentSupport, ScholarshipProgramTracingStudentSupportRepository>();
 
 
             #endregion

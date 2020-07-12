@@ -61,9 +61,9 @@
             </td>*@
         }
         <td class="center">
-            @*<a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="Usuarios" asp-controller="Usuario" asp-action="PerfilUsuarioAdmin" asp-route-id="@usuario.Id" asp-route-returnUrl="@Url.Action("PerfilUsuarioAdmin", "Usuario", new{ area = "Usuarios", id = usuario.Id})">
+            <a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="Usuarios" asp-controller="Usuario" asp-action="PerfilUsuarioAdmin" asp-route-id="@usuario.Id">
                 <i class="material-icons">create</i>
-            </a>*@
+            </a>
 
             <a class="modal-trigger tooltipped disabled" href="#formularioestado" data-position="top" data-tooltip="Cambiar estado" onclick="CambiarEstadoModal('@usuario.Id')">
 

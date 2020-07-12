@@ -1,6 +1,6 @@
 ﻿
 @using Andamios.Web.Helpers
-@model Inafocam.Web.Areas.Usuarios.Models.UserModel
+@model Andamios.Web.Areas.Usuarios.Models.PerfilUsuario
 
 @{
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -13,13 +13,13 @@
 
     var urlImg = "default.png";
 
-    @*@if (!string.IsNullOrEmpty(Model.EditarUsuarioModel.Imagen))
+    @if (!string.IsNullOrEmpty(Model.EditarUsuarioModel.Imagen))
     {
         urlImg = Model.EditarUsuarioModel.Imagen;
-    }*@
+    }
 
-    //var num = 1;
-    //var UsuarioId = Model.EditarUsuarioModel.Id;
+    var num = 1;
+    var UsuarioId = Model.EditarUsuarioModel.Id;
     //var userLoggedId = User.GetUserId();
 }
 
@@ -64,7 +64,13 @@
 
         <form class="register-form" asp-area="Usuarios" asp-controller="Usuario" asp-action="Editar" method="post">
 
-
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Id" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.UserName" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Nombre" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Apellido" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Email" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Estado" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Imagen" />
 
             <div class="card-content">
                 <div class="row ml-4">
@@ -73,7 +79,7 @@
                             <div class="row">
                                 <div class="col s12 center-align center m-0">
 
-                                    @*<img class="responsive-img circle " width="120" src="/app-assets/images/usuario/@urlImg" alt="">*@
+                                    <img class="responsive-img circle " width="120" src="/app-assets/images/usuario/@urlImg" alt="">
                                     <div class=" col s12 ">
 
                                         @*<div class="col s5 "></div>
@@ -90,12 +96,12 @@
                                     </div>
                                     <br>
                                     <span class="center">
-                                        <h5 class="teal-text lighten-2">@Model?.Contact?.ContactName  @Model?.Contact?.ContactLastname</h5>
-                                        <h6 class="teal-text lighten-2">@Model?.UserLogin </h6>
+                                        <h5 class="teal-text lighten-2">@Model.EditarUsuarioModel.Nombre @Model.EditarUsuarioModel.Apellido  </h5>
+                                        <h6 class="teal-text lighten-2">@Model.EditarUsuarioModel.UserName </h6>
 
-                                        @if (Model?.UserRoleId != 0)
+                                        @if (!String.IsNullOrEmpty(Model.EditarUsuarioModel.Role))
                                         {
-                                            <h6 class="grey-text lighten-2">@Model.UserRole.UserRoleName  </h6>
+                                            <h6 class="grey-text lighten-2">@Model.EditarUsuarioModel.Role  </h6>
 
                                         }
                                         else
@@ -132,21 +138,13 @@
 
                     <div class="row ml-4">
                         <div class="col m12 s6 l6">
-                            @*<div class="row margin">
-                                    <div class="input-field col s9">
-                                        <i class="material-icons prefix pt-2">person_outline</i>
-                                        <input disabled class="validate" id="username" type="text" asp-for="@Model.EditarUsuarioModel.UserName" />
-                                        <label for="username" class="center-align">Usuario</label>
-                                        <span asp-validation-for="@Model.EditarUsuarioModel.UserName" class="red-text"></span>
-                                    </div>
-                                </div>*@
 
                             <div class="row margin">
                                 <div class="input-field col s9">
                                     <i class="material-icons prefix pt-2">face</i>
-                                    <input asp-for="Contact.ContactName" disabled class="validate" id="nombre" type="text" >
-                                    <label for="nombre" class="center-align">Nombre</label>
-                                    <span  class="red-text"></span>
+                                    <input disabled class="validate" id="nombre" type="text" asp-for="@Model.EditarUsuarioModel.Nombre">
+                                    <label for="username" class="center-align">Nombre</label>
+                                    <span asp-validation-for="@Model.EditarUsuarioModel.Nombre" class="red-text"></span>
 
                                 </div>
                             </div>
@@ -154,9 +152,22 @@
                             <div class="row margin">
                                 <div class="input-field col s9">
                                     <i class="material-icons prefix pt-2">face</i>
-                                    <input asp-for="Contact.ContactLastname" disabled class="validate" id="lastname" type="text" >
-                                    <label for="lastame" class="center-align ">Apellido</label>
-                                    <span class="red-text"></span>
+                                    <input disabled class="validate" id="apellido" type="text" asp-for="EditarUsuarioModel.Apellido">
+                                    <label for="username" class="center-align ">Apellido</label>
+                                    <span asp-validation-for="EditarUsuarioModel.Apellido" class="red-text"></span>
+
+                                </div>
+                            </div>  
+                            
+                            
+                            <div class="row ml-1">
+                                <div class="input-field col s9 mt-">
+                                    <div class="row">
+                                        <label for="select2User" class="col s12">   <i class="material-icons" >school</i>Universidades</label>
+                                    </div>
+                                    <select asp-for="EditarUsuarioModel.UniversityId"  class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(Model.Universidades,"UniversityId","UniversityName"))">
+                                        <option value="" selected disabled>Seleccione una Opción</option>
+                                    </select>
 
                                 </div>
                             </div>
@@ -164,13 +175,14 @@
                         </div>
 
 
+
                         <div class="col m12 s6 l6">
                             <div class="row margin">
                                 <div class="input-field col s9">
                                     <i class="material-icons prefix pt-2">mail_outline</i>
-                                    <input asp-for="UserLogin" disabled class="validate" id="userlogin" type="text" >
-                                    <label for="userlogin" class="center-align">Nombre de Usuario</label>
-                                    <spanclass="red-text"></span>
+                                    <input disabled class="validate" id="email" type="text" asp-for="@Model.EditarUsuarioModel.Email">
+                                    <label for="username" class="center-align">Email</label>
+                                    <span asp-validation-for="@Model.EditarUsuarioModel.Email" class="red-text"></span>
 
                                 </div>
                             </div>
@@ -183,49 +195,32 @@
                                         <label for="select2User" class="col s12">   <i class="material-icons">verified_user</i>Roles</label>
                                     </div>
 
-                                    <select asp-for="UserRoleId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.UserRole">
+                                    <select asp-for="EditarUsuarioModel.Role" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Role">
                                     </select>
 
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
-
-                            @*@if (Model.EditarUsuarioModel.Role != "Admin")
-                                {
-                                    <div class="row margin">
-                                        <div class="input-field col s9">
-                                            <i class="material-icons prefix pt-2">face</i>
-                                            <input  class="validate" id="apellido" type="text" asp-for="@Model.EditarUsuarioModel.Role">
-                                            <label for="username" class="center-align">Role</label>
-                                            <span asp-validation-for="@Model.EditarUsuarioModel.Role" class="red-text"></span>
-
-                                        </div>
-                                    </div>
-                                }
-                                else
-                                {
-
-                                }*@
-
-
-
-
-
                         </div>
-                    </div>
 
+                        <div class="col m12 s6 l6">
+                            @*<div class="row margin">
+                                <div class="input-field col s9">
+                                    <button type="submit" class="btn waves-effect waves-light border-round teal col s12 btn-small ">
+                                        <i class="material-icons dp48">save</i>
+                                        Guardar Cambios
+                                    </button>
 
+                                </div>
+                            </div>*@
 
-                    @*<div class="row">
-                            <div class="input-field col s12 m12 l12">
-                                <div class="input-field col s3 m13 l3">
+                            <input asp-for="EditarUsuarioModel.Role" type="hidden" />
+
+                            <div class="row margin">
+                                <div class="input-field col s9">
+                                    <div class="row">
+                                        @*<label for="select2User" class="col s12">   <i class="material-icons">verified_user</i>Roles</label>*@
+                                        <br />
+                                    </div>
 
                                     <button type="submit" class="btn waves-effect waves-light border-round teal col s12 btn-small ">
                                         <i class="material-icons dp48">save</i>
@@ -233,12 +228,13 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
 
+                    </div>
 
 
                 </div>
-                <div class="row ml-10">
+                @*<div class="row ml-10">
                     <div class=" col s12  ml-10">
 
                         <div class="col  s3"></div>
@@ -251,7 +247,7 @@
                         <div class="col  s3"></div>
 
                     </div>
-                </div>
+                </div>*@
 
             </div>
 
@@ -266,7 +262,7 @@
             <div class="input-field col s9">
 
 
-                @*<div class="modal mt-4" id="contrasena">
+                <div class="modal mt-4" id="contrasena">
                     @{
                         Model.ResetPasswordViewModel.area = "PerfilUsuarioAdmin";
                         Model.ResetPasswordViewModel.controller = "Usuario";
@@ -275,7 +271,7 @@
 
                     @await Component.InvokeAsync("ResetPasswordComponent", Model.ResetPasswordViewModel);
 
-                </div>*@
+                </div>
 
             </div>
         </div>
@@ -398,7 +394,7 @@
             $('.modal').modal();
 
             $('.js-example-basic-single').select2({
-                placeholder: "Select a state",
+                placeholder: "Seleccione una Opción",
             });
 
             $('.phone').formatter({

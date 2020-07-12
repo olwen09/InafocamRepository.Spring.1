@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Inafocam.core.Modelos;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Inafocam.core.Modelos
+namespace Inafocam.Web.Models
 {
-    public partial class UserUniversity
+    public class UserUniversityModel
     {
         public long UserUniversityId { get; set; }
         public string UsuarioId { get; set; }
@@ -16,6 +19,5 @@ namespace Inafocam.core.Modelos
 
         public virtual Status Status { get; set; }
         public virtual University University { get; set; }
-        //public virtual User User { get; set; }
     }
 }
