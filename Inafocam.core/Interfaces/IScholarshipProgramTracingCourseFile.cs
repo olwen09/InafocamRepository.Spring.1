@@ -8,6 +8,9 @@ namespace Inafocam.core.Interfaces
    public interface IScholarshipProgramTracingCourseFile
     {
         IEnumerable<ScholarshipProgramTracingCourseFile> GetAll { get; }
+        public IEnumerable<ScholarshipProgramTracingCourseFile> GetAllByTracingId(int tracingId);
+
+
 
         void Save(ScholarshipProgramTracingCourseFile model);
     }

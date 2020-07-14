@@ -3,6 +3,7 @@ using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Inafocam.core.Repository
@@ -22,6 +23,11 @@ namespace Inafocam.core.Repository
             .Include(x => x.FileType)
             .Include(x => x.Status)
             .Include(x => x.Tracing);
+
+        public IEnumerable<ScholarshipProgramTracingCourseFile> GetAllByTracingId(int tracingId)
+        {
+            return GetAll.Where(x => x.TracingId == tracingId);
+        }
 
         public void Save(ScholarshipProgramTracingCourseFile model)
         {

@@ -50,7 +50,7 @@
 
 
 
-            <h4 class="card-title">Pactados</h4>
+            <h4 class="card-title">Acuerdos</h4>
             <div class="divider"></div>
             @foreach (var item in Model.ScholarshipProgramUniversityAgreementList)
             {
@@ -121,8 +121,8 @@
                                 @foreach (var file in AgreementFile.GetAllByscholarshipPogramTracingAgreementId(id))
                                 {
                             <tr>
-                                <td>Jonathan</td>
-                                <td>Lollipop</td>
+                                <td>@file.File.FileName</td>
+                                <td>@file.AgreementFileDescription</td>
                                 <td>ver</td>
 
                             </tr>}
@@ -142,15 +142,10 @@
             </div>
         </div>
     </li>
-    @*<li>
-            <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>*@
-</ul>}
+ 
+</ul>
+
+}
 
 
         </div>
@@ -265,12 +260,12 @@
 
 
 
-        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InformacionPrincipal">
+        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InformacionPrincipal" asp-route-tracingId="@Model.ScholarshipProgramTracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
             Atras
         </a>
 
-        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DesarrolloDelPlanDeEstudio" asp-route-scholarshipProgramTracingId="@Model.ScholarshipProgramTracingId">
+        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DesarrolloDelPlanDeEstudio" asp-route-tracingId="@Model.ScholarshipProgramTracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
             Siguiente
         </a>

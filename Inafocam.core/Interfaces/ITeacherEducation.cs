@@ -11,6 +11,7 @@ namespace Inafocam.core.Interfaces
     {
         IQueryable<TeacherEducation> GetAll { get; }
 
+        public IEnumerable<TeacherEducation> GetAllByTeacherId(int teacherId);
         void Save(TeacherEducation model);
         
     }

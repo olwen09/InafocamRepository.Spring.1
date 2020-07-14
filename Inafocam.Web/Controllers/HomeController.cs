@@ -20,6 +20,7 @@ using System.Security.Claims;
 
 
 namespace Andamios.Web.Controllers {
+    [Authorize]
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<Usuario> _userManager;
@@ -32,8 +33,8 @@ namespace Andamios.Web.Controllers {
 
         [Layout ("_layout")]
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index () {
-            //var roles = _roleManager.Roles.ToList();
 
             var claims = User.Claims.Select (c =>
                 new {
@@ -43,45 +44,12 @@ namespace Andamios.Web.Controllers {
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
-            //var id = _userManager.GetUserId(UserClaimsPrincipal);
 
-            //Usuario user = _userManager.FindByIdAsync(id).Result;
-            //foreach (var role in roles.ToList())
-            //     {
-            //         foreach(var modulo in _modulo.GetAll.ToList())
-            //         {
-            //             await _roleManager.RemoveClaimAsync(role, new Claim(Constante.Module, modulo.Nombre));
+            if(user == null)
+            {
+                return View("StartPage");
+            }
 
-            //foreach (var role in roles.ToList())
-            //     {
-            //         foreach(var modulo in _modulo.GetAll.ToList())
-            //         {
-            //             await _roleManager.RemoveClaimAsync(role, new Claim(Constante.Module, modulo.Nombre));
-
-            //         }
-
-
-            //     }
-
-            //     claims = User.Claims.Select(c =>
-            //         new
-            //         {
-            //             c.Type,
-            //             c.Value
-            //         }).ToList();
-
-            //var userCulture = "es";
-
-            //Response.Cookies.Append(
-            //   CookieRequestCultureProvider.DefaultCookieName,
-            //   CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(userCulture))
-            //   //new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-            //   );
-
-
-
-
-            //return View(nameof(StartPage));
             return View("Home",user);
         }
 
@@ -90,6 +58,7 @@ namespace Andamios.Web.Controllers {
         }
 
         [Layout ("_layout")]
+ 
         public IActionResult Home () {
 
 
@@ -97,7 +66,7 @@ namespace Andamios.Web.Controllers {
             Usuario user = _userManager.FindByIdAsync(userId).Result;
             return View (user);
         }
-
+        [AllowAnonymous]
         public IActionResult StartPage () {
 
             return View ();
@@ -127,24 +96,11 @@ namespace Andamios.Web.Controllers {
 
 
 
-        public void GetParametros(string culture, string returnUrl)
-        {
-            SetLanguage(culture, returnUrl);
-        }
+        //public void GetParametros(string culture, string returnUrl)
+        //{
+        //    SetLanguage(culture, returnUrl);
+        //}
 
-        public IActionResult SetLanguage(string culture, string returnUrl)
-        {
-
-           
-            Response.Cookies.Append(
-               CookieRequestCultureProvider.DefaultCookieName,
-               CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture))
-               //new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-               );
-
-            return LocalRedirect(returnUrl);
-            //return View(nameof(Index));
-
-        }
+       
     }
 }

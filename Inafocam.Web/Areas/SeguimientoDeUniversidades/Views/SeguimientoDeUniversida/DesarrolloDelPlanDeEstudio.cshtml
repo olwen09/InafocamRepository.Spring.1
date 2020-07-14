@@ -1,4 +1,5 @@
 ﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.DesarrolloDelPlanDeEstudioModel
+@inject Inafocam.core.Interfaces.ITeacherEducation IteacherEducation
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -8,7 +9,9 @@
 
         mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-    } }
+    }
+
+    var index = 0;}
 
 @section Style
 {
@@ -26,6 +29,7 @@
     controlador = (string)ViewData["controlador"],
     controller = (string)ViewData["controller"],
     vista = (string)ViewData["vista"]
+
 })
 @* END BREADCRUMB *@
 
@@ -43,6 +47,8 @@
 
             <h4 class="card-title">Desarrollo del Plan de Estudio</h4>
             <div class="divider"></div>
+
+
             @foreach (var item in Model.TracingStudyPlanDevelopmentList)
             {
                 <ul class="collapsible collapsible-accordion">
@@ -52,7 +58,7 @@
                             <div class="row">
 
                                 <div class="">
-                                    <form class="col s12 formValidate" method="post" asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="GuardarUniverity">
+                                    <form class="col s12 formValidate" method="post" >
 
                                         @*<input type="hidden" asp-for="UniversityId" />
                                     <input type="hidden" asp-for="CreationDate" />*@
@@ -79,14 +85,14 @@
 
 
                                                         @*<i class="material-icons prefix">contacts</i>*@
-
-                                                        <input id="codigodeasignatura" type="text" class="validat">
+                                                     
+                                                        <input asp-for="@item.SubjectMatter.SubjectMatterCode" id="codigodeasignatura" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="codigodeasignatura">Código Asignatura</label>
                                                     </div>
 
                                                     <div class="input-field col s12 m6 l3">
-                                                        <input id="asignaturaimpartida" type="text" class="validat">
+                                                        <input asp-for="@item.SubjectMatter.SubjectMatterName" id="asignaturaimpartida" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="asignaturaimpartida">Asignatura Impartida</label>
 
@@ -95,7 +101,7 @@
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input id="creditos" type="text" class="validat">
+                                                        <input  id="creditos" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="creditos">Créditos</label>
 
@@ -105,7 +111,7 @@
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input id="StartDate" type="text" class="validat">
+                                                        <input id="StartDate" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="StartDate">Periodo académico en que se impartió</label>
 
@@ -115,32 +121,42 @@
                                                 </div>
 
 
-                                                @*informacion del coordinador*@
+                                                @*Docente que la  impartió*@
                                                 <div class="row">
                                                     <div class="input-field col s12 m6 l3">
 
                                                         <div class="row">
                                                             <label for="select2User" class="col s12">Docente que la  impartió</label>
                                                         </div>
-                                                        <select class="form-control js-example-basic-single" style="width: 100%">
+
+                                                        @{ 
+                                                           var numero = index++;
+                                                        }
+                                                        <select   class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
                                                             <option value="" disabled selected></option>
                                                         </select>
 
 
                                                     </div>
 
-                                                    <div class="input-field col s12 m6 l3">
+                                                    @{ 
+                                                        
+
+
+                                                    }
+
+                                                    @*<div class="input-field col s12 m6 l3">
                                                         <div class="row">
                                                             <label for="select2User" class="col s12">Títulación del perfil por el cual hizo la asignación</label>
                                                         </div>
-                                                        <select class="form-control js-example-basic-single" style="width: 100%">
-                                                            <option value="" disabled selected></option>
+                                                        <select id="HigherTitleSupportMatterId" class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(IteacherEducation.GetAllByTeacherId(1),"TeacherEducationId","TeacherEducationTitle"))">
+                                                            <option  value="" disabled selected></option>
                                                         </select>
-                                                    </div>
+                                                    </div>*@
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input id="" type="text" class="validat">
+                                                        <input asp-for="@item.ScoreAverageStudents" id="" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="">Promedio de calificación del total de estudiantes</label>
 
@@ -149,7 +165,7 @@
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input id="Telefono" type="text" class="validat">
+                                                        <input asp-for="@item.ApprovedStudentsQuantity" id="Telefono" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="Telefono">Cantidad de estudiantes promovidos</label>
 
@@ -160,23 +176,23 @@
                                                 <div class="row">
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input id="email" type="text" class="validat">
+                                                        <input asp-for="@item.ReprovedStudentsQuantity" id="cantidadestudiantesreprobado" type="text" class="validat black-text" readonly disabled>
 
-                                                        <label for="email">Cantidad de estudiantes reprobado</label>
+                                                        <label for="cantidadestudiantesreprobado">Cantidad de estudiantes reprobado</label>
 
 
                                                     </div>
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input id="email" type="text" class="validat">
+                                                        <input asp-for="@item.DesertedStudentsQuantity" id="cantidadestudiantesretirados" type="text" class="validat black-text" readonly disabled>
 
-                                                        <label for="email">Cantidad de estudiantes retirados</label>
+                                                        <label for="cantidadestudiantesretirados">Cantidad de Estudiantes Retirados</label>
 
 
                                                     </div>
 
-                                                    <div class="file-field input-field col s12 m6 l3">
+                                                    <div class="file-field input-field col s12 m6 l4">
                                                         <div class="btn">
                                                             <span>File</span>
                                                             <input name="file" type="file">
@@ -186,11 +202,11 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="input-field col s12 m6 l2">
+                                                    <div class="input-field col s12 m6 l1">
 
-                                                        <input id="Telefono" type="text" class="validat">
+                                                       <br />
 
-                                                        <label for="Telefono">Ver Reporte de Calificacion de la Asignatura</label>
+                                                        <a href="#">Ver Reporte</a>
 
 
                                                     </div>
@@ -237,12 +253,12 @@
 
 
 
-        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Acuerdos">
+        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Acuerdos" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
             Atras
         </a>
 
-        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ActividadesCoCurriculares">
+        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ActividadesCoCurriculares" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
             Siguiente
         </a>
@@ -299,6 +315,33 @@
 
         $(document).ready(function () {
             $('.datepicker').datepicker();
+        });
+
+
+        $(function () {
+            $('#').change(
+                function () {
+                    var provinciaId = $(this).val();
+                    console.log($("#HigherTitleSupportMatterId").val());
+
+                    $.ajax({
+                        url: "/Clientes/Cliente/GetMunicipios?id=" + provinciaId,
+                        type: 'post',
+                        contentType: 'html',
+                        success: function (data) {
+                            console.log(data);
+
+                            $("#MunicipioId").empty();
+                            //$("#MunicipioId").formSelect(data);
+                            $("#MunicipioId").append(data);
+                            //$("select").formSelect();
+
+                        }
+                    });
+
+
+                }
+            );
         });
 
     </script>

@@ -21,7 +21,7 @@ using Inafocam.Web.Areas.Usuarios.Models;
 namespace Inafocam.Web.Areas.Identity.Controllers
 {
     [Area("Identity"), ReturnArea("Account")]
-    [ReturnControllador("Identity"), ReturnController("Account")]
+    [ReturnControllador("Perfil de Usuario"), ReturnController("Account")]
 
     public class AccountController : Controller
     {
@@ -168,7 +168,7 @@ namespace Inafocam.Web.Areas.Identity.Controllers
         [ReturnVista("Nuevo")]
         [AllowAnonymous]
         //[Authorize(Policy = Constante.UsuarioCanRead)]
-        public ActionResult Registro()
+        public ActionResult Register()
         {
             return View();
         }
@@ -176,7 +176,7 @@ namespace Inafocam.Web.Areas.Identity.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Authorize(Policy = Constante.UsuariorCanCreate)]
-        public async Task<IActionResult> Registro(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {

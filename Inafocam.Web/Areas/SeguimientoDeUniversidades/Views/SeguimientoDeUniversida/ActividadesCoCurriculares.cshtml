@@ -1,4 +1,4 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ScholarshipProgramUniversityModel
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ActividadesCoCurricularesModel
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -8,7 +8,10 @@
 
         mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-    } }
+    }
+
+    var count = 1;
+    }
 
 @section Style
 {
@@ -34,8 +37,8 @@
 <div class="row">
     <form class="col s12 formValidate" method="post" asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="GuardarUniverity">
 
-        <input type="hidden" asp-for="UniversityId" />
-        <input type="hidden" asp-for="CreationDate" />
+        @*<input type="hidden" asp-for="UniversityId" />
+        <input type="hidden" asp-for="CreationDate" />*@
 
         @*<input type="hidden" asp-for="Com" />*@
 
@@ -60,21 +63,21 @@
 
                         @*<i class="material-icons prefix">contacts</i>*@
 
-                        <input id="Nombre" asp-for="University.UniversityName" type="text" class="validat">
+                        <input id="CourseName" asp-for="TracingCourseModel.CourseName" type="text" class="validat">
 
-                        <label for="Nombre">Nombre del Curso</label>
+                        <label for="CourseName">Nombre del Curso</label>
                     </div>
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="University.UniversityCampus" id="Campus" type="text" class="validat">
+                        <input asp-for="TracingCourseModel.HoursTaken" id="HoursTaken" type="text" class="validat">
 
-                        <label for="Campus">Duración en Horas</label>
+                        <label for="HoursTaken">Duración en Horas</label>
 
                     </div>
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input asp-for="University.UniversityCampus" id="UniversityCampus" type="text" class="validat">
+                        <input asp-for="TracingCourseModel.StudentsQuantity" id="UniversityCampus" type="text" class="validat">
 
                         <label for="UniversityCampus">Cantidad de Participantes</label>
 
@@ -83,21 +86,23 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input asp-for="University.UniversityCampus" id="UniversityCampus" type="text" class="validat">
+                        <input asp-for="TracingCourseModel.CourseStartDate" id="CourseStartDate" type="text" class="validat datepicker">
 
-                        <label for="UniversityCampus">Fecha en que fue Impartido</label>
+                        <label for="CourseStartDate">Fecha en que fue Impartido</label>
 
 
                     </div>
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input asp-for="University.UniversityCampus" id="UniversityCampus" type="text" class="validat">
+                        <input asp-for="TracingCourseModel.CourseEndDate" id="CourseEndDate" type="text" class="validat datepicker">
 
-                        <label for="UniversityCampus"></label>
+                        <label for="CourseEndDate"></label>
 
 
                     </div>
+
+
 
 
 
@@ -117,7 +122,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Numero</th>
+                            @*<th>Numero</th>*@
                             <th>Nombre del Curso</th>
                             <th>Duracion en Horas</th>
                             <th>Fecha en que fue impartido</th>
@@ -127,14 +132,22 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>$0.87</td>
-                            <td>$0.87</td>
-                            <td>$0.87</td>
-                            <td>$0.87</td>
-                        </tr>
+                        @foreach (var item in Model.TracingCourseList)
+                        {
+                            <tr>
+                                @*<td>@item.Id</td>*@
+                                <td>@item.CourseName</td>
+                                <td>@item.HoursTaken</td>
+                                <td>@item.CourseStartDate - @item.CourseEndDate</td>
+                                <td>@item.StudentsQuantity</td>
+                                <td>
+                                    <a class="tooltipped red-text" data-position="top" data-tooltip="Remover" href="#">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
 
                     </tbody>
                 </table>
@@ -166,7 +179,7 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Tipo de Documento</label>
                         </div>
-                        <select asp-for="CoordinatorId" class="form-control js-example-basic-single" style="width: 100%">
+                        <select asp-for="TracingCourseFileTypeModel.Id" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.DocumentTypes">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
@@ -200,17 +213,26 @@
                         <tr>
                             <th>Numero</th>
                             <th>Tipo de Documento</th>
-                            <th>Accion</th>
-                            <th>Acciones</th>
+                           <th>Acciones</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>$0.87</td>                    
-                        </tr>
+
+                        @foreach (var item in Model.TracingCourseFileList)
+                        {
+                            var numero = count++;
+                            <tr>
+                              
+                                <td>@numero</td>
+                                <td>@item.FileType.FileTypeName</td>
+                                <td><a href="\app-assets\documentos\teacher\@item?.File?.FilePath" target="_blank">Ver</a></td>
+                            </tr>
+                        }
+
+
+
+
 
                     </tbody>
                 </table>
@@ -231,12 +253,12 @@
 
 
 
-            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DesarrolloDelPlanDeEstudio">
+            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DesarrolloDelPlanDeEstudio"  asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
                 Atras
             </a>
 
-            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DocumentoParaElSistemaDeCalidad">
+            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DocumentoParaElSistemaDeCalidad" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
                 Siguiente
             </a>

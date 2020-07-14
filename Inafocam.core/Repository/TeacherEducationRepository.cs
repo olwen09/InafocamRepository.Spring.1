@@ -24,6 +24,11 @@ namespace Inafocam.core.Repository
             .Include(x => x.Teacher)
             .Include(x => x.TracingStudyPlanDevelopment);
 
+        public IEnumerable<TeacherEducation> GetAllByTeacherId(int teacherId)
+        {
+            return GetAll.Where(x => x.TeacherId == teacherId).ToList();
+        }
+
         public void Save(TeacherEducation model)
         {
             var now = DateTime.Now;

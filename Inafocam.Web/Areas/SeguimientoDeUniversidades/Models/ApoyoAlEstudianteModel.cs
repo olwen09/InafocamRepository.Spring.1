@@ -8,20 +8,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 {
     public class ApoyoAlEstudianteModel
     {
+        public int? ScholarshipProgramUniversityId { get; set; }
+        public int? TracingId { get; set; }
 
-        public long Id { get; set; }
-        public long TracingId { get; set; }
-        public long? IndicatorId { get; set; }
-        public long? QuestionId { get; set; }
-        public string Answer { get; set; }
-        public DateTime? CreationDate { get; set; }
-        public DateTime? UpgradeDate { get; set; }
-        public long? StatusId { get; set; }
+        public IEnumerable<ScholarshipProgramTracingStudentSupport> StudentSupportList { get; set; }
 
-        public virtual Status Status { get; set; }
-        public virtual ScholarshipProgramTracing Tracing { get; set; }
-
-        public  IEnumerable<Indicador> IndicadoresList { get; set; }
+       public  IEnumerable<Indicador> IndicadoresList { get; set; }
        public IEnumerable<Preguntas> PreguntasList { get; set; }
     }
 

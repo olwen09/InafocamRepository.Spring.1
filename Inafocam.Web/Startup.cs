@@ -304,6 +304,10 @@ namespace Andamios.Web
             services.AddScoped<IScholarshipProgramTracingCourseFile, ScholarshipProgramTracingCourseFileRepository>();
             services.AddScoped<IScholarshipProgramTracingAgreementFile, ScholarshipProgramTracingAgreementFileRepository>();
             services.AddScoped<ITracingStudyPlanDevelopment, TracingStudyPlanDevelopmentRepository>();
+            services.AddScoped<IScholarshipProgramTracingCourse, ScholarshipProgramTracingCourseRepository>();
+            services.AddScoped<IScholarshipProgramTracingCourseFileType, ScholarshipProgramTracingCourseFileTypeRepository>();
+            services.AddScoped<IScholarshipProgramTracingQualitySystemFileType, ScholarshipProgramTracingQualitySystemFileTypeRepository>();
+            services.AddScoped<IScholarshipProgramTracingQualitySystem, ScholarshipProgramTracingQualitySystemRepository>();
 
 
             #endregion

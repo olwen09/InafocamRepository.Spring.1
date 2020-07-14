@@ -10,6 +10,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
     {
 
         public int ScholarshipProgramTracingId { get; set; }
+        public int ScholarshipProgramUniversityId { get; set; }
         public ScholarshipProgramTracingAgreementModel ScholarshipProgramTracingAgreementModel { get; set; }
 
         public IEnumerable<ScholarshipProgramUniversityAgreement> ScholarshipProgramUniversityAgreementList { get; set; }

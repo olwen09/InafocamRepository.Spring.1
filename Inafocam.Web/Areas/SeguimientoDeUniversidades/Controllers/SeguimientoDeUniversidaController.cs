@@ -30,13 +30,24 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         private readonly IAgent _agent;
         private readonly ITracingStudyPlanDevelopment _tracingStudyPlanDevelopment;
         private readonly IContactCommunication _contactCommunication;
+        private readonly ITeacher _teacher;
+        private readonly IScholarshipProgramTracingCourse _scholarshipProgramTracingCourse;
+        private readonly IScholarshipProgramTracingCourseFile _tracingCourseFile;
+        private readonly IScholarshipProgramTracingCourseFileType _CourseFileType;
+        private readonly IScholarshipProgramTracingQualitySystemFileType _qualitySystemFileType;
+        private readonly IScholarshipProgramTracingQualitySystem _qualitySystem;
+        public int GlobalTracingId;
+        private int GlobalScholarshipProgramUniversityId;
      
         private readonly UserManager<Usuario> _userManager;
 
         public SeguimientoDeUniversidaController(IScholarshipProgramTracing scholarshipProgramTracing, IScholarshipProgramTracingStudentSupport studentSupport,
             IScholarshipProgramUniversity scholarshipProgramUniversity,IAgent agent,IContactCommunication contactCommunication ,
             IScholarshipProgramUniversityAgreement scholarshipProgramUniversityAgreement, IScholarshipProgramTracingAgreement scholarshipProgramTracingAgreement,
-            IScholarshipProgramTracingAgreementFile scholarshipProgramTracingAgreementFile, ITracingStudyPlanDevelopment tracingStudyPlanDevelopment, UserManager<Usuario> userManager)
+            IScholarshipProgramTracingAgreementFile scholarshipProgramTracingAgreementFile, ITracingStudyPlanDevelopment tracingStudyPlanDevelopment,ITeacher teacher 
+            ,UserManager<Usuario> userManager, IScholarshipProgramTracingCourse scholarshipProgramTracingCourse,
+            IScholarshipProgramTracingCourseFile tracingCourseFile, IScholarshipProgramTracingCourseFileType CourseFileType,
+            IScholarshipProgramTracingQualitySystemFileType qualitySystemFileType, IScholarshipProgramTracingQualitySystem qualitySystem)
         {
             _scholarshipProgramTracing = scholarshipProgramTracing;
             _studentSupport = studentSupport;
@@ -48,6 +59,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             _scholarshipProgramTracingAgreement = scholarshipProgramTracingAgreement;
             _scholarshipProgramTracingAgreementFile = scholarshipProgramTracingAgreementFile;
             _tracingStudyPlanDevelopment = tracingStudyPlanDevelopment;
+            _teacher = teacher;
+            _scholarshipProgramTracingCourse = scholarshipProgramTracingCourse;
+            _tracingCourseFile = tracingCourseFile;
+            _CourseFileType = CourseFileType;
+            _qualitySystemFileType = qualitySystemFileType;
+            _qualitySystem = qualitySystem;
         }
 
 
@@ -93,12 +110,19 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(model);
         }
 
-        public IActionResult InformacionPrincipal(int ScholarshipProgramTracingId)
+        public IActionResult InformacionPrincipal(int tracingId)
         {
-            var data = _scholarshipProgramTracing.GetById(ScholarshipProgramTracingId);
-          var model =  CopyPropierties.Convert<ScholarshipProgramTracing, InformacionPrincipalViewModel>(data);
           
-            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+          var data = _scholarshipProgramTracing.GetById(tracingId);
+          var model =  CopyPropierties.Convert<ScholarshipProgramTracing, InformacionPrincipalViewModel>(data);
+
+            GlobalTracingId = tracingId;
+
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { 
+                AgentTypeId = x.AgentTypeId, 
+                FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname 
+            });
+
             ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
             return View(model);
         }
@@ -122,51 +146,84 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
            
         }
 
-        public IActionResult Acuerdos(int scholarshipProgramUniversityId, int scholarshipProgramTracingId)
+        public IActionResult Acuerdos(int scholarshipProgramUniversityId, int tracingId)
         {
             var model = new AcuerdosViewModel();
-
+            var prueba = GlobalTracingId;
             model.ScholarshipProgramUniversityAgreementList = _scholarshipProgramUniversityAgreement.GetAllByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
-            model.ScholarshipProgramTracingId = scholarshipProgramTracingId;
+            model.ScholarshipProgramTracingId = tracingId;
+            model.ScholarshipProgramUniversityId= scholarshipProgramUniversityId;
             return View(model);
         }
 
-        public IActionResult DesarrolloDelPlanDeEstudio(int scholarshipProgramTracingId)
+        public IActionResult DesarrolloDelPlanDeEstudio(int tracingId,int scholarshipProgramUniversityId)
         {
 
-            var model = new DesarrolloDelPlanDeEstudioModel
+            var model = new DesarrolloDelPlanDeEstudioModel();
+           var prueba =  GlobalTracingId;
+
+            model.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId);
+            model.TracingStudyPlanDevelopmentModelList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId); ;
+            model.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+           
+
+            var teachers = _teacher.GetAll.Select(x => new TeacherIDAndName
             {
+                TeacherId = x.TeacherId,
+                TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
+            }).ToList();
 
-                TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(scholarshipProgramTracingId)
-            };
-            //var model = CopyPropierties.Convert<TracingStudyPlanDevelopment, TracingStudyPlanDevelopmentModel>(data);
-
+            ViewBag.Teacher = new SelectList(teachers, "TeacherId", "TeacherFullName");
 
             return View(model);
         }
 
-        public IActionResult ActividadesCoCurriculares()
+        public IActionResult ActividadesCoCurriculares(int tracingId, int scholarshipProgramUniversityId)
         {
-            return View();
+
+         var tracings = _scholarshipProgramTracingCourse.GetAllByTracingId(tracingId);
+
+            var model = new ActividadesCoCurricularesModel();
+            model.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.TracingCourseList = _scholarshipProgramTracingCourse.GetAvaliableTracingsById(tracingId);
+            model.TracingCourseFileList = _tracingCourseFile.GetAllByTracingId(tracingId);
+
+
+            ViewBag.DocumentTypes = new SelectList(_CourseFileType.GetAll, "Id", "FileTypeName");
+            
+            return View(model);
+        }
+        
+        public IActionResult DocumentoParaElSistemaDeCalidad(int tracingId, int scholarshipProgramUniversityId)
+        {
+            var model = new DocumentoParaElSistemaDeCalidadViewModel();
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.TracingId = tracingId;
+            model.QualitySystemList = _qualitySystem.GetAllByTracingId(tracingId);
+
+            ViewBag.QualitySystemFileTye = new SelectList(_qualitySystemFileType.GetAll, "Id", "FileTypeName");
+
+            return View(model);
         }
 
-        public IActionResult DocumentoParaElSistemaDeCalidad()
-        {
-            return View();
-        }
-
-        public IActionResult ApoyoAlStudiante()
+        public IActionResult ApoyoAlStudiante(int tracingId, int scholarshipProgramUniversityId)
         {
 
-            var studentSupport = _studentSupport.GetAllByTracingId(1);
+            var studentSupport = _studentSupport.GetAllByTracingId(tracingId);
 
 
-            //var data = CopyPropierties.Convert<ApoyoAlEstudianteModel, ScholarshipProgramTracingStudentSupport>(studentSupport);
+
 
             var model = new ApoyoAlEstudianteModel
             {
                 IndicadoresList = GetIndicadores().IndicadoresList,
-                PreguntasList = GetPreguntas().PreguntasList
+                PreguntasList = GetPreguntas().PreguntasList,
+                StudentSupportList = studentSupport,
+                TracingId = tracingId,
+                ScholarshipProgramUniversityId = scholarshipProgramUniversityId
+                
             };
           
             return View(model);

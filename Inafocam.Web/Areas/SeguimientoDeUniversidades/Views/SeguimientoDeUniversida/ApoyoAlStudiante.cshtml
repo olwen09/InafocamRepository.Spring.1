@@ -49,31 +49,40 @@
 
 
 
-            <h4 class="card-title">Pactados</h4>
+            <h4 class="card-title">	Apoyo al Estudiante</h4>
             <div class="divider"></div>
-            @foreach (var item in Model.IndicadoresList)
-            {
-                <ul class="collapsible collapsible-accordion">
-                    <li>
+            <form class="col s12">
+                @foreach (var item in Model.IndicadoresList)
+                {
+            <ul class="collapsible collapsible-accordion">
+                <li>
 
-                        <div class="collapsible-header">@item.IndicadorId . @item.IndicadorNombre</div>
-                        <div class="collapsible-body">
-                            <div class="row card">
+                    <div class="collapsible-header">@item.IndicadorId . @item.IndicadorNombre</div>
+                    <div class="collapsible-body">
+                        <div class="row card">
 
-                                <div class="card-content">
-                                    <form class="col s12">
-                                        <span class="card-title">Preguntas</span>
-                                        @foreach (var pregunta in Model.PreguntasList)
-                                        {
-                                            <div class="file-field input-field col s12 m6 l12">
-                                                <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                                <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
-                                            </div>
-                                        }
+                            <div class="card-content">
+
+                                <span class="card-title">Preguntas</span>
+                                @foreach (var pregunta in Model.PreguntasList)
+                                {
+
+                            @foreach (var answer in Model.StudentSupportList)
+                            {
+                                if (answer.IndicatorId == item.IndicadorId && answer.QuestionId == pregunta.PreguntaId)
+                                {
+                                    <div class="file-field input-field col s12 m6 l12">
+                                        <textarea asp-for="@answer.Answer" id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
+                                    </div>
+                                }
+
+
+                            }}
 
 
 
-                                        @*<div class="file-field input-field col s12 m6 l4 ">
+                                @*<div class="file-field input-field col s12 m6 l4 ">
             <textarea id="textarea1" class="materialize-textarea"></textarea>
             <label for="textarea1">Descripción que evidencie el cumplimiento</label>
         </div>
@@ -87,36 +96,21 @@
 
 
 
-                                        <div class="file-field input-field col s12 m6 l1">
-                                            <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
-                                        </div>
-                                        <br />
+
+                                <br />
 
 
-
-
-
-
-
-
-
-
-                                    </form>
-                                </div>
                             </div>
                         </div>
-                    </li>
-                    @*<li>
-                    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    </div>
                 </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>*@
-                </ul>
-            }
 
+
+            </ul>            }
+                <div class="file-field input-field col s12 m6 l1">
+                    <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
+                </div>
+            </form>
 
         </div>
 
@@ -132,12 +126,12 @@
 
 
 
-        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InformacionPrincipal">
+        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DocumentoParaElSistemaDeCalidad" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
             Atras
         </a>
 
-        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DesarrolloDelPlanDeEstudio">
+        <a class="teal btn waves-effect waves-light">
 
             Siguiente
         </a>
