@@ -67,6 +67,7 @@
                                 @foreach (var pregunta in Model.PreguntasList)
                                 {
 
+
                             @foreach (var answer in Model.StudentSupportList)
                             {
                                 if (answer.IndicatorId == item.IndicadorId && answer.QuestionId == pregunta.PreguntaId)
@@ -76,6 +77,7 @@
                                         <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
                                     </div>
                                 }
+                               
 
 
                             }}
@@ -131,7 +133,8 @@
             Atras
         </a>
 
-        <a class="teal btn waves-effect waves-light">
+        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="EstudiantesEnPractica" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+
 
             Siguiente
         </a>

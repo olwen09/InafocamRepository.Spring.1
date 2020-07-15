@@ -85,7 +85,7 @@
 
 
                                                         @*<i class="material-icons prefix">contacts</i>*@
-                                                     
+
                                                         <input asp-for="@item.SubjectMatter.SubjectMatterCode" id="codigodeasignatura" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="codigodeasignatura">Código Asignatura</label>
@@ -98,15 +98,18 @@
 
                                                     </div>
 
+                                                    @foreach (var universitySubjectMatter in item.SubjectMatter.ScholarshipProgramUniversitySubjectMatter)
+                                                    {
+                                                        <div class="input-field col s12 m6 l3">
 
-                                                    <div class="input-field col s12 m6 l3">
+                                                            <input asp-for="@universitySubjectMatter.SubjectMatterCredits" id="creditos" type="text" class="validat black-text" readonly disabled>
 
-                                                        <input  id="creditos" type="text" class="validat black-text" readonly disabled>
-
-                                                        <label for="creditos">Créditos</label>
+                                                            <label for="creditos">Créditos</label>
 
 
-                                                    </div>
+                                                        </div>
+                                                    }
+
 
 
                                                     <div class="input-field col s12 m6 l3">

@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="University.UniversityCampus" id="Campus" type="text" class="validat black-text" readonly disabled>
+                        <input asp-for="ScholarshipProgramUniversity.ScholarshipProgram.ScholarshipProgramName" id="Campus" type="text" class="validat black-text" readonly disabled>
 
                         <label for="Campus">Plan de Estudio</label>
 
@@ -275,7 +275,7 @@
 
 
 
-            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones">
+            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@Model?.ScholarshipProgramTracingId">
 
                Atras
             </a>

@@ -23,6 +23,7 @@ namespace Inafocam.core.Repository
             .Include(x => x.ScholarshipProgramTracing)
             .Include(x => x.Status)
             .Include(x => x.SubjectMatter)
+            .Include(x => x.SubjectMatter.ScholarshipProgramUniversitySubjectMatter)
             .Include(x => x.AssignedTeacher);
 
         public IEnumerable<TracingStudyPlanDevelopment> GetAllByProgramTracingId(int id)

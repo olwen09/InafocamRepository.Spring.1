@@ -81,7 +81,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(availableTracings);
         }
 
-        public IActionResult Instrucciones(int id,int programUniversityId)
+        public IActionResult Instrucciones(int tracingId,int programUniversityId)
         {
 
             var model = new InstruccionesViewModel();
@@ -104,7 +104,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             }
 
             model.InstruccionesList = lista;
-            model.ScholarshipProgramTracingId = id;
+            model.ScholarshipProgramTracingId = tracingId;
             model.ScholarshipProgramUniversityId = programUniversityId;
 
             return View(model);
@@ -230,6 +230,21 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         }
 
 
+        public IActionResult EstudiantesEnPractica(int tracingId, int scholarshipProgramUniversityId)
+        {
+            return View();
+        }
+
+
+        public IActionResult PlanificaciónDeLaPráctica(int tracingId, int scholarshipProgramUniversityId)
+        {
+            return View();
+        }     
+        
+        public IActionResult SeguimientoALaPráctica(int tracingId, int scholarshipProgramUniversityId)
+        {
+            return View();
+        }
         public ApoyoAlEstudianteModel GetIndicadores()
         {
             string[] indicadores =

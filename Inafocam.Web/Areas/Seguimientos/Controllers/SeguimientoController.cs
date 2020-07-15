@@ -83,5 +83,20 @@ namespace Inafocam.Web.Areas.Seguimientos.Controllers
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View("Crear",model);
         }
+
+
+
+        public IActionResult DesarrolloDelPlanDeEstudio()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// ProgramaDeBecasMateriaUniversitario
+        /// </summary>
+        public IActionResult ProgramaDeBecasMateriaUniversitaria()
+        {
+            return View();
+        }
     }
 }
