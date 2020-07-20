@@ -25,13 +25,16 @@
                 @*<td>@item.ScholarshipProgramUniversity.ScholarshipProgram.ScholarshipProgramName</td>*@
                 <td>@item?.ScholarshipProgramUniversity.ScholarshipProgram?.ScholarshipProgramName</td>
                 <td>@item?.ScholarshipProgramUniversity?.University?.UniversityName</td>
-                <td>@item?.Coordinator.Contact?.ContactName</td>
+                <td>@item?.Coordinator?.Contact?.ContactName</td>
                 <td>@item?.StartDate  - @item?.EndDate</td>
                 <td>@item?.Status?.StatusName</td>
                 <td class="blue-text">
                     <a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="Editar" asp-route-id="@item.ScholarshipProgramTracingId">
                         <i class="material-icons">edit</i>
 
+                    </a>
+                    <a  asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="ProgramaDeBecasMateriaUniversitaria" asp-route-scholarshipProgramUniversityId="@item.ScholarshipProgramUniversityId" asp-route-tracingId="@item.ScholarshipProgramTracingId" class="tooltipped" data-position="top" data-tooltip="Agregar Desarrollo de Plan de Estudio">
+                        <i class="material-icons">library_books</i>
                     </a>
                 </td>
             </tr>

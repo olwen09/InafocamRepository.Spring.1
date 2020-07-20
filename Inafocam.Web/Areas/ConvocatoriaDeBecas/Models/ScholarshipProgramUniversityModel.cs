@@ -35,6 +35,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Models
         public virtual ICollection<ScholarshipProgramTracing> ScholarshipProgramTracing { get; set; }
         public virtual ICollection<ScholarshipProgramUniversityAgent> ScholarshipProgramUniversityAgent { get; set; }
         public virtual ICollection<ScholarshipProgramUniversityAgreement> ScholarshipProgramUniversityAgreement { get; set; }
+        public virtual IEnumerable<TracingStudyPlanDevelopment> TracingStudyPlanDevelopmentList { get; set; }
         public virtual ICollection<ScholarshipProgramUniversitySubjectMatter> ScholarshipProgramUniversitySubjectMatter { get; set; }
     }
 }

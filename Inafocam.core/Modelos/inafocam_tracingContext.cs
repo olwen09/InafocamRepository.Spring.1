@@ -85,6 +85,7 @@ namespace Inafocam.core.Modelos
 
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        //public virtual DbSet<ComponentFileType> ComponentFileTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -2762,6 +2763,8 @@ namespace Inafocam.core.Modelos
                 entity.Property(e => e.CreationDate).HasColumnName("creation_date");
 
                 entity.Property(e => e.CreationUserId).HasColumnName("creation_user_id");
+
+                entity.Property(e => e.CreationUserId).HasColumnName("creditos");
 
                 entity.Property(e => e.DesertedStudentsQuantity).HasColumnName("deserted_students_quantity");
 

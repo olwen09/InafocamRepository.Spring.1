@@ -37,10 +37,17 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" method="post" asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="GuardarUniverity">
+    <form class="col s12 formValidate" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveInformacionPrincipal">
 
         <input type="hidden" asp-for="UniversityId" />
         <input type="hidden" asp-for="CreationDate" />
+        <input type="hidden" asp-for="ScholarshipProgramTracingId" />
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        <input type="hidden" asp-for="TechnicalId" />
+        <input type="hidden" asp-for="StatusId" />
+        <input type="hidden" asp-for="StartDate" />
+        <input type="hidden" asp-for="EndDate" />
+        @*<input type="hidden" asp-for="" />*@
 
         @*<input type="hidden" asp-for="Com" />*@
 
@@ -99,7 +106,7 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input asp-for="StartDate" id="StartDate" type="text" class="validat">
+                        <input asp-for="StartDate" id="StartDate" type="text" class="validat black-text" readonly disabled>
 
                         <label for="StartDate">Fecha apertura</label>
 
@@ -124,7 +131,7 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Cordinador Responsable</label>
                         </div>
-                        <select id="CoordinatorId" class="CoordinatorId form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Coordinator">
+                        <select asp-for="CoordinatorId" id="CoordinatorId" class="CoordinatorId form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Coordinator">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
@@ -232,7 +239,7 @@
                         <label for="totalHoras">Total Horas</label>
                     </div>
 
-                    </div>
+                </div>
 
                 <div class="row">
                     <div class="input-field col s12 m6 l3">
@@ -275,19 +282,22 @@
 
 
 
-            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@Model?.ScholarshipProgramTracingId">
 
-               Atras
-            </a>
-
-            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Acuerdos"  asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.ScholarshipProgramTracingId">
-
-                Siguiente
-            </a>
 
         </div>
+        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@Model?.ScholarshipProgramTracingId">
 
+            Atras
+        </a>
+
+        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Acuerdos" asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.ScholarshipProgramTracingId">
+
+            Siguiente
+        </a> 
+
+        <button class="teal btn waves-effect waves-light"  type="submit">Guardar</button>
     </form>
+  
 </div>
 
 @section Scripts
@@ -330,6 +340,10 @@
         });
 
         $(document).ready(function () {
+            //var selectedId = $(this).children("option:selected").val();
+            //GetEmail(selectedId);
+            //GetTelefono(selectedId);
+            //console.log(selectedId);
             $("select.CoordinatorId").change(function () {
                 var selectedId = $(this).children("option:selected").val();
                 GetEmail(selectedId);

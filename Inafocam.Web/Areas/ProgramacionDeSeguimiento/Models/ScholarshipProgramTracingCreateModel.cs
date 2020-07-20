@@ -9,6 +9,7 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models
     public class GetAgents
     {
         public long? AgentTypeId { get; set; }
+        public long? AgentId { get; set; }
 
         public string FullName { get; set; }
 

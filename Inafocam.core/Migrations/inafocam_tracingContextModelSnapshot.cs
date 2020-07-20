@@ -3372,16 +3372,16 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<bool>("EmailConfirmed")
+                    b.Property<short>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Estado")
+                    b.Property<short>("Estado")
                         .HasColumnType("bit");
 
                     b.Property<string>("Imagen")
                         .HasColumnType("text");
 
-                    b.Property<bool>("LockoutEnabled")
+                    b.Property<short>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
@@ -3402,7 +3402,7 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<bool>("PhoneNumberConfirmed")
+                    b.Property<short>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Role")
@@ -3411,7 +3411,7 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
-                    b.Property<bool>("TwoFactorEnabled")
+                    b.Property<short>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")

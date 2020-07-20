@@ -21,7 +21,7 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
 {
     [Area("Usuarios"), ReturnArea("Usuarios")]
     [ReturnControllador("Usuarios"), ReturnController("Usuario")]
-    [Authorize]
+    [Authorize(Roles  = "ADMINISTRADOR INAFOCAM")]
     public class UsuarioController : Controller
     {
 
@@ -365,12 +365,7 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
         }
 
 
-        public async Task<IActionResult> LogOut()
-        {
-            await _signInManager.SignOutAsync();
 
-            return RedirectToAction("Index", "Home", new { area = "" });
-        }
 
         [AllowAnonymous]
         [ReturnVista("Cambiar Estado"), ReturnViewAtttribute("CambiarEstado")]

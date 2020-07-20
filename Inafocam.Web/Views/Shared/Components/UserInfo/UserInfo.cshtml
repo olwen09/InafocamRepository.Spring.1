@@ -104,7 +104,7 @@
     {
         <li><a class="grey-text text-darken-1" asp-area="Identity" asp-controller="Account" asp-action="PerfilUsuario" asp-route-id="@Model.Id"><i class="material-icons">lock_outline</i>Perfil de usuario</a></li>
         @*<li><a class="grey-text text-darken-1" asp-area="Usuarios" asp-controller="Usuario" asp-action="Lock" asp-route-id="@Model.Id"><i class="material-icons">lock_outline</i>@ShareLocalizer["Bloquear sesión"]</a></li>*@
-        <li><a class="grey-text text-darken-1" asp-area="Usuarios" asp-controller="Usuario" asp-action="LogOut"><i class="material-icons">keyboard_tab</i>Cerrar Sesión</a></li>
+        <li><a class="grey-text text-darken-1"  asp-area="Identity" asp-controller="Account" asp-action="LogOut"><i class="material-icons">keyboard_tab</i>Cerrar Sesión</a></li>
         @*<li> <a class="twitter" data-title="Goto twitter?" onclick="idioma('@Url.Action("SetLanguage", "Home", new{ area = "", returnUrl=returnUrl, culture="es"})')">Goto twitter</a></li>*@
     }
 

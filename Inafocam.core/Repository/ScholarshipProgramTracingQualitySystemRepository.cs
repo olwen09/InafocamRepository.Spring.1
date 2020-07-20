@@ -29,18 +29,27 @@ namespace Inafocam.core.Repository
         }
 
         public void Save(ScholarshipProgramTracingQualitySystem model)
-        {
+            {
             var now = DateTime.Now;
 
             if(model.QualityFileId != 0)
             {
+                var currentData = _context.ScholarshipProgramTracingQualitySystem.Find(model.QualityFileId);
+                model.File.UpgradeDate = now;
                 model.UpgradeDate = now;
-                _context.ScholarshipProgramTracingQualitySystem.Update(model);
+
+                _context.Entry(currentData).CurrentValues.SetValues(model);
+                _context.Entry(currentData).State = EntityState.Modified;
+
+                var prueba = 0;
             }
             else
             {
                 model.CreationDate = now;
                 _context.Add(model);
+
+
+
             }
             _context.SaveChanges();
         }

@@ -34,13 +34,14 @@ namespace Andamios.Web.Controllers {
         [Layout ("_layout")]
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index () {
+        public async Task<IActionResult> Index () 
+        {
 
-            var claims = User.Claims.Select (c =>
-                new {
-                    c.Type,
-                        c.Value
-                }).ToList ();
+            //var claims = User.Claims.Select (c =>
+            //    new {
+            //        c.Type,
+            //            c.Value
+            //    }).ToList ();
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
@@ -50,7 +51,9 @@ namespace Andamios.Web.Controllers {
                 return View("StartPage");
             }
 
-            return View("Home",user);
+            return RedirectToAction("Home", new { });
+
+            //return View("Home",user);
         }
 
         public IActionResult Lock () {
@@ -58,12 +61,21 @@ namespace Andamios.Web.Controllers {
         }
 
         [Layout ("_layout")]
- 
-        public IActionResult Home () {
-
-
+        public IActionResult Home () 
+        {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
+
+            if (user.Role == "GESTIÓN UNIVERSITARIA")
+            {
+                return RedirectToAction("Index", "SeguimientoDeUniversida", new { Area = "SeguimientoDeUniversidades" });
+            }
+            else if (user.Role == "ADMINISTRADOR INAFOCAM")
+            {
+                return View(user);
+            }
+
+        
             return View (user);
         }
         [AllowAnonymous]

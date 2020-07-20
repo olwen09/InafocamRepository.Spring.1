@@ -308,6 +308,8 @@ namespace Andamios.Web
             services.AddScoped<IScholarshipProgramTracingCourseFileType, ScholarshipProgramTracingCourseFileTypeRepository>();
             services.AddScoped<IScholarshipProgramTracingQualitySystemFileType, ScholarshipProgramTracingQualitySystemFileTypeRepository>();
             services.AddScoped<IScholarshipProgramTracingQualitySystem, ScholarshipProgramTracingQualitySystemRepository>();
+            services.AddScoped<IFile, FileRepository>();
+            services.AddScoped<IScholarshipProgramUniversitySubjectMatter, ScholarshipProgramUniversitySubjectMatterRepository>();
 
 
             #endregion

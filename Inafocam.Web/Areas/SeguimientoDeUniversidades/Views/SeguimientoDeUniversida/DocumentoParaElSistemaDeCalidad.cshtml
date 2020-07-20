@@ -34,10 +34,17 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" method="post" asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="GuardarUniverity">
+    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveDocumentoParaElSistemaDeCalidad" >
+
+
+        <input type="hidden" asp-for="TracingId" />
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        <input type="hidden" asp-for="QualitySystemModel.TracingId" />
+        <input type="hidden" asp-for="QualitySystemModel.QualityFileId" />
+        <input type="hidden" asp-for="QualitySystemModel.FileId" />
 
         @*<input type="hidden" asp-for="UniversityId" />
-            <input type="hidden" asp-for="CreationDate" />*@
+        <input type="hidden" asp-for="CreationDate" />*@
 
         @*<input type="hidden" asp-for="Com" />*@
 
@@ -63,8 +70,8 @@
                             <label for="select2User" class="col s12">Tipo de Documento</label>
                         </div>
                         <select asp-for="QualitySystemModel.FileTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(QualitySystemFileTye.GetAll,"Id","FileTypeName"))">
-                                <option value="" disabled selected>Seleccione una Opción</option>
-                            </select>
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
 
                     </div>
 
@@ -112,8 +119,9 @@
                 <td>@numero</td>
                 <td>@item?.FileType?.FileTypeName</td>
                 <td>
-                <td><a class="left" href="\app-assets\documentos\teacher\@item?.File?.FilePath" target="_blank">Ver</a></td>
-            </tr>}
+                <td><a class="left" href="\app-assets\documentos\documentosparaelsistemadecalidad\@item?.File?.FilePath" target="_blank">Ver</a></td>
+            </tr>
+}
 
 
                     </tbody>
@@ -122,11 +130,11 @@
 
             </div>
             @*<div class="input-field col s12">
-                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                        Guardar
-                        <i class="material-icons right">save</i>
-                    </button>
-                </div>*@
+                <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                    Guardar
+                    <i class="material-icons right">save</i>
+                </button>
+            </div>*@
         </div>
 
         <div class="input-field col s12">

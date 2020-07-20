@@ -67,6 +67,13 @@ namespace Inafocam.Web.Areas.Identity.Controllers
             return View();
         }
 
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Authorize(Policy = Constante.UsuarioCanRead)]
@@ -256,12 +263,12 @@ namespace Inafocam.Web.Areas.Identity.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> LogOut()
-        {
-            await _signInManager.SignOutAsync();
+        //public async Task<IActionResult> LogOut()
+        //{
+        //    await _signInManager.SignOutAsync();
 
-            return RedirectToAction("Index", "Home", new { area = "" });
-        }
+        //    return RedirectToAction("Index", "Home", new { area = "" });
+        //}
 
 
         [AllowAnonymous]
@@ -434,6 +441,8 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
             return rsvm;
         }
+
+
 
         [HttpPost]
         [AllowAnonymous]

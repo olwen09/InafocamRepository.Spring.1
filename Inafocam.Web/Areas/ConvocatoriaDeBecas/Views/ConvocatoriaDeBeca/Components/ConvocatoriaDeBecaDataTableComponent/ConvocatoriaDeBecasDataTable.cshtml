@@ -10,6 +10,7 @@
             <th class="center"> Id </th>
             <th>Programa</th>
             <th>Universidad</th>
+            <th>Codigo de SCAT</th>
             <th>Periodo de Convocatoria</th>
             <th>Periodo para el Programa</th>
             <th>Nivel</th>
@@ -26,6 +27,7 @@
             <td>@item?.ScholarshipProgramUniversityId</td>
             <td>@item?.ScholarshipProgram?.ScholarshipProgramName</td>
             <td>@item?.University?.UniversityName</td>
+            <td>@item?.ScatProgramCode</td>
             <td>@item.AnnouncementStartDate?.ToString("D", CultureInfo.GetCultureInfo("es")) - @item.AnnouncementEndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
             <td>@item.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es")) - @item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
             <td>@item.ScholarshipLevel?.ScholarshipLevelName</td>
@@ -34,7 +36,9 @@
             <td>
                 <a asp-area="ConvocatoriaDeBecas" asp-controller="ConvocatoriaDeBeca" asp-action="Editar" asp-route-id="@item.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Editar">
                     <i class="material-icons">edit</i>
-                </a>
+                </a> 
+                
+               
             </td>
         </tr>
         }
@@ -46,12 +50,13 @@
     <tfoot>
         <tr>
 
-            <th>Convocatoria <br /> Id</th>
-            <th>Nivel</th>
+            <th class="center"> Id </th>
             <th>Programa</th>
             <th>Universidad</th>
+            <th>Codigo de SCAT</th>
             <th>Periodo de Convocatoria</th>
-            <th>Periodo de Progrma</th>
+            <th>Periodo para el Programa</th>
+            <th>Nivel</th>
             <th>Estado</th>
             <th>Acciones</th>
 

@@ -19,12 +19,15 @@ namespace Inafocam.core.Repository
 
         public IEnumerable<TracingStudyPlanDevelopment> GetAll => _context.TracingStudyPlanDevelopment
             .Include(x => x.Teacher)
+            .Include(x => x.Teacher.Contact)
             .Include(x => x.AssignedTeacher)
+            .Include(x => x.AssignedTeacher.Contact)
             .Include(x => x.ScholarshipProgramTracing)
             .Include(x => x.Status)
             .Include(x => x.SubjectMatter)
             .Include(x => x.SubjectMatter.ScholarshipProgramUniversitySubjectMatter)
-            .Include(x => x.AssignedTeacher);
+            .Include(x => x.AssignedTeacher)
+            .Include(x => x.SubjectMatterScoreReportFile);
 
         public IEnumerable<TracingStudyPlanDevelopment> GetAllByProgramTracingId(int id)
         {

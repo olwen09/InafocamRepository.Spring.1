@@ -66,9 +66,9 @@
 
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.Id" />
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.UserName" />
-            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Nombre" />
+            @*<input type="hidden" asp-for="@Model.EditarUsuarioModel.Nombre" />
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.Apellido" />
-            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Email" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Email" />*@
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.Estado" />
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.Imagen" />
 
@@ -142,8 +142,8 @@
                             <div class="row margin">
                                 <div class="input-field col s9">
                                     <i class="material-icons prefix pt-2">face</i>
-                                    <input disabled class="validate" id="nombre" type="text" asp-for="@Model.EditarUsuarioModel.Nombre">
-                                    <label for="username" class="center-align">Nombre</label>
+                                    <input class="validate" id="nombre" type="text" asp-for="@Model.EditarUsuarioModel.Nombre">
+                                    <label for="nombre" class="center-align">Nombre</label>
                                     <span asp-validation-for="@Model.EditarUsuarioModel.Nombre" class="red-text"></span>
 
                                 </div>
@@ -152,8 +152,8 @@
                             <div class="row margin">
                                 <div class="input-field col s9">
                                     <i class="material-icons prefix pt-2">face</i>
-                                    <input disabled class="validate" id="apellido" type="text" asp-for="EditarUsuarioModel.Apellido">
-                                    <label for="username" class="center-align ">Apellido</label>
+                                    <input  class="validate" id="apellido" type="text" asp-for="EditarUsuarioModel.Apellido">
+                                    <label for="apellido" class="center-align ">Apellido</label>
                                     <span asp-validation-for="EditarUsuarioModel.Apellido" class="red-text"></span>
 
                                 </div>
@@ -180,8 +180,8 @@
                             <div class="row margin">
                                 <div class="input-field col s9">
                                     <i class="material-icons prefix pt-2">mail_outline</i>
-                                    <input disabled class="validate" id="email" type="text" asp-for="@Model.EditarUsuarioModel.Email">
-                                    <label for="username" class="center-align">Email</label>
+                                    <input  class="validate" id="email" type="text" asp-for="@Model.EditarUsuarioModel.Email">
+                                    <label for="email" class="center-align">Email</label>
                                     <span asp-validation-for="@Model.EditarUsuarioModel.Email" class="red-text"></span>
 
                                 </div>

@@ -51,17 +51,30 @@
 
             @foreach (var item in Model.TracingStudyPlanDevelopmentList)
             {
+                Model.TracingStudyPlanDevelopmentModel = item;
+
                 <ul class="collapsible collapsible-accordion">
                     <li>
                         <div class="collapsible-header" style="background-color:#eeeeee ">@item.SubjectMatter.SubjectMatterCode - @item.SubjectMatter.SubjectMatterName</div>
                         <div class="collapsible-body">
                             <div class="row">
-
+                                
                                 <div class="">
-                                    <form class="col s12 formValidate" method="post" >
+                                    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveDesarrolloDelPlanDeEstudio" >
 
-                                        @*<input type="hidden" asp-for="UniversityId" />
-                                    <input type="hidden" asp-for="CreationDate" />*@
+
+
+                                        <input type="hidden" asp-for="TracingId" />
+                                        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.Id" />
+                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StatusId" />
+                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.ScholarshipProgramTracingId" />
+                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterId" />
+                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.CreationDate" />
+                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFileId" />
+                                        @*<input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterId" />*@
+                                        @*<input type="hidden" asp-for="TracingStudyPlanDevelopmentModel." />*@
+            @*<input type="hidden" asp-for="CreationDate" />*@
 
                                         @*<input type="hidden" asp-for="Com" />*@
 
@@ -86,13 +99,13 @@
 
                                                         @*<i class="material-icons prefix">contacts</i>*@
 
-                                                        <input asp-for="@item.SubjectMatter.SubjectMatterCode" id="codigodeasignatura" type="text" class="validat black-text" readonly disabled>
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.SubjectMatter.SubjectMatterCode" id="codigodeasignatura" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="codigodeasignatura">Código Asignatura</label>
                                                     </div>
 
                                                     <div class="input-field col s12 m6 l3">
-                                                        <input asp-for="@item.SubjectMatter.SubjectMatterName" id="asignaturaimpartida" type="text" class="validat black-text" readonly disabled>
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.SubjectMatter.SubjectMatterName" id="asignaturaimpartida" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="asignaturaimpartida">Asignatura Impartida</label>
 
@@ -100,21 +113,21 @@
 
                                                     @foreach (var universitySubjectMatter in item.SubjectMatter.ScholarshipProgramUniversitySubjectMatter)
                                                     {
-                                                        <div class="input-field col s12 m6 l3">
+                                                    <div class="input-field col s12 m6 l3">
 
-                                                            <input asp-for="@universitySubjectMatter.SubjectMatterCredits" id="creditos" type="text" class="validat black-text" readonly disabled>
+                                                        <input asp-for="@universitySubjectMatter.SubjectMatterCredits" id="creditos" type="text" class="validat black-text" readonly disabled>
 
-                                                            <label for="creditos">Créditos</label>
+                                                        <label for="creditos">Créditos</label>
 
 
-                                                        </div>
+                                                    </div>
                                                     }
 
 
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input id="StartDate" type="text" class="validat black-text" readonly disabled>
+                                                        <input id="StartDate" type="text" class="validat black-text">
 
                                                         <label for="StartDate">Periodo académico en que se impartió</label>
 
@@ -132,34 +145,28 @@
                                                             <label for="select2User" class="col s12">Docente que la  impartió</label>
                                                         </div>
 
-                                                        @{ 
-                                                           var numero = index++;
-                                                        }
-                                                        <select   class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
+                                                        @{ var numero = index++; }
+                                                        <select class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
                                                             <option value="" disabled selected></option>
                                                         </select>
 
 
                                                     </div>
 
-                                                    @{ 
-                                                        
-
-
-                                                    }
+                                                    @{ }
 
                                                     @*<div class="input-field col s12 m6 l3">
-                                                        <div class="row">
-                                                            <label for="select2User" class="col s12">Títulación del perfil por el cual hizo la asignación</label>
-                                                        </div>
-                                                        <select id="HigherTitleSupportMatterId" class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(IteacherEducation.GetAllByTeacherId(1),"TeacherEducationId","TeacherEducationTitle"))">
-                                                            <option  value="" disabled selected></option>
-                                                        </select>
-                                                    </div>*@
+                            <div class="row">
+                                <label for="select2User" class="col s12">Títulación del perfil por el cual hizo la asignación</label>
+                            </div>
+                            <select id="HigherTitleSupportMatterId" class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(IteacherEducation.GetAllByTeacherId(1),"TeacherEducationId","TeacherEducationTitle"))">
+                                <option  value="" disabled selected></option>
+                            </select>
+                        </div>*@
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="@item.ScoreAverageStudents" id="" type="text" class="validat black-text" readonly disabled>
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ScoreAverageStudents" id="" type="text" class="validat black-text">
 
                                                         <label for="">Promedio de calificación del total de estudiantes</label>
 
@@ -168,7 +175,7 @@
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="@item.ApprovedStudentsQuantity" id="Telefono" type="text" class="validat black-text" readonly disabled>
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ApprovedStudentsQuantity" id="Telefono" type="text" class="validat black-text">
 
                                                         <label for="Telefono">Cantidad de estudiantes promovidos</label>
 
@@ -179,7 +186,7 @@
                                                 <div class="row">
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="@item.ReprovedStudentsQuantity" id="cantidadestudiantesreprobado" type="text" class="validat black-text" readonly disabled>
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ReprovedStudentsQuantity" id="cantidadestudiantesreprobado" type="text" class="validat black-text">
 
                                                         <label for="cantidadestudiantesreprobado">Cantidad de estudiantes reprobado</label>
 
@@ -188,7 +195,7 @@
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="@item.DesertedStudentsQuantity" id="cantidadestudiantesretirados" type="text" class="validat black-text" readonly disabled>
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.DesertedStudentsQuantity" id="cantidadestudiantesretirados" type="text" class="validat black-text">
 
                                                         <label for="cantidadestudiantesretirados">Cantidad de Estudiantes Retirados</label>
 
@@ -207,9 +214,9 @@
 
                                                     <div class="input-field col s12 m6 l1">
 
-                                                       <br />
+                                                        <br />
 
-                                                        <a href="#">Ver Reporte</a>
+                                                        <a href="\app-assets\documentos\desarrollodelplandeestudio\@item?.SubjectMatterScoreReportFile?.FilePath" target="_blank">Ver</a>
 
 
                                                     </div>

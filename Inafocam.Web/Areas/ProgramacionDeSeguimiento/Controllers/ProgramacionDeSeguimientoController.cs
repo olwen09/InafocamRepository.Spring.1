@@ -26,14 +26,16 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
         private readonly IAgent  _agent;
         private readonly IAgentType  _agentType;
         private readonly IStatus _status;
+        private readonly ISubjectMatter _subjectMatter;
+        private readonly ITracingStudyPlanDevelopment _tracingStudyPlanDevelopment;
+        private readonly ITeacher _teacher;
+        private readonly IScholarshipProgramUniversitySubjectMatter _scholarshipProgramUniversitySubjectMatter;
 
         public ProgramacionDeSeguimientoController(IScholarshipProgramTracing scholarshipProgramTracing,
-            IUniversity university,
-            IScholarshipProgramUniversity scholarshipProgramUniversity,
-            IAgent agent,
-            IScholarshipProgram scholarshipProgram,
-            IAgentType agentType
-            , IStatus status)
+            IUniversity university,ITracingStudyPlanDevelopment tracingStudyPlanDevelopment,
+            IScholarshipProgramUniversity scholarshipProgramUniversity,IAgent agent, IScholarshipProgram scholarshipProgram,
+            IAgentType agentType, IStatus status,ISubjectMatter subjectMatter,ITeacher teacher,
+            IScholarshipProgramUniversitySubjectMatter scholarshipProgramUniversitySubjectMatter)
         {
             _scholarshipProgramTracing = scholarshipProgramTracing;
             _university = university;
@@ -42,6 +44,10 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
             _scholarshipProgram = scholarshipProgram;
             _agentType = agentType;
             _status = status;
+            _subjectMatter = subjectMatter;
+            _teacher = teacher;
+            _tracingStudyPlanDevelopment = tracingStudyPlanDevelopment;
+            _scholarshipProgramUniversitySubjectMatter = scholarshipProgramUniversitySubjectMatter;
         }
     
 
@@ -80,16 +86,15 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
            
 
             var scholarshipProgramTracingModel = CopyPropierties.Convert<ScholarshipProgramTracing, ScholarshipProgramTracingModel>(scholarshipProgramTracing);
-            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
-            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
                .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
 
 
-
             ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramName");
-            ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
-            ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
+            ViewBag.Coordinator = new SelectList(coordinators, "AgentId", "FullName");
+            ViewBag.Technical = new SelectList(technicals, "AgentId", "FullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
 
@@ -116,5 +121,57 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
 
             return View("Index",scholarshipProgramTracing);
         }
+
+        public IActionResult ProgramaDeBecasMateriaUniversitaria(int scholarshipProgramUniversityId,int tracingId)
+        {
+            var model = new ProgramaDeBecasMateriaUniversitariaViewModel();
+            var subjectMatterList = _subjectMatter.GetAll.Select(x => new SubjectMatterProp {
+                SubjectMatterId = x.SubjectMatterId, SubjectMatterCode = x.SubjectMatterCode.ToString() + ", " + x.SubjectMatterName.ToString() 
+            });
+            var teachers = _teacher.GetAll.Select(x => new TeacherInfo
+            {
+                TeacherId = x.TeacherId,
+                TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
+            });
+
+            model.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId);
+            model.TracingId = tracingId;
+            model.ProgramUniversityId = scholarshipProgramUniversityId;
+
+            ViewBag.Teachers = new SelectList(teachers, "TeacherId", "TeacherFullName");
+            ViewBag.SubjectMatter = new SelectList(subjectMatterList, "SubjectMatterId", "SubjectMatterCode");
+            return View(model);
+        }
+
+        public IActionResult SaveProgramaDeBecasMateriaUniversitaria(ProgramaDeBecasMateriaUniversitariaViewModel model)
+        {
+            var tracingStudyPlanDevelopment = new TracingStudyPlanDevelopment();
+            tracingStudyPlanDevelopment.SubjectMatterId = model.TracingStudyPlanDevelopmentModel.SubjectMatterId;
+            tracingStudyPlanDevelopment.ScholarshipProgramTracingId = model.TracingId;
+            tracingStudyPlanDevelopment.TeacherId = model.TracingStudyPlanDevelopmentModel.TeacherId;
+            tracingStudyPlanDevelopment.Creditos = model.TracingStudyPlanDevelopmentModel.Creditos;
+
+            var scholarshipProgramUniversitySubjectMatter = new ScholarshipProgramUniversitySubjectMatter();
+            scholarshipProgramUniversitySubjectMatter.ScholarshipProgramUniversityId = model.ProgramUniversityId;
+            scholarshipProgramUniversitySubjectMatter.SubjectMatterId = model.TracingStudyPlanDevelopmentModel.SubjectMatterId;
+            scholarshipProgramUniversitySubjectMatter.TeacherId = model.TracingStudyPlanDevelopmentModel.TeacherId;
+            scholarshipProgramUniversitySubjectMatter.SubjectMatterCredits = model.SubjectMatterCredits;
+
+
+            try
+            {
+                _tracingStudyPlanDevelopment.Save(tracingStudyPlanDevelopment);
+                _scholarshipProgramUniversitySubjectMatter.Save(scholarshipProgramUniversitySubjectMatter);
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("ProgramaDeBecasMateriaUniversitaria", new { scholarshipProgramUniversityId = model.ProgramUniversityId, tracingId = model.TracingId });
+            }
+
+            return RedirectToAction("ProgramaDeBecasMateriaUniversitaria", new { scholarshipProgramUniversityId = model.ProgramUniversityId, tracingId = model.TracingId });
+
+        }
+
+
     }
 }

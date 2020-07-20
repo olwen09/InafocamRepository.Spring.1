@@ -71,6 +71,9 @@
 
   <ItemGroup>
     <Folder Include="Helpers\NewFolder\" />
+    <Folder Include="wwwroot\app-assets\documentos\Acuerdos\" />
+    <Folder Include="wwwroot\app-assets\documentos\Desarrollodelplandeestudio\" />
+    <Folder Include="wwwroot\app-assets\documentos\DocumentosParaElSistemaDeCalidad\" />
     <Folder Include="wwwroot\app-assets\images\inventario\" />
     <Folder Include="wwwroot\app-assets\images\piezas\" />
   </ItemGroup>

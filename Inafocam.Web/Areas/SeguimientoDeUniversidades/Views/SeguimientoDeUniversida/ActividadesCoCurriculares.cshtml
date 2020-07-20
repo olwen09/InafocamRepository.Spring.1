@@ -35,10 +35,13 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" method="post" asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="GuardarUniverity">
+    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveActividadesCoCurriculares" >
 
+
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        <input type="hidden" asp-for="TracingId" />
         @*<input type="hidden" asp-for="UniversityId" />
-        <input type="hidden" asp-for="CreationDate" />*@
+            <input type="hidden" asp-for="CreationDate" />*@
 
         @*<input type="hidden" asp-for="Com" />*@
 
@@ -69,7 +72,7 @@
                     </div>
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="TracingCourseModel.HoursTaken" id="HoursTaken" type="text" class="validat">
+                        <input asp-for="TracingCourseModel.HoursTaken" id="HoursTaken" type="number" class="validat">
 
                         <label for="HoursTaken">Duración en Horas</label>
 
@@ -77,7 +80,7 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        <input asp-for="TracingCourseModel.StudentsQuantity" id="UniversityCampus" type="text" class="validat">
+                        <input asp-for="TracingCourseModel.StudentsQuantity" id="UniversityCampus" type="number" class="validat">
 
                         <label for="UniversityCampus">Cantidad de Participantes</label>
 
@@ -134,19 +137,18 @@
                     <tbody>
                         @foreach (var item in Model.TracingCourseList)
                         {
-                            <tr>
-                                @*<td>@item.Id</td>*@
-                                <td>@item.CourseName</td>
-                                <td>@item.HoursTaken</td>
-                                <td>@item.CourseStartDate - @item.CourseEndDate</td>
-                                <td>@item.StudentsQuantity</td>
-                                <td>
-                                    <a class="tooltipped red-text" data-position="top" data-tooltip="Remover" href="#">
-                                        <i class="material-icons">delete</i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
+            <tr>
+                @*<td>@item.Id</td>*@
+                <td>@item.CourseName</td>
+                <td>@item.HoursTaken</td>
+                <td>@item.CourseStartDate - @item.CourseEndDate</td>
+                <td>@item.StudentsQuantity</td>
+                <td>
+                    <a class="tooltipped red-text" data-position="top" data-tooltip="Remover" href="#">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
+            </tr>}
 
 
                     </tbody>
@@ -155,11 +157,11 @@
 
             </div>
             @*<div class="input-field col s12">
-                <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                    Guardar
-                    <i class="material-icons right">save</i>
-                </button>
-            </div>*@
+                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                        Guardar
+                        <i class="material-icons right">save</i>
+                    </button>
+                </div>*@
         </div>
 
         <div class="card">
@@ -213,7 +215,7 @@
                         <tr>
                             <th>Numero</th>
                             <th>Tipo de Documento</th>
-                           <th>Acciones</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
 
@@ -222,13 +224,12 @@
                         @foreach (var item in Model.TracingCourseFileList)
                         {
                             var numero = count++;
-                            <tr>
-                              
-                                <td>@numero</td>
-                                <td>@item.FileType.FileTypeName</td>
-                                <td><a href="\app-assets\documentos\teacher\@item?.File?.FilePath" target="_blank">Ver</a></td>
-                            </tr>
-                        }
+            <tr>
+
+                <td>@numero</td>
+                <td>@item.FileType.FileTypeName</td>
+                <td><a href="\app-assets\documentos\teacher\@item?.File?.FilePath" target="_blank">Ver</a></td>
+            </tr>}
 
 
 
@@ -240,11 +241,11 @@
 
             </div>
             @*<div class="input-field col s12">
-                <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                    Guardar
-                    <i class="material-icons right">save</i>
-                </button>
-            </div>*@
+                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                        Guardar
+                        <i class="material-icons right">save</i>
+                    </button>
+                </div>*@
         </div>
 
         <div class="input-field col s12">
@@ -253,7 +254,7 @@
 
 
 
-            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DesarrolloDelPlanDeEstudio"  asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DesarrolloDelPlanDeEstudio" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
                 Atras
             </a>

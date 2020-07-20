@@ -35,7 +35,7 @@
 
 
     @*<input type="hidden" asp-for="UniversityId" />
-    <input type="hidden" asp-for="CreationDate" />*@
+        <input type="hidden" asp-for="CreationDate" />*@
 
     @*<input type="hidden" asp-for="Com" />*@
 
@@ -51,68 +51,100 @@
 
             <h4 class="card-title">	Apoyo al Estudiante</h4>
             <div class="divider"></div>
-            <form class="col s12">
+            <form class="col s12" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
                 @foreach (var item in Model.IndicadoresList)
                 {
-            <ul class="collapsible collapsible-accordion">
-                <li>
-
-                    <div class="collapsible-header">@item.IndicadorId . @item.IndicadorNombre</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-
-                                <span class="card-title">Preguntas</span>
-                                @foreach (var pregunta in Model.PreguntasList)
-                                {
+                    Model.Indicador = item;
+    <ul class="collapsible collapsible-accordion">
+        <li>
 
 
-                            @foreach (var answer in Model.StudentSupportList)
-                            {
+            <div class="collapsible-header">@Model.Indicador.IndicadorId . @Model.Indicador.IndicadorNombre</div>
+            <div class="collapsible-body">
+                <div class="row card">
+
+                    <input type="hidden" asp-for="Indicador.IndicadorId" />
+                    <input type="hidden" asp-for="Indicador.IndicadorNombre" />
+
+                    <div class="card-content">
+                        @{ 
+                            var num = 0;
+                            var answerNum = 0;
+                            var preguntaNum = 0;
+                         }
+                        <span class="card-title">Preguntas</span>
+                        @foreach (var pregunta in Model.PreguntasList.ToList())
+                        {
+                                <input type="hidden" asp-for="@Model.PreguntasList[num].PreguntaId" value="@pregunta.PreguntaId" />
+                                <input type="hidden" asp-for="@Model.PreguntasList[num].NombrePregunta" value="@pregunta.NombrePregunta" />
+
+
+                          @foreach (var answer in Model.StudentSupportList.ToList())
+                           {
                                 if (answer.IndicatorId == item.IndicadorId && answer.QuestionId == pregunta.PreguntaId)
-                                {
-                                    <div class="file-field input-field col s12 m6 l12">
-                                        <textarea asp-for="@answer.Answer" id="textarea1" class="materialize-textarea"></textarea>
-                                        <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
-                                    </div>
-                                }
+                                   {
+                                      Model.StudentSupporModel = answer;
+                                      <input type="hidden" asp-for="@Model.StudentSupportList[answerNum].Id"/>
+                                      <input type="hidden" asp-for="@Model.StudentSupportList[answerNum].QuestionId"/>
+                                      <input type="hidden" asp-for="@Model.StudentSupportList[answerNum].IndicatorId"/>
+
+                                       <div class="file-field input-field col s12 m6 l12">
+                                             <textarea asp-for="@Model.StudentSupportList[answerNum].Answer" id="textarea1" class="materialize-textarea">@answer.Answer</textarea>
+                                              <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
+                                        </div>
+                              }
+
+                              answerNum++;
+                          }
+
+
+                            @*if(Model.StudentSupportList.Count() == 0)
+                            {
+                                   
+                                    <input type="hidden" asp-for="@Model.StudentSupportList[preguntaNum].Id"/>
+                                      <input type="hidden" asp-for="@Model.StudentSupportList[preguntaNum].QuestionId"/>
+                                      <input type="hidden" asp-for="@Model.StudentSupportList[preguntaNum].IndicatorId"/>
+
+                                       <div class="file-field input-field col s12 m6 l12">
+                                             <textarea asp-for="@Model.StudentSupportList[preguntaNum].Answer" id="textarea1" class="materialize-textarea"></textarea>
+                                              <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
+                                        </div>
+
+                                answerNum++;
                                
+                            }*@
+
+                            @*@if(Model.Answer == null)
+                            {
+                                  <div class="file-field input-field col s12 m6 l12">
+                                  <textarea asp-for="StudentSupporModel.Answer" id="textarea1" class="materialize-textarea"></textarea>
+                                  <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
+                                </div>   
+                            }*@
+                                                                               
+
+                            num++;
+                            answerNum = 0;
+
+                        }
+
+                        <br />
 
 
-                            }}
-
-
-
-                                @*<div class="file-field input-field col s12 m6 l4 ">
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
-            <label for="textarea1">Descripción que evidencie el cumplimiento</label>
-        </div>
-        <div class="file-field input-field col s12 m6 l4">
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
-            <label for="textarea1">Observaciones</label>
-        </div>*@
-
-
-
-
-
-
-
-                                <br />
-
-
-                            </div>
-                        </div>
                     </div>
-                </li>
-
-
-            </ul>            }
-                <div class="file-field input-field col s12 m6 l1">
-                    <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
+                    <button type="submit" class="btn">Guardar</button>
                 </div>
+            </div>
+        </li>
+
+
+    </ul>}
             </form>
+            <div class="file-field input-field col s12 m6 l1">
+                <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
+            </div>
+
+
 
         </div>
 
@@ -205,6 +237,8 @@
         $(document).ready(function () {
             $('.collapsible').collapsible();
         });
+
+
 
     </script>
 }

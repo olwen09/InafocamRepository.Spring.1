@@ -231,7 +231,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
                 var fileName = model.TeacherId + "-" + Guid.NewGuid() + ext;
                 if (ext.ToLower() != ".pdf")
                 {
-                    return View();
+                    return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
                 }
                 var fileFullPath = Path.Combine(rutaPdf, fileName);
                 //var filePath = "\\app-assets\\documentos\\teacher" + fileName; 

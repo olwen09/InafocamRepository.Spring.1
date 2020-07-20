@@ -26,10 +26,11 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
         private readonly IScholarshipProgram _scholarshipProgram;
         private readonly IStatus _status; 
         private readonly IAgent _agent;
+        private readonly ITracingStudyPlanDevelopment _tracingStudyPlanDevelopment;
 
         public ConvocatoriaDeBecaController(IScholarshipProgramUniversity scholarshipProgramUniversity,
             IUniversity university, IScholarshipLevel scholarshipLevel, IScholarshipProgram scholarshipProgram, IStatus status,
-             IAgent agent)
+             IAgent agent, ITracingStudyPlanDevelopment tracingStudyPlanDevelopment)
         {
             _scholarshipProgramUniversity = scholarshipProgramUniversity;
             _university = university;
@@ -37,6 +38,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
             _scholarshipProgram = scholarshipProgram;
             _status = status;
             _agent = agent;
+            _tracingStudyPlanDevelopment = tracingStudyPlanDevelopment;
            
         }
 
@@ -50,9 +52,12 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
         public IActionResult Editar(int id)
         {
             var scholarshipProgramUniversity = _scholarshipProgramUniversity.GetById(id);
+            //scholarshipProgramUniversity.ScholarshipProgramUniversitySubjectMatter = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(id).ToList();
             var scholarshipProgramUniversityModel = CopyPropierties.Convert<ScholarshipProgramUniversity, ScholarshipProgramUniversityModel>(scholarshipProgramUniversity);
+           scholarshipProgramUniversityModel.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(id);
             var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+
 
             ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
             ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
@@ -97,6 +102,9 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
             return View("Index",scholarshipProgramUniversity);
         }
 
-
+        public IActionResult ProgramaDeBecasMateriaUniversitaria()
+        {
+            return View();
+        }
     }
 }
