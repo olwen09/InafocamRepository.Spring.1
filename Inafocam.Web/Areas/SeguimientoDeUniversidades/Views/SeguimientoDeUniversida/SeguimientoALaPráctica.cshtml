@@ -1,5 +1,5 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.AcuerdosViewModel
-@inject Inafocam.core.Interfaces.IScholarshipProgramTracingAgreementFile AgreementFile
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.SeguimientoALaprácticaViewModel
+
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -9,7 +9,8 @@
 
         mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-    } }
+    }
+    var count = 1; }
 
 @section Style
 {
@@ -33,302 +34,146 @@
 
 
 <div class="row">
+    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveSeguimientoALapráctica">
 
 
-    @*<input type="hidden" asp-for="UniversityId" />
-        <input type="hidden" asp-for="CreationDate" />*@
+        <input type="hidden" asp-for="TracingId" />
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        <input type="hidden" asp-for="PracticeModel.TracingId" />
+        <input type="hidden" asp-for="PracticeModel.CreationDate" />
+        <input type="hidden" asp-for="PracticeModel.UpgradeDate" />
+        <input type="hidden" asp-for="PracticeModel.CreationDate" />
+        <input type="hidden" asp-for="PracticeModel.StatusId" />
 
-    @*<input type="hidden" asp-for="Com" />*@
-
-    @* Detalles del programa*@
-    <div>
-        <span asp-validation-sumary=""></span>
-    </div>
-
-    <div class="card">
-        <div class="card-content">
-
-
-
-            <h4 class="card-title">Seguimiento a la práctica</h4>
-            <div class="divider"></div>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee">Coordina con el centro de práctica</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="">Coordinador práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="textarea1">Supervisor</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Docente de práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Periodicidad</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Lleva el control de asistencia de los estudiantes</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="">Coordinador práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="textarea1">Supervisor</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Docente de práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Periodicidad</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Gestiona aspectos logísticos (transporte, viáticos, etc.)</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="">Coordinador práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="textarea1">Supervisor</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Docente de práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Periodicidad</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Evalúa la práctica</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="">Coordinador práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="textarea1">Supervisor</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Docente de práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Periodicidad</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Sistematiza el desarrollo de las prácticas</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="">Coordinador práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text ">
-                                        <label for="textarea1">Supervisor</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Docente de práctica</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Periodicidad</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-
-
+        <div>
+            <span asp-validation-sumary=""></span>
         </div>
 
-    </div>
+        <div class="card">
+            <div class="card-content">
+
+                <h4 class="card-title">Seguimiento a la práctica</h4>
+
+                <br />
+                <h4 class="card-title">A continuación solo seleccione el seguimiento a la práctica que desea anexar o sustiturir!</h4>
+
+
+                <div class="row ">
+
+
+                    <div class="input-field col s12 m6 l4">
+
+                        <div class="row">
+                            <label for="select2User" class="col s12">Seguimiento a la práctica</label>
+                        </div>
+                        <select asp-for="PracticeModel.ActivityTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ActivityType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
+
+                    </div>
+
+                    <div class=" input-field col s12 m6 l4">
+                        <input asp-for="PracticeModel.Coordinator" id="Coordinator" type="text" class="validat black-text ">
+                        <label for="Coordinator">Coordinador práctica</label>
+                    </div>
+
+                    <div class=" input-field col s12 m6 l4">
+                        <input asp-for="PracticeModel.Superviser" id="Superviser" type="text" class="validat black-text ">
+                        <label for="Superviser">Supervisor</label>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class=" input-field col s12 m6 l4">
+                            <input asp-for="PracticeModel.Teacher" id="Teacher" type="text" class="validat black-text">
+                            <label for="Teacher">Docente de práctica</label>
+                        </div>
+
+                        <div class=" input-field col s12 m6 l4">
+                            <input asp-for="PracticeModel.Periodicity" id="Periodicity" type="text" class="validat black-text">
+                            <label for="Periodicity">Periodicidad</label>
+                        </div>
+                        <div class="input-field col s12 m6 l1">
+                            <br />
+                            <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
 
 
 
+                        </div>
+
+                    </div>
+                    <br />
+                    <span class="card-title">Documentos Anexos</span>
+                    <div class="divider"></div>
+                    <div class="col s12">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Seguimiento a la práctica</th>
+                                    <th>Coordinador práctica </th>
+                                    <th>Supervisor</th>
+                                    <th>Docente de práctica</th>
+                                    <th>Periodicidad</th>
+                                    @*<th class="right">Acciones</th>*@
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model.PracticeList)
+                                {
+                                    var numero = count++;
+
+                    <tr>
+                        @*<td>@numero</td>*@
+                        <td>@item.ActivityType.ActivityTypeName</td>
+                        <td>@item.Coordinator</td>
+                        <td>@item.Superviser</td>
+                        <td>@item.Teacher</td>
+                        <td>@item.Periodicity</td>
+
+                    </tr>}
+
+
+                            </tbody>
+                        </table>
+                    </div>
 
 
 
-    <div class="input-field col s12">
+                </div>
+                @*<div class="input-field col s12">
+                        <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                            Guardar
+                            <i class="material-icons right">save</i>
+                        </button>
+                    </div>*@
+            </div>
 
 
 
-
-
-        @*<a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InformacionPrincipal" asp-route-tracingId="@Model.ScholarshipProgramTracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
-
-                Atras
-            </a>
-
-            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="DesarrolloDelPlanDeEstudio" asp-route-tracingId="@Model.ScholarshipProgramTracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
-
-                Siguiente
-            </a>*@
-
-    </div>
+    </form>
 
 
 </div>
+
+<div class="input-field col s12">
+
+
+
+    <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="PlanificaciónDeLaPráctica" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+
+        Atras
+    </a>
+
+    <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ConveniosConLosCentrosDePráctica" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+
+        Siguiente
+    </a>
+
+
+</div>
+
 
 @section Scripts
 {
@@ -378,18 +223,6 @@
 
         $(document).ready(function () {
             $('.datepicker').datepicker();
-        });
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.collapsible');
-            var instances = M.Collapsible.init(elems, options);
-        });
-
-        // Or with jQuery
-
-        $(document).ready(function () {
-            $('.collapsible').collapsible();
         });
 
     </script>

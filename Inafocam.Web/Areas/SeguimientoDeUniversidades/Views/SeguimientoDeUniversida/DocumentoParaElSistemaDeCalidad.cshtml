@@ -36,7 +36,9 @@
 <div class="row">
     <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveDocumentoParaElSistemaDeCalidad" >
 
-
+@{ 
+    var prueba = Model;
+}
         <input type="hidden" asp-for="TracingId" />
         <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
         <input type="hidden" asp-for="QualitySystemModel.TracingId" />

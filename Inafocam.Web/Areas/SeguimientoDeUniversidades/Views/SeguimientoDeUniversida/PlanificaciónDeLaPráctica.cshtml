@@ -1,5 +1,5 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.AcuerdosViewModel
-@inject Inafocam.core.Interfaces.IScholarshipProgramTracingAgreementFile AgreementFile
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.PlanificaciónDeLaPrácticaViewModel
+
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -9,7 +9,8 @@
 
         mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-    } }
+    }
+    var count = 1; }
 
 @section Style
 {
@@ -33,276 +34,187 @@
 
 
 <div class="row">
+    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SavePlanificaciónDeLaPráctica">
 
 
-    @*<input type="hidden" asp-for="UniversityId" />
-        <input type="hidden" asp-for="CreationDate" />*@
+        <input type="hidden" asp-for="TracingId" />
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        <input type="hidden" asp-for="PracticePlanningModel.TracingId" />
+        <input type="hidden" asp-for="PracticePlanningModel.CreationDate" />
+        <input type="hidden" asp-for="PracticePlanningModel.UpgradeDate" />
+        <input type="hidden" asp-for="PracticePlanningModel.CreationDate" />
 
-    @*<input type="hidden" asp-for="Com" />*@
-
-    @* Detalles del programa*@
-    <div>
-        <span asp-validation-sumary=""></span>
-    </div>
-
-    <div class="card">
-        <div class="card-content">
-
-
-
-            <h4 class="card-title">Planificación de la práctica</h4>
-            <div class="divider"></div>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee">Distribución de los estudiantes por los centros</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="">Iniciada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4 ">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="textarea1">Finalizada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Observación</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Asignación de  supervisores</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="">Iniciada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4 ">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="textarea1">Finalizada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Observación</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Establecimiento de días y horas de práctica</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="">Iniciada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4 ">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="textarea1">Finalizada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Observación</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Plan de seguimiento a las prácticas</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="">Iniciada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4 ">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="textarea1">Finalizada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Observación</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Coordinación con los docentes de aula</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="">Iniciada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4 ">
-                                        <input id="" type="text" class="validat black-text datepicker">
-                                        <label for="textarea1">Finalizada</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l4">
-                                        <input id="" type="text" class="validat black-text">
-                                        <label for="">Observación</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-          
-
+        <div>
+            <span asp-validation-sumary=""></span>
         </div>
 
-    </div>
+        <div class="card">
+            <div class="card-content">
+
+                <h4 class="card-title"> Planificación de la práctica</h4>
+
+                <br />
+                <h4 class="card-title">
+                    A continuación solo seleccione la  planificación de la práctica que desea anexar o sustiturir!
+                </h4>
+
+
+                <div class="row ">
+                    <div class="input-field col s12 m6 l4">
+
+                        <div class="row">
+                            <label for="select2User" class="col s12">Planificación de la práctica</label>
+                        </div>
+                        <select asp-for="PracticePlanningModel.ActionTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ActionType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
+
+                    </div>
+
+                   
+
+                    @*<div class=" input-field col s12 m6 l2">
+                        <input asp-for="PracticePlanningModel.Finished" id="Finished" type="text" class="validat black-text datepicker">
+                        <label for="Finished">Finalizada</label>
+                    </div>*@
+
+                    <div class=" input-field col s12 m6 l8">
+                        <textarea asp-for="PracticePlanningModel.Comment" id="Comment" class="materialize-textarea"></textarea>
+                        <label for="Comment">Observación</label>
+                    </div>
+
+                    @*<div class="input-field col s12 m6 l1">
+                        <br />
+                        <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
 
 
 
-    
+                    </div>*@
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                        <label>Comenzó?</label>
+                        <br />
+                        <br />
+                        <p>
+                            <label>
+                                <input name="Started" value="1" type="radio" @(Html.Raw(Model.Started == 1 ? "checked=\" checked\"" : "")) />
+                                <span>SI</span>
+                            </label>
+                        </p>
+
+                        <p>
+                            <label>
+                                <input name="Started" value="0" type="radio" @(Html.Raw(Model.Started == 0 ? "checked=\" checked\"" : "")) />
+                                <span>NO</span>
+                            </label>
+                        </p>
+                    </div>
+
+                    <div class="input-field col s12 m6 l4">
+                        <label>Finalizó?</label>
+                        <br />
+                        <br />
+                        <p>
+                            <label>
+                                <input name="Finished" value="1" type="radio" @(Html.Raw(Model.Finished == 1 ? "checked=\" checked\"" : "")) />
+                                <span>SI</span>
+                            </label>
+                        </p>
+
+                        <p>
+                            <label>
+                                <input name="Finished" value="0" type="radio" @(Html.Raw(Model.Finished == 0 ? "checked=\" checked\"" : "")) />
+                                <span>NO</span>
+                            </label>
+                        </p>
+                    </div>
+
+                    <div class="input-field col s12 m6 l1">
+                        <br />
+                        <br />
+                        <br />
+                        <button class="teal btn-small waves-effect waves-light tooltipped left" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
 
 
-    <div class="input-field col s12">
+
+                    </div>
+                </div>
+
+                <br />
+                <span class="card-title">Información Anexa</span>
+                <div class="divider"></div>
+                <div class="col s12">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Planificación de la práctica</th>
+                                <th>Iniciada</th>
+                                <th>Finalizada</th>
+                                <th>Observación</th>
+                                <th>Fecha de creación</th>
+                                @*<th>Cantidad de docentes anfitriones</th>*@
+                            </tr>
+                        </thead>
+
+
+
+                        <tbody>
+
+                            @foreach (var item in Model.PracticePlanningList)
+                            {
+                                var numero = count++;
+
+                                <tr>
+
+                                    <td>@item.ActionType.ActionTypeName</td>
+                                    <td>@item.Started</td>
+                                    <td>@item.Finished</td>
+                                    <td>@item.Comment</td>
+                                    <td>@item.CreationDate</td>
+                                    
+                                </tr>
+                            
+                            }
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+            @*<div class="input-field col s12">
+                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                        Guardar
+                        <i class="material-icons right">save</i>
+                    </button>
+                </div>*@
+        </div>
+
+        <div class="input-field col s12">
 
 
 
 
 
-        @*<a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InformacionPrincipal" asp-route-tracingId="@Model.ScholarshipProgramTracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="EstudiantesEnPractica" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
                 Atras
-            </a>*@
+            </a>
 
-            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ConveniosConLosCentrosDePráctica" >
+            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SeguimientoALapráctica" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
                 Siguiente
             </a>
 
-    </div>
+        </div>
 
-
+    </form>
 </div>
 
 @section Scripts
@@ -353,18 +265,6 @@
 
         $(document).ready(function () {
             $('.datepicker').datepicker();
-        });
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.collapsible');
-            var instances = M.Collapsible.init(elems, options);
-        });
-
-        // Or with jQuery
-
-        $(document).ready(function () {
-            $('.collapsible').collapsible();
         });
 
     </script>

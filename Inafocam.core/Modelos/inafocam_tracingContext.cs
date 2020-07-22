@@ -85,14 +85,21 @@ namespace Inafocam.core.Modelos
 
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
-        //public virtual DbSet<ComponentFileType> ComponentFileTypes { get; set; }
+        public virtual DbSet<ComponentFileType> ComponentFileTypes { get; set; }
+        public virtual DbSet<ResultsFromThePreviousPeriod> ResultsFromThePreviousPeriod { get; set; }
+        public virtual DbSet<StudentPracticeType> StudentPracticeType { get; set; }
+        public virtual DbSet<ActionType> ActionType { get; set; }
+        public virtual DbSet<ActivityType> ActivityType { get; set; }
+        public virtual DbSet<ScholarshipProgramTracingAgreementsWithPracticeCenter> ScholarshipProgramTracingAgreementsWithPracticeCenter { get; set; }
+        public virtual DbSet<AgreementsInstitutionRelatedCoCurricularActivities> AgreementsInstitutionRelatedCoCurricularActivities  { get; set; }
+        public virtual DbSet<AgreementWithInstitutionsRelatedToCurricularActivities> AgreementWithInstitutionsRelatedToCurricularActivities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySQL("server=127.0.0.1;port=3305;user=root;password=123456;database=inafocam_tracing");
+                optionsBuilder.UseMySQL("server=127.0.0.1;port=3305;user=root;password=123456;database=inafocamdb_dev");
             }
         }
 
@@ -1782,7 +1789,7 @@ namespace Inafocam.core.Modelos
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Activity)
+                entity.Property(e => e.ActivityTypeId)
                     .HasColumnName("activity")
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -1844,7 +1851,7 @@ namespace Inafocam.core.Modelos
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Action)
+                entity.Property(e => e.ActionTypeId)
                     .HasColumnName("action")
                     .HasMaxLength(64)
                     .IsUnicode(false);
@@ -1961,7 +1968,7 @@ namespace Inafocam.core.Modelos
 
                 entity.Property(e => e.PracticeCenterQuantity).HasColumnName("practice_center_quantity");
 
-                entity.Property(e => e.PracticeType)
+                entity.Property(e => e.StudentPracticeTypeId)
                     .HasColumnName("practice_type")
                     .HasMaxLength(64)
                     .IsUnicode(false);

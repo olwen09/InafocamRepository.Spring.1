@@ -1,4 +1,4 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.InformacionPrincipalViewModel
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.InstitucionesAfinesALosProgramasParaActividadesViewModel
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -34,17 +34,15 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" method="post">
+    <form class="col s12 formValidate" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveInstitucionesAfinesALosProgramasParaActividades">
 
-        @*<input type="hidden" asp-for="UniversityId" />
-            <input type="hidden" asp-for="CreationDate" />
-            <input type="hidden" asp-for="ScholarshipProgramTracingId" />
-            <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
-            <input type="hidden" asp-for="TechnicalId" />
-            <input type="hidden" asp-for="StatusId" />
-            <input type="hidden" asp-for="StartDate" />
-            <input type="hidden" asp-for="EndDate" />*@
-        @*<input type="hidden" asp-for="" />*@
+        <input type="hidden" asp-for="TracingId" />
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.TracingId" />
+        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.AgreementWithInstitutionsRelatedToCurricularActivitiesId" />
+        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.StatusId" />
+        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.CreationDate" />
+        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.UpgradeDate" />
 
         @*<input type="hidden" asp-for="Com" />*@
 
@@ -58,35 +56,28 @@
 
 
 
-                <h4 class="card-title">Formalización de convenios con instituciones afines a los programas para actividades co-curriculares
+                <h4 class="card-title">
+                    Formalización de convenios con instituciones afines a los programas para actividades co-curriculares
                 </h4>
-                <div class="input-field col s12 m6 l3">
-
-                    <div class="row">
-                        <label for="select2User" class="col s12">Institución</label>
-                    </div>
-
-
-                    <select class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
-                        <option value="" disabled selected></option>
-                    </select>
+                <div class=" input-field col s12 m6 l3">
+                    <input asp-for="RelatedToCurricularActivitiesModel.Institution" id="Institution" type="text" class="validat black-text">
+                    <label for="Institution">Institución</label>
+                </div>
 
 
+                <div class=" input-field col s12 m6 l3">
+                    <input asp-for="RelatedToCurricularActivitiesModel.ActivityDescription" id="ActivityDescription" type="text" class="validat black-text">
+                    <label for="ActivityDescription">Descripción de la actividad</label>
                 </div>
 
                 <div class=" input-field col s12 m6 l3">
-                    <input id="" type="text" class="validat black-text">
-                    <label for="textarea1">Descripción de la actividad</label>
+                    <input asp-for="RelatedToCurricularActivitiesModel.NumberOfParticipatingStudents" id="NumberOfParticipatingStudents" type="number" class="validat black-text">
+                    <label for="NumberOfParticipatingStudents">Cantidad de alumnos participantes</label>
                 </div>
 
                 <div class=" input-field col s12 m6 l3">
-                    <input id="" type="number" class="validat black-text">
-                    <label for="">Cantidad de alumnos participantes</label>
-                </div>
-
-                <div class=" input-field col s12 m6 l3">
-                    <input id="" type="text" class="validat black-text datepicker">
-                    <label for="">Fecha</label>
+                    <input asp-for="RelatedToCurricularActivitiesModel.Date" id="Date" type="text" class="validat black-text datepicker">
+                    <label for="Date">Fecha</label>
                 </div>
                 <div class="row">
                     <div class="col s12 m6 l5">
@@ -100,31 +91,73 @@
                     </div>
                 </div>
 
+
+                <br />
+                <br />
+                <span class="card-title">Convenios con instituciones afines a los programas para actividades co-curriculares</span>
+                <div class="divider"></div>
+                <div class="col s12">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Institución</th>
+                                <th>Descripción de la actividad </th>
+                                <th>Cantidad de alumnos participantes</th>
+                                <th>Fecha</th>
+                                @*<th>Periodicidad</th>*@
+                                @*<th class="right">Acciones</th>*@
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.RelatedToCurricularActivitiesList)
+                            {
+                                //var numero = count++;
+
+                <tr>
+
+                    <td>@item.Institution</td>
+                    <td>@item.ActivityDescription</td>
+                    <td>@item.NumberOfParticipatingStudents</td>
+                    <td>@item.Date</td>
+
+
+
+                </tr>}
+
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
 
-
-        <div class="input-field col s12">
-
+   
 
 
 
 
+            <div class="input-field col s12">
 
 
-        </div>
-        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ConveniosConLosCentrosDePráctica" asp-route-tracingId="@Model?.ScholarshipProgramTracingId">
 
-            Atras
-        </a>
 
-        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ResultadosDelPeriodoAnterior" asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.ScholarshipProgramTracingId">
 
-            Siguiente
-        </a>
 
-        @*<button class="teal btn waves-effect waves-light" type="submit">Guardar</button>*@
+
+            </div>
+            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ConveniosConLosCentrosDePráctica" asp-route-tracingId="@Model?.TracingId">
+
+                Atras
+            </a>
+
+            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ResultadosDelPeriodoAnterior" asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.TracingId">
+
+                Siguiente
+            </a>
+
+            @*<button class="teal btn waves-effect waves-light" type="submit">Guardar</button>*@
     </form>
 
 </div>

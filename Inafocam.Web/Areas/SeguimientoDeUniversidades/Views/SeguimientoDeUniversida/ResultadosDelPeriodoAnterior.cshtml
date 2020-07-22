@@ -1,5 +1,235 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ResultadosDelPeriodoAnteriorViewModel
+
+@inject Inafocam.core.Interfaces.IResultsFromThePreviousPeriod _PreviousPeriod
+
+@{ ViewData["Title"] = "Create";
+
+    MensajesViewModel mensaje = new MensajesViewModel();
+
+    if (TempData["mensaje"] != null)
+    {
+
+        mensaje = TempData.Get<MensajesViewModel>("mensaje");
+
+    }
+    var count = 1; }
+
+@section Style
+{
+    <link href="~/app-assets/vendors/noUiSlider/nouislider.css" rel="stylesheet" />
+    <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
+    <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+}
+
+
+@* BREADCRUMB *@
+@await Component.InvokeAsync("BreadcrumbComponent", new
+{
+    area = (string)ViewData["area"],
+    controlador = (string)ViewData["controlador"],
+    controller = (string)ViewData["controller"],
+    vista = (string)ViewData["vista"]
+})
+@* END BREADCRUMB *@
+
+
+
+<div class="row">
+    @*<form class="col s12 formValidate" enctype="multipart/form-data" method="post" >*@
+    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveResultadosDelPeriodoAnterior">
+
+
+        <input type="hidden" asp-for="TracingId" />
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        <input type="hidden" asp-for="PreviousPeriodModel.TracingId" />
+        <input type="hidden" asp-for="PreviousPeriodModel.CreationDate" />
+        <input type="hidden" asp-for="PreviousPeriodModel.UpgradeDate" />
+        <input type="hidden" asp-for="PreviousPeriodModel.CreationDate" />
+        <input type="hidden" asp-for="PreviousPeriodModel.StatusId" />
+
+        <div>
+            <span asp-validation-sumary=""></span>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+
+                <h4 class="card-title"> Resultados del período anterior </h4>
+
+                <br />
+                <h4 class="card-title">A continuación solo seleccione los documentos que desea anexar o sustiturir!</h4>
+
+
+                <div class="row ">
+
+                    <div class="input-field col s12 m6 l4">
+
+                        <div class="row">
+                            <label for="select2User" class="col s12">Tipo de Documento</label>
+                        </div>
+                        <select asp-for="PreviousPeriodModel.ComponentFileTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ComponentTypes">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
+
+                    </div>
+
+
+
+                    <div class=" input-field col s12 m6 l4">
+                        <input asp-for="PreviousPeriodModel.Quantity" id="Quantity" type="number" class="validat black-text">
+                        <label for="Quantity">Cantidad</label>
+                    </div>
+
+                    <div class=" input-field col s12 m6 l4">
+                        <textarea asp-for="PreviousPeriodModel.Observations" id="Observaciones" class="materialize-textarea"></textarea>
+                        <label for="Observaciones">Observación</label>
+                    </div>
+
+                    <div class="file-field input-field col s12 m6 l6">
+                        <div class="btn">
+                            <span>File</span>
+                            <input name="file" type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input name="file" class="file-path validate" type="text">
+                        </div>
+                    </div>
+
+                    <div class=" input-field col s12 m6 l5">
+                        <input asp-for="PreviousPeriodModel.FileDescription" id="FileDescription" type="text" class="validat black-text">
+                        <label for="FileDescription">Descripción Del Archivo</label>
+                    </div>
+                    <div class="input-field col s12 m6 l1">
+                        <br />
+                        <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
+
+
+
+                    </div>
+
+                </div>
+                <br />
+                <span class="card-title">Documentos Anexos</span>
+                <div class="divider"></div>
+                <div class="col s12">
+                    <table>
+                        <thead>
+                            <tr>
+
+                                <th>#</th>
+                                <th>Tipo de Componente</th>
+                                <th>Cantidad</th>
+                                <th>Observaciones</th>
+                                <th>Evidencia</th>
+                                <th>Descripción Del Archivo</th>
+                                <th >Acciones</th>
+                            </tr>
+                        </thead>
+                       
+                        <tbody>
+                            @foreach (var item in Model.PreviousPeriodList)
+                            {
+                                var numero = count++;
+
+                            <tr>
+                                <td>@numero</td>
+                                <td>@item?.ComponentFileType?.ComponentFileTypeName</td>
+                                <td>@item?.Quantity</td>
+                                <td>@item?.Observations</td>
+                                <td>@item?.File?.FileName</td>
+                                <td>@item?.FileDescription</td>
+
+                                <td><a class="left" href="\app-assets\documentos\resultadosdelperiodoanterior\@item?.File?.FilePath" target="_blank">Ver</a></td>
+                            </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+            @*<div class="input-field col s12">
+                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                        Guardar
+                        <i class="material-icons right">save</i>
+                    </button>
+                </div>*@
+        </div>
+
+        <div class="input-field col s12">
+
+
+
+
+
+            @*<a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ActividadesCoCurriculares" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+
+                    Atras
+                </a>
+
+                <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ApoyoAlStudiante" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+
+                    Siguiente
+                </a>*@
+
+        </div>
+
+    </form>
+</div>
+
+@section Scripts
+{
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/app-assets/vendors/jquery-validation/jquery.validate.js"></script>
+    <script src="~/app-assets/vendors/jquery-validation/additional-methods.js"></script>
+    <script src="~/app-assets/vendors/jquery-cookies/jquery.cookies.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <!-- BEGIN VENDOR JS-->
+    <script src="~/app-assets/js/vendors.min.js" type="text/javascript"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN THEME JS-->
+    <script src="~/app-assets/js/plugins.js" type="text/javascript"></script>
+    <script src="~/app-assets/js/custom/custom-script.js" type="text/javascript"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
+    <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
+    @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
+        <script src="~/app-assets/js/scripts/form-masks.js"></script>
+        @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <!-- END PAGE LEVEL JS-->
+    <script>
+        @*$('#descripcionTxtArea').val('@Model.Descripcion');
+        M.textareaAutoResize($('#textarea2'));*@
+
+
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+                placeholder: "Seleccione una Opción",
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, options);
+        });
+
+        // Or with jQuery
+
+        $(document).ready(function () {
+            $('.datepicker').datepicker();
+        });
+
+    </script>
 }

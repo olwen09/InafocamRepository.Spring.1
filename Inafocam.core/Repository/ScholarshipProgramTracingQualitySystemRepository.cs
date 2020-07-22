@@ -31,6 +31,7 @@ namespace Inafocam.core.Repository
         public void Save(ScholarshipProgramTracingQualitySystem model)
             {
             var now = DateTime.Now;
+            var estadoActivo = 1; 
 
             if(model.QualityFileId != 0)
             {
@@ -41,11 +42,13 @@ namespace Inafocam.core.Repository
                 _context.Entry(currentData).CurrentValues.SetValues(model);
                 _context.Entry(currentData).State = EntityState.Modified;
 
-                var prueba = 0;
+         
             }
             else
             {
+                
                 model.CreationDate = now;
+                model.StatusId = estadoActivo;
                 _context.Add(model);
 
 

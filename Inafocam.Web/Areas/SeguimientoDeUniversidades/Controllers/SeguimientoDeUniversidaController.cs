@@ -41,6 +41,17 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         private readonly IScholarshipProgramTracingQualitySystem _qualitySystem;
         private readonly IConfiguration _config;
         private readonly IFile _file;
+        private readonly IComponentFileType _componentFileType;
+        private readonly IStudentPracticeType _studentPracticeType;
+        private readonly IScholarshipProgramTracingStudentPractice _studentPractice;
+        private readonly IScholarshipProgramTracingPracticePlanning _practicePlanning;
+        private readonly IActionType _actionType;
+        private readonly IActivityType _activityType;
+        private readonly IScholarshipProgramTracingPractice _tracingPractice;
+        private readonly IResultsFromThePreviousPeriod _previousPeriod;
+        private readonly IScholarshipProgramTracingAgreementsWithPracticeCenter _agreementsWithPracticeCenter;
+        private readonly IAgreementWithInstitutionsRelatedToCurricularActivities _relatedToCurricularActivities;
+
 
         private readonly UserManager<Usuario> _userManager;
 
@@ -51,7 +62,11 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             ,UserManager<Usuario> userManager, IScholarshipProgramTracingCourse scholarshipProgramTracingCourse,
             IScholarshipProgramTracingCourseFile tracingCourseFile, IScholarshipProgramTracingCourseFileType CourseFileType,
             IScholarshipProgramTracingQualitySystemFileType qualitySystemFileType, IScholarshipProgramTracingQualitySystem qualitySystem,
-            IConfiguration config,IFile file)
+            IConfiguration config,IFile file, IComponentFileType componentFileType, IStudentPracticeType studentPracticeType,
+            IScholarshipProgramTracingStudentPractice studentPractice, IScholarshipProgramTracingPracticePlanning practicePlanning,
+            IActionType actionType, IActivityType activityType,IScholarshipProgramTracingPractice  tracingPractice,
+            IResultsFromThePreviousPeriod previousPeriod, IScholarshipProgramTracingAgreementsWithPracticeCenter agreementsWithPracticeCenter,
+            IAgreementWithInstitutionsRelatedToCurricularActivities relatedToCurricularActivities)
         {
             _scholarshipProgramTracing = scholarshipProgramTracing;
             _studentSupport = studentSupport;
@@ -71,11 +86,23 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             _qualitySystem = qualitySystem;
             _config = config;
             _file = file;
+            _componentFileType = componentFileType;
+            _studentPracticeType = studentPracticeType;
+            _studentPractice = studentPractice;
+            _practicePlanning = practicePlanning;
+            _actionType = actionType;
+            _activityType = activityType;
+            _tracingPractice = tracingPractice;
+            _previousPeriod = previousPeriod;
+            _agreementsWithPracticeCenter = agreementsWithPracticeCenter;
+            _relatedToCurricularActivities = relatedToCurricularActivities;
         }
 
 
         public IActionResult Index()
         {
+
+            var prueba = _previousPeriod.GetAll.ToList();
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
@@ -145,6 +172,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult SaveInformacionPrincipal(InformacionPrincipalViewModel model)
         {
             var data = CopyPropierties.Convert<InformacionPrincipalViewModel,ScholarshipProgramTracing>(model);
@@ -191,6 +219,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> SaveAcuerdos(AcuerdosViewModel model, int agremmentId, int universityAgreementId, int tracingId, IFormFile file)
         {
 
@@ -284,6 +313,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> SaveDesarrolloDelPlanDeEstudio(DesarrolloDelPlanDeEstudioModel model, int tracingId, int scholarshipProgramUniversityId, IFormFile file)
         {
             var rutaPdf = _config.GetSection("rutas").GetSection("DesarrolloDelPlanDeEstudioFiles").Value;
@@ -356,6 +386,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             
             return View(model);
         }
+
+        [HttpPost]
         public IActionResult SaveActividadesCoCurriculares(ActividadesCoCurricularesModel model,int tracingId, int scholarshipProgramUniversityId)
         {
             return RedirectToAction("ActividadesCoCurriculares", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
@@ -375,17 +407,25 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> SaveDocumentoParaElSistemaDeCalidad(DocumentoParaElSistemaDeCalidadViewModel model,IFormFile file)
         {
 
             var rutaPdf = _config.GetSection("rutas").GetSection("DocumentosParaElSistemaDeCalidad").Value;
             var qualitySystem =   _qualitySystem.GetAll.FirstOrDefault(x => x.TracingId == model.TracingId && x.FileTypeId == model.QualitySystemModel.FileTypeId);
-            model.QualitySystemModel.TracingId = model.TracingId;
-            model.QualitySystemModel.FileId = qualitySystem.FileId;
-            model.QualitySystemModel.QualityFileId = qualitySystem.QualityFileId;
-            model.QualitySystemModel.CreationDate = qualitySystem.CreationDate;
-            model.QualitySystemModel.UpgradeDate = qualitySystem.UpgradeDate;
-            model.QualitySystemModel.StatusId = qualitySystem.StatusId;
+            
+                model.QualitySystemModel.TracingId = model.TracingId;
+
+            if (qualitySystem != null)
+            {
+                model.QualitySystemModel.FileId = qualitySystem.FileId;
+                model.QualitySystemModel.QualityFileId = qualitySystem.QualityFileId;
+                model.QualitySystemModel.CreationDate = qualitySystem.CreationDate;
+                model.QualitySystemModel.UpgradeDate = qualitySystem.UpgradeDate;
+                model.QualitySystemModel.StatusId = qualitySystem.StatusId;
+            }
+            
+           
 
             if (file != null)
             {
@@ -409,15 +449,21 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
                 }
                 //your logic to save filePath to database, for example
 
+
+
                 var fileTypeId = 14;
-                var fileModel = new core.Modelos.File
+                var fileModel = new core.Modelos.File();
+
+                if(qualitySystem != null)
                 {
-                    FileId = (long)model.QualitySystemModel.FileId,
-                    FileName = file.FileName,
-                    FilePath = fileName,
-                    FileFullPath = fileFullPath,
-                    FileTypeId = fileTypeId
-                };
+                    fileModel.FileId = (long)model.QualitySystemModel.FileId;
+
+                }
+                    fileModel.FileName = file.FileName;
+                    fileModel.FilePath = fileName;
+                    fileModel.FileFullPath = fileFullPath;
+                    fileModel.FileTypeId = fileTypeId;
+                
 
                 var scholarshipProgramTracingQualitySystemModel = new ScholarshipProgramTracingQualitySystemModel();
                 scholarshipProgramTracingQualitySystemModel = model.QualitySystemModel;
@@ -426,7 +472,11 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
                 try
                 {
+                    if(qualitySystem != null)
+                    {
+
                     _file.Save(fileModel);
+                    }
                     _qualitySystem.Save(data);
                 }
                 catch (Exception e)
@@ -462,6 +512,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult SaveApoyoAlStudiante(ApoyoAlEstudianteModel model)
         {
             return View();
@@ -470,43 +521,348 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
         public IActionResult EstudiantesEnPractica(int tracingId, int scholarshipProgramUniversityId)
         {
-            return View();
+
+            var model = new EstudiantesEnPracticaViewModel();
+            model.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.StudentPracticeList = _studentPractice.GetAllByTracingId(tracingId).OrderBy(x=> x.StudentPracticeTypeId);
+
+
+
+
+            ViewBag.StudentPracticeType = new SelectList(_studentPracticeType.GetAll, "StudentPracticeTypeId", "StudentPracticeTypeTypeName");
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SaveEstudiantesEnPractica(EstudiantesEnPracticaViewModel model)
+        {
+
+            var studentPracticeModel = new ScholarshipProgramTracingStudentPracticeModel();
+            var studentPracticeTypeId = Convert.ToInt32(model.StudentPracticeModel.StudentPracticeTypeId);
+            var studentPractice = _studentPractice.GetOneByStudentPracticeTypeId(studentPracticeTypeId);
+
+            studentPracticeModel = model.StudentPracticeModel;
+            studentPracticeModel.TracingId = model.TracingId;
+
+            if(studentPractice != null)
+            {
+                studentPracticeModel.Id = studentPractice.Id;
+            }
+
+            
+
+            //En caso de que ya exixta el id del tipo de practica sera actualizado
+           
+
+            var data = CopyPropierties.Convert<ScholarshipProgramTracingStudentPracticeModel,ScholarshipProgramTracingStudentPractice>(studentPracticeModel);
+
+            try
+            {
+                _studentPractice.Save(data);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            }
+
+            return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
         }
 
 
         public IActionResult PlanificaciónDeLaPráctica(int tracingId, int scholarshipProgramUniversityId)
         {
-            return View();
+            var model = new PlanificaciónDeLaPrácticaViewModel();
+            model.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.PracticePlanningList = _practicePlanning.GetAllByTracingId(tracingId);
+
+            ViewBag.ActionType = new SelectList(_actionType.GetAll, "ActionTypeId", "ActionTypeName");
+            return View(model);
         }
+
+        [HttpPost]
+        public IActionResult SavePlanificaciónDeLaPráctica(PlanificaciónDeLaPrácticaViewModel model)
+        {
+            var practicePlanningModel = new ScholarshipProgramTracingPracticePlanningModel();
+            practicePlanningModel = model.PracticePlanningModel;
+            practicePlanningModel.Started = model.Started;
+            practicePlanningModel.Finished = model.Finished;
+            practicePlanningModel.TracingId = model.TracingId;
+
+
+            var actionTypeId = Convert.ToInt32(model.PracticePlanningModel.ActionTypeId);
+            var practicePlanningData = _practicePlanning.GetOneByActionType(actionTypeId);
+
+            if (practicePlanningData != null)
+            {
+                model.PracticePlanningModel.Id = practicePlanningData.Id;
+                model.PracticePlanningModel.CreationDate = practicePlanningData.CreationDate;
+            }
+
+           
+
+            var data = CopyPropierties.Convert<ScholarshipProgramTracingPracticePlanningModel, ScholarshipProgramTracingPracticePlanning>(practicePlanningModel);
+
+            
+
+            try
+            {
+                _practicePlanning.Save(data);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("PlanificaciónDeLaPráctica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            }
+
+            return RedirectToAction("PlanificaciónDeLaPráctica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+        }
+
+        public IActionResult SeguimientoALapráctica(int tracingId, int scholarshipProgramUniversityId)
+        {
+            var model = new SeguimientoALaprácticaViewModel();
+            model.TracingId = tracingId;
+            //model.PracticeModel.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.PracticeList = _tracingPractice.GetAllByTracingId(tracingId);
+
+            ViewBag.ActivityType = new SelectList(_activityType.GetAll, "ActivityTypeId", "ActivityTypeName");
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SaveSeguimientoALapráctica(SeguimientoALaprácticaViewModel model)
+        {
+
+            var activityTypeId = Convert.ToInt32(model.PracticeModel.ActivityTypeId);
+            var getPractice = _tracingPractice.GetOneByActivityTypeId(activityTypeId);
+            var practiceModel = new ScholarshipProgramTracingPracticeModel();
+            practiceModel = model.PracticeModel;
+            practiceModel.TracingId = model.TracingId;
+            practiceModel.TracingId = model.TracingId;
+
+            if(getPractice != null)
+            {
+                practiceModel.Id = getPractice.Id;
+            }
+
+
+            var data = CopyPropierties.Convert<ScholarshipProgramTracingPracticeModel, ScholarshipProgramTracingPractice>(practiceModel);
+
+            try
+            {
+                _tracingPractice.Save(data);
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("SeguimientoALapráctica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            }
+
+
+
+            return RedirectToAction("SeguimientoALapráctica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+        }
+
 
         /// <summary>
         ///Formalización de convenios con los centros de práctica
         /// </summary>
-        public IActionResult ConveniosConLosCentrosDePráctica()
+        public IActionResult ConveniosConLosCentrosDePráctica(int tracingId, int scholarshipProgramUniversityId)
         {
-            return View();
+
+
+            var model = new ConveniosConLosCentrosDePrácticaViewModel();
+            model.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.AgreementsWithPracticeCenterList = _agreementsWithPracticeCenter.GetAllByTracingId(tracingId);
+            var ScholarshipProgramTracingAgreementsWithPracticeCenterModel = new ScholarshipProgramTracingAgreementsWithPracticeCenterModel
+            {
+                TracingId = tracingId
+            };
+
+
+             model.AgreementsWithPracticeCenterModel = ScholarshipProgramTracingAgreementsWithPracticeCenterModel;
+             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+
+
+            return View(model);
+        }
+
+        public IActionResult SaveConveniosConLosCentrosDePráctica(ConveniosConLosCentrosDePrácticaViewModel model)
+        {
+
+            var practiceModel = new ScholarshipProgramTracingAgreementsWithPracticeCenterModel();
+            practiceModel.TracingId = model.TracingId;
+            practiceModel = model.AgreementsWithPracticeCenterModel;
+
+            var data = CopyPropierties.Convert<ScholarshipProgramTracingAgreementsWithPracticeCenterModel, ScholarshipProgramTracingAgreementsWithPracticeCenter>(practiceModel);
+
+            try
+            {
+                _agreementsWithPracticeCenter.Save(data);
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("ConveniosConLosCentrosDePráctica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
+            return RedirectToAction("ConveniosConLosCentrosDePráctica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
         }
 
         /// <summary>
         /// 5.- Formalización de convenios con instituciones afines a los programas para actividades co-curriculares
         /// </summary>
 
-        public IActionResult InstitucionesAfinesALosProgramasParaActividades()
+        public IActionResult InstitucionesAfinesALosProgramasParaActividades(int tracingId, int scholarshipProgramUniversityId)
         {
-            return View();
+            var model = new InstitucionesAfinesALosProgramasParaActividadesViewModel();
+            model.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.RelatedToCurricularActivitiesList = _relatedToCurricularActivities.GetAllByTracingId(tracingId);
+            var ScholarshipProgramTracingAgreementsWithPracticeCenterModel = new AgreementWithInstitutionsRelatedToCurricularActivitiesModel
+            {
+                TracingId = tracingId
+            };
+
+
+            model.RelatedToCurricularActivitiesModel = ScholarshipProgramTracingAgreementsWithPracticeCenterModel;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+
+
+            return View(model);
         }
 
-        public IActionResult ResultadosDelPeriodoAnterior()
+
+
+        [HttpPost]
+        public IActionResult SaveInstitucionesAfinesALosProgramasParaActividades(InstitucionesAfinesALosProgramasParaActividadesViewModel model)
         {
-            return View();
+            var RelatedToCurricularActivitiesModel = new AgreementWithInstitutionsRelatedToCurricularActivitiesModel();
+            RelatedToCurricularActivitiesModel.TracingId = model.TracingId;
+            RelatedToCurricularActivitiesModel = model.RelatedToCurricularActivitiesModel;
+
+            var data = CopyPropierties.Convert<AgreementWithInstitutionsRelatedToCurricularActivitiesModel, AgreementWithInstitutionsRelatedToCurricularActivities>(RelatedToCurricularActivitiesModel);
+
+            try
+            {
+                _relatedToCurricularActivities.Save(data);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("InstitucionesAfinesALosProgramasParaActividades", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
+            return RedirectToAction("InstitucionesAfinesALosProgramasParaActividades", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+        }
+        public IActionResult ResultadosDelPeriodoAnterior(int tracingId, int scholarshipProgramUniversityId)
+        {
+            var model = new ResultadosDelPeriodoAnteriorViewModel();
+            model.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.PreviousPeriodList = _previousPeriod.GetAllByTracingId(tracingId);
+            ViewBag.ComponentTypes = new SelectList(_componentFileType.GetAll, "ComponentFileTypeId", "ComponentFileTypeName");
+
+            return View(model);
         }
 
 
-
-        public IActionResult SeguimientoALaPráctica(int tracingId, int scholarshipProgramUniversityId)
+        [HttpPost]
+        public async Task<IActionResult> SaveResultadosDelPeriodoAnterior(ResultadosDelPeriodoAnteriorViewModel  model,IFormFile file)
         {
-            return View();
+            var rutaPdf = _config.GetSection("rutas").GetSection("DocumentosResultadosDelPeriodoAnterior").Value;
+
+
+            var previousPeriod = _previousPeriod.GetAll.FirstOrDefault(x =>
+            x.TracingId == model.TracingId && x.ComponentFileTypeId == model.PreviousPeriodModel.ComponentFileTypeId);
+
+            model.PreviousPeriodModel.TracingId = model.TracingId;
+
+            if(previousPeriod != null)
+            {
+                model.PreviousPeriodModel.PreviousPeriodId = previousPeriod.PreviousPeriodId;
+                model.PreviousPeriodModel.FileId = previousPeriod.FileId;
+                model.PreviousPeriodModel.ComponentFileTypeId = previousPeriod.ComponentFileTypeId;
+                model.PreviousPeriodModel.CreationDate = previousPeriod.CreationDate;
+                model.PreviousPeriodModel.UpgradeDate = previousPeriod.UpgradeDate;
+                model.PreviousPeriodModel.StatusId = previousPeriod.StatusId;
+            }
+
+            if (file != null)
+            {
+                //upload files to wwwroot
+                //var fileName = Path.GetFileName(file.FileName);         
+
+                //judge if it is pdf file
+                string ext = Path.GetExtension(file.FileName);
+                var fileName = model.PreviousPeriodModel.PreviousPeriodId + "-" + Guid.NewGuid() + ext;
+                if (ext.ToLower() != ".pdf")
+                {
+                    return RedirectToAction("ResultadosDelPeriodoAnterior", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+                }
+                var fileFullPath = Path.Combine(rutaPdf, fileName);
+                //var filePath = "\\app-assets\\documentos\\teacher" + fileName; 
+
+                using (var fileSteam = new FileStream(fileFullPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileSteam);
+                }
+                //your logic to save filePath to database, for example
+
+
+
+                var fileTypeId = 12;
+                var fileModel = new core.Modelos.File();
+
+                if (previousPeriod != null)
+                {
+                    fileModel.FileId = (long)model.PreviousPeriodModel.FileId;
+
+                }
+
+                fileModel.FileName = file.FileName;
+                fileModel.FilePath = fileName;
+                fileModel.FileFullPath = fileFullPath;
+                fileModel.FileTypeId = fileTypeId;
+
+                var resultsFromThePreviousPeriodModel = new ResultsFromThePreviousPeriodModel();
+                resultsFromThePreviousPeriodModel = model.PreviousPeriodModel;
+                resultsFromThePreviousPeriodModel.File = fileModel;
+
+                var data = CopyPropierties.Convert<ResultsFromThePreviousPeriodModel, ResultsFromThePreviousPeriod>(resultsFromThePreviousPeriodModel);
+
+                try
+                {
+                    if (previousPeriod != null)
+                    {
+
+                        _file.Save(fileModel);
+                    }
+
+                    _previousPeriod.Save(data);
+                }
+                catch(Exception e)
+                {
+                    return RedirectToAction("ResultadosDelPeriodoAnterior", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+                }
+            }
+
+
+            return RedirectToAction("ResultadosDelPeriodoAnterior", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
         }
+        //public IActionResult SeguimientoALaPráctica(int tracingId, int scholarshipProgramUniversityId)
+        //{
+        //    return View();
+        //}
         public ApoyoAlEstudianteModel GetIndicadores()
         {
             string[] indicadores =

@@ -7,7 +7,7 @@ namespace Inafocam.core.Modelos
     {
         public long Id { get; set; }
         public long? TracingId { get; set; }
-        public string PracticeType { get; set; }
+        public int? StudentPracticeTypeId { get; set; }
         public int? StudentsQuantity { get; set; }
         public int? PracticeCenterQuantity { get; set; }
         public int? SupervisorQuantity { get; set; }
@@ -16,6 +16,8 @@ namespace Inafocam.core.Modelos
         public DateTime? UpgradeDate { get; set; }
         public long? StatusId { get; set; }
 
+
+        public virtual StudentPracticeType StudentPracticeType { get; set; }
         public virtual Status Status { get; set; }
         public virtual ScholarshipProgramTracing Tracing { get; set; }
     }

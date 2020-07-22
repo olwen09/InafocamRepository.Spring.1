@@ -1,5 +1,5 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.AcuerdosViewModel
-@inject Inafocam.core.Interfaces.IScholarshipProgramTracingAgreementFile AgreementFile
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.EstudiantesEnPracticaViewModel
+
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -9,7 +9,8 @@
 
         mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-    } }
+    }
+    var count = 1; }
 
 @section Style
 {
@@ -33,441 +34,152 @@
 
 
 <div class="row">
+    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveEstudiantesEnPractica">
 
 
-    @*<input type="hidden" asp-for="UniversityId" />
-        <input type="hidden" asp-for="CreationDate" />*@
+        <input type="hidden" asp-for="TracingId" />
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        <input type="hidden" asp-for="StudentPracticeModel.TracingId" />
+        <input type="hidden" asp-for="StudentPracticeModel.CreationDate" />
+        <input type="hidden" asp-for="StudentPracticeModel.UpgradeDate" />
+        <input type="hidden" asp-for="StudentPracticeModel.CreationDate" />
+        <input type="hidden" asp-for="StudentPracticeModel.StatusId" />
 
-    @*<input type="hidden" asp-for="Com" />*@
+        <div>
+            <span asp-validation-sumary=""></span>
+        </div>
 
-    @* Detalles del programa*@
-    <div>
-        <span asp-validation-sumary=""></span>
-    </div>
+        <div class="card">
+            <div class="card-content">
 
-    <div class="card">
-        <div class="card-content">
+                <h4 class="card-title"> Estudiantes en práctica </h4>
 
-
-
-            <h4 class="card-title">Estudiantes En Practica</h4>
-            <div class="divider"></div>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Práctica I</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
+                <br />
+                <h4 class="card-title">
+                    A continuación solo seleccione el tipo de práctica que desea anexar o sustiturir!
+                </h4>
 
 
+               
+                
+                
+                <div class="row ">
 
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad estudiantes</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3 ">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="textarea1">Cantidad de centros de prácticas</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad supervisores</label>
-                                    </div>
+                    <div class="input-field col s12 m6 l4">
 
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad de docentes anfitriones</label>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-                                           
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                           <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-                                          
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                        <div class="row">
+                            <label for="select2User" class="col s12">Tipos de prácticas</label>
                         </div>
+                        <select asp-for="StudentPracticeModel.StudentPracticeTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.StudentPracticeType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
+
                     </div>
-                </li>
 
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Práctica II</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad estudiantes</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3 ">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="textarea1">Cantidad de centros de prácticas</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad supervisores</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad de docentes anfitriones</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class=" input-field col s12 m6 l4">
+                        <input asp-for="StudentPracticeModel.StudentsQuantity" id="StudentsQuantity" type="number" class="validat black-text">
+                        <label for="StudentsQuantity">Cantidad estudiantes</label>
                     </div>
-                </li>
 
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Práctica III</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad estudiantes</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3 ">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="textarea1">Cantidad de centros de prácticas</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad supervisores</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad de docentes anfitriones</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class=" input-field col s12 m6 l4 ">
+                        <input asp-for="StudentPracticeModel.PracticeCenterQuantity" id="PracticeCenterQuantity" type="number" class="validat black-text">
+                        <label for="PracticeCenterQuantity">Cantidad de centros de prácticas</label>
                     </div>
-                </li>
 
-            </ul>
+                </div>
 
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Práctica IV</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad estudiantes</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3 ">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="textarea1">Cantidad de centros de prácticas</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad supervisores</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad de docentes anfitriones</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class=" input-field col s12 m6 l4">
+                        <input asp-for="StudentPracticeModel.SupervisorQuantity" id="SupervisorQuantity" type="number" class="validat black-text">
+                        <label for="SupervisorQuantity">Cantidad supervisores</label>
                     </div>
-                </li>
 
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Práctica V</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
-
-
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad estudiantes</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3 ">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="textarea1">Cantidad de centros de prácticas</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad supervisores</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad de docentes anfitriones</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class=" input-field col s12 m6 l4">
+                        <input asp-for="StudentPracticeModel.TeacherQuantity" id="" type="number" class="validat black-text">
+                        <label for="">Cantidad de docentes anfitriones</label>
                     </div>
-                </li>
 
-            </ul>
-
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <div class="collapsible-header" style="background-color:#eeeeee ">Práctica VI</div>
-                    <div class="collapsible-body">
-                        <div class="row card">
-
-                            <div class="card-content">
-                                <span class="card-title">Detalles </span>
-                                <form class="col s12">
+                    <div class="input-field col s12 m6 l1">
+                        <br />
+                        <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
 
 
 
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad estudiantes</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3 ">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="textarea1">Cantidad de centros de prácticas</label>
-                                    </div>
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad supervisores</label>
-                                    </div>
-
-                                    <div class=" input-field col s12 m6 l3">
-                                        <input id="" type="number" class="validat black-text">
-                                        <label for="">Cantidad de docentes anfitriones</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l5">
-
-                                        </div>
-                                        <div class="col s12 m6 l2">
-                                            <button class="teal btn waves-effect waves-light mb-2 ml-5">Agregar</button>
-                                        </div>
-                                        <div class="col s12 m6 l4">
-
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
-                </li>
 
-            </ul>
+
+                </div>
+
+                <br />
+                <span class="card-title">Información Anexa</span>
+                <div class="divider"></div>
+                <div class="col s12">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Practica</th>
+                                <th>Cantidad estudiantes</th>
+                                <th>Cantidad de centros de prácticas</th>
+                                <th>Cantidad supervisores</th>
+                                <th>Cantidad de docentes anfitriones</th>
+                            </tr>
+                        </thead>
+
+
+
+                        <tbody>
+
+                              @foreach (var item in Model.StudentPracticeList)
+                           {
+                           var numero = count++;
+
+                            <tr>
+                             
+                                <td>@item.StudentPracticeType.StudentPracticeTypeTypeName</td>
+                                <td>@item.StudentsQuantity</td>
+                                <td>@item.PracticeCenterQuantity</td>
+                                <td>@item.SupervisorQuantity</td>
+                                <td>@item.TeacherQuantity</td>                               
+                                </tr>
+                           }
+                     
+                       
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+            @*<div class="input-field col s12">
+                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                        Guardar
+                        <i class="material-icons right">save</i>
+                    </button>
+                </div>*@
+        </div>
+
+        <div class="input-field col s12">
+
+
+
+
+
+            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ApoyoAlStudiante" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+
+                    Atras
+                </a>
+
+                <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="PlanificaciónDeLaPráctica" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+
+                    Siguiente
+                </a>
 
         </div>
 
-    </div>
-
-
-
-    @*<div class="card">
-            <div class="card-content">
-
-
-
-                <h4 class="card-title">Convenidos</h4>
-                <div class="divider"></div>
-
-                <ul class="collapsible">
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">pan_tool</i>First</div>
-                        <div class="collapsible-body">
-                            <div class="row card">
-
-                                <div class="card-content">
-                                    <form class="col s12">
-
-
-                                        <span class="card-title">Detalles</span>
-                                        <div class="file-field input-field col s12 m6 l4">
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Descripción del avance</label>
-                                        </div>
-                                        <div class="file-field input-field col s12 m6 l4 ">
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Descripción que evidencie el cumplimiento</label>
-                                        </div>
-                                        <div class="file-field input-field col s12 m6 l4">
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Observaciones</label>
-                                        </div>
-
-
-
-
-                                        <span class="card-title">Seleccionar Evidencia</span>
-                                        <div class="divider"></div>
-
-                                        <div class="file-field input-field col s12 m6 l5">
-                                            <div class="btn">
-                                                <span>File</span>
-                                                <input name="file" type="file">
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input name="file" class="file-path validate" type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="file-field input-field col s12 m6 l6">
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Observaciones</label>
-                                        </div>
-
-                                        <div class="file-field input-field col s12 m6 l1">
-                                            <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
-                                        </div>
-                                        <br />
-                                        <div class="divider"></div>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombre de Archivo</th>
-                                                    <th>Descripcion</th>
-                                                    <th>Acciones</th>
-
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>Jonathan</td>
-                                                    <td>Lollipop</td>
-                                                    <td>ver</td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-
-
-
-
-
-
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-
-                </ul>
-
-            </div>
-
-        </div>*@
-
-
-    <div class="input-field col s12">
-
-
-
-
-
-        @*<a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InformacionPrincipal" asp-route-tracingId="@Model.ScholarshipProgramTracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
-
-            Atras
-        </a>*@
-
-        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="PlanificaciónDeLaPráctica" >
-
-            Siguiente
-        </a>
-
-    </div>
-
-
+    </form>
 </div>
 
 @section Scripts
@@ -518,18 +230,6 @@
 
         $(document).ready(function () {
             $('.datepicker').datepicker();
-        });
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.collapsible');
-            var instances = M.Collapsible.init(elems, options);
-        });
-
-        // Or with jQuery
-
-        $(document).ready(function () {
-            $('.collapsible').collapsible();
         });
 
     </script>

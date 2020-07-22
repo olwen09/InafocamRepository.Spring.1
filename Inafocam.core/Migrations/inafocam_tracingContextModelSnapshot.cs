@@ -17,6 +17,56 @@ namespace Inafocam.core.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Inafocam.core.Modelos.ActionType", b =>
+                {
+                    b.Property<long>("ActionTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ActionTypeName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<long?>("StatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("ActionTypeId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("ActionType");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.ActivityType", b =>
+                {
+                    b.Property<long>("ActivityTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ActivityTypeName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<long?>("StatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("ActivityTypeId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("ActivityType");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.Address", b =>
                 {
                     b.Property<long>("AddressId")
@@ -252,6 +302,102 @@ namespace Inafocam.core.Migrations
                     b.ToTable("agreement_type");
                 });
 
+            modelBuilder.Entity("Inafocam.core.Modelos.AgreementWithInstitutionsRelatedToCurricularActivities", b =>
+                {
+                    b.Property<int>("AgreementWithInstitutionsRelatedToCurricularActivitiesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ActivityDescription")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Duration")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Institution")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("NumberOfParticipatingStudents")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("StatusId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TracingId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("TracingScholarshipProgramTracingId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("AgreementWithInstitutionsRelatedToCurricularActivitiesId");
+
+                    b.HasIndex("StatusId1");
+
+                    b.HasIndex("TracingScholarshipProgramTracingId");
+
+                    b.ToTable("AgreementWithInstitutionsRelatedToCurricularActivities");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.AgreementsInstitutionRelatedCoCurricularActivities", b =>
+                {
+                    b.Property<int>("AgreementsInstitutionRelatedCoCurricularActivitiesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ActivityDescription")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Duration")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Institution")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("NumberOfParticipatingStudents")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("StatusId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TracingId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("TracingScholarshipProgramTracingId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("AgreementsInstitutionRelatedCoCurricularActivitiesId");
+
+                    b.HasIndex("StatusId1");
+
+                    b.HasIndex("TracingScholarshipProgramTracingId");
+
+                    b.ToTable("AgreementsInstitutionRelatedCoCurricularActivities");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.City", b =>
                 {
                     b.Property<long>("CityId")
@@ -484,6 +630,31 @@ namespace Inafocam.core.Migrations
                         .HasName("FK_company_type_status");
 
                     b.ToTable("company_type");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.ComponentFileType", b =>
+                {
+                    b.Property<int>("ComponentFileTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ComponentFileTypeName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<long?>("StatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("ComponentFileTypeId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("ComponentFileTypes");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.Contact", b =>
@@ -1315,24 +1486,80 @@ namespace Inafocam.core.Migrations
                     b.ToTable("province");
                 });
 
+            modelBuilder.Entity("Inafocam.core.Modelos.ResultsFromThePreviousPeriod", b =>
+                {
+                    b.Property<long>("PreviousPeriodId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ComponentFileTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("ComponentFileTypeId1")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("FileDescription")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("FileId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Observations")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("StatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TracingId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("PreviousPeriodId");
+
+                    b.HasIndex("ComponentFileTypeId1");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("TracingId");
+
+                    b.ToTable("ResultsFromThePreviousPeriod");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.Role", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(767)");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("text");
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("Roles");
                 });
@@ -1692,6 +1919,54 @@ namespace Inafocam.core.Migrations
                     b.ToTable("scholarship_program_tracing_agreement_file");
                 });
 
+            modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingAgreementsWithPracticeCenter", b =>
+                {
+                    b.Property<int>("AgreementsWithPracticeCenterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ActivityDescription")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Duration")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Institution")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("NumberOfParticipatingStudents")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("StatusId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TracingId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("TracingScholarshipProgramTracingId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("AgreementsWithPracticeCenterId");
+
+                    b.HasIndex("StatusId1");
+
+                    b.HasIndex("TracingScholarshipProgramTracingId");
+
+                    b.ToTable("ScholarshipProgramTracingAgreementsWithPracticeCenter");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingCourse", b =>
                 {
                     b.Property<long>("Id")
@@ -1842,9 +2117,9 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("id")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Activity")
+                    b.Property<long?>("ActivityTypeId")
                         .HasColumnName("activity")
-                        .HasColumnType("varchar(128)")
+                        .HasColumnType("bigint")
                         .HasMaxLength(128)
                         .IsUnicode(false);
 
@@ -1894,6 +2169,8 @@ namespace Inafocam.core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ActivityTypeId");
+
                     b.HasIndex("StatusId")
                         .HasName("FK_practice_status");
 
@@ -1910,9 +2187,9 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("id")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Action")
+                    b.Property<long?>("ActionTypeId")
                         .HasColumnName("action")
-                        .HasColumnType("varchar(64)")
+                        .HasColumnType("bigint")
                         .HasMaxLength(64)
                         .IsUnicode(false);
 
@@ -1947,6 +2224,8 @@ namespace Inafocam.core.Migrations
                         .HasColumnType("datetime");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ActionTypeId");
 
                     b.HasIndex("StatusId")
                         .HasName("FK_planning_status");
@@ -1994,6 +2273,8 @@ namespace Inafocam.core.Migrations
                     b.HasIndex("FileId")
                         .HasName("FK_file_quality");
 
+                    b.HasIndex("FileTypeId");
+
                     b.HasIndex("StatusId")
                         .HasName("FK_status_quality");
 
@@ -2030,6 +2311,8 @@ namespace Inafocam.core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("StatusId");
+
                     b.ToTable("scholarship_program_tracing_quality_system_file_type");
                 });
 
@@ -2048,15 +2331,15 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("practice_center_quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("PracticeType")
-                        .HasColumnName("practice_type")
-                        .HasColumnType("varchar(64)")
-                        .HasMaxLength(64)
-                        .IsUnicode(false);
-
                     b.Property<long?>("StatusId")
                         .HasColumnName("status_id")
                         .HasColumnType("bigint");
+
+                    b.Property<int?>("StudentPracticeTypeId")
+                        .HasColumnName("practice_type")
+                        .HasColumnType("int")
+                        .HasMaxLength(64)
+                        .IsUnicode(false);
 
                     b.Property<int?>("StudentsQuantity")
                         .HasColumnName("students_quantity")
@@ -2082,6 +2365,8 @@ namespace Inafocam.core.Migrations
 
                     b.HasIndex("StatusId")
                         .HasName("FK_scholarship_program_tracing_student_practice_status");
+
+                    b.HasIndex("StudentPracticeTypeId");
 
                     b.HasIndex("TracingId")
                         .HasName("FK_student_practice_tracing");
@@ -2472,6 +2757,31 @@ namespace Inafocam.core.Migrations
                     b.HasKey("StatusId");
 
                     b.ToTable("status");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.StudentPracticeType", b =>
+                {
+                    b.Property<int>("StudentPracticeTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<long?>("StatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("StudentPracticeTypeTypeName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("StudentPracticeTypeId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("StudentPracticeType");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.StudyPlanManagement", b =>
@@ -2898,8 +3208,11 @@ namespace Inafocam.core.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<long?>("CreationUserId")
-                        .HasColumnName("creation_user_id")
+                        .HasColumnName("creditos")
                         .HasColumnType("bigint");
+
+                    b.Property<int?>("Creditos")
+                        .HasColumnType("int");
 
                     b.Property<int?>("DesertedStudentsQuantity")
                         .HasColumnName("deserted_students_quantity")
@@ -2973,6 +3286,8 @@ namespace Inafocam.core.Migrations
 
                     b.HasIndex("SubjectMatterId")
                         .HasName("FK_teacher_subject_matter");
+
+                    b.HasIndex("SubjectMatterScoreReportFileId");
 
                     b.HasIndex("TeacherId")
                         .HasName("FK_teacher_teacher");
@@ -3282,13 +3597,13 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("user_creation_id")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("UserId")
-                        .HasColumnName("user_id")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("UserUpgradeId")
                         .HasColumnName("user_upgrade_id")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("UsuarioId")
+                        .HasColumnName("usuario_id")
+                        .HasColumnType("text");
 
                     b.HasKey("UserUniversityId");
 
@@ -3297,9 +3612,6 @@ namespace Inafocam.core.Migrations
 
                     b.HasIndex("UniversityId")
                         .HasName("FK__university");
-
-                    b.HasIndex("UserId")
-                        .HasName("FK__user");
 
                     b.ToTable("user_university");
                 });
@@ -3367,21 +3679,23 @@ namespace Inafocam.core.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
 
-                    b.Property<short>("EmailConfirmed")
+                    b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<short>("Estado")
+                    b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
                     b.Property<string>("Imagen")
                         .HasColumnType("text");
 
-                    b.Property<short>("LockoutEnabled")
+                    b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
@@ -3391,10 +3705,12 @@ namespace Inafocam.core.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -3402,7 +3718,7 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<short>("PhoneNumberConfirmed")
+                    b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Role")
@@ -3411,15 +3727,144 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
-                    b.Property<short>("TwoFactorEnabled")
+                    b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<long?>("UniversityId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("UserName")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.HasIndex("UniversityId");
+
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(767)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.ActionType", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.ActivityType", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.Address", b =>
@@ -3505,6 +3950,28 @@ namespace Inafocam.core.Migrations
                         .WithMany("AgentType")
                         .HasForeignKey("StatusId")
                         .HasConstraintName("FK_agent_type_status");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.AgreementWithInstitutionsRelatedToCurricularActivities", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId1");
+
+                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramTracing", "Tracing")
+                        .WithMany()
+                        .HasForeignKey("TracingScholarshipProgramTracingId");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.AgreementsInstitutionRelatedCoCurricularActivities", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId1");
+
+                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramTracing", "Tracing")
+                        .WithMany()
+                        .HasForeignKey("TracingScholarshipProgramTracingId");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.City", b =>
@@ -3597,6 +4064,13 @@ namespace Inafocam.core.Migrations
                         .WithMany("CompanyType")
                         .HasForeignKey("StatusId")
                         .HasConstraintName("FK_company_type_status");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.ComponentFileType", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.Contact", b =>
@@ -3836,6 +4310,25 @@ namespace Inafocam.core.Migrations
                         .HasConstraintName("FK_province_status");
                 });
 
+            modelBuilder.Entity("Inafocam.core.Modelos.ResultsFromThePreviousPeriod", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.ComponentFileType", "ComponentFileType")
+                        .WithMany()
+                        .HasForeignKey("ComponentFileTypeId1");
+
+                    b.HasOne("Inafocam.core.Modelos.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+
+                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramTracing", "Tracing")
+                        .WithMany()
+                        .HasForeignKey("TracingId");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.Schedule", b =>
                 {
                     b.HasOne("Inafocam.core.Modelos.User", "CreationUser")
@@ -3967,6 +4460,17 @@ namespace Inafocam.core.Migrations
                         .HasConstraintName("FK_scholarship_program_tracking_agreement_file_status");
                 });
 
+            modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingAgreementsWithPracticeCenter", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId1");
+
+                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramTracing", "Tracing")
+                        .WithMany()
+                        .HasForeignKey("TracingScholarshipProgramTracingId");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingCourse", b =>
                 {
                     b.HasOne("Inafocam.core.Modelos.Status", "Status")
@@ -4005,6 +4509,10 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingPractice", b =>
                 {
+                    b.HasOne("Inafocam.core.Modelos.ActivityType", "ActivityType")
+                        .WithMany()
+                        .HasForeignKey("ActivityTypeId");
+
                     b.HasOne("Inafocam.core.Modelos.Status", "Status")
                         .WithMany("ScholarshipProgramTracingPractice")
                         .HasForeignKey("StatusId")
@@ -4018,6 +4526,10 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingPracticePlanning", b =>
                 {
+                    b.HasOne("Inafocam.core.Modelos.ActionType", "ActionType")
+                        .WithMany()
+                        .HasForeignKey("ActionTypeId");
+
                     b.HasOne("Inafocam.core.Modelos.Status", "Status")
                         .WithMany("ScholarshipProgramTracingPracticePlanning")
                         .HasForeignKey("StatusId")
@@ -4036,6 +4548,10 @@ namespace Inafocam.core.Migrations
                         .HasForeignKey("FileId")
                         .HasConstraintName("FK_file_quality");
 
+                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramTracingQualitySystemFileType", "FileType")
+                        .WithMany()
+                        .HasForeignKey("FileTypeId");
+
                     b.HasOne("Inafocam.core.Modelos.Status", "Status")
                         .WithMany("ScholarshipProgramTracingQualitySystem")
                         .HasForeignKey("StatusId")
@@ -4047,12 +4563,23 @@ namespace Inafocam.core.Migrations
                         .HasConstraintName("FK_program_tracing");
                 });
 
+            modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingQualitySystemFileType", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingStudentPractice", b =>
                 {
                     b.HasOne("Inafocam.core.Modelos.Status", "Status")
                         .WithMany("ScholarshipProgramTracingStudentPractice")
                         .HasForeignKey("StatusId")
                         .HasConstraintName("FK_scholarship_program_tracing_student_practice_status");
+
+                    b.HasOne("Inafocam.core.Modelos.StudentPracticeType", "StudentPracticeType")
+                        .WithMany()
+                        .HasForeignKey("StudentPracticeTypeId");
 
                     b.HasOne("Inafocam.core.Modelos.ScholarshipProgramTracing", "Tracing")
                         .WithMany("ScholarshipProgramTracingStudentPractice")
@@ -4180,6 +4707,13 @@ namespace Inafocam.core.Migrations
                         .WithMany("ScholarshipProgramUniversitySubjectMatterTeacher")
                         .HasForeignKey("TeacherId")
                         .HasConstraintName("FK_scholarship_program_university_subject_matter_teacher");
+                });
+
+            modelBuilder.Entity("Inafocam.core.Modelos.StudentPracticeType", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.SubjectMatter", b =>
@@ -4327,6 +4861,10 @@ namespace Inafocam.core.Migrations
                         .HasForeignKey("SubjectMatterId")
                         .HasConstraintName("FK_teacher_subject_matter");
 
+                    b.HasOne("Inafocam.core.Modelos.File", "SubjectMatterScoreReportFile")
+                        .WithMany()
+                        .HasForeignKey("SubjectMatterScoreReportFileId");
+
                     b.HasOne("Inafocam.core.Modelos.Teacher", "Teacher")
                         .WithMany("TracingStudyPlanDevelopmentTeacher")
                         .HasForeignKey("TeacherId")
@@ -4455,11 +4993,64 @@ namespace Inafocam.core.Migrations
                         .WithMany("UserUniversity")
                         .HasForeignKey("UniversityId")
                         .HasConstraintName("FK__university");
+                });
 
-                    b.HasOne("Inafocam.core.Modelos.User", "User")
-                        .WithMany("UserUniversity")
+            modelBuilder.Entity("Inafocam.core.Modelos.Usuario", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.University", "University")
+                        .WithMany()
+                        .HasForeignKey("UniversityId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Usuario", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .HasConstraintName("FK__user");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Inafocam.core.Modelos.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
