@@ -8,6 +8,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models;
+using Inafocam.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
 {
     [Area("ProgramacionDeSeguimiento") , ReturnArea("ProgramacionDeSeguimiento")]
-    [ReturnControllador("Programacion De Seguimientos"),ReturnController("ProgramacionDeSeguimiento")]
+    [ReturnControllador("Programación De Seguimientos"),ReturnController("ProgramacionDeSeguimiento")]
     [Authorize]
     public class ProgramacionDeSeguimientoController : Controller
     {
@@ -106,16 +107,53 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
             var data = CopyPropierties.Convert< ScholarshipProgramTracingModel, ScholarshipProgramTracing>(model);
             var scholarshipProgramTracing = _scholarshipProgramTracing.ScholarshipProgramTracing;
 
-            try
+
+            if (ModelState.IsValid)
             {
-                _scholarshipProgramTracing.Save(data);
+                try
+                {
+                    _scholarshipProgramTracing.Save(data);
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Editar", new { id = model.ScholarshipProgramTracingId });
+                }
+
+                return View("Index", scholarshipProgramTracing);
             }
-            catch(Exception e)
+            else
             {
-                return RedirectToAction("Editar", new { id = model.ScholarshipProgramTracingId });
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count > 0).First();
+
+
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
+
+
+                if(model.ScholarshipProgramTracingId != 0)
+                {
+                    return RedirectToAction("Editar", new { id = model.ScholarshipProgramTracingId });
+                }
+
+                var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+                var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+                var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
+                   .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
+
+
+
+                ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramName");
+                ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
+                ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
+                ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+                ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
+
+                return View("Crear");
+
             }
 
-            
+
 
 
 
@@ -130,7 +168,7 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
             });
             var teachers = _teacher.GetAll.Select(x => new TeacherInfo
             {
-                TeacherId = x.TeacherId,
+                TeacherId = (long)x.TeacherId,
                 TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
             });
 
@@ -145,11 +183,13 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
 
         public IActionResult SaveProgramaDeBecasMateriaUniversitaria(ProgramaDeBecasMateriaUniversitariaViewModel model)
         {
-            var tracingStudyPlanDevelopment = new TracingStudyPlanDevelopment();
+            var tracingStudyPlanDevelopment = new TracingStudyPlanDevelopmentModel();
             tracingStudyPlanDevelopment.SubjectMatterId = model.TracingStudyPlanDevelopmentModel.SubjectMatterId;
             tracingStudyPlanDevelopment.ScholarshipProgramTracingId = model.TracingId;
             tracingStudyPlanDevelopment.TeacherId = model.TracingStudyPlanDevelopmentModel.TeacherId;
             tracingStudyPlanDevelopment.Creditos = model.TracingStudyPlanDevelopmentModel.Creditos;
+
+            var data = CopyPropierties.Convert<TracingStudyPlanDevelopmentModel, TracingStudyPlanDevelopment>(tracingStudyPlanDevelopment);
 
             var scholarshipProgramUniversitySubjectMatter = new ScholarshipProgramUniversitySubjectMatter();
             scholarshipProgramUniversitySubjectMatter.ScholarshipProgramUniversityId = model.ProgramUniversityId;
@@ -160,7 +200,7 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
 
             try
             {
-                _tracingStudyPlanDevelopment.Save(tracingStudyPlanDevelopment);
+                _tracingStudyPlanDevelopment.Save(data);
                 _scholarshipProgramUniversitySubjectMatter.Save(scholarshipProgramUniversitySubjectMatter);
             }
             catch(Exception e)

@@ -1,6 +1,7 @@
 ﻿using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,10 +12,16 @@ namespace Inafocam.Web.Areas.ProgramasDeBecas.Modelos
         public long ScholarshipProgramUniversityId { get; set; }
         public long? ScholarshipLevelId { get; set; }
         public long? ScholarshipProgramId { get; set; }
+
+        [Required(ErrorMessage = "La {0} es requerida")]
+        [Display(Name ="Universidad")]
         public long? UniversityId { get; set; }
         public long? ScatProgramId { get; set; }
+
+        [Required(ErrorMessage = "El {0} es requerido")]
         public string ScatProgramCode { get; set; }
         public int? ActiveStudents { get; set; }
+        [Required(ErrorMessage = "El {0} es requerido")]
         public string ContractNumber { get; set; }
         public long? CoordinatorId { get; set; }
         public long? TechnicalId { get; set; }

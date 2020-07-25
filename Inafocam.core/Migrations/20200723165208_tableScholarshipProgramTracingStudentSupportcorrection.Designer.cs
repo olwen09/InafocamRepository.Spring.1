@@ -3,14 +3,16 @@ using System;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Inafocam.core.Migrations
 {
     [DbContext(typeof(inafocam_tracingContext))]
-    partial class inafocam_tracingContextModelSnapshot : ModelSnapshot
+    [Migration("20200723165208_tableScholarshipProgramTracingStudentSupportcorrection")]
+    partial class tableScholarshipProgramTracingStudentSupportcorrection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3692,16 +3694,16 @@ namespace Inafocam.core.Migrations
                         .HasColumnType("varchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<short>("EmailConfirmed")
+                    b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<short>("Estado")
+                    b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
                     b.Property<string>("Imagen")
                         .HasColumnType("text");
 
-                    b.Property<short>("LockoutEnabled")
+                    b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
@@ -3724,7 +3726,7 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<short>("PhoneNumberConfirmed")
+                    b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Role")
@@ -3733,7 +3735,7 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
-                    b.Property<short>("TwoFactorEnabled")
+                    b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
                     b.Property<long?>("UniversityId")

@@ -111,19 +111,16 @@
 
                                                     </div>
 
-                                                    @foreach (var universitySubjectMatter in item.SubjectMatter.ScholarshipProgramUniversitySubjectMatter)
-                                                    {
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="@universitySubjectMatter.SubjectMatterCredits" id="creditos" type="text" class="validat black-text" readonly disabled>
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.Creditos" id="creditos" type="text" class="validat black-text" readonly disabled>
 
                                                         <label for="creditos">Créditos</label>
 
 
                                                     </div>
-                                                    }
 
-
+                                                    
 
                                                     <div class="input-field col s12 m6 l3">
 
@@ -153,31 +150,23 @@
 
                                                     </div>
 
-                                                    @{ }
+                                        
 
-                                                    @*<div class="input-field col s12 m6 l3">
-                            <div class="row">
-                                <label for="select2User" class="col s12">Títulación del perfil por el cual hizo la asignación</label>
-                            </div>
-                            <select id="HigherTitleSupportMatterId" class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(IteacherEducation.GetAllByTeacherId(1),"TeacherEducationId","TeacherEducationTitle"))">
-                                <option  value="" disabled selected></option>
-                            </select>
-                        </div>*@
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ScoreAverageStudents" id="" type="text" class="validat black-text">
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ScoreAverageStudents" id="ScoreAverageStudents" type="number" class="validat black-text">
 
-                                                        <label for="">Promedio de calificación del total de estudiantes</label>
+                                                        <label for="ScoreAverageStudents">Promedio de calificación del total de estudiantes</label>
 
 
                                                     </div>
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ApprovedStudentsQuantity" id="Telefono" type="text" class="validat black-text">
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ApprovedStudentsQuantity" id="ApprovedStudentsQuantity" type="number" class="validat black-text">
 
-                                                        <label for="Telefono">Cantidad de estudiantes promovidos</label>
+                                                        <label for="ApprovedStudentsQuantity">Cantidad de estudiantes promovidos</label>
 
 
                                                     </div>
@@ -186,18 +175,18 @@
                                                 <div class="row">
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ReprovedStudentsQuantity" id="cantidadestudiantesreprobado" type="text" class="validat black-text">
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ReprovedStudentsQuantity" id="ReprovedStudentsQuantity" type="number" class="validat black-text">
 
-                                                        <label for="cantidadestudiantesreprobado">Cantidad de estudiantes reprobado</label>
+                                                        <label for="ReprovedStudentsQuantity">Cantidad de estudiantes reprobado</label>
 
 
                                                     </div>
 
                                                     <div class="input-field col s12 m6 l3">
 
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.DesertedStudentsQuantity" id="cantidadestudiantesretirados" type="text" class="validat black-text">
+                                                        <input asp-for="TracingStudyPlanDevelopmentModel.DesertedStudentsQuantity" id="DesertedStudentsQuantity" type="number" class="validat black-text">
 
-                                                        <label for="cantidadestudiantesretirados">Cantidad de Estudiantes Retirados</label>
+                                                        <label for="DesertedStudentsQuantity">Cantidad de Estudiantes Retirados</label>
 
 
                                                     </div>

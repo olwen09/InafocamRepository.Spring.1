@@ -17,7 +17,7 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models
         public double? ScoreAverageStudents { get; set; }
         public int? ApprovedStudentsQuantity { get; set; }
         public int? ReprovedStudentsQuantity { get; set; }
-        public int? Creditos { get; set; }
+        public long? Creditos { get; set; }
         public int? DesertedStudentsQuantity { get; set; }
         public short? HigherTitleMatchAssignedMatter { get; set; }
         public long? SubjectMatterScoreReportFileId { get; set; }

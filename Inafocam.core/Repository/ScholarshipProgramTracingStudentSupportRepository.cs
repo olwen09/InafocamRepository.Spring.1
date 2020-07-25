@@ -38,7 +38,7 @@ namespace Inafocam.core.Repository
         public void Save(ScholarshipProgramTracingStudentSupport model)
         {
             var now = DateTime.Now;
-
+            var activateStatus = 1;
             if(model.Id != 0)
             {
                 model.UpgradeDate = now;
@@ -47,6 +47,7 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
+                model.StatusId = activateStatus;
                 _context.Add(model);
             }
             _context.SaveChanges();

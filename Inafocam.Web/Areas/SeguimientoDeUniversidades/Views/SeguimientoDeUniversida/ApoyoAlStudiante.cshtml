@@ -8,7 +8,9 @@
 
         mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-    } }
+    }
+    var count = 0;
+    }
 
 @section Style
 {
@@ -51,98 +53,146 @@
 
             <h4 class="card-title">	Apoyo al Estudiante</h4>
             <div class="divider"></div>
-            <form class="col s12" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
-                @foreach (var item in Model.IndicadoresList)
-                {
-                    Model.Indicador = item;
-    <ul class="collapsible collapsible-accordion">
-        <li>
+            @foreach (var item in Model.IndicadoresList)
+            {
+                Model.Indicador = item;
+
+                Model.StudentSupporModel = null;
+
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <div class="collapsible-header" style="background-color:#eeeeee ">@Model.Indicador.IndicadorId . @Model.Indicador.IndicadorNombre</div>
+                <div class="collapsible-body">
+                    <div class="row">
+
+                        <div class="">
+                            @foreach (var questions in Model.StudentSupportList.ToList())
+                                {
 
 
-            <div class="collapsible-header">@Model.Indicador.IndicadorId . @Model.Indicador.IndicadorNombre</div>
-            <div class="collapsible-body">
-                <div class="row card">
+                                    if (questions.IndicatorId == item.IndicadorId)
+                                    {
+                                        Model.StudentSupporModel = questions;
+                                        Model.StudentSupporModelEmpty = questions;
+                                    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
 
-                    <input type="hidden" asp-for="Indicador.IndicadorId" />
-                    <input type="hidden" asp-for="Indicador.IndicadorNombre" />
-
-                    <div class="card-content">
-                        @{ 
-                            var num = 0;
-                            var answerNum = 0;
-                            var preguntaNum = 0;
-                         }
-                        <span class="card-title">Preguntas</span>
-                        @foreach (var pregunta in Model.PreguntasList.ToList())
-                        {
-                                <input type="hidden" asp-for="@Model.PreguntasList[num].PreguntaId" value="@pregunta.PreguntaId" />
-                                <input type="hidden" asp-for="@Model.PreguntasList[num].NombrePregunta" value="@pregunta.NombrePregunta" />
-
-
-                          @foreach (var answer in Model.StudentSupportList.ToList())
-                           {
-                                if (answer.IndicatorId == item.IndicadorId && answer.QuestionId == pregunta.PreguntaId)
-                                   {
-                                      Model.StudentSupporModel = answer;
-                                      <input type="hidden" asp-for="@Model.StudentSupportList[answerNum].Id"/>
-                                      <input type="hidden" asp-for="@Model.StudentSupportList[answerNum].QuestionId"/>
-                                      <input type="hidden" asp-for="@Model.StudentSupportList[answerNum].IndicatorId"/>
-
-                                       <div class="file-field input-field col s12 m6 l12">
-                                             <textarea asp-for="@Model.StudentSupportList[answerNum].Answer" id="textarea1" class="materialize-textarea">@answer.Answer</textarea>
-                                              <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
-                                        </div>
-                              }
-
-                              answerNum++;
-                          }
-
-
-                            @*if(Model.StudentSupportList.Count() == 0)
-                            {
-                                   
-                                    <input type="hidden" asp-for="@Model.StudentSupportList[preguntaNum].Id"/>
-                                      <input type="hidden" asp-for="@Model.StudentSupportList[preguntaNum].QuestionId"/>
-                                      <input type="hidden" asp-for="@Model.StudentSupportList[preguntaNum].IndicatorId"/>
-
-                                       <div class="file-field input-field col s12 m6 l12">
-                                             <textarea asp-for="@Model.StudentSupportList[preguntaNum].Answer" id="textarea1" class="materialize-textarea"></textarea>
-                                              <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
+                                        <input type="hidden" asp-for="TracingId" />
+                                        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+                                        <input type="hidden" asp-for="Indicador.IndicadorId" />
+                                        <input type="hidden" asp-for="StudentSupporModel.CreationDate" />
+                                        <input type="hidden" asp-for="StudentSupporModel.Id" />
+                                        <input type="hidden" asp-for="StudentSupporModel.Status" />
+                                        @*<input type="hidden" asp-for="StudentSupporModel.IndicatorId" />*@
+                                        <div class="file-field input-field col s12 m6 l12">
+                                            <textarea asp-for="StudentSupporModel.Cuálesutilizan" id="Cuálesutilizan" class="materialize-textarea"></textarea>
+                                            <label for="Cuálesutilizan">¿Cuáles utilizan?</label>
                                         </div>
 
-                                answerNum++;
+                                        <div class="file-field input-field col s12 m6 l12">
+                                            <textarea asp-for="StudentSupporModel.ComoLoHacenProcedimiento" id="ComoLoHacenProcedimiento" class="materialize-textarea"></textarea>
+                                            <label for="ComoLoHacenProcedimiento">¿Cómo lo hacen? Procedimiento</label>
+                                        </div>
+
+                                        <div class="file-field input-field col s12 m6 l12">
+                                            <textarea asp-for="StudentSupporModel.CuandoSeHacePeriodicidad" id="CuandoSeHacePeriodicidad" class="materialize-textarea"></textarea>
+                                            <label for="CuandoSeHacePeriodicidad">¿Cuándo se hace? Periodicidad</label>
+                                        </div>
+
+                                        <div class="file-field input-field col s12 m6 l12">
+                                            <textarea asp-for="StudentSupporModel.QuienEsElResponsable" id="QuienEsElResponsable" class="materialize-textarea"></textarea>
+                                            <label for="QuienEsElResponsable">¿Quién es el responsable?</label>
+                                        </div>
+
+                                        <button type="submit" class="btn">Guardar</button>
+                                    </form>
+                                    }                                 
+                            }
+                           
+                            @{ 
+                                count += 1;
+                            }
                                
-                            }*@
+                            
 
-                            @*@if(Model.Answer == null)
+                            
+                           @if (Model.StudentSupporModel == null )
+                           {
+
+
+
+                               //Model.StudentSupporModel = null;
+                                      <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
+                                          
+                                        <input type="hidden" asp-for="TracingId" />
+                                        <input type="hidden" asp-for="Indicador.IndicadorId" />
+
+                                        <div class="file-field input-field col s12 m6 l12">
+                                            <textarea asp-for="StudentSupporModel.Cuálesutilizan" id="Cuálesutilizan" class="materialize-textarea"></textarea>
+                                            <label for="Cuálesutilizan">¿Cuáles utilizan?</label>
+                                        </div>
+
+                                        <div class="file-field input-field col s12 m6 l12">
+                                            <textarea asp-for="StudentSupporModel.ComoLoHacenProcedimiento" id="ComoLoHacenProcedimiento" class="materialize-textarea"></textarea>
+                                            <label for="ComoLoHacenProcedimiento">¿Cómo lo hacen? Procedimiento</label>
+                                        </div>
+
+                                        <div class="file-field input-field col s12 m6 l12">
+                                            <textarea asp-for="StudentSupporModel.CuandoSeHacePeriodicidad" id="CuandoSeHacePeriodicidad" class="materialize-textarea"></textarea>
+                                            <label for="CuandoSeHacePeriodicidad">¿Cuándo se hace? Periodicidad</label>
+                                        </div>
+
+                                        <div class="file-field input-field col s12 m6 l12">
+                                            <textarea asp-for="StudentSupporModel.QuienEsElResponsable" id="QuienEsElResponsable" class="materialize-textarea"></textarea>
+                                            <label for="QuienEsElResponsable">¿Quién es el responsable?</label>
+                                        </div>
+
+                                        <button type="submit" class="btn">Guardar</button>
+                                    </form>
+                           }
+
+                            @*@if (Model.StudentSupportList.Count() == 0)
                             {
-                                  <div class="file-field input-field col s12 m6 l12">
-                                  <textarea asp-for="StudentSupporModel.Answer" id="textarea1" class="materialize-textarea"></textarea>
-                                  <label for="textarea1">@pregunta.PreguntaId .@pregunta.NombrePregunta</label>
-                                </div>   
-                            }*@
-                                                                               
+                        <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
 
-                            num++;
-                            answerNum = 0;
+                            <input type="hidden" asp-for="Indicador.IndicadorId" />
+                            <input type="hidden" asp-for="TracingId" />
+                            <div class="file-field input-field col s12 m6 l12">
+                                <textarea asp-for="StudentSupporModel.Cuálesutilizan" id="Cuálesutilizan" class="materialize-textarea"></textarea>
+                                <label for="Cuálesutilizan">¿Cuáles utilizan?</label>
+                            </div>
 
-                        }
+                            <div class="file-field input-field col s12 m6 l12">
+                                <textarea asp-for="StudentSupporModel.ComoLoHacenProcedimiento" id="ComoLoHacenProcedimiento" class="materialize-textarea"></textarea>
+                                <label for="ComoLoHacenProcedimiento">¿Cómo lo hacen? Procedimiento</label>
+                            </div>
 
-                        <br />
+                            <div class="file-field input-field col s12 m6 l12">
+                                <textarea asp-for="StudentSupporModel.CuandoSeHacePeriodicidad" id="CuandoSeHacePeriodicidad" class="materialize-textarea"></textarea>
+                                <label for="CuandoSeHacePeriodicidad">¿Cuándo se hace? Periodicidad</label>
+                            </div>
 
+                            <div class="file-field input-field col s12 m6 l12">
+                                <textarea asp-for="StudentSupporModel.QuienEsElResponsable" id="QuienEsElResponsable" class="materialize-textarea"></textarea>
+                                <label for="QuienEsElResponsable">¿Quién es el responsable?</label>
+                            </div>
 
+                            <button type="submit" class="btn">Guardar</button>
+                        </form>}*@
+
+                        </div>
                     </div>
-                    <button type="submit" class="btn">Guardar</button>
                 </div>
-            </div>
+            </li>
+            @*<li>
+            <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
         </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>*@
+        </ul>}
 
-
-    </ul>}
-            </form>
-            <div class="file-field input-field col s12 m6 l1">
-                <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
-            </div>
 
 
 

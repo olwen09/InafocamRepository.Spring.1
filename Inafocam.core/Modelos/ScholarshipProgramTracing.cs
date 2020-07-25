@@ -7,18 +7,18 @@ namespace Inafocam.core.Modelos
     {
         public ScholarshipProgramTracing()
         {
-            ScholarshipProgramTracingAgreement = new HashSet<ScholarshipProgramTracingAgreement>();
-            ScholarshipProgramTracingCourse = new HashSet<ScholarshipProgramTracingCourse>();
-            ScholarshipProgramTracingCourseFile = new HashSet<ScholarshipProgramTracingCourseFile>();
-            ScholarshipProgramTracingPractice = new HashSet<ScholarshipProgramTracingPractice>();
-            ScholarshipProgramTracingPracticePlanning = new HashSet<ScholarshipProgramTracingPracticePlanning>();
-            ScholarshipProgramTracingQualitySystem = new HashSet<ScholarshipProgramTracingQualitySystem>();
-            ScholarshipProgramTracingStudentPractice = new HashSet<ScholarshipProgramTracingStudentPractice>();
-            ScholarshipProgramTracingStudentSupport = new HashSet<ScholarshipProgramTracingStudentSupport>();
-            TracingStudyPlanDevelopment = new HashSet<TracingStudyPlanDevelopment>();
+            //ScholarshipProgramTracingAgreement = new HashSet<ScholarshipProgramTracingAgreement>();
+            //ScholarshipProgramTracingCourse = new HashSet<ScholarshipProgramTracingCourse>();
+            //ScholarshipProgramTracingCourseFile = new HashSet<ScholarshipProgramTracingCourseFile>();
+            //ScholarshipProgramTracingPractice = new HashSet<ScholarshipProgramTracingPractice>();
+            //ScholarshipProgramTracingPracticePlanning = new HashSet<ScholarshipProgramTracingPracticePlanning>();
+            //ScholarshipProgramTracingQualitySystem = new HashSet<ScholarshipProgramTracingQualitySystem>();
+            //ScholarshipProgramTracingStudentPractice = new HashSet<ScholarshipProgramTracingStudentPractice>();
+            //ScholarshipProgramTracingStudentSupport = new HashSet<ScholarshipProgramTracingStudentSupport>();
+            //TracingStudyPlanDevelopment = new HashSet<TracingStudyPlanDevelopment>();
         }
 
-        public long ScholarshipProgramTracingId { get; set; }
+        public long? ScholarshipProgramTracingId { get; set; }
         public long? UniversityId { get; set; }
         public long? ScholarshipProgramUniversityId { get; set; }
         public long? CoordinatorId { get; set; }

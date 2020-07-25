@@ -11,7 +11,7 @@
                     <img src="~/app-assets/images/logo/Logo-andamios-blanco.png" alt="">
 
                 </a>*@
-            <a class="brand-logo darken-1" href="index.html">
+            <a class="brand-logo darken-1" asp-area="Home" asp-controller="Home"  asp-action="Home" >
                 <img src="~/app-assets/images/logo/materialize-logo.png" alt=""/>
                 <span class="logo-text hide-on-med-and-down">
                     <span class="grey-text lighten-5">INAFOCAM
@@ -145,26 +145,26 @@
 
         break;*@
 
-        <li class="navigation-header">
+        @*<li class="navigation-header">
             <a class="navigation-header-text">Inicio </a><i class="navigation-header-icon material-icons">more_horiz</i>
-        </li>
+        </li>*@
 
         <li class="bold">
             <a class="collapsible-header waves-effect waves-cyan " href="#">
-                <i class="material-icons">shopping_basket</i><span class="menu-title" data-i18n="">Modulos</span>
+                <i class="material-icons">shopping_basket</i><span class="menu-title" data-i18n="">SECCIONES</span>
             </a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li class="bold">
                         <a class="collapsible-header waves-effect waves-cyan " href="#">
-                            <i class="material-icons">shopping_basket</i><span class="menu-title" data-i18n="">Academico</span>
+                            <i class="material-icons">shopping_basket</i><span class="menu-title" data-i18n="">Academicos</span>
                         </a>
                         <div class="collapsible-body">
                             <ul class="collapsible collapsible-sub" data-collapsible="accordion">
 
                                 <li>
-                                    <a asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Index" class="collapsible-body" data-i18n="">
-                                        <span>Acuerdo en Programas de Becas</span>
+                                    <a asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="Index" class="collapsible-body" data-i18n="">
+                                        <span>Programa de Becas</span>
                                     </a>
                                 </li>
 
@@ -175,14 +175,11 @@
                                     </a>
                                 </li>
 
-
-
                                 <li>
-                                    <a asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="Index" class="collapsible-body" data-i18n="">
-                                        <span>Programa de Beca</span>
+                                    <a asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Index" class="collapsible-body" data-i18n="">
+                                        <span>Acuerdo en Programas de Becas</span>
                                     </a>
                                 </li>
-
 
                                 <li>
                                     <a asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="Index" class="collapsible-body" data-i18n="">
@@ -205,7 +202,7 @@
 
                     <li class="bold">
                         <a class="collapsible-header waves-effect waves-cyan " href="#">
-                            <i class="material-icons">build</i><span class="menu-title" data-i18n="">Mantenimiento</span>
+                            <i class="material-icons">build</i><span class="menu-title" data-i18n="">Mantenimientos</span>
                         </a>
                         <div class="collapsible-body">
                             <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -250,6 +247,13 @@
                                         <span>Institucion Fomadora</span>
                                     </a>
                                 </li>  
+                                
+                                <li>
+                                    <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Index" class="collapsible-body" data-i18n="">
+                                        <span>Seguimientos Asignados</span>
+                                    </a>
+                                </li> 
+                                
                                 
                                 <li>
                                     <a asp-area="Usuarios" asp-controller="Usuario" asp-action="Index" class="collapsible-body" data-i18n="">
@@ -322,9 +326,9 @@
 
         @*/*COMPONENETE: ModulosExternos*/*@
 
-        <li class="navigation-header">
+        @*<li class="navigation-header">
             <a class="navigation-header-text">Módulos Externos</a><i class="navigation-header-icon material-icons">more_horiz</i>
-        </li>
+        </li>*@
 
         @* @await Component.InvokeAsync("ModulosExternosComponent")*@
 

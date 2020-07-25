@@ -1,6 +1,7 @@
 ﻿using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,17 +9,29 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models
 {
     public class ScholarshipProgramTracingModel
     {
-        public long ScholarshipProgramTracingId { get; set; }
+        public long? ScholarshipProgramTracingId { get; set; }
+
+        [Required(ErrorMessage = "La Universidad es requerida")]
         public long? UniversityId { get; set; }
         public long? ScholarshipProgramUniversityId { get; set; }
         public long? CoordinatorId { get; set; }
+
+        [Required(ErrorMessage = "El {0} es requerido")]
+        [Display(Name = "Técnico")]
         public long? TechnicalId { get; set; }
+
+        [Required]
         public DateTime? StartDate { get; set; }
+
+        [Required]
         public DateTime? EndDate { get; set; }
         public long? CreationUserId { get; set; }
         public long? UpgradeUserId { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }
+
+        [Required(ErrorMessage = "El {0} es requerido")]
+        [Display(Name = "Estado")]
         public long? StatusId { get; set; }
 
         public virtual Agent Coordinator { get; set; }

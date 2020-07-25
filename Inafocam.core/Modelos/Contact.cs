@@ -14,7 +14,7 @@ namespace Inafocam.core.Modelos
             User = new HashSet<User>();
         }
 
-        public long ContactId { get; set; }
+        public long? ContactId { get; set; }
         public long? DocumentTypeId { get; set; }
         public string ContactDocumentNumber { get; set; }
         public string ContactName { get; set; }

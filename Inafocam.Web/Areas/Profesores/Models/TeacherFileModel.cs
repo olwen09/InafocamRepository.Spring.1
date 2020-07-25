@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,12 +10,16 @@ namespace Inafocam.Web.Areas.Profesores.Models
 {
     public class TeacherFileModel
     {
-        public long TeacherFileId { get; set; }
+        public long? TeacherFileId { get; set; }
         public long TeacherId { get; set; }
         public long? TeacherResearchId { get; set; }
         public string TeacherFullName { get; set; }
         public long? FileId { get; set; }
+
+        [Required(ErrorMessage ="El tipo de documento es requerido")]
         public long? TeacherFileTypeId { get; set; }
+
+        [Required]
         public string TeacherFileComment { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }

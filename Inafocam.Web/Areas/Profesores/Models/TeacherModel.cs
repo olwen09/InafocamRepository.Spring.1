@@ -1,6 +1,7 @@
 ﻿using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,17 +9,50 @@ namespace Inafocam.Web.Areas.Profesores.Models
 {
     public class TeacherModel
     {
-        public long TeacherId { get; set; }
+        public long? TeacherId { get; set; }
+
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public string Document { get; set; }
+
+
+
         public long? ContactId { get; set; }
+
+
         public long? HigherTeacherEducationId { get; set; }
+
+
+
+        [Required (ErrorMessage = "El tipo de contratación es requerido")]
         public long? TeacherHiringTypeId { get; set; }
+
+
+        [Required]
         public string TeacherCategory { get; set; }
+
+        [Required]
         public DateTime? TeacherJobStartDate { get; set; }
+   
+        [Required (ErrorMessage = "El campo,es  profesor de alta calificación?, es requerido")]
         public short? TeacherIsPac { get; set; }
+
+        [Required(ErrorMessage = "El campo,tiene funciones administrativas?, es requerido")]
         public short? TeacherHasAdminFunctions { get; set; }
+
+        [Required(ErrorMessage = "El campo,labora en otras instituciones de educación superior?, es requerido")]
         public short? TeacherWorkForOtherInstitutions { get; set; }
+    
         public short? TeacherMatchHigherTitle { get; set; }
+        [Required]
         public int? TeacherResearchProcess { get; set; }
+        [Required]
         public int? TeacherResearchPublished { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }

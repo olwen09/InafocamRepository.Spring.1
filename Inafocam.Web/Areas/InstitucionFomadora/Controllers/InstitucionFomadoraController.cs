@@ -15,7 +15,7 @@ namespace Inafocam.Web.Areas.InstitucionFomadora.Controllers
 {
 
     [Area("InstitucionFomadora"), ReturnArea("InstitucionFomadora")]
-    [ReturnControllador("Institucion Fomadora"), ReturnController("InstitucionFomadora")]
+    [ReturnControllador("Institución Fomadora"), ReturnController("InstitucionFomadora")]
     [Authorize]
     public class InstitucionFomadoraController : Controller
     {

@@ -26,15 +26,15 @@ namespace Inafocam.core.Repository
             .Include(x => x.Status)
             .Include(x => x.Technical.Contact)
             .Include(x => x.University)
-            .Include(x => x.UpgradeUser)
-            .Include(x => x.ScholarshipProgramTracingAgreement)
-            .Include(x => x.ScholarshipProgramTracingCourse)
-            .Include(x => x.ScholarshipProgramTracingCourseFile)
-            .Include(x => x.ScholarshipProgramTracingPractice)
-            .Include(x => x.ScholarshipProgramTracingPracticePlanning)
-            .Include(x => x.ScholarshipProgramTracingQualitySystem)
-            .Include(x => x.ScholarshipProgramTracingStudentPractice)
-            .Include(x => x.ScholarshipProgramTracingStudentSupport);
+            .Include(x => x.UpgradeUser);
+            //.Include(x => x.ScholarshipProgramTracingAgreement)
+            //.Include(x => x.ScholarshipProgramTracingCourse)
+            //.Include(x => x.ScholarshipProgramTracingCourseFile)
+            //.Include(x => x.ScholarshipProgramTracingPractice)
+            //.Include(x => x.ScholarshipProgramTracingPracticePlanning)
+            //.Include(x => x.ScholarshipProgramTracingQualitySystem)
+            //.Include(x => x.ScholarshipProgramTracingStudentPractice)
+            //.Include(x => x.ScholarshipProgramTracingStudentSupport);
 
 
 

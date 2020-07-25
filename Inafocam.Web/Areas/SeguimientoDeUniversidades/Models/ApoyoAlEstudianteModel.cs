@@ -20,7 +20,9 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public int? TracingId { get; set; }
 
         public ScholarshipProgramTracingStudentSupport StudentSupporModel { get; set; }
-        public List<ScholarshipProgramTracingStudentSupport> StudentSupportList { get; set; }
+        public ScholarshipProgramTracingStudentSupport StudentSupporModelEmpty { get; set; }
+        public IEnumerable<ScholarshipProgramTracingStudentSupport> StudentSupporModeltList { get; set; }
+        public IEnumerable<ScholarshipProgramTracingStudentSupport> StudentSupportList { get; set; }
 
        public  List<Indicador> IndicadoresList { get; set; }
        public List<Preguntas> PreguntasList { get; set; }

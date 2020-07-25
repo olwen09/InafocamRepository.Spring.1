@@ -20,7 +20,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Inafocam.Web.Areas.Usuarios.Controllers
 {
     [Area("Usuarios"), ReturnArea("Usuarios")]
-    [ReturnControllador("Usuarios"), ReturnController("Usuario")]
+    [ReturnControllador("Seguridad"), ReturnController("Usuario")]
     [Authorize(Roles  = "ADMINISTRADOR INAFOCAM")]
     public class UsuarioController : Controller
     {
@@ -334,7 +334,7 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
 
                             TempData.Put("mensaje", mensaje);
 
-                            return RedirectToAction("Login", "Usuario");
+                            return RedirectToAction("Index", "Usuario");
                         }
 
                         mensaje.Titulo = "Hubo un problema";
@@ -350,7 +350,7 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
                     mensaje.Tipo = "error";
                     ViewBag.mensaje = mensaje;
 
-                    return View(model);
+                    return View("Register",model);
 
                 }
                 catch (System.Exception e)
@@ -361,7 +361,7 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
 
             }
 
-            return View(model);
+            return View("Register",model);
         }
 
 

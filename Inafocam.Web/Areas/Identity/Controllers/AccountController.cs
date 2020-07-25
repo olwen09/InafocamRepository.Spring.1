@@ -411,7 +411,7 @@ namespace Inafocam.Web.Areas.Identity.Controllers
             }
 
 
-            return View("PerfilUsuario", model);
+            return RedirectToAction("PerfilUsuario", new { id = model.EditarUsuarioModel.Id });
 
         }
 

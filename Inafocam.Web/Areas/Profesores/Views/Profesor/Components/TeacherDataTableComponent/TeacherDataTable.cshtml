@@ -24,7 +24,7 @@
             @* <th role="row" style="width: 50px;">Code</th>*@
             <th>Id</th>
             <th>Nombre Completo</th>
-            <th>Titulo</th>
+            <th>Categoría</th>
             <th>Estado</th>
             <th class="center">Acciones</th>
             @*<th>Estado</th>
@@ -38,7 +38,8 @@
             <tr>
                 <td>@item?.TeacherId</td>
                 <td>@item?.Contact?.ContactName @item?.Contact?.ContactLastname</td>
-                <td>@item.HigherTeacherEducation?.TeacherEducationTitle</td>
+                <td>@item?.TeacherCategory</td>
+               @* <td>@item.HigherTeacherEducation?.TeacherEducationTitle</td>*@
                 <td>@item.Status?.StatusName</td>
                 <td class="center">
                     <a asp-area="Profesores" asp-controller="Profesor" asp-action="Editar" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Editar" >
@@ -75,11 +76,11 @@
             @* <th role="row" style="width: 50px;">Code</th>*@
             <th>Id</th>
             <th>Nombre Completo</th>
-            <th>Titulo</th>
+            <th>Categoría</th>
             <th>Estado</th>
             <th>Acciones</th>
             @*<th>Estado</th>
-                <th style="width: 69px;"></th>*@
+        <th style="width: 69px;"></th>*@
         </tr>
     </tfoot>
 </table>

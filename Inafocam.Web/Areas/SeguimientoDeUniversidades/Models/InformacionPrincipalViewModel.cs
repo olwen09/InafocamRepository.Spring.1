@@ -29,14 +29,14 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public virtual Agent Technical { get; set; }
         public virtual University University { get; set; }
         public virtual User UpgradeUser { get; set; }
-        public virtual ICollection<ScholarshipProgramTracingAgreement> ScholarshipProgramTracingAgreement { get; set; }
-        public virtual ICollection<ScholarshipProgramTracingCourse> ScholarshipProgramTracingCourse { get; set; }
-        public virtual ICollection<ScholarshipProgramTracingCourseFile> ScholarshipProgramTracingCourseFile { get; set; }
-        public virtual ICollection<ScholarshipProgramTracingPractice> ScholarshipProgramTracingPractice { get; set; }
-        public virtual ICollection<ScholarshipProgramTracingPracticePlanning> ScholarshipProgramTracingPracticePlanning { get; set; }
-        public virtual ICollection<ScholarshipProgramTracingQualitySystem> ScholarshipProgramTracingQualitySystem { get; set; }
-        public virtual ICollection<ScholarshipProgramTracingStudentPractice> ScholarshipProgramTracingStudentPractice { get; set; }
-        public virtual ICollection<ScholarshipProgramTracingStudentSupport> ScholarshipProgramTracingStudentSupport { get; set; }
-        public virtual ICollection<TracingStudyPlanDevelopment> TracingStudyPlanDevelopment { get; set; }
+        //public virtual ICollection<ScholarshipProgramTracingAgreement> ScholarshipProgramTracingAgreement { get; set; }
+        //public virtual ICollection<ScholarshipProgramTracingCourse> ScholarshipProgramTracingCourse { get; set; }
+        //public virtual ICollection<ScholarshipProgramTracingCourseFile> ScholarshipProgramTracingCourseFile { get; set; }
+        //public virtual ICollection<ScholarshipProgramTracingPractice> ScholarshipProgramTracingPractice { get; set; }
+        //public virtual ICollection<ScholarshipProgramTracingPracticePlanning> ScholarshipProgramTracingPracticePlanning { get; set; }
+        //public virtual ICollection<ScholarshipProgramTracingQualitySystem> ScholarshipProgramTracingQualitySystem { get; set; }
+        //public virtual ICollection<ScholarshipProgramTracingStudentPractice> ScholarshipProgramTracingStudentPractice { get; set; }
+        //public virtual ICollection<ScholarshipProgramTracingStudentSupport> ScholarshipProgramTracingStudentSupport { get; set; }
+        //public virtual ICollection<TracingStudyPlanDevelopment> TracingStudyPlanDevelopment { get; set; }
     }
 }

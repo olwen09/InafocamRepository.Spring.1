@@ -18,9 +18,9 @@ using Microsoft.AspNetCore.Http;
 using Inafocam.core.Modelos;
 using System.Security.Claims;
 
-
 namespace Andamios.Web.Controllers {
     [Authorize]
+    //[Area("Home"), ReturnArea("Home")]
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<Usuario> _userManager;

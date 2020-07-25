@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Andamios.Web.Areas.Usuarios.Models;
 using Andamios.Web.Helpers;
@@ -9,6 +10,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Materias.Models;
+using Inafocam.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -38,8 +40,9 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             return View(data);
         }
 
-        public IActionResult Crear(SubjectMatterModel model)
+        public IActionResult Crear()
         {
+            var model = new SubjectMatterModel();
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View(model);
         }
@@ -55,20 +58,55 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             return View("Crear", model);
         }
 
+        [HttpPost]
         public IActionResult Guardar(SubjectMatterModel model)
         {
 
-            try
-            {
-                var data = CopyPropierties.Convert<SubjectMatterModel, SubjectMatter>(model);
+            MensajesViewModel mensaje = new MensajesViewModel();
 
-                _subjectMatter.Save(data);
-            }
-            catch(Exception e)
+            if (ModelState.IsValid)
             {
+                
+                try
+                {
+                    var data = CopyPropierties.Convert<SubjectMatterModel, SubjectMatter>(model);
 
-                return View("Index", _subjectMatter.GetAll);
+                    _subjectMatter.Save(data);
+                }
+                catch (Exception e)
+                {
+
+
+                    if (model.SubjectMatterId != 0)
+                    {
+                        return RedirectToAction("Editar", new { id = model.SubjectMatterId });
+                    }
+                    else
+                    {
+                        ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+
+                        return View("Crear");
+                    }
+                }
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count > 0).First();
+
+
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
+                if(model.SubjectMatterId != 0)
+                {
+                    return RedirectToAction("Editar", new { id = model.SubjectMatterId });
+
+                }
+                ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+
+                return View("Crear");
+            }
+           
 
             return View("Index", _subjectMatter.GetAll);
         }

@@ -19,6 +19,7 @@
     <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
 }
 
 
@@ -54,29 +55,30 @@
         <div class="card">
             <div class="card-content">
 
-               
+
 
                 <div class="row ">
 
 
                     @*<div class="input-field col s12 m6 l6">
 
-                        <input asp-for="SubjectMatterId" id="codigo" type="text" class="validat" disabled style="font-weight: bold;">
+                            <input asp-for="SubjectMatterId" id="codigo" type="text" class="validat" disabled style="font-weight: bold;">
 
-                        <label>ID</label>
+                            <label>ID</label>
 
 
-                    </div>*@
+                        </div>*@
 
                     <div class="input-field col s12 m6 l4">
                         <input asp-for="SubjectMatterName" id="name" type="text" class="validate">
-                        <label for="name">Nombre</label>
+                        <label for="name" class="black-text">Nombre</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
 
                     <div class="input-field col s12 m6 l4">
                         <input asp-for="SubjectMatterCode" type="text" class="validate" id="creationdate">
                         <label for="creationdate">Codigo</label>
+                        <span asp-validation-for="SubjectMatterCode" class="red-text"></span>
                     </div>
 
 
@@ -86,10 +88,11 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Estado</label>
                         </div>
-                        <select asp-for="StatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Status">
-                            <option value="" disabled selected>Seleccione una Opción</option>
+                        <select required asp-for="StatusId" class="form-control js-example-basic-single required" style="width: 100%" asp-items="ViewBag.Status">
+                            <option value="">Seleccione una Opción</option>
                         </select>
 
+                        @*@Html.ValidationMessageFor(x=> x.StatusId)*@
 
                     </div>
 
@@ -108,15 +111,15 @@
 
 
 
-                <a class="red btn waves-effect waves-light">
-                    <i class="material-icons left">cancel</i>
-                    Anular
+                <a class="btn waves-effect waves-light" asp-area="Materias" asp-controller="Materia" asp-action="Index">
+                    <i class="material-icons left">list</i>
+                    Ir a La Lista
                 </a>
 
-                <a class="white btn waves-effect waves-light black-text">
-                    <i class="material-icons left">cleaning_services</i>
-                    Limpiar
-                </a>
+                @*<a class="white btn waves-effect waves-light black-text" asp-area="Materias" asp-controller="Materia" asp-action="Crear">
+                        <i class="material-icons left">cleaning_services</i>
+                        Limpiar
+                    </a>*@
 
             </div>
             @*<div class="input-field col s12">
@@ -157,6 +160,8 @@
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
+    <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>
         @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
@@ -186,6 +191,36 @@
         $(document).ready(function () {
             $('.datepicker').datepicker();
         });
+
+
+        if ("@mensaje.Tipo".length > 0) {
+            $.confirm({
+                title: '@mensaje.Titulo',
+                content: '@mensaje.Texto',
+                type: '@mensaje.Tipo',
+                typeAnimated: true,
+                boxWidth: '500px',
+                autoClose: 'cerrar|5000',
+                useBootstrap: false,
+                buttons: {
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function () {
+                    // before the modal is hidden.
+                    $.ajax({
+                        type: 'get',
+                        url: '/home/ClearTempData',
+                        success: function() {
+
+                        }
+                    });
+                }
+            });
+
+        }
 
     </script>
 }

@@ -109,19 +109,23 @@
                             </ul>*@
                     </li>
                     <li>
-                        <a class="dropdown-menu" href="#" data-target="TemplatesDropdown"><i class="material-icons">dvr</i><span>Modulos@*<i class="material -icons right">keyboard_arrow_down</i>*@</span></a>
+                        <a class="dropdown-menu" href="#" data-target="TemplatesDropdown"><i class="material-icons">dvr</i><span>Secciones@*<i class="material -icons right">keyboard_arrow_down</i>*@</span></a>
                         <ul class="dropdown-content dropdown-horizontal-list" id="TemplatesDropdown" tabindex="0">
-                            <li data-menu="" tabindex="0">
-                                <a asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Index">Acuerdo en Programas de Becas</a>
+                           <li data-menu="" tabindex="0">
+                                <a asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="Index">Programa de Becas</a>
                             </li>
-
-                            <li data-menu="" tabindex="0">
+                            
+                             <li data-menu="" tabindex="0">
                                 <a asp-area="ConvocatoriaDeBecas" asp-controller="ConvocatoriaDeBeca" asp-action="Index">Convocatoria de Becas</a>
                             </li>
 
                             <li data-menu="" tabindex="0">
-                                <a asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="Index">Programa de Beca</a>
+                                <a asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Index">Acuerdo en Programas de Becas</a>
                             </li>
+
+                           
+
+                           
                             @*&eacute;*@
                             @*<li data-menu="" tabindex="0">
                                     <a href="#">Instituci&oacute;n Formadora</a>
@@ -173,6 +177,11 @@
                     </li>*@
 
                     <li data-menu="" tabindex="0">
+                        <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Index">Seguimientos Asignados</a>
+                    </li>
+                    
+                    
+                    <li data-menu="" tabindex="0">
                         <a asp-area="Usuarios" asp-controller="Usuario" asp-action="Index">Seguridad</a>
                     </li>
                     @*<li data-menu="" tabindex="0">
@@ -212,7 +221,7 @@
                             <a asp-area="Representantes" asp-controller="AgentType" asp-action="Index"><i class="mail_outline"></i>Tipos de Representates</a>
                         </li>
 
-                        <li data-menu="" tabindex="0">
+                        @*<li data-menu="" tabindex="0">
                             <a asp-area="Seguimientos" asp-controller="Seguimiento" asp-action="DesarrolloDelPlanDeEstudio"><i class="mail_outline"></i>Seguimiento</a>
                         </li>    
                         
@@ -220,7 +229,7 @@
                         
                         <li data-menu="" tabindex="0">
                             <a asp-area="Seguimientos" asp-controller="Seguimiento" asp-action="ProgramaDeBecasMateriaUniversitaria"><i class="mail_outline"></i>Programa De Becas Materia Universitaria</a>
-                        </li>
+                        </li>*@
 
                         @*<li data-menu="" tabindex="0">
                                 <a href="app-chat.html"><i class="chat_bubble_outline"></i>Chat</a>

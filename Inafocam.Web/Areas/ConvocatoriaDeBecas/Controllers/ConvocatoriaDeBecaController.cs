@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Inafocam.Web.Areas.ConvocatoriaDeBecas.Models;
 using Microsoft.AspNetCore.Authorization;
 using Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models;
+using Inafocam.Web.Helpers;
 
 namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 {
@@ -70,6 +71,8 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 
         public IActionResult Crear(ScholarshipProgramUniversityModel model)
         {
+
+
             var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
 
@@ -83,21 +86,50 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult GuardarConvocatoriaDeBeca(ScholarshipProgramUniversityModel model)
         {
             var data = CopyPropierties.Convert<ScholarshipProgramUniversityModel, ScholarshipProgramUniversity>(model);
-
-            try
-            {
-                _scholarshipProgramUniversity.Save(data);
-            }
-            catch(Exception e)
-            {
-                return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
-            }
-
-
             var scholarshipProgramUniversity = _scholarshipProgramUniversity.ScholarshipProgramUniversity.ToList();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _scholarshipProgramUniversity.Save(data);
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
+                }
+            }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count > 0).First();
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
+                if(model.ScholarshipProgramUniversityId != 0)
+                {
+                return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
+
+                }
+
+                var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+                var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+
+                ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
+                ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
+                ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
+                ViewBag.Nivel = new SelectList(_scholarshipLevel.ScholarshipsLevel, "ScholarshipLevelId", "ScholarshipLevelName");
+                ViewBag.scholarshipProgram = new SelectList(_scholarshipProgram.GetAll, "ScholarshipProgramId", "ScholarshipProgramName");
+                ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+
+                return View("Crear");
+            }
+           
+
+
 
             return View("Index",scholarshipProgramUniversity);
         }

@@ -12,7 +12,7 @@ namespace Inafocam.Web.Areas.ProgramasDeBeca.Controllers
 {
 
     [Area("ProgramasDeBecas"), ReturnArea("ProgramasDeBecas")]
-    [ReturnControllador("Programa De Beca"), ReturnController("ProgramaDeBeca")]
+    [ReturnControllador("Programa De Becas"), ReturnController("ProgramaDeBeca")]
     [Authorize]
     public class ProgramaDeBecaController : Controller
     {
@@ -121,30 +121,34 @@ namespace Inafocam.Web.Areas.ProgramasDeBeca.Controllers
         public IActionResult AgregarConvocatoria(ScholarshipProgramModel model)
         {
 
+            if (ModelState.IsValid)
+            {
+                var data = new ScholarshipProgramUniversity
+                {
+
+                    ScholarshipProgramId = model.ScholarshipProgramId,
+                    ScatProgramCode = model.ScholarshipProgramUniversity.ScatProgramCode,
+                    ContractNumber = model.ScholarshipProgramUniversity.ContractNumber,
+                    UniversityId = model.ScholarshipProgramUniversity.UniversityId,
+                    AnnouncementStartDate = model.ScholarshipProgramUniversity.AnnouncementStartDate,
+                    AnnouncementEndDate = model.ScholarshipProgramUniversity.AnnouncementEndDate,
+                    StartDate = model.ScholarshipProgramUniversity.StartDate,
+                    EndDate = model.ScholarshipProgramUniversity.EndDate
+                };
+
+
+
+                try
+                {
+                    _scholarshipProgramUniversity.Save(data);
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Editar", new { id = model.ScholarshipProgramId });
+                }
+            }
+
            
-
-            var data = new ScholarshipProgramUniversity {
-
-                ScholarshipProgramId = model.ScholarshipProgramId,
-                ScatProgramCode = model.ScholarshipProgramUniversity.ScatProgramCode,
-                ContractNumber = model.ScholarshipProgramUniversity.ContractNumber,
-                UniversityId = model.ScholarshipProgramUniversity.UniversityId,
-                AnnouncementStartDate = model.ScholarshipProgramUniversity.AnnouncementStartDate,
-                AnnouncementEndDate = model.ScholarshipProgramUniversity.AnnouncementEndDate,
-                StartDate = model.ScholarshipProgramUniversity.StartDate,
-                EndDate = model.ScholarshipProgramUniversity.EndDate
-            };
-
-
-
-            try
-            {
-                _scholarshipProgramUniversity.Save(data);
-            }
-            catch(Exception e)
-            {
-                return RedirectToAction("Editar", new { id = model.ScholarshipProgramId });
-            }
 
             return RedirectToAction("Editar", new { id = model.ScholarshipProgramId });
         }

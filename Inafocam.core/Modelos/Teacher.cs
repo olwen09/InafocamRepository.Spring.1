@@ -16,7 +16,7 @@ namespace Inafocam.core.Modelos
             TracingStudyPlanDevelopmentTeacher = new HashSet<TracingStudyPlanDevelopment>();
         }
 
-        public long TeacherId { get; set; }
+        public long? TeacherId { get; set; }
         public long? ContactId { get; set; }
         public long? HigherTeacherEducationId { get; set; }
         public long? TeacherHiringTypeId { get; set; }

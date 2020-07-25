@@ -13,6 +13,15 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Models
         public long? ScholarshipLevelId { get; set; }
         public long? ScholarshipProgramId { get; set; }
         public long? UniversityId { get; set; }
+
+
+        [Required(ErrorMessage ="El {0} es requerido")]
+        [Display(Name ="Tipo de acuerdo")]
+        public int AgreementId { get; set; }
+
+
+        [Required]
+        public string ScholarshipProgramUniversityAgreement1 { get; set; }
         public long? ScatProgramId { get; set; }
         public string ScatProgramCode { get; set; }
         public int? ActiveStudents { get; set; }
@@ -30,6 +39,7 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Models
         public DateTime? EndDate { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }
+
         public long? StatusId { get; set; }
 
         public virtual Agent Coordinator { get; set; }

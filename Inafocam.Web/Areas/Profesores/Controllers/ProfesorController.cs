@@ -20,7 +20,7 @@ using Microsoft.Extensions.Configuration;
 namespace Inafocam.Web.Areas.Profesores.Controllers
 {
     [Area("Profesores"), ReturnArea("Profesores")]
-    [ReturnControllador("Profesores"), ReturnController("Profesores")]
+    [ReturnControllador("Profesores"), ReturnController("Profesor")]
     [Authorize]
     public class ProfesorController : Controller
     {
@@ -110,7 +110,9 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
 
           var model =   CopyPropierties.Convert<Teacher, TeacherModel>(data);
             model.HigherTeacherEducation = teacherEducation;
-
+            model.Name = data.Contact.ContactName;
+            model.LastName = data.Contact.ContactLastname;
+            model.Document = data.Contact.ContactDocumentNumber;
             
 
             ViewBag.ContactTypes = new SelectList(_contactType.GetAll, "ContactTypeId", "ContactTypeName");
@@ -131,12 +133,17 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
         public IActionResult GuardarTeacher(TeacherModel model)
         {
 
+            
 
-            //if (ModelState.IsValid)
-            //{
+
+            if (ModelState.IsValid)
+            {
                 try
                 {
                     var data = CopyPropierties.Convert<TeacherModel, Teacher>(model);
+                    data.Contact.ContactName = model.Name;
+                    data.Contact.ContactLastname = model.LastName;
+                    data.Contact.ContactDocumentNumber = model.Document;
                     _teacher.Save(data);
 
                 }
@@ -147,8 +154,38 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
                     return RedirectToAction("Editar", new { id = model.TeacherId });
 
                 }
-            //}
-            
+            }
+            else
+            {
+
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count > 0).First();
+
+
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
+
+                if (model.TeacherId != 0)
+                {
+                    return RedirectToAction("Editar", new { id = model.TeacherId });
+                }
+
+
+                ViewBag.ContactTypes = new SelectList(_contactType.GetAll, "ContactTypeId", "ContactTypeName");
+                ViewBag.DocumentType = new SelectList(_documentType.GetAll, "DocumentTypeId", "DocumentTypeName");
+                ViewBag.Countries = new SelectList(_country.GetAll, "CountryId", "CountryName");
+                ViewBag.Cities = new SelectList(_city.Cities, "CityId", "CityName");
+                ViewBag.AddressTypes = new SelectList(_addressType.addressTypes, "AddressTypeId", "AddressTypeName");
+                ViewBag.TeacherHiringType = new SelectList(_teacherHiringType.GetAll, "TeacherHiringTypeId", "TeacherHiringTypeName");
+                ViewBag.EducationType = new SelectList(_educationType.GetAll, "EducationTypeId", "EducationTypeName");
+                ViewBag.TeacherEducation = new SelectList(_teacherEducation.GetAll, "TeacherEducationId", "TeacherEducationTitle");
+                ViewBag.Nationality = new SelectList(_nationality.GetAll, "NationalityId", "NationalityName");
+                ViewBag.MatirialStatus = new SelectList(_matirialStatus.GetAll, "MaritalStatusId", "MaritalStatusName");
+
+                
+                return View("Crear",model);
+            }
+
 
 
             return View("Index", _teacher.GetAll);
@@ -172,6 +209,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
         [HttpPost]
         public IActionResult GuardarTeacherEducation(TeacherEducationModel model)
         {
+            
 
             var data = CopyPropierties.Convert<TeacherEducationModel, TeacherEducation>(model);
             if (ModelState.IsValid)
@@ -189,7 +227,12 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             }
             else
             {
-                EnviarMensaje.Enviar(TempData, "red", "Debe Completar Todos Los Campos");
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count > 0).First();
+
+
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
                 return RedirectToAction("TeacherEducation", new { id = model.TeacherId });
             }
 
@@ -220,6 +263,14 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
         {
             var rutaPdf = _config.GetSection("rutas").GetSection("TeacherFiles").Value;
             //var file = model.FormFile;
+            if(model.TeacherFileTypeId == null)
+            {
+                EnviarMensaje.Enviar(TempData, "red", "El tipo de archivo es requerido");
+
+
+                return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
+            }
+
 
             if (file != null)
             {
@@ -260,10 +311,8 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
                     return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
                 }
             }
-            else
-            {
 
-            }
+            EnviarMensaje.Enviar(TempData, "red", "El archivo es requerido");
 
 
             return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });

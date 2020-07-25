@@ -194,32 +194,32 @@
                         {
             <tr>
             </tr>
- }
+                        }
 
-        else
-        {
+                    else
+                    {
 
-    @foreach (var item in Model?.TracingStudyPlanDevelopmentList)
-    {
+                    @foreach (var item in Model?.TracingStudyPlanDevelopmentList)
+                    {
 
-    <tr>
+                    <tr>
 
 
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.SubjectMatter.SubjectMatterCode - @item?.SubjectMatter.SubjectMatterName</td>
-       <td style="border: solid 1px; border-color: #e0e0e0;">@item.Creditos</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Teacher?.Contact?.ContactName</td>
+                        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.SubjectMatter.SubjectMatterCode - @item?.SubjectMatter.SubjectMatterName</td>
+                       <td style="border: solid 1px; border-color: #e0e0e0;">@item.Creditos</td>
+                        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Teacher?.Contact?.ContactName</td>
 
          
-        @*<td style="border: solid 1px; border-color: #e0e0e0;">@item?.AnnouncementStartDate - @item?.AnnouncementEndDate</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.StartDate - @item?.EndDate</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-            <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
-                <i class="material-icons ">delete</i>
-            </a>
-        </td>*@
+                        @*<td style="border: solid 1px; border-color: #e0e0e0;">@item?.AnnouncementStartDate - @item?.AnnouncementEndDate</td>
+                        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.StartDate - @item?.EndDate</td>
+                        <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+                            <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
+                                <i class="material-icons ">delete</i>
+                            </a>
+                        </td>*@
 
-    </tr>
-}}
+                    </tr>
+                }}
 
                     </tbody>
                 </table>

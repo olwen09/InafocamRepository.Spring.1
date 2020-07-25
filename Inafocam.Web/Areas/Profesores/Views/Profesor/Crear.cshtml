@@ -19,6 +19,8 @@
     <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+
 }
 
 
@@ -49,10 +51,10 @@
 
 
         @*<input type="hidden" asp-for="HigherTeacherEducation.StatusId" />
-        <input type="hidden" asp-for="HigherTeacherEducation.TeacherId" />
-        <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
-        <input type="hidden" asp-for="HigherTeacherEducationId" />
-        <input type="hidden" asp-for="TeacherHiringTypeId" />*@
+            <input type="hidden" asp-for="HigherTeacherEducation.TeacherId" />
+            <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
+            <input type="hidden" asp-for="HigherTeacherEducationId" />
+            <input type="hidden" asp-for="TeacherHiringTypeId" />*@
 
 
 
@@ -74,20 +76,20 @@
 
 
                     @*<div class="input-field col s12 m6 l3">
-                        <input value="lll" id="id" type="text" class="validat" disabled style="font-weight: bold;">
+                            <input value="lll" id="id" type="text" class="validat" disabled style="font-weight: bold;">
 
-                        <label for="id">Teacher ID</label>
-                    </div>*@
+                            <label for="id">Teacher ID</label>
+                        </div>*@
 
 
                     <div class="input-field col s12 m6 l3">
-                        <input asp-for="Contact.ContactName" id="nombre" type="text" class="validate">
+                        <input asp-for="Name" id="nombre" type="text" class="validate" >
                         <label for="nombre">Nombre</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
 
                     <div class="input-field col s12 m6 l3">
-                        <input asp-for="Contact.ContactLastname" id="apellido" type="text" class="validate">
+                        <input asp-for="LastName" id="apellido" type="text" class="validate" >
                         <label for="apellido">Apellido</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
@@ -136,7 +138,7 @@
 
 
                     <div class="input-field col s12 m6 l3">
-                        <input asp-for="Contact.ContactDocumentNumber" id="numerodocumento" type="text" class="validate">
+                        <input asp-for="Document" id="numerodocumento" type="text" class="validate" >
                         <label for="numerodocumento">Numero del Documento</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
@@ -166,13 +168,13 @@
 
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="Contact.ContactBornPlace" id="lugarnacimiento" type="text" class="validate">
+                        <input asp-for="Contact.ContactBornPlace" id="lugarnacimiento" type="text" class="validate" required>
                         <label for="lugarnacimiento">Lugar de Nacimiento</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="Contact.ContactBornDate" id="fechanacimiento" type="text" class="datepicker">
+                        <input  asp-for="Contact.ContactBornDate" id="fechanacimiento" type="text" class="datepicker" required>
                         <label for="fechanacimiento">Fecha de Nacimiento</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
@@ -243,7 +245,7 @@
                 <div class="row">
 
                     <div class="input-field col s12 m6 l4">
-                        <label>Es  miembro del PAC?</label>
+                        <label>Es  profesor de alta calificación?</label>
                         <br />
                         <br />
                         <p>
@@ -281,7 +283,7 @@
                     </div>
 
                     <div class="input-field col s12 m6 l4">
-                        <label>Labora en otras Instituciones de Educación Superior?</label>
+                        <label>Labora en otras instituciones de educación superior?</label>
                         <br />
                         <br />
                         <p>
@@ -325,92 +327,92 @@
 
 
         @*<div class="card">
-            <div class="card-content">
+                        <div class="card-content">
 
-                <h4 class="card-title">Agregar Preparación Académica</h4>
-
-
+                            <h4 class="card-title">Agregar Preparación Académica</h4>
 
 
-                <div class="input-field col s12 m6 l3">
-                    <input asp-for="HigherTeacherEducation.TeacherEducationTitle" id="tituloeducacion" type="text" class="validate">
-                    <label for="tituloeducacion">Titulo de la Educacion</label>
-                    <span class="red-text validationDisplay"></span>
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-                    <input asp-for="HigherTeacherEducation.TeacherEducationInstitution" id="institucionformadora" type="text" class="validate">
-                    <label for="institucionformadora">Institución Formadora</label>
-                    <span class="red-text validationDisplay"></span>
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-                    <input asp-for="HigherTeacherEducation.TeacherEducationFinishDate" id="fechatermino" type="text" class="datepicker">
-                    <label for="institucionformadora">Fecha de Término</label>
-                    <span class="red-text validationDisplay"></span>
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-                    <div class="row">
-                        <label for="select2User" class="col s12">Nivel de Educación</label>
-                    </div>
-                    <select asp-for="HigherTeacherEducation.EducationTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.EducationType">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
 
 
-                </div>
-                <br />
+                            <div class="input-field col s12 m6 l3">
+                                <input asp-for="HigherTeacherEducation.TeacherEducationTitle" id="tituloeducacion" type="text" class="validate">
+                                <label for="tituloeducacion">Titulo de la Educacion</label>
+                                <span class="red-text validationDisplay"></span>
+                            </div>
 
-                <table>
-                    <thead>
+                            <div class="input-field col s12 m6 l3">
+                                <input asp-for="HigherTeacherEducation.TeacherEducationInstitution" id="institucionformadora" type="text" class="validate">
+                                <label for="institucionformadora">Institución Formadora</label>
+                                <span class="red-text validationDisplay"></span>
+                            </div>
+
+                            <div class="input-field col s12 m6 l3">
+                                <input asp-for="HigherTeacherEducation.TeacherEducationFinishDate" id="fechatermino" type="text" class="datepicker">
+                                <label for="institucionformadora">Fecha de Término</label>
+                                <span class="red-text validationDisplay"></span>
+                            </div>
+
+                            <div class="input-field col s12 m6 l3">
+                                <div class="row">
+                                    <label for="select2User" class="col s12">Nivel de Educación</label>
+                                </div>
+                                <select asp-for="HigherTeacherEducation.EducationTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.EducationType">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                </select>
+
+
+                            </div>
+                            <br />
+
+                            <table>
+                                <thead>
+                                    <tr>
+
+                                        <th style="border: solid 1px; border-color: #e0e0e0;">Titulo</th>
+                                        <th style="border: solid 1px; border-color: #e0e0e0;">Tipo de Educacion</th>
+                                        <th style="border: solid 1px; border-color: #e0e0e0;">Institución</th>
+                                        <th style="border: solid 1px; border-color: #e0e0e0;">Fecha de Termino</th>
+                                        <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if (Model.TeacherEducation == null)
+                                    {
                         <tr>
-            
-                            <th style="border: solid 1px; border-color: #e0e0e0;">Titulo</th>
-                            <th style="border: solid 1px; border-color: #e0e0e0;">Tipo de Educacion</th>
-                            <th style="border: solid 1px; border-color: #e0e0e0;">Institución</th>
-                            <th style="border: solid 1px; border-color: #e0e0e0;">Fecha de Termino</th>
-                            <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        @if (Model.TeacherEducation == null)
-                        {
-            <tr>
-                
-            </tr> }
+                        </tr> }
 
-                        else
+                                    else
+                                    {
+
+                        @foreach (var item in Model?.TeacherEducation)
                         {
 
-            @foreach (var item in Model?.TeacherEducation)
-            {
-
-    <tr>
+                <tr>
 
 
-        
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationTitle</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.EducationType?.EducationTypeName</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationInstitution</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationFinishDate</td>
-     
-        <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-            <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
-                <i class="material-icons ">delete</i>
-            </a>
-        </td>
 
-    </tr>
-}}
+                    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationTitle</td>
+                    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.EducationType?.EducationTypeName</td>
+                    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationInstitution</td>
+                    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationFinishDate</td>
 
-                    </tbody>
-                </table>
+                    <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+                        <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
+                            <i class="material-icons ">delete</i>
+                        </a>
+                    </td>
 
-            </div>
+                </tr>
+            }}
 
-        </div>*@
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>*@
 
         <div class="input-field col s12">
 
@@ -421,15 +423,15 @@
 
 
 
-            <a class="red btn waves-effect waves-light">
-                <i class="material-icons left">cancel</i>
-                Anular
+            <a class="btn waves-effect waves-light" asp-area="Profesores" asp-controller="Profesor" asp-action="Index">
+                <i class="material-icons left">list</i>
+                Ir a La Lista
             </a>
 
-            <a class="white btn waves-effect waves-light black-text">
-                <i class="material-icons left">cleaning_services</i>
-                Limpiar
-            </a>
+            @*<a class="white btn waves-effect waves-light black-text" asp-area="Profesores" asp-controller="Profesor" asp-action="Crear">
+                    <i class="material-icons left">cleaning_services</i>
+                    Limpiar
+                </a>*@
 
         </div>
 
@@ -465,6 +467,8 @@
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
+    <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>
         @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
@@ -494,6 +498,35 @@
         $(document).ready(function () {
             $('.datepicker').datepicker();
         });
+
+          if ("@mensaje.Tipo".length > 0) {
+            $.confirm({
+                title: '@mensaje.Titulo',
+                content: '@mensaje.Texto',
+                type: '@mensaje.Tipo',
+                typeAnimated: true,
+                boxWidth: '500px',
+                autoClose: 'cerrar|5000',
+                useBootstrap: false,
+                buttons: {
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function () {
+                    // before the modal is hidden.
+                    $.ajax({
+                        type: 'get',
+                        url: '/home/ClearTempData',
+                        success: function() {
+
+                        }
+                    });
+                }
+            });
+
+        }
 
     </script>
 }

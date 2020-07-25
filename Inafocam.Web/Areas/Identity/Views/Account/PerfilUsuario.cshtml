@@ -63,6 +63,9 @@
         <form class="register-form " enctype="multipart/form-data" asp-area="Identity" asp-controller="Account" asp-action="Editar" method="post">
 
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.Id" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Email" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Nombre" />
+            <input type="hidden" asp-for="@Model.EditarUsuarioModel.Apellido" />
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.UserName" />
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.Role" />
             <input type="hidden" asp-for="@Model.EditarUsuarioModel.Estado" />
@@ -133,12 +136,12 @@
                                     </span>
                                 </div>
 
-                                @*<div class="col s12 center-align center m-0">
+                                <div class="col s12 center-align center m-0">
                                     <a class="btn modal-trigger  waves-effect waves-light teal tooltipped" href="#contrasena" data-position="top" data-tooltip="Cambiar Contraseña">
                                         <i class="material-icons">lock_open</i>
                                         Contraseña
                                     </a>
-                                </div>*@
+                                </div>
 
                             </div>
 
@@ -352,40 +355,40 @@
         }
 
 
-//        $('#userInformations').on("submit", function (event) {
+        $('#userInformations').on("submit", function (event) {
 
 
-//            var Password = $("#Password").val();
-//            var ConfirmPassword = $("#ConfirmPassword").val();
+            var Password = $("#Password").val();
+            var ConfirmPassword = $("#ConfirmPassword").val();
 
-//            //var diferentes = $("#diferentes").val();
-//            //var contraseña = $("#contraseña").val()
+            //var diferentes = $("#diferentes").val();
+            //var contraseña = $("#contraseña").val()
 
-//            //if (diferentes != "") {
-//            //    diferentes = ""
-//            //}
-//            $('#diferentes').text('');
-//            $('#contraseña').text('');
-
-
-
-//            if (Password != ConfirmPassword) {
-//                $( "#diferentes" ).append( "<strong>Las Contraseñas no coinciden</strong>" );
-
-//                event.preventDefault();
+            //if (diferentes != "") {
+            //    diferentes = ""
+            //}
+            $('#diferentes').text('');
+            $('#contraseña').text('');
 
 
-//            }
+
+            if (Password != ConfirmPassword) {
+                $( "#diferentes" ).append( "<strong>Las Contraseñas no coinciden</strong>" );
+
+                event.preventDefault();
 
 
-//            if (Password.length < 6 || Password == '') {
-//                    $( "#contraseña" ).append( "<strong>La contraseñas debe ser de por lo menos 6 caracteres de longitud</strong>" );
+            }
 
-//                event.preventDefault();
 
-//            }
+            if (Password.length < 6 || Password == '') {
+                    $( "#contraseña" ).append( "<strong>La contraseñas debe ser de por lo menos 6 caracteres de longitud</strong>" );
 
-//});
+                event.preventDefault();
+
+            }
+
+});
 
 
 

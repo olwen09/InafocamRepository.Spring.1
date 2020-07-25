@@ -7,6 +7,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Models;
+using Inafocam.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -93,27 +94,55 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
             return View("Index", scholarshipProgramUniversity);
         }
 
-
+        [HttpPost]
         public IActionResult AgregarAcuerdo(AcuerdoProgramasdeBecaModel model)
         {
-            var scholarshipProgramUniversityAgreement = new ScholarshipProgramUniversityAgreement
-            {
-                ScholarshipProgramUniversityAgreementId = model.Agreement.ScholarshipProgramUniversityAgreementId,
-                ScholarshipProgramUniversityId = model.ScholarshipProgramUniversityId,
-                ScholarshipProgramUniversityAgreement1 = model.Agreement.ScholarshipProgramUniversityAgreement1,
-                AgreementTypeId = model.Agreement.AgreementTypeId,
-                CreationUserId = 1,
-                StatusId = 1
-            };
 
-            try
+            if(model.AgreementId == 0)
             {
-                _scholarshipProgramUniversityAgreement.Save(scholarshipProgramUniversityAgreement);
-            }
-            catch(Exception e)
-            {
+                EnviarMensaje.Enviar(TempData, "red", "El tipo de acuerdo es requerido");
+
                 return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
             }
+
+
+            if (ModelState.IsValid)
+            {
+                var scholarshipProgramUniversityAgreement = new ScholarshipProgramUniversityAgreement
+                {
+                    ScholarshipProgramUniversityAgreementId = model.Agreement.ScholarshipProgramUniversityAgreementId,
+                    ScholarshipProgramUniversityId = model.ScholarshipProgramUniversityId,
+                    ScholarshipProgramUniversityAgreement1 = model.ScholarshipProgramUniversityAgreement1,
+                    AgreementTypeId = model.AgreementId,
+                    CreationUserId = 1,
+                    StatusId = 1
+                };
+
+                if (model.Agreement.AgreementTypeId != 0)
+                {
+
+                }
+                try
+                {
+                    _scholarshipProgramUniversityAgreement.Save(scholarshipProgramUniversityAgreement);
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
+                }
+            }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count > 0).First();
+
+
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
+                return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
+
+            }
+
 
             return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
 
