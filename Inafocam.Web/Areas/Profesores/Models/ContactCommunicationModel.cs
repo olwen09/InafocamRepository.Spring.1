@@ -1,6 +1,7 @@
 ﻿using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace Inafocam.Web.Areas.Profesores.Models
         public string TeacherFullName { get; set; }
 
         public long? CommunicationId { get; set; }
+
+        [Required]
         public string ContactCommunicationComment { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }

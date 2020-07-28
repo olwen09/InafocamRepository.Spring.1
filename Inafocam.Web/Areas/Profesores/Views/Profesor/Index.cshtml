@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Inafocam.core.Modelos.Teacher>
+﻿@model Inafocam.Web.Areas.Profesores.Models.TeacherIndexViewModel
 
 @section Style
 {
@@ -45,7 +45,7 @@
                         <div class="col s6 ">
 
 
-                            <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="Profesores" asp-controller="Profesor" asp-action="Crear">
+                            <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="Profesores" asp-controller="Profesor" asp-action="Crear" asp-route-userUniversityId="@Model.UserUniversityId">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>

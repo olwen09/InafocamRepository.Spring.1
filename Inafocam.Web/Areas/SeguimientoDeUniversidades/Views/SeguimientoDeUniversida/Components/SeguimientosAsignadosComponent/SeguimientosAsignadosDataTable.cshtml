@@ -11,7 +11,7 @@
             <th>Programa</th>
             <th>Coordinador</th>
             <th>Fecha de Apertura</th>
-            <th>Fecha de Cierree</th>
+            <th>Fecha de Cierre</th>
             <th>Porcentaje de Completado</th>
             <th>Estado</th>
             <th>Acciones</th>
@@ -28,15 +28,17 @@
     <td>@item?.Coordinator?.Contact?.ContactName</td>
     <td>@item?.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
     <td>@item?.EndDate</td>
-    <td>@item?.Status?.StatusName</td> 
+    <td></td>
     <td>
         @if (item?.Status?.StatusName == "Activo")
         {
-              @item?.Status?.StatusName
+
+         <span class="badge green  white-text text-accent-2">@item?.Status?.StatusName</span>            
+
         }
         else
         {
-             @item?.Status?.StatusName
+         <span class="badge red  white-text text-accent-2">@item?.Status?.StatusName</span>            
         }
 
     </td>

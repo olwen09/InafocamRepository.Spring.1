@@ -11,6 +11,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public int TracingId { get; set; }
         public int ScholarshipProgramUniversityId { get; set; }
 
+        public int? UserUniversityId { get; set; }
         public TracingStudyPlanDevelopment TracingStudyPlanDevelopmentModel { get; set; }
         public IEnumerable<TracingStudyPlanDevelopment> TracingStudyPlanDevelopmentModelList { get; set; }
         public IEnumerable<TracingStudyPlanDevelopment> TracingStudyPlanDevelopmentList { get; set; }

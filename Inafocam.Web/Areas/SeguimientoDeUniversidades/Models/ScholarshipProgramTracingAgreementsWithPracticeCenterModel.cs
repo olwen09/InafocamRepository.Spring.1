@@ -1,6 +1,7 @@
 ﻿using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,12 +11,21 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
     {
         public int AgreementsWithPracticeCenterId { get; set; }
 
+        [Required]
         public string Institution { get; set; }
+        [Required]
+
         public string ActivityDescription { get; set; }
+
+        [Required]
 
         public DateTime? Date { get; set; }
 
+        [Required]
+
         public string Duration { get; set; }
+
+        [Required]
 
         public int? NumberOfParticipatingStudents { get; set; }
 

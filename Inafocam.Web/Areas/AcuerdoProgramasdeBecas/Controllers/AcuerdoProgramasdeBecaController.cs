@@ -98,9 +98,9 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
         public IActionResult AgregarAcuerdo(AcuerdoProgramasdeBecaModel model)
         {
 
-            if(model.AgreementId == 0)
+            if(model.AgreementId == 0 ||string.IsNullOrWhiteSpace(model.ScholarshipProgramUniversityAgreement1))
             {
-                EnviarMensaje.Enviar(TempData, "red", "El tipo de acuerdo es requerido");
+                EnviarMensaje.Enviar(TempData, "red", "Ambos campos son requeridos");
 
                 return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
             }

@@ -10,7 +10,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Models
 {
     public class ScholarshipProgramUniversityModel
     {
-        public long ScholarshipProgramUniversityId { get; set; }
+        public long? ScholarshipProgramUniversityId { get; set; }
 
         [Required (ErrorMessage ="El {0} es requerido")]
         [Display(Name ="Nivel escolar")]

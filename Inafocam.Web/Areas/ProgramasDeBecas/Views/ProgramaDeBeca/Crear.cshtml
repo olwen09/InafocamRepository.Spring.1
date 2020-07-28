@@ -158,7 +158,7 @@
 
     @if (Model.ScholarshipProgramId != 0)
     {
-<form class="col s12 formValidate" method="post" asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="AgregarConvocatoria">
+<form class="col s12 formValidate" method="post" asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="AgregarConvocatoriaProperties">
 
     <input type="hidden" asp-for="ScholarshipProgramId" />
     <input type="hidden" asp-for="ScholarshipProgramUniversity.StatusId" />
@@ -180,9 +180,9 @@
 
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="ScholarshipProgramUniversity.ScatProgramCode" id="codigodescat" type="text" class="validate">
+                        <input asp-for="ScholarshipProgramUniversity.ScatProgramCode" id="codigodescat" type="text" class="validate" required>
                         <label for="codigodescat">Codigo de SCAT</label>
-                        <span asp-validation-for="ScholarshipProgramUniversity.ScatProgramCode" class="red-text validationDisplay"></span>
+                      @*  <span asp-validation-for="ScholarshipProgramUniversity.ScatProgramCode" class="red-text validationDisplay"></span>*@
                     </div>
 
 
@@ -190,7 +190,7 @@
 
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="ScholarshipProgramUniversity.ContractNumber" id="nocontrato" type="text" class="validate">
+                        <input asp-for="ScholarshipProgramUniversity.ContractNumber" id="nocontrato" type="text" class="validate" required>
                         <label for="nocontrato">No. Contrato</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
@@ -202,7 +202,7 @@
                         <select asp-for="ScholarshipProgramUniversity.UniversityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.University">
                             <option value="" disabled selected> Seleccione una Opción </option>
                         </select>
-                        <span asp-validation-for="ScholarshipProgramUniversity.UniversityId" class="red-text"></span>
+                       @* <span asp-validation-for="ScholarshipProgramUniversity.UniversityId" class="red-text"></span>*@
 
                     </div>
 
@@ -215,12 +215,12 @@
 
 
                         <div class="input-field col s12 m6 l2">
-                            <input asp-for="ScholarshipProgramUniversity.AnnouncementStartDate" type="text" class="datepicker" id="inicioConvocatoria">
+                            <input asp-for="ScholarshipProgramUniversity.AnnouncementStartDate" type="text" class="datepicker" id="inicioConvocatoria" required>
                             <label for="inicioConvocatoria">Inicio de Convocatoria</label>
                         </div>
 
                         <div class="input-field col s12 m6 l2">
-                            <input asp-for="ScholarshipProgramUniversity.AnnouncementEndDate" type="text" class="datepicker" id="finConvocatoria">
+                            <input asp-for="ScholarshipProgramUniversity.AnnouncementEndDate" type="text" class="datepicker" id="finConvocatoria" required>
                             <label for="finConvocatoria">Fecha de Termino</label>
                         </div>
                     </div>
@@ -241,13 +241,13 @@
                     <div class="s6 m6 l5">
 
                         <div class="input-field col s12 m6 l2">
-                            <input asp-for="ScholarshipProgramUniversity.StartDate" type="text" class="datepicker" id="inicioPrograma">
+                            <input asp-for="ScholarshipProgramUniversity.StartDate" type="text" class="datepicker" id="inicioPrograma" required>
                             <label for="inicioPrograma">Inicio de Programa</label>
 
                         </div>
 
                         <div class="input-field col s12 m6 l2">
-                            <input asp-for="ScholarshipProgramUniversity.EndDate" type="text" class="datepicker" id="finPrograma">
+                            <input asp-for="ScholarshipProgramUniversity.EndDate" type="text" class="datepicker" id="finPrograma" required>
                             <label for="finPrograma">Fecha de Termino</label>
                         </div>
                         <br />
@@ -366,6 +366,35 @@
         $(document).ready(function () {
             $('.datepicker').datepicker();
         });
+
+         if ("@mensaje.Tipo".length > 0) {
+            $.confirm({
+                title: '@mensaje.Titulo',
+                content: '@mensaje.Texto',
+                type: '@mensaje.Tipo',
+                typeAnimated: true,
+                boxWidth: '500px',
+                autoClose: 'cerrar|5000',
+                useBootstrap: false,
+                buttons: {
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function () {
+                    // before the modal is hidden.
+                    $.ajax({
+                        type: 'get',
+                        url: '/home/ClearTempData',
+                        success: function() {
+
+                        }
+                    });
+                }
+            });
+
+        }
 
     </script>
 }

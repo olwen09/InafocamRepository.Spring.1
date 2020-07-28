@@ -13,6 +13,9 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models
 
         [Required(ErrorMessage = "La Universidad es requerida")]
         public long? UniversityId { get; set; }
+
+        [Required (ErrorMessage ="El {0} es requerido")]
+        [Display(Name= "Programa de Becas Universitaria")]
         public long? ScholarshipProgramUniversityId { get; set; }
         public long? CoordinatorId { get; set; }
 

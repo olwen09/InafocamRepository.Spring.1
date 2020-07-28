@@ -5,7 +5,7 @@ namespace Inafocam.core.Modelos
 {
     public partial class TeacherFile
     {
-        public long TeacherFileId { get; set; }
+        public long? TeacherFileId { get; set; }
         public long TeacherId { get; set; }
         public long? TeacherResearchId { get; set; }
         public long? FileId { get; set; }

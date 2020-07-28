@@ -57,6 +57,7 @@ namespace Inafocam.Web.Areas.Profesores.Models
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }
         public long? StatusId { get; set; }
+        public long? UniversityId { get; set; }
 
         public virtual Contact Contact { get; set; }
         public virtual TeacherEducation HigherTeacherEducation { get; set; }

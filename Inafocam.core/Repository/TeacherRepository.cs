@@ -33,7 +33,8 @@ namespace Inafocam.core.Repository
             .Include(x => x.TeacherFile)
             .Include(x => x.TeacherResearch)
             .Include(x => x.TracingStudyPlanDevelopmentAssignedTeacher)
-            .Include(x => x.TracingStudyPlanDevelopmentTeacher);
+            .Include(x => x.TracingStudyPlanDevelopmentTeacher)
+            .Include(x => x.University);
 
 
         public Teacher GetById(int id)
@@ -41,9 +42,16 @@ namespace Inafocam.core.Repository
            return GetAll.FirstOrDefault(x => x.TeacherId == id);
         }
 
+
+
         public int GetContactId(int id)
         {
             return (int)GetAll.FirstOrDefault(x => x.TeacherId == id).ContactId; ;
+        }
+
+        public IQueryable<Teacher> GetTeachersByUSerUniversityId(int userUniversityId)
+        {
+            return GetAll.Where(x => x.UniversityId == userUniversityId);
         }
 
         public void Save(Teacher model)

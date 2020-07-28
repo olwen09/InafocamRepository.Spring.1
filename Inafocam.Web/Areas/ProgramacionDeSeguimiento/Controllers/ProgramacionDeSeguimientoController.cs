@@ -55,8 +55,12 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
         public IActionResult Index()
         {
             var scholarshipProgramTracing = _scholarshipProgramTracing.ScholarshipProgramTracing;
-
-
+            var now = DateTime.Today;
+            //var prueba = now.ToShortDateString();
+            var secondDate = new DateTime(2019,05,27);
+            var firstDate = DateTime.Today;
+            var prueba = secondDate - firstDate;
+            //System.TimeSpan diff = secondDate.Subtract(firstDate);
 
             return View(scholarshipProgramTracing);
         }
@@ -131,7 +135,7 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
 
 
 
-                if(model.ScholarshipProgramTracingId != 0)
+                if(model.ScholarshipProgramTracingId != null)
                 {
                     return RedirectToAction("Editar", new { id = model.ScholarshipProgramTracingId });
                 }

@@ -12,7 +12,7 @@ namespace Inafocam.core.Modelos
             //UserUniversity = new HashSet<UserUniversity>();
         }
 
-        public long UniversityId { get; set; }
+        public long? UniversityId { get; set; }
         public string UniversityName { get; set; }
         public string UniversityAcronym { get; set; }
         public string UniversityCampus { get; set; }

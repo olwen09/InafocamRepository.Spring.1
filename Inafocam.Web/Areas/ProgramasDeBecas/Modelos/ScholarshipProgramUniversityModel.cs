@@ -19,15 +19,28 @@ namespace Inafocam.Web.Areas.ProgramasDeBecas.Modelos
         public long? ScatProgramId { get; set; }
 
         [Required(ErrorMessage = "El {0} es requerido")]
+        [Display(Name = "código Scat")]
         public string ScatProgramCode { get; set; }
         public int? ActiveStudents { get; set; }
         [Required(ErrorMessage = "El {0} es requerido")]
+        [Display(Name = "número de contrato")]
         public string ContractNumber { get; set; }
         public long? CoordinatorId { get; set; }
         public long? TechnicalId { get; set; }
+
+        [Required (ErrorMessage ="La {0} es requerida")]
+        [Display(Name = "Fecha de inicio del anuncio")]
         public DateTime? AnnouncementStartDate { get; set; }
+        [Required(ErrorMessage = "La {0} es requerida")]
+        [Display(Name = "Fecha de finalizacióndel anuncio")]
         public DateTime? AnnouncementEndDate { get; set; }
+
+        [Required(ErrorMessage = "La {0} es requerida")]
+        [Display(Name = "Fecha de inicio")]
         public DateTime? StartDate { get; set; }
+
+        [Required(ErrorMessage = "La {0} es requerida")]
+        [Display(Name = "Fecha de finalización")]
         public DateTime? EndDate { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }

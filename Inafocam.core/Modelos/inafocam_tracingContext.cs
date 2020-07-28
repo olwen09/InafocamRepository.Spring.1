@@ -2771,7 +2771,7 @@ namespace Inafocam.core.Modelos
 
                 entity.Property(e => e.CreationUserId).HasColumnName("creation_user_id");
 
-                entity.Property(e => e.CreationUserId).HasColumnName("creditos");
+                //entity.Property(e => e.CreationUserId).HasColumnName("creditos");
 
                 entity.Property(e => e.DesertedStudentsQuantity).HasColumnName("deserted_students_quantity");
 

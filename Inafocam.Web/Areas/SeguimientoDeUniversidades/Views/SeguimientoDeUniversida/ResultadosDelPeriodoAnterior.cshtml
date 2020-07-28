@@ -20,6 +20,8 @@
     <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+
 }
 
 
@@ -123,26 +125,26 @@
                                 <th>Observaciones</th>
                                 <th>Evidencia</th>
                                 <th>Descripción Del Archivo</th>
-                                <th >Acciones</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
-                       
+
                         <tbody>
                             @foreach (var item in Model.PreviousPeriodList)
                             {
                                 var numero = count++;
 
-                            <tr>
-                                <td>@numero</td>
-                                <td>@item?.ComponentFileType?.ComponentFileTypeName</td>
-                                <td>@item?.Quantity</td>
-                                <td>@item?.Observations</td>
-                                <td>@item?.File?.FileName</td>
-                                <td>@item?.FileDescription</td>
+                <tr>
+                    <td>@numero</td>
+                    <td>@item?.ComponentFileType?.ComponentFileTypeName</td>
+                    <td>@item?.Quantity</td>
+                    <td>@item?.Observations</td>
+                    <td>@item?.File?.FileName</td>
+                    <td>@item?.FileDescription</td>
 
-                                <td><a class="left" href="\app-assets\documentos\resultadosdelperiodoanterior\@item?.File?.FilePath" target="_blank">Ver</a></td>
-                            </tr>
-                            }
+                    <td><a class="left" href="\app-assets\documentos\resultadosdelperiodoanterior\@item?.File?.FilePath" target="_blank">Ver</a></td>
+                </tr>
+}
 
 
                         </tbody>
@@ -168,10 +170,10 @@
 
             <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InstitucionesAfinesALosProgramasParaActividades" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
-                    Atras
-                </a>
+                Atras
+            </a>
 
-                @*<a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ApoyoAlStudiante" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+            @*<a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ApoyoAlStudiante" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
                     Siguiente
                 </a>*@
@@ -201,6 +203,8 @@
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
+    <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>
         @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
@@ -231,5 +235,34 @@
             $('.datepicker').datepicker();
         });
 
+
+        if ("@mensaje.Tipo".length > 0) {
+            $.confirm({
+                title: '@mensaje.Titulo',
+                content: '@mensaje.Texto',
+                type: '@mensaje.Tipo',
+                typeAnimated: true,
+                boxWidth: '500px',
+                autoClose: 'cerrar|5000',
+                useBootstrap: false,
+                buttons: {
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function () {
+                    // before the modal is hidden.
+                    $.ajax({
+                        type: 'get',
+                        url: '/home/ClearTempData',
+                        success: function() {
+
+                        }
+                    });
+                }
+            });
+
+        }
     </script>
 }

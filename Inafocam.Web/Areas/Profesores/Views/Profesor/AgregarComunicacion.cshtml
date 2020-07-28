@@ -29,6 +29,8 @@
     <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/data-tables/css/select.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="~/app-assets/css/custom/custom.css">
     <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css">
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+
 }
 
 
@@ -105,13 +107,13 @@
                 </div>
 
                 <div class="input-field col s12 m6 l6">
-                    <input asp-for="Communication.CommunicationEmail" id="email" type="email" class="validate">
+                    <input asp-for="Communication.CommunicationEmail" id="email" type="email" class="validate" required>
                     <label for="email">Email</label>
                     <span class="red-text validationDisplay"></span>
                 </div>
 
                 <div class="input-field col s12 m6 l6">
-                    <input asp-for="ContactCommunicationComment" id="contactComment" type="text" class="validate">
+                    <input asp-for="ContactCommunicationComment" id="contactComment" type="text" class="validate" >
                     <label for="contactComment">Comentario</label>
                     <span class="red-text validationDisplay"></span>
                 </div>
@@ -123,56 +125,56 @@
                 @if (Model.CommunicationList == null)
                 {
 
-            <table>
-                <thead>
-                    <tr>
-
-
-
-                        <th class="center flow-text grey-text ">no hay preparación académica registrada</th>
-
-                    </tr>
-                </thead>
-            </table> }
-
-
-        else
-        {
-            <table>
-                <thead>
-                    <tr>
-
-                        <th style="border: solid 1px; border-color: #e0e0e0;">Numero de Celular 1</th>
-                        <th style="border: solid 1px; border-color: #e0e0e0;">Numero de Celular 2</th>
-                        <th style="border: solid 1px; border-color: #e0e0e0;">Email</th>
-                        <th style="border: solid 1px; border-color: #e0e0e0;">Comentario</th>
-                        <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach (var item in Model?.CommunicationList)
-                    {
-
+    <table>
+        <thead>
             <tr>
 
 
-                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber1</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber2</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationEmail</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.ContactCommunicationComment</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-                    <a class="red-text tooltipped" data-position="top" data-tooltip="eliminar" href="#">
-                        <i class="material-icons ">delete</i>
-                    </a>
-                </td>
+
+                <th class="center flow-text grey-text ">no hay preparación académica registrada</th>
 
             </tr>
+        </thead>
+    </table> }
+
+
+else
+{
+<table>
+    <thead>
+        <tr>
+
+            <th style="border: solid 1px; border-color: #e0e0e0;">Numero de Celular 1</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Numero de Celular 2</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Email</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Comentario</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model?.CommunicationList)
+        {
+
+<tr>
+
+
+    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber1</td>
+    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber2</td>
+    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationEmail</td>
+    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.ContactCommunicationComment</td>
+    <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+        <a class="red-text tooltipped" data-position="top" data-tooltip="eliminar" href="#">
+            <i class="material-icons ">delete</i>
+        </a>
+    </td>
+
+</tr>
 }
 
-                </tbody>
-            </table>}
+    </tbody>
+</table>}
 
 
 
@@ -237,6 +239,7 @@
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
     <script src="~/app-assets/js/custom/custom-script.js" type="text/javascript"></script>
     <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>
         @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@

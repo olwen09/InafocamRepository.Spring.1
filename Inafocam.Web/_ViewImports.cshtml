@@ -1,10 +1,20 @@
 ﻿@using Andamios.Web
 @using Andamios.Web.Models
 @using Andamios.Web.Helpers
+@using Microsoft.AspNetCore.Identity;
+@using Inafocam.core.Modelos;
+@using System.Security.Claims;
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject UserManager<Usuario>  _userManager;
 @*@using Microsoft.AspNetCore.Mvc.Localization*@
 @*@using Andamios.Web.Resources*@
 @*@inject IHtmlLocalizer<ShareResource> _ShareLocalizer*@
 @*@using Microsoft.AspNetCore.Mvc.Localization*@
 @*@inject IViewLocalizer ShareLocalizer*@
+
+
+@{ 
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Usuario prueba = _userManager.FindByIdAsync(userId).Result; 
+}

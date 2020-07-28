@@ -3,10 +3,13 @@ using System.Linq;
 using Andamios.Web.Helpers;
 using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
+using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.ProgramasDeBecas.Modelos;
+using Inafocam.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 
 namespace Inafocam.Web.Areas.ProgramasDeBeca.Controllers
 {
@@ -83,60 +86,86 @@ namespace Inafocam.Web.Areas.ProgramasDeBeca.Controllers
         public IActionResult GuardarPrograma(ScholarshipProgramModel model,string prueba)
         {
 
-            var scholarshipProgramModel = new ScholarshipProgram
+
+            if (ModelState.IsValid)
             {
-                ScholarshipProgramId = model.ScholarshipProgramId,
-                ScholarshipProgramName = model.ScholarshipProgramName,
-                ScholarshipLevelId = model.ScholarshipLevelId,
-                CreationDate = model.CreationDate,
-                UpgradeDate = model.UpgradeDate,
-                StatusId = model.StatusId,
-                ScholarshipLevel = model.ScholarshipLevel,
-                Status = model.Status,
-            };
+                var scholarshipProgramModel = new ScholarshipProgram
+                {
+                    ScholarshipProgramId = model.ScholarshipProgramId,
+                    ScholarshipProgramName = model.ScholarshipProgramName,
+                    ScholarshipLevelId = model.ScholarshipLevelId,
+                    CreationDate = model.CreationDate,
+                    UpgradeDate = model.UpgradeDate,
+                    StatusId = model.StatusId,
+                    ScholarshipLevel = model.ScholarshipLevel,
+                    Status = model.Status,
+                };
 
 
 
 
-            try
-            {
+                try
+                {
 
-                _scholarshipProgram.GuardarScholarshipProgram(scholarshipProgramModel);
+                    _scholarshipProgram.GuardarScholarshipProgram(scholarshipProgramModel);
 
+                }
+
+                catch (Exception e)
+                {
+                    ViewBag.Nivel = new SelectList(_scholarshipLevel.ScholarshipsLevel, "ScholarshipLevelId", "ScholarshipLevelName");
+                    ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+                    ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
+                    return View("Crear", model);
+                }
             }
-
-            catch (Exception e)
+            else
             {
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count > 0).First();
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
                 ViewBag.Nivel = new SelectList(_scholarshipLevel.ScholarshipsLevel, "ScholarshipLevelId", "ScholarshipLevelName");
                 ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
                 ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
                 return View("Crear", model);
             }
 
+           
+
          
             return View("Index", _scholarshipProgram.GetAll.ToList());
         }
 
-        [HttpPost]
-        public IActionResult AgregarConvocatoria(ScholarshipProgramModel model)
+        public IActionResult AgregarConvocatoriaProperties(ScholarshipProgramModel model)
+        {
+
+            var data = new ScholarshipProgramUniversityModel
+            {
+
+                ScholarshipProgramId = model.ScholarshipProgramId,
+                //ScholarshipProgramId = model.ScholarshipProgramId,
+                ScatProgramCode = model.ScholarshipProgramUniversity.ScatProgramCode,
+                ContractNumber = model.ScholarshipProgramUniversity.ContractNumber,
+                UniversityId = model.ScholarshipProgramUniversity.UniversityId,
+                AnnouncementStartDate = model.ScholarshipProgramUniversity.AnnouncementStartDate,
+                AnnouncementEndDate = model.ScholarshipProgramUniversity.AnnouncementEndDate,
+                StartDate = model.ScholarshipProgramUniversity.StartDate,
+                EndDate = model.ScholarshipProgramUniversity.EndDate
+            };
+
+            return RedirectToAction("AgregarConvocatoria", data );
+        }
+
+        //[HttpPost]
+        public IActionResult AgregarConvocatoria(ScholarshipProgramUniversityModel model)
         {
 
             if (ModelState.IsValid)
             {
-                var data = new ScholarshipProgramUniversity
-                {
-
-                    ScholarshipProgramId = model.ScholarshipProgramId,
-                    ScatProgramCode = model.ScholarshipProgramUniversity.ScatProgramCode,
-                    ContractNumber = model.ScholarshipProgramUniversity.ContractNumber,
-                    UniversityId = model.ScholarshipProgramUniversity.UniversityId,
-                    AnnouncementStartDate = model.ScholarshipProgramUniversity.AnnouncementStartDate,
-                    AnnouncementEndDate = model.ScholarshipProgramUniversity.AnnouncementEndDate,
-                    StartDate = model.ScholarshipProgramUniversity.StartDate,
-                    EndDate = model.ScholarshipProgramUniversity.EndDate
-                };
 
 
+                var data = CopyPropierties.Convert<ScholarshipProgramUniversityModel, ScholarshipProgramUniversity>(model);
 
                 try
                 {
@@ -146,6 +175,15 @@ namespace Inafocam.Web.Areas.ProgramasDeBeca.Controllers
                 {
                     return RedirectToAction("Editar", new { id = model.ScholarshipProgramId });
                 }
+            }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count > 0).First();
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
+
+            return RedirectToAction("Editar", new { id = model.ScholarshipProgramId });
             }
 
            

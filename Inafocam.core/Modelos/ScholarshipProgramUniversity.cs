@@ -13,7 +13,7 @@ namespace Inafocam.core.Modelos
             ScholarshipProgramUniversitySubjectMatter = new HashSet<ScholarshipProgramUniversitySubjectMatter>();
         }
 
-        public long ScholarshipProgramUniversityId { get; set; }
+        public long? ScholarshipProgramUniversityId { get; set; }
         public long? ScholarshipLevelId { get; set; }
         public long? ScholarshipProgramId { get; set; }
         public long? UniversityId { get; set; }

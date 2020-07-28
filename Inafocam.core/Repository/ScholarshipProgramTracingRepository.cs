@@ -38,28 +38,60 @@ namespace Inafocam.core.Repository
 
 
 
-        public ScholarshipProgramTracing GetById(int id)
+        public ScholarshipProgramTracing GetById(long id)
         {
             return ScholarshipProgramTracing.FirstOrDefault(x => x.ScholarshipProgramTracingId == id);
         }
 
         public IQueryable<ScholarshipProgramTracing> GetfindAvailableTracings(int universityId)
         {
-            return ScholarshipProgramTracing.Where(x => x.UniversityId == universityId && x.StatusId == 1);
+           
+            return ScholarshipProgramTracing.Where(x => x.UniversityId == universityId && x.Status.StatusName == "Activo");
         }
 
-        public IQueryable<ScholarshipProgramTracing> GetTracingByUserUniversityId(int UserUniversityId)
+        public IEnumerable<ScholarshipProgramTracing> GetTracingByUserUniversityId(int userUniversityId)
         {
-            throw new NotImplementedException();
+            var scholarshipProgramTracing = new List<ScholarshipProgramTracing>();
+            var now = DateTime.Today;
+            var estadoCerrado = 9;
+            
+            
+
+            foreach (var item in ScholarshipProgramTracing)
+            {
+                var date = item.EndDate - now;
+                if (date.Value.TotalDays <= 0 && item.Status.StatusName != "Cerrado")
+                {
+                    
+                scholarshipProgramTracing.Add(item);
+
+                }
+
+            }
+
+            foreach(var item in scholarshipProgramTracing)
+            {
+                item.StatusId = estadoCerrado;
+                Save(item);
+            }
+
+            return ScholarshipProgramTracing.Where(x => x.UniversityId == userUniversityId);
         }
 
         public void Save(ScholarshipProgramTracing model)
         {
          
-            var now = DateTime.Now;
+            var now = DateTime.Today;
+            var estadoActivo = 1;
+            var date = model.EndDate - now;
 
           if(model.ScholarshipProgramTracingId != 0)
             {
+                if (date.Value.TotalDays > 0)
+                {
+                    model.StatusId = estadoActivo;
+                }
+
                 model.UpgradeDate = now;
                 _context.ScholarshipProgramTracing.Update(model);
             }

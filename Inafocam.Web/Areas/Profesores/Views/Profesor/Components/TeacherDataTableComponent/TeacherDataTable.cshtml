@@ -1,4 +1,4 @@
-﻿@using Inafocam.core.Modelos
+﻿@model Inafocam.Web.Areas.Profesores.Models.TeacherIndexViewModel
 
 <table id="page-length-option" class="display">
 
@@ -32,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Teacher item in Model)
+        @foreach (var item in Model.TeacherList)
         {
 
             <tr>

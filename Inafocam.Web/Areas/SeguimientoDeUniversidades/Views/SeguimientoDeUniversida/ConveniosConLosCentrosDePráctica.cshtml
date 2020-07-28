@@ -18,6 +18,8 @@
     <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+
 }
 
 
@@ -34,7 +36,7 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveInstitucionesAfinesALosProgramasParaActividades">
+    <form class="col s12 formValidate" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveConveniosConLosCentrosDePráctica">
 
         <input type="hidden" asp-for="TracingId" />
         <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
@@ -115,17 +117,17 @@
                             {
                                 //var numero = count++;
 
-                            <tr>
+                <tr>
 
-                                <td>@item.Institution</td>
-                                <td>@item.ActivityDescription</td>
-                                <td>@item.NumberOfParticipatingStudents</td>
-                                <td>@item.Date</td>
-                            
-                                
+                    <td>@item.Institution</td>
+                    <td>@item.ActivityDescription</td>
+                    <td>@item.NumberOfParticipatingStudents</td>
+                    <td>@item.Date</td>
 
-                            </tr>
-                            }
+
+
+                </tr>
+}
 
 
                         </tbody>
@@ -183,6 +185,8 @@
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
+    <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>
         @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
@@ -214,6 +218,35 @@
         $(document).ready(function () {
             $('.datepicker').datepicker();
         });
+
+                if ("@mensaje.Tipo".length > 0) {
+            $.confirm({
+                title: '@mensaje.Titulo',
+                content: '@mensaje.Texto',
+                type: '@mensaje.Tipo',
+                typeAnimated: true,
+                boxWidth: '500px',
+                autoClose: 'cerrar|5000',
+                useBootstrap: false,
+                buttons: {
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function () {
+                    // before the modal is hidden.
+                    $.ajax({
+                        type: 'get',
+                        url: '/home/ClearTempData',
+                        success: function() {
+
+                        }
+                    });
+                }
+            });
+
+        }
 
     </script>
 }

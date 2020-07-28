@@ -10,6 +10,7 @@ using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models;
 using Inafocam.Web.Areas.SeguimientoDeUniversidades.Models;
+using Inafocam.Web.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -114,7 +115,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             //university availableTracings
             if (user.Role == "GESTIÓN UNIVERSITARIA")
             {
-                var availableTracings = _scholarshipProgramTracing.GetfindAvailableTracings(universityId);
+                var availableTracings = _scholarshipProgramTracing.GetTracingByUserUniversityId(universityId);
                 return View(availableTracings);
             }
             else if (user.Role == "ADMINISTRADOR INAFOCAM")
@@ -177,6 +178,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public IActionResult SaveInformacionPrincipal(InformacionPrincipalViewModel model)
         {
+            if((CheckIfTheProgramIsClose(model.ScholarshipProgramTracingId) == "Cerrado")){
+
+                return  RedirectToAction("RedirectToActiontest", new { method = "InformacionPrincipal", tracingId = model.ScholarshipProgramTracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+               
+            }
+           
+
             var data = CopyPropierties.Convert<InformacionPrincipalViewModel, ScholarshipProgramTracing>(model);
 
             try
@@ -225,6 +233,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveAcuerdos(AcuerdosViewModel model, int agremmentId, int universityAgreementId, int tracingId, IFormFile file)
         {
+            if ((CheckIfTheProgramIsClose(model.ScholarshipProgramTracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "Acuerdos", tracingId = model.ScholarshipProgramTracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
 
             //Pasando las los valores de los parametros al modelo ScholarshipProgramTracingAgreementModel
             model.ScholarshipProgramTracingAgreementModel.ScholarshipProgramUniversityAgreementId = universityAgreementId;
@@ -298,8 +312,11 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         {
 
             var model = new DesarrolloDelPlanDeEstudioModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Usuario user = _userManager.FindByIdAsync(userId).Result;
 
 
+            model.UserUniversityId = (int?)user.UniversityId;
             model.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId);
             model.TracingStudyPlanDevelopmentModelList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId); ;
             model.TracingId = tracingId;
@@ -320,6 +337,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveDesarrolloDelPlanDeEstudio(DesarrolloDelPlanDeEstudioModel model, int tracingId, int scholarshipProgramUniversityId, IFormFile file)
         {
+            if ((CheckIfTheProgramIsClose(model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "DesarrolloDelPlanDeEstudio", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
             var rutaPdf = _config.GetSection("rutas").GetSection("DesarrolloDelPlanDeEstudioFiles").Value;
             if (file != null)
             {
@@ -416,6 +440,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         public async Task<IActionResult> SaveDocumentoParaElSistemaDeCalidad(DocumentoParaElSistemaDeCalidadViewModel model, IFormFile file)
         {
 
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "DocumentoParaElSistemaDeCalidad", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
             var rutaPdf = _config.GetSection("rutas").GetSection("DocumentosParaElSistemaDeCalidad").Value;
             var qualitySystem = _qualitySystem.GetAll.FirstOrDefault(x => x.TracingId == model.TracingId && x.FileTypeId == model.QualitySystemModel.FileTypeId);
 
@@ -432,7 +462,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
 
 
-            if (file != null)
+            if (file != null && model.QualitySystemModel.FileTypeId != null)
             {
                 //upload files to wwwroot
                 //var fileName = Path.GetFileName(file.FileName);         
@@ -490,6 +520,11 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
                 }
             }
+            else
+            {
+                EnviarMensaje.Enviar(TempData, "red", "El tipo de documento y el documento son requeridos");
+                return RedirectToAction("DocumentoParaElSistemaDeCalidad", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            }
 
 
 
@@ -498,6 +533,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
         public IActionResult ApoyoAlStudiante(int tracingId, int scholarshipProgramUniversityId)
         {
+
+
 
             var studentSupport = _studentSupport.GetAllByTracingId(tracingId);
 
@@ -522,6 +559,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public IActionResult SaveApoyoAlStudiante(ApoyoAlEstudianteModel model)
         {
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "ApoyoAlStudiante", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
             var studentSupportModel = new ScholarshipProgramTracingStudentSupport();
             studentSupportModel = model.StudentSupporModel;
             studentSupportModel.IndicatorId = model.Indicador.IndicadorId;
@@ -561,6 +605,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public IActionResult SaveEstudiantesEnPractica(EstudiantesEnPracticaViewModel model)
         {
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "EstudiantesEnPractica", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
 
             var studentPracticeModel = new ScholarshipProgramTracingStudentPracticeModel();
             var studentPracticeTypeId = Convert.ToInt32(model.StudentPracticeModel.StudentPracticeTypeId);
@@ -608,6 +659,14 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public IActionResult SavePlanificaciónDeLaPráctica(PlanificaciónDeLaPrácticaViewModel model)
         {
+
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "PlanificaciónDeLaPráctica", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
             var practicePlanningModel = new ScholarshipProgramTracingPracticePlanningModel();
             practicePlanningModel = model.PracticePlanningModel;
             practicePlanningModel.Started = model.Started;
@@ -659,6 +718,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public IActionResult SaveSeguimientoALapráctica(SeguimientoALaprácticaViewModel model)
         {
+
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "SeguimientoALapráctica", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
 
             var activityTypeId = Convert.ToInt32(model.PracticeModel.ActivityTypeId);
             var getPractice = _tracingPractice.GetOneByActivityTypeId(activityTypeId);
@@ -714,8 +780,16 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult SaveConveniosConLosCentrosDePráctica(ConveniosConLosCentrosDePrácticaViewModel model)
         {
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "ConveniosConLosCentrosDePráctica", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
 
             var practiceModel = new ScholarshipProgramTracingAgreementsWithPracticeCenterModel();
             practiceModel.TracingId = model.TracingId;
@@ -764,6 +838,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public IActionResult SaveInstitucionesAfinesALosProgramasParaActividades(InstitucionesAfinesALosProgramasParaActividadesViewModel model)
         {
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "InstitucionesAfinesALosProgramasParaActividades", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
             var RelatedToCurricularActivitiesModel = new AgreementWithInstitutionsRelatedToCurricularActivitiesModel();
             RelatedToCurricularActivitiesModel.TracingId = model.TracingId;
             RelatedToCurricularActivitiesModel = model.RelatedToCurricularActivitiesModel;
@@ -798,6 +879,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveResultadosDelPeriodoAnterior(ResultadosDelPeriodoAnteriorViewModel model, IFormFile file)
         {
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "ResultadosDelPeriodoAnterior", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
             var rutaPdf = _config.GetSection("rutas").GetSection("DocumentosResultadosDelPeriodoAnterior").Value;
 
 
@@ -816,7 +904,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
                 model.PreviousPeriodModel.StatusId = previousPeriod.StatusId;
             }
 
-            if (file != null)
+            if (file != null && model.PreviousPeriodModel.ComponentFileTypeId != null)
             {
                 //upload files to wwwroot
                 //var fileName = Path.GetFileName(file.FileName);         
@@ -876,15 +964,33 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
                 }
             }
+            else
+            {
+
+                EnviarMensaje.Enviar(TempData, "red", "El tipo de componente y el documento son requeridos");
+                return RedirectToAction("ResultadosDelPeriodoAnterior", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            }
 
 
             return RedirectToAction("ResultadosDelPeriodoAnterior", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
 
         }
-        //public IActionResult SeguimientoALaPráctica(int tracingId, int scholarshipProgramUniversityId)
-        //{
-        //    return View();
-        //}
+
+        public IActionResult RedirectToActiontest(string method, long tracingId, long? scholarshipProgramUniversityId)
+        {
+            EnviarMensaje.Enviar(TempData, "red", "Este programa de seguimiento se encuentra en un estado de cerrado contacte a el administrador");
+
+            return RedirectToAction(method, new { tracingId = tracingId, scholarshipProgramUniversityId = scholarshipProgramUniversityId });
+        }
+
+        public string CheckIfTheProgramIsClose(long tracingId)
+        {
+            var tracing = _scholarshipProgramTracing.GetById(tracingId).Status.StatusName;
+
+            return tracing;
+        }
+
+
         public ApoyoAlEstudianteModel GetIndicadores()
         {
             string[] indicadores =

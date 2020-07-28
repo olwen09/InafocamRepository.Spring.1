@@ -10,6 +10,8 @@ namespace Inafocam.Web.Areas.Usuarios.Components.CambiarEstadoComponent
     public class CambiarEstadoComponent : ViewComponent
     {
 
+      
+
         public IViewComponentResult Invoke(EditarUsuarioModel cambiarestado)
         {
             if (cambiarestado == null)

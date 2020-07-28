@@ -74,18 +74,33 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             _contactCommunication = contactCommunication;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int userUniversityId)
         {
-            var teachers = _teacher.GetAll;
-           
+
+            var model = new TeacherIndexViewModel();
+
             
-            return View(teachers);
+            if(userUniversityId != 0)
+            {
+              var teachersFromThisUniversity = _teacher.GetTeachersByUSerUniversityId(userUniversityId);
+                model.TeacherList = teachersFromThisUniversity;
+                model.UserUniversityId = userUniversityId;
+
+
+                return View(model);
+            }
+
+
+            //var teachers = _teacher.GetAll;
+            model.TeacherList = _teacher.GetAll;
+
+            return View(model);
         }  
         
-        public IActionResult Crear(TeacherModel model)
+        public IActionResult Crear(TeacherModel model, int userUniversityId)
         {
 
-
+            model.UniversityId = userUniversityId;
             
             ViewBag.ContactTypes = new SelectList(_contactType.GetAll, "ContactTypeId", "ContactTypeName");
             ViewBag.DocumentType = new SelectList(_documentType.GetAll, "DocumentTypeId", "DocumentTypeName");
@@ -186,9 +201,9 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
                 return View("Crear",model);
             }
 
+           
+         return RedirectToAction("Index", new { userUniversityId = model.UniversityId });
 
-
-            return View("Index", _teacher.GetAll);
         }
 
         [HttpGet]
@@ -311,8 +326,14 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
                     return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
                 }
             }
-
+            else
+            {
             EnviarMensaje.Enviar(TempData, "red", "El archivo es requerido");
+           
+            return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
+
+            }
+
 
 
             return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
@@ -376,6 +397,19 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
         {
             var data = CopyPropierties.Convert<ContactCommunicationModel, ContactCommunication>(model);
 
+            if(string.IsNullOrWhiteSpace(model.Communication.CommunicationPhoneNumber1) && string.IsNullOrWhiteSpace(model.Communication.CommunicationPhoneNumber2))
+            {
+
+            EnviarMensaje.Enviar(TempData, "red", "Al menos un número de contacto es requerido");
+            return RedirectToAction("AgregarComunicacion", new { id = model.TeacherId });
+
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Communication.CommunicationEmail))
+            {
+                EnviarMensaje.Enviar(TempData, "red", "El email es requerido ");
+                return RedirectToAction("AgregarComunicacion", new { id = model.TeacherId });
+            }
 
             try
             {

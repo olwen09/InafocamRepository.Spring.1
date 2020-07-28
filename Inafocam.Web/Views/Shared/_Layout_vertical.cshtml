@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@using Inafocam.core.Modelos;
+@using System.Security.Claims;
+@inject UserManager<Usuario>  _userManager;
+
+<!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 
 <head>
@@ -68,57 +73,73 @@
     <!-- <link rel="stylesheet" href="~/css/site.css" /> -->
 </head>
 <body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 2-columns" data-open="click" data-menu="vertical-dark-menu" data-col="2-columns">
-<partial name="_headerv"/>
-<partial name="_SideNavV"/>
-<!-- <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProyectoAndamios</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header> -->
 
+    @{ 
+        var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        Usuario user = _userManager.FindByIdAsync(userId).Result;
 
+        var padding = "padding-left:0px";
+    }
 
-<div id="main" class="main-full">
-    <div class="row">
-        <div class="content-wrapper-before blue-grey lighten-5"></div>
-        <div class="col s12">
+    <partial name="_headerv" />
+
+    @if(user.Role != "GESTIÓN UNIVERSITARIA")
+    {
+
+    <partial name="_SideNavV"/>
+        
+    padding ="";
+
+    }
+    <!-- <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                @RenderBody()
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProyectoAndamios</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    </header> -->
+
+
+
+    <div id="main" class="main-full" style="@padding">
+        <div class="row">
+            <div class="content-wrapper-before blue-grey lighten-5"></div>
+            <div class="col s12">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+
         </div>
 
+        <!-- <main role="main" class="pb-3">
+
+
+        </main> -->
     </div>
+    <partial name="_right-sidebar" />
 
-    <!-- <main role="main" class="pb-3">
-
-
-    </main> -->
-</div>
-<partial name="_right-sidebar"/>
-
-@*<footer class="border-top footer text-muted">
+    @*<footer class="border-top footer text-muted">
             <div class="container">
                 &copy; 2019 - Andamios Dominicanos <small>*utreee?</small> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer>*@
 
-@*<environment include="Development">
+    @*<environment include="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
         </environment>
@@ -136,25 +157,25 @@
                     integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
             </script>
         </environment>*@
-@*<script src="~/lib/jquery/dist/jquery.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
         <script src="~/app-assets/vendors/jquery-validation/jquery.validate.js"></script>
         <script src="~/app-assets/vendors/jquery-validation/additional-methods.js"></script>
         <script src="~/app-assets/vendors/jquery-cookies/jquery.cookies.min.js"></script>*@
-<!-- From pages -->
-<!-- END: Footer-->
-<!-- BEGIN VENDOR JS-->
-<!-- BEGIN VENDOR JS-->
-<!-- BEGIN PAGE VENDOR JS-->
-<!-- END PAGE VENDOR JS-->
-<!-- BEGIN THEME  JS-->
-<!-- END THEME  JS-->
-<!-- BEGIN PAGE LEVEL JS-->
+    <!-- From pages -->
+    <!-- END: Footer-->
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN THEME  JS-->
+    <!-- END THEME  JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
 
-@RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 
-<script src="~/app-assets/js/particles.js"></script>
-<script src="~/app-assets/js/particles.init.js"></script>
+    <script src="~/app-assets/js/particles.js"></script>
+    <script src="~/app-assets/js/particles.init.js"></script>
 
 
 

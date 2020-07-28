@@ -16,6 +16,7 @@ namespace Inafocam.core.Repository
             _context = context;
         }
 
-        public IQueryable<Status> Status => _context.Status;
+        public IQueryable<Status> Status => _context.Status
+            .Where(x=> x.StatusName == "Activo" || x.StatusName == "Cerrado");
     }
 }
