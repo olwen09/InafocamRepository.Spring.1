@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
 using Inafocam.core.Modelos;
 using System.Security.Claims;
+using Inafocam.Web.Models;
 
 namespace Andamios.Web.Controllers {
     [Authorize]
@@ -66,17 +67,18 @@ namespace Andamios.Web.Controllers {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
 
-            if (user.Role == "GESTIÓN UNIVERSITARIA")
+            if (user.Role == RoleName.UsuarioEjecutivoUniversitario || 
+                user.Role == RoleName.UsuarioEjecutivoInafocam || user.Role == RoleName.GestionUniversitaria)
             {
                 return RedirectToAction("Index", "SeguimientoDeUniversida", new { Area = "SeguimientoDeUniversidades" });
             }
-            else if (user.Role == "ADMINISTRADOR INAFOCAM")
+            else if (user.Role == RoleName.AdministradorInafocam)
             {
-                return View(user);
+                return View();
             }
 
         
-            return View (user);
+            return View ();
         }
         [AllowAnonymous]
         public IActionResult StartPage () {
@@ -113,6 +115,13 @@ namespace Andamios.Web.Controllers {
         //    SetLanguage(culture, returnUrl);
         //}
 
-       
+        public IActionResult SetLanguage(string returnUrl)
+        {
+
+          return LocalRedirect(returnUrl);
+            //return View(nameof(Index));
+
+        }
+
     }
 }

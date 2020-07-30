@@ -22,7 +22,13 @@ namespace Inafocam.core.Repository
             .Include(x => x.Status)
             .Include(x => x.UpgradeUser)
             .Include(x => x.ScholarshipProgramUniversitySubjectMatter)
-            .Include(x => x.TracingStudyPlanDevelopment);
+            .Include(x => x.TracingStudyPlanDevelopment)
+            .Include(x => x.TracingStudyPlanDevelopment.SubjectMatterScoreReportFile);
+
+        public IQueryable<SubjectMatter> GetAllByScholarshipProgramUniversityId(int ScholarshipProgramUniversityId)
+        {
+            return GetAll.Where(x => x.ScholarshipProgramUniversityId == ScholarshipProgramUniversityId);
+        }
 
         public SubjectMatter GetById(int id)
         {

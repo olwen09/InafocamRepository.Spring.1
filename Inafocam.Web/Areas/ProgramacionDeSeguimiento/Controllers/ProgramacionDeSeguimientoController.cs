@@ -164,57 +164,57 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
             return View("Index",scholarshipProgramTracing);
         }
 
-        public IActionResult ProgramaDeBecasMateriaUniversitaria(int scholarshipProgramUniversityId,int tracingId)
-        {
-            var model = new ProgramaDeBecasMateriaUniversitariaViewModel();
-            var subjectMatterList = _subjectMatter.GetAll.Select(x => new SubjectMatterProp {
-                SubjectMatterId = x.SubjectMatterId, SubjectMatterCode = x.SubjectMatterCode.ToString() + ", " + x.SubjectMatterName.ToString() 
-            });
-            var teachers = _teacher.GetAll.Select(x => new TeacherInfo
-            {
-                TeacherId = (long)x.TeacherId,
-                TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
-            });
+        //public IActionResult ProgramaDeBecasMateriaUniversitaria(int scholarshipProgramUniversityId,int tracingId,int universityId)
+        //{
+        //    var model = new ProgramaDeBecasMateriaUniversitariaViewModel();
+        //    var subjectMatterList = _subjectMatter.GetAllByUniversityId(universityId).Select(x => new SubjectMatterProp {
+        //        SubjectMatterId = x.SubjectMatterId, SubjectMatterCode = x.SubjectMatterCode.ToString() + ", " + x.SubjectMatterName.ToString() 
+        //    });
+        //    var teachers = _teacher.GetAll.Select(x => new TeacherInfo
+        //    {
+        //        TeacherId = (long)x.TeacherId,
+        //        TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
+        //    });
 
-            model.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId);
-            model.TracingId = tracingId;
-            model.ProgramUniversityId = scholarshipProgramUniversityId;
+        //    model.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId);
+        //    model.TracingId = tracingId;
+        //    model.ProgramUniversityId = scholarshipProgramUniversityId;
 
-            ViewBag.Teachers = new SelectList(teachers, "TeacherId", "TeacherFullName");
-            ViewBag.SubjectMatter = new SelectList(subjectMatterList, "SubjectMatterId", "SubjectMatterCode");
-            return View(model);
-        }
+        //    ViewBag.Teachers = new SelectList(teachers, "TeacherId", "TeacherFullName");
+        //    ViewBag.SubjectMatter = new SelectList(subjectMatterList, "SubjectMatterId", "SubjectMatterCode");
+        //    return View(model);
+        //}
 
-        public IActionResult SaveProgramaDeBecasMateriaUniversitaria(ProgramaDeBecasMateriaUniversitariaViewModel model)
-        {
-            var tracingStudyPlanDevelopment = new TracingStudyPlanDevelopmentModel();
-            tracingStudyPlanDevelopment.SubjectMatterId = model.TracingStudyPlanDevelopmentModel.SubjectMatterId;
-            tracingStudyPlanDevelopment.ScholarshipProgramTracingId = model.TracingId;
-            tracingStudyPlanDevelopment.TeacherId = model.TracingStudyPlanDevelopmentModel.TeacherId;
-            tracingStudyPlanDevelopment.Creditos = model.TracingStudyPlanDevelopmentModel.Creditos;
+        //public IActionResult SaveProgramaDeBecasMateriaUniversitaria(ProgramaDeBecasMateriaUniversitariaViewModel model)
+        //{
+        //    var tracingStudyPlanDevelopment = new TracingStudyPlanDevelopmentModel();
+        //    tracingStudyPlanDevelopment.SubjectMatterId = model.TracingStudyPlanDevelopmentModel.SubjectMatterId;
+        //    tracingStudyPlanDevelopment.ScholarshipProgramTracingId = model.TracingId;
+        //    tracingStudyPlanDevelopment.TeacherId = model.TracingStudyPlanDevelopmentModel.TeacherId;
+        //    tracingStudyPlanDevelopment.Creditos = model.TracingStudyPlanDevelopmentModel.Creditos;
 
-            var data = CopyPropierties.Convert<TracingStudyPlanDevelopmentModel, TracingStudyPlanDevelopment>(tracingStudyPlanDevelopment);
+        //    var data = CopyPropierties.Convert<TracingStudyPlanDevelopmentModel, TracingStudyPlanDevelopment>(tracingStudyPlanDevelopment);
 
-            var scholarshipProgramUniversitySubjectMatter = new ScholarshipProgramUniversitySubjectMatter();
-            scholarshipProgramUniversitySubjectMatter.ScholarshipProgramUniversityId = model.ProgramUniversityId;
-            scholarshipProgramUniversitySubjectMatter.SubjectMatterId = model.TracingStudyPlanDevelopmentModel.SubjectMatterId;
-            scholarshipProgramUniversitySubjectMatter.TeacherId = model.TracingStudyPlanDevelopmentModel.TeacherId;
-            scholarshipProgramUniversitySubjectMatter.SubjectMatterCredits = model.SubjectMatterCredits;
+        //    var scholarshipProgramUniversitySubjectMatter = new ScholarshipProgramUniversitySubjectMatter();
+        //    scholarshipProgramUniversitySubjectMatter.ScholarshipProgramUniversityId = model.ProgramUniversityId;
+        //    scholarshipProgramUniversitySubjectMatter.SubjectMatterId = model.TracingStudyPlanDevelopmentModel.SubjectMatterId;
+        //    scholarshipProgramUniversitySubjectMatter.TeacherId = model.TracingStudyPlanDevelopmentModel.TeacherId;
+        //    scholarshipProgramUniversitySubjectMatter.SubjectMatterCredits = model.SubjectMatterCredits;
 
 
-            try
-            {
-                _tracingStudyPlanDevelopment.Save(data);
-                _scholarshipProgramUniversitySubjectMatter.Save(scholarshipProgramUniversitySubjectMatter);
-            }
-            catch(Exception e)
-            {
-                return RedirectToAction("ProgramaDeBecasMateriaUniversitaria", new { scholarshipProgramUniversityId = model.ProgramUniversityId, tracingId = model.TracingId });
-            }
+        //    try
+        //    {
+        //        _tracingStudyPlanDevelopment.Save(data);
+        //        _scholarshipProgramUniversitySubjectMatter.Save(scholarshipProgramUniversitySubjectMatter);
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        return RedirectToAction("ProgramaDeBecasMateriaUniversitaria", new { scholarshipProgramUniversityId = model.ProgramUniversityId, tracingId = model.TracingId });
+        //    }
 
-            return RedirectToAction("ProgramaDeBecasMateriaUniversitaria", new { scholarshipProgramUniversityId = model.ProgramUniversityId, tracingId = model.TracingId });
+        //    return RedirectToAction("ProgramaDeBecasMateriaUniversitaria", new { scholarshipProgramUniversityId = model.ProgramUniversityId, tracingId = model.TracingId });
 
-        }
+        //}
 
 
     }

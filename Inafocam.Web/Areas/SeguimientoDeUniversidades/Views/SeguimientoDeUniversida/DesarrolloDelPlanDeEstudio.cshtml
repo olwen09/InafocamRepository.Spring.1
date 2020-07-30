@@ -19,6 +19,8 @@
     <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+
 }
 
 
@@ -49,206 +51,217 @@
             <div class="divider"></div>
 
 
-            @foreach (var item in Model.TracingStudyPlanDevelopmentList)
+            @foreach (var item in Model.subjectMatterList)
             {
-                Model.TracingStudyPlanDevelopmentModel = item;
+                Model.SubjectMatterModel = item;
+                Model.TracingStudyPlanDevelopmentModel = item.TracingStudyPlanDevelopment;
+                Model.TracingStudyPlanDevelopmentModel.Id = Model.SubjectMatterModel.TracingStudyPlanDevelopmentId;
 
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <div class="collapsible-header" style="background-color:#eeeeee ">@item.SubjectMatter.SubjectMatterCode - @item.SubjectMatter.SubjectMatterName</div>
-                        <div class="collapsible-body">
-                            <div class="row">
-                                
-                                <div class="">
-                                    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveDesarrolloDelPlanDeEstudio" >
+<ul class="collapsible collapsible-accordion">
+    <li>
+        <div class="collapsible-header" style="background-color:#eeeeee ">@item.SubjectMatterCode - @item.SubjectMatterName</div>
+        <div class="collapsible-body">
+            <div class="row">
+
+                <div class="">
+                    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveDesarrolloDelPlanDeEstudio">
 
 
 
-                                        <input type="hidden" asp-for="TracingId" />
-                                        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
-                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.Id" />
-                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StatusId" />
-                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.ScholarshipProgramTracingId" />
-                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterId" />
-                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.CreationDate" />
-                                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFileId" />
-                                        @*<input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterId" />*@
-                                        @*<input type="hidden" asp-for="TracingStudyPlanDevelopmentModel." />*@
-            @*<input type="hidden" asp-for="CreationDate" />*@
+                        <input type="hidden" asp-for="TracingId" />
+                        <input type="hidden" asp-for="SubjectMatterModel.SubjectMatterId" />
+                        <input type="hidden" asp-for="SubjectMatterModel.Creditos" />
+                        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.Id" />
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StatusId" />
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.ScholarshipProgramTracingId" />
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterId" />
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.CreationDate" />
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFileId" />
+                        @*<input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterId" />*@
+                        @*<input type="hidden" asp-for="TracingStudyPlanDevelopmentModel." />*@
+                        @*<input type="hidden" asp-for="CreationDate" />*@
 
-                                        @*<input type="hidden" asp-for="Com" />*@
+                        @*<input type="hidden" asp-for="Com" />*@
 
-                                        @* Detalles del programa*@
-                                        <div>
-                                            <span asp-validation-sumary=""></span>
+                        @* Detalles del programa*@
+                        <div>
+                            <span asp-validation-sumary=""></span>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-content">
+
+
+
+                                <h4 class="card-title">	</h4>
+
+
+                                <div class="row ">
+
+
+                                    <div class="input-field col s12 m6 l3">
+
+
+                                        @*<i class="material-icons prefix">contacts</i>*@
+
+                                        <input asp-for="SubjectMatterModel.SubjectMatterCode" id="codigodeasignatura" type="text" class="validat black-text" readonly disabled>
+
+                                        <label for="codigodeasignatura">Código Asignatura</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l3">
+                                        <input asp-for="SubjectMatterModel.SubjectMatterName" id="asignaturaimpartida" type="text" class="validat black-text" readonly disabled>
+
+                                        <label for="asignaturaimpartida">Asignatura Impartida</label>
+
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l3">
+
+                                        <input asp-for="SubjectMatterModel.Creditos" id="creditos" type="text" class="validat black-text" readonly disabled>
+
+                                        <label for="creditos">Créditos</label>
+
+
+                                    </div>
+
+
+
+                                    <div class="input-field col s12 m6 l3">
+
+                                        <input asp-for="SubjectMatterModel.period" id="StartDate" type="text" class="validat black-text">
+
+                                        <label for="StartDate">Periodo académico en que se impartió</label>
+
+
+                                    </div>
+
+                                </div>
+
+
+                                @*Docente que la  impartió*@
+                                <div class="row">
+                                    <div class="input-field col s12 m6 l3">
+
+                                        <div class="row">
+                                            <label for="select2User" class="col s12">Docente que la  impartió</label>
                                         </div>
 
-                                        <div class="card">
-                                            <div class="card-content">
+                                        @{ var numero = index++; }
+                                        <select class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
+                                            <option value="" disabled selected></option>
+                                        </select>
 
 
+                                    </div>
 
-                                                <h4 class="card-title">	</h4>
+                                    <div class="input-field col s12 m6 l2">
 
-
-                                                <div class="row ">
-
-
-                                                    <div class="input-field col s12 m6 l3">
-
-
-                                                        @*<i class="material-icons prefix">contacts</i>*@
-
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.SubjectMatter.SubjectMatterCode" id="codigodeasignatura" type="text" class="validat black-text" readonly disabled>
-
-                                                        <label for="codigodeasignatura">Código Asignatura</label>
-                                                    </div>
-
-                                                    <div class="input-field col s12 m6 l3">
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.SubjectMatter.SubjectMatterName" id="asignaturaimpartida" type="text" class="validat black-text" readonly disabled>
-
-                                                        <label for="asignaturaimpartida">Asignatura Impartida</label>
-
-                                                    </div>
-
-                                                    <div class="input-field col s12 m6 l3">
-
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.Creditos" id="creditos" type="text" class="validat black-text" readonly disabled>
-
-                                                        <label for="creditos">Créditos</label>
-
-
-                                                    </div>
-
-                                                    
-
-                                                    <div class="input-field col s12 m6 l3">
-
-                                                        <input id="StartDate" type="text" class="validat black-text">
-
-                                                        <label for="StartDate">Periodo académico en que se impartió</label>
-
-
-                                                    </div>
-
-                                                </div>
-
-
-                                                @*Docente que la  impartió*@
-                                                <div class="row">
-                                                    <div class="input-field col s12 m6 l3">
-
-                                                        <div class="row">
-                                                            <label for="select2User" class="col s12">Docente que la  impartió</label>
-                                                        </div>
-
-                                                        @{ var numero = index++; }
-                                                        <select class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
-                                                            <option value="" disabled selected></option>
-                                                        </select>
-
-
-                                                    </div>
-
-                                                    <div class="input-field col s12 m6 l2">
-
-
-                                                        <a class="btn waves-effect waves-light mt-5" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-userUniversityID="@Model.UserUniversityId">
+                                        @if (Model.IsGestionUniversitariaRole)
+                                        {
+                                    <a class="btn waves-effect waves-light mt-5" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-userUniversityID="@Model.UniversityId">
+                                        Agregar
+                                        <i class="material-icons right">send</i>
+                                    </a> }
+                                                    else
+                                                    {
+                                                        <a class="btn waves-effect waves-light mt-5 disabled" >
                                                             Agregar
                                                             <i class="material-icons right">send</i>
                                                         </a>
+                                                    }
+                                    </div>
 
 
-                                                    </div>
+                                    <div class="input-field col s12 m6 l3">
+
+                                        <input asp-for="TracingStudyPlanDevelopmentModel.ScoreAverageStudents" id="ScoreAverageStudents" type="number" class="validat black-text">
+
+                                        <label for="ScoreAverageStudents">Promedio de calificación del total de estudiantes</label>
 
 
-                                                    <div class="input-field col s12 m6 l3">
+                                    </div>
 
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ScoreAverageStudents" id="ScoreAverageStudents" type="number" class="validat black-text">
+                                    <div class="input-field col s12 m6 l3">
 
-                                                        <label for="ScoreAverageStudents">Promedio de calificación del total de estudiantes</label>
+                                        <input asp-for="TracingStudyPlanDevelopmentModel.ApprovedStudentsQuantity" id="ApprovedStudentsQuantity" type="number" class="validat black-text">
 
-
-                                                    </div>
-
-                                                    <div class="input-field col s12 m6 l3">
-
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ApprovedStudentsQuantity" id="ApprovedStudentsQuantity" type="number" class="validat black-text">
-
-                                                        <label for="ApprovedStudentsQuantity">Cantidad de estudiantes promovidos</label>
+                                        <label for="ApprovedStudentsQuantity">Cantidad de estudiantes promovidos</label>
 
 
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12 m6 l3">
-
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.ReprovedStudentsQuantity" id="ReprovedStudentsQuantity" type="number" class="validat black-text">
-
-                                                        <label for="ReprovedStudentsQuantity">Cantidad de estudiantes reprobado</label>
-
-
-                                                    </div>
-
-                                                    <div class="input-field col s12 m6 l3">
-
-                                                        <input asp-for="TracingStudyPlanDevelopmentModel.DesertedStudentsQuantity" id="DesertedStudentsQuantity" type="number" class="validat black-text">
-
-                                                        <label for="DesertedStudentsQuantity">Cantidad de Estudiantes Retirados</label>
-
-
-                                                    </div>
-
-                                                    <div class="file-field input-field col s12 m6 l4">
-                                                        <div class="btn">
-                                                            <span>File</span>
-                                                            <input name="file" type="file">
-                                                        </div>
-                                                        <div class="file-path-wrapper">
-                                                            <input name="file" class="file-path validate" type="text" placeholder="Adjunte Reporte de calificación de la asignatura">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="input-field col s12 m6 l1">
-
-                                                        <br />
-
-                                                        <a href="\app-assets\documentos\desarrollodelplandeestudio\@item?.SubjectMatterScoreReportFile?.FilePath" target="_blank">Ver</a>
-
-
-                                                    </div>
-
-                                                    <div class="input-field col s12 m6 l1">
-                                                        <br />
-                                                        <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
-
-
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                    </form>
+                                    </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12 m6 l3">
+
+                                        <input asp-for="TracingStudyPlanDevelopmentModel.ReprovedStudentsQuantity" id="ReprovedStudentsQuantity" type="number" class="validat black-text">
+
+                                        <label for="ReprovedStudentsQuantity">Cantidad de estudiantes reprobado</label>
+
+
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l3">
+
+                                        <input asp-for="TracingStudyPlanDevelopmentModel.DesertedStudentsQuantity" id="DesertedStudentsQuantity" type="number" class="validat black-text">
+
+                                        <label for="DesertedStudentsQuantity">Cantidad de Estudiantes Retirados</label>
+
+
+                                    </div>
+
+                                    <div class="file-field input-field col s12 m6 l4">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            <input name="file" type="file">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input name="file" class="file-path validate" type="text" placeholder="Adjunte Reporte de calificación de la asignatura">
+                                        </div>
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l1">
+
+                                        <br />
+
+                                        <a href="\app-assets\documentos\desarrollodelplandeestudio\@item?.TracingStudyPlanDevelopment?.SubjectMatterScoreReportFile?.FilePath" target="_blank">Ver</a>
+
+
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l1">
+                                        <br />
+                                          @if (Model.IsGestionUniversitariaRole)
+                                          {
+                                        <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
+
+                                          }
+
+                                    </div>
+                                </div>
+
                             </div>
+
                         </div>
-                    </li>
-                    @*<li>
-                    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>*@
-                </ul>
-            }
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </li>
+    @*<li>
+            <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>*@
+</ul>       }
 
 
         </div>
@@ -295,6 +308,8 @@
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
+    <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>
         @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
@@ -351,6 +366,35 @@
                 }
             );
         });
+
+        if ("@mensaje.Tipo".length > 0) {
+            $.confirm({
+                title: '@mensaje.Titulo',
+                content: '@mensaje.Texto',
+                type: '@mensaje.Tipo',
+                typeAnimated: true,
+                boxWidth: '500px',
+                autoClose: 'cerrar|5000',
+                useBootstrap: false,
+                buttons: {
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function () {
+                    // before the modal is hidden.
+                    $.ajax({
+                        type: 'get',
+                        url: '/home/ClearTempData',
+                        success: function() {
+
+                        }
+                    });
+                }
+            });
+
+        }
 
     </script>
 }

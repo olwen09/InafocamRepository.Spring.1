@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using Inafocam.core.Modelos;
 @using System.Security.Claims;
+@using Inafocam.Web.Models;
 @inject UserManager<Usuario>  _userManager;
 
 <!DOCTYPE html>
@@ -83,7 +84,7 @@
 
     <partial name="_headerv" />
 
-    @if(user.Role != "GESTIÓN UNIVERSITARIA")
+    @if(user.Role == RoleName.AdministradorInafocam)
     {
 
     <partial name="_SideNavV"/>

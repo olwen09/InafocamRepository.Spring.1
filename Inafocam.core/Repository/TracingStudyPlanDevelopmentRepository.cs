@@ -24,8 +24,8 @@ namespace Inafocam.core.Repository
             .Include(x => x.AssignedTeacher.Contact)
             .Include(x => x.ScholarshipProgramTracing)
             .Include(x => x.Status)
-            .Include(x => x.SubjectMatter)
-            .Include(x => x.SubjectMatter.ScholarshipProgramUniversitySubjectMatter)
+            //.Include(x => x.SubjectMatter)
+            //.Include(x => x.SubjectMatter.ScholarshipProgramUniversitySubjectMatter)
             .Include(x => x.AssignedTeacher)
             .Include(x => x.SubjectMatterScoreReportFile);
 
@@ -34,9 +34,19 @@ namespace Inafocam.core.Repository
             return GetAll.Where(x => x.ScholarshipProgramTracingId == id);
         }
 
+        public IEnumerable<TracingStudyPlanDevelopment> GetAllByscholarshipProgramUniversityId(int id)
+        {
+            return GetAll.Where(x => x.ScholarshipProgramTracingId == id);
+        }
+
         public TracingStudyPlanDevelopment GetById(int id)
         {
             return GetAll.FirstOrDefault(x => x.Id == id);
+        }
+
+        public long? GetUniversityId(int id)
+        {
+            return GetById(id).ScholarshipProgramTracing.UniversityId;
         }
 
         public void Save(TracingStudyPlanDevelopment model)

@@ -1,4 +1,9 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.InformacionPrincipalViewModel
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Inafocam.Web.Models;
+
+@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.InformacionPrincipalViewModel
+@inject IAuthorizationService _authorizationService
+
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -280,7 +285,7 @@
 
 
 
-
+            @*@RoleName.UsuarioEjecutivoInafocam;*@
 
 
         </div>
@@ -294,7 +299,13 @@
             Siguiente
         </a>
 
+    @if (Model.IsGestionUniversitariaRole)
+    {
+
         <button class="teal btn waves-effect waves-light" type="submit">Guardar</button>
+    }
+
+      
     </form>
 
 </div>

@@ -74,14 +74,16 @@
     </div>
 
 </div>
+@{ 
+        var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
 
+}
 
 @*@{
         var requestCulture = Context.Features.Get<IRequestCultureFeature>();
         var cultureItems = LocOptions.Value.SupportedUICultures
             .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
             .ToList();
-        var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
         //string culture;
         //string returnUrl''
 

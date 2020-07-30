@@ -75,38 +75,41 @@
                         {
                             Model.StudentSupporModel = questions;
                             Model.StudentSupporModelEmpty = questions;
-    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
+                <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
 
-        <input type="hidden" asp-for="TracingId" />
-        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
-        <input type="hidden" asp-for="Indicador.IndicadorId" />
-        <input type="hidden" asp-for="StudentSupporModel.CreationDate" />
-        <input type="hidden" asp-for="StudentSupporModel.Id" />
-        <input type="hidden" asp-for="StudentSupporModel.Status" />
-        @*<input type="hidden" asp-for="StudentSupporModel.IndicatorId" />*@
-        <div class="file-field input-field col s12 m6 l12">
-            <textarea asp-for="StudentSupporModel.Cuálesutilizan" id="Cuálesutilizan" class="materialize-textarea"></textarea>
-            <label for="Cuálesutilizan">¿Cuáles utilizan?</label>
-        </div>
+                    <input type="hidden" asp-for="TracingId" />
+                    <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+                    <input type="hidden" asp-for="Indicador.IndicadorId" />
+                    <input type="hidden" asp-for="StudentSupporModel.CreationDate" />
+                    <input type="hidden" asp-for="StudentSupporModel.Id" />
+                    <input type="hidden" asp-for="StudentSupporModel.Status" />
+                    @*<input type="hidden" asp-for="StudentSupporModel.IndicatorId" />*@
+                    <div class="file-field input-field col s12 m6 l12">
+                        <textarea asp-for="StudentSupporModel.Cuálesutilizan" id="Cuálesutilizan" class="materialize-textarea"></textarea>
+                        <label for="Cuálesutilizan">¿Cuáles utilizan?</label>
+                    </div>
 
-        <div class="file-field input-field col s12 m6 l12">
-            <textarea asp-for="StudentSupporModel.ComoLoHacenProcedimiento" id="ComoLoHacenProcedimiento" class="materialize-textarea"></textarea>
-            <label for="ComoLoHacenProcedimiento">¿Cómo lo hacen? Procedimiento</label>
-        </div>
+                    <div class="file-field input-field col s12 m6 l12">
+                        <textarea asp-for="StudentSupporModel.ComoLoHacenProcedimiento" id="ComoLoHacenProcedimiento" class="materialize-textarea"></textarea>
+                        <label for="ComoLoHacenProcedimiento">¿Cómo lo hacen? Procedimiento</label>
+                    </div>
 
-        <div class="file-field input-field col s12 m6 l12">
-            <textarea asp-for="StudentSupporModel.CuandoSeHacePeriodicidad" id="CuandoSeHacePeriodicidad" class="materialize-textarea"></textarea>
-            <label for="CuandoSeHacePeriodicidad">¿Cuándo se hace? Periodicidad</label>
-        </div>
+                    <div class="file-field input-field col s12 m6 l12">
+                        <textarea asp-for="StudentSupporModel.CuandoSeHacePeriodicidad" id="CuandoSeHacePeriodicidad" class="materialize-textarea"></textarea>
+                        <label for="CuandoSeHacePeriodicidad">¿Cuándo se hace? Periodicidad</label>
+                    </div>
 
-        <div class="file-field input-field col s12 m6 l12">
-            <textarea asp-for="StudentSupporModel.QuienEsElResponsable" id="QuienEsElResponsable" class="materialize-textarea"></textarea>
-            <label for="QuienEsElResponsable">¿Quién es el responsable?</label>
-        </div>
-
-        <button type="submit" class="btn">Guardar</button>
-    </form>}
-}
+                    <div class="file-field input-field col s12 m6 l12">
+                        <textarea asp-for="StudentSupporModel.QuienEsElResponsable" id="QuienEsElResponsable" class="materialize-textarea"></textarea>
+                        <label for="QuienEsElResponsable">¿Quién es el responsable?</label>
+                    </div>
+                    @if (Model.IsGestionUniversitariaRole)
+                    {
+                    <button type="submit" class="btn">Guardar</button>
+                    }
+                </form>
+                        }
+                    }
 
                     @{ count += 1; }
 
@@ -119,33 +122,36 @@
 
 
                         //Model.StudentSupporModel = null;
-    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
+                <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
 
-        <input type="hidden" asp-for="TracingId" />
-        <input type="hidden" asp-for="Indicador.IndicadorId" />
+                    <input type="hidden" asp-for="TracingId" />
+                    <input type="hidden" asp-for="Indicador.IndicadorId" />
 
-        <div class="file-field input-field col s12 m6 l12">
-            <textarea asp-for="StudentSupporModel.Cuálesutilizan" id="Cuálesutilizan" class="materialize-textarea"></textarea>
-            <label for="Cuálesutilizan">¿Cuáles utilizan?</label>
-        </div>
+                    <div class="file-field input-field col s12 m6 l12">
+                        <textarea asp-for="StudentSupporModel.Cuálesutilizan" id="Cuálesutilizan" class="materialize-textarea"></textarea>
+                        <label for="Cuálesutilizan">¿Cuáles utilizan?</label>
+                    </div>
 
-        <div class="file-field input-field col s12 m6 l12">
-            <textarea asp-for="StudentSupporModel.ComoLoHacenProcedimiento" id="ComoLoHacenProcedimiento" class="materialize-textarea"></textarea>
-            <label for="ComoLoHacenProcedimiento">¿Cómo lo hacen? Procedimiento</label>
-        </div>
+                    <div class="file-field input-field col s12 m6 l12">
+                        <textarea asp-for="StudentSupporModel.ComoLoHacenProcedimiento" id="ComoLoHacenProcedimiento" class="materialize-textarea"></textarea>
+                        <label for="ComoLoHacenProcedimiento">¿Cómo lo hacen? Procedimiento</label>
+                    </div>
 
-        <div class="file-field input-field col s12 m6 l12">
-            <textarea asp-for="StudentSupporModel.CuandoSeHacePeriodicidad" id="CuandoSeHacePeriodicidad" class="materialize-textarea"></textarea>
-            <label for="CuandoSeHacePeriodicidad">¿Cuándo se hace? Periodicidad</label>
-        </div>
+                    <div class="file-field input-field col s12 m6 l12">
+                        <textarea asp-for="StudentSupporModel.CuandoSeHacePeriodicidad" id="CuandoSeHacePeriodicidad" class="materialize-textarea"></textarea>
+                        <label for="CuandoSeHacePeriodicidad">¿Cuándo se hace? Periodicidad</label>
+                    </div>
 
-        <div class="file-field input-field col s12 m6 l12">
-            <textarea asp-for="StudentSupporModel.QuienEsElResponsable" id="QuienEsElResponsable" class="materialize-textarea"></textarea>
-            <label for="QuienEsElResponsable">¿Quién es el responsable?</label>
-        </div>
+                    <div class="file-field input-field col s12 m6 l12">
+                        <textarea asp-for="StudentSupporModel.QuienEsElResponsable" id="QuienEsElResponsable" class="materialize-textarea"></textarea>
+                        <label for="QuienEsElResponsable">¿Quién es el responsable?</label>
+                    </div>
 
-        <button type="submit" class="btn">Guardar</button>
-    </form> } @*@if (Model.StudentSupportList.Count() == 0)
+                    @if (Model.IsGestionUniversitariaRole)
+                    {
+                     <button type="submit" class="btn">Guardar</button>               
+                     }
+                </form> } @*@if (Model.StudentSupportList.Count() == 0)
                             {
                         <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveApoyoAlStudiante">
 

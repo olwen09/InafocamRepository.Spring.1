@@ -11,6 +11,7 @@ using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models;
 using Inafocam.Web.Areas.SeguimientoDeUniversidades.Models;
 using Inafocam.Web.Helpers;
+using Inafocam.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         private readonly IResultsFromThePreviousPeriod _previousPeriod;
         private readonly IScholarshipProgramTracingAgreementsWithPracticeCenter _agreementsWithPracticeCenter;
         private readonly IAgreementWithInstitutionsRelatedToCurricularActivities _relatedToCurricularActivities;
+        private readonly ISubjectMatter _subjectMatter;
 
 
         private readonly UserManager<Usuario> _userManager;
@@ -67,7 +69,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             IConfiguration config, IFile file, IComponentFileType componentFileType, IStudentPracticeType studentPracticeType,
             IScholarshipProgramTracingStudentPractice studentPractice, IScholarshipProgramTracingPracticePlanning practicePlanning,
             IActionType actionType, IActivityType activityType, IScholarshipProgramTracingPractice tracingPractice,
-            IResultsFromThePreviousPeriod previousPeriod, IScholarshipProgramTracingAgreementsWithPracticeCenter agreementsWithPracticeCenter,
+            IResultsFromThePreviousPeriod previousPeriod, IScholarshipProgramTracingAgreementsWithPracticeCenter agreementsWithPracticeCenter, ISubjectMatter subjectMatter,
             IAgreementWithInstitutionsRelatedToCurricularActivities relatedToCurricularActivities)
         {
             _scholarshipProgramTracing = scholarshipProgramTracing;
@@ -98,6 +100,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             _previousPeriod = previousPeriod;
             _agreementsWithPracticeCenter = agreementsWithPracticeCenter;
             _relatedToCurricularActivities = relatedToCurricularActivities;
+            _subjectMatter = subjectMatter;
         }
 
 
@@ -113,12 +116,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
 
             //university availableTracings
-            if (user.Role == "GESTIÓN UNIVERSITARIA")
+            if (user.Role == RoleName.GestionUniversitaria || user.Role == RoleName.UsuarioEjecutivoUniversitario)
             {
                 var availableTracings = _scholarshipProgramTracing.GetTracingByUserUniversityId(universityId);
                 return View(availableTracings);
             }
-            else if (user.Role == "ADMINISTRADOR INAFOCAM")
+            else if (user.Role == RoleName.AdministradorInafocam || user.Role == RoleName.UsuarioEjecutivoInafocam)
             {
                 var tracings = _scholarshipProgramTracing.ScholarshipProgramTracing;
                 return View(tracings);
@@ -162,7 +165,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             var data = _scholarshipProgramTracing.GetById(tracingId);
             var model = CopyPropierties.Convert<ScholarshipProgramTracing, InformacionPrincipalViewModel>(data);
-
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
 
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents
@@ -178,12 +181,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public IActionResult SaveInformacionPrincipal(InformacionPrincipalViewModel model)
         {
-            if((CheckIfTheProgramIsClose(model.ScholarshipProgramTracingId) == "Cerrado")){
+            if ((CheckIfTheProgramIsClose(model.ScholarshipProgramTracingId) == "Cerrado"))
+            {
 
-                return  RedirectToAction("RedirectToActiontest", new { method = "InformacionPrincipal", tracingId = model.ScholarshipProgramTracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
-               
+                return RedirectToAction("RedirectToActiontest", new { method = "InformacionPrincipal", tracingId = model.ScholarshipProgramTracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
             }
-           
+
 
             var data = CopyPropierties.Convert<InformacionPrincipalViewModel, ScholarshipProgramTracing>(model);
 
@@ -223,6 +227,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         public IActionResult Acuerdos(int scholarshipProgramUniversityId, int tracingId)
         {
             var model = new AcuerdosViewModel();
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
             model.ScholarshipProgramUniversityAgreementList = _scholarshipProgramUniversityAgreement.GetAllByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
             model.ScholarshipProgramTracingId = tracingId;
@@ -312,18 +317,22 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         {
 
             var model = new DesarrolloDelPlanDeEstudioModel();
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Usuario user = _userManager.FindByIdAsync(userId).Result;
+            var universityId = _scholarshipProgramTracing.GetUniversityId(tracingId);
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
 
-            model.UserUniversityId = (int?)user.UniversityId;
-            model.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId);
-            model.TracingStudyPlanDevelopmentModelList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId); ;
+
+            model.UniversityId = universityId;
+            //model.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId);
+            //model.TracingStudyPlanDevelopmentModelList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(tracingId); 
+            model.subjectMatterList = _subjectMatter.GetAllByScholarshipProgramUniversityId(scholarshipProgramUniversityId).ToList();
             model.TracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
 
 
-            var teachers = _teacher.GetAll.Select(x => new TeacherIDAndName
+
+
+            var teachers = _teacher.GetTeachersByUSerUniversityId(universityId).Select(x => new TeacherIDAndName
             {
                 TeacherId = (long)x.TeacherId,
                 TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
@@ -405,11 +414,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             var tracings = _scholarshipProgramTracingCourse.GetAllByTracingId(tracingId);
 
             var model = new ActividadesCoCurricularesModel();
+
             model.TracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.TracingCourseList = _scholarshipProgramTracingCourse.GetAvaliableTracingsById(tracingId);
             model.TracingCourseFileList = _tracingCourseFile.GetAllByTracingId(tracingId);
-
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
             ViewBag.DocumentTypes = new SelectList(_CourseFileType.GetAll, "Id", "FileTypeName");
 
@@ -430,6 +440,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.TracingId = tracingId;
             model.QualitySystemList = _qualitySystem.GetAllByTracingId(tracingId);
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
             ViewBag.QualitySystemFileTye = new SelectList(_qualitySystemFileType.GetAll, "Id", "FileTypeName");
 
@@ -550,8 +561,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
                 TracingId = tracingId,
                 ScholarshipProgramUniversityId = scholarshipProgramUniversityId
             };
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
-           
 
             return View(model);
         }
@@ -576,9 +587,9 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             {
                 _studentSupport.Save(studentSupportModel);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return RedirectToAction("ApoyoAlStudiante", new { tracingId = model.TracingId,  scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId});
+                return RedirectToAction("ApoyoAlStudiante", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
             }
 
             return RedirectToAction("ApoyoAlStudiante", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
@@ -594,7 +605,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.StudentPracticeList = _studentPractice.GetAllByTracingId(tracingId).OrderBy(x => x.StudentPracticeTypeId);
-
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
 
 
@@ -651,6 +662,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.TracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.PracticePlanningList = _practicePlanning.GetAllByTracingId(tracingId);
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
             ViewBag.ActionType = new SelectList(_actionType.GetAll, "ActionTypeId", "ActionTypeName");
             return View(model);
@@ -709,6 +721,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             //model.PracticeModel.TracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.PracticeList = _tracingPractice.GetAllByTracingId(tracingId);
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
             ViewBag.ActivityType = new SelectList(_activityType.GetAll, "ActivityTypeId", "ActivityTypeName");
 
@@ -775,7 +788,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             model.AgreementsWithPracticeCenterModel = ScholarshipProgramTracingAgreementsWithPracticeCenterModel;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
-
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
             return View(model);
         }
@@ -828,7 +841,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             model.RelatedToCurricularActivitiesModel = ScholarshipProgramTracingAgreementsWithPracticeCenterModel;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
-
+            model.IsGestionUniversitariaRole = GetLogUserRole();
 
             return View(model);
         }
@@ -870,6 +883,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.TracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.PreviousPeriodList = _previousPeriod.GetAllByTracingId(tracingId);
+            model.IsGestionUniversitariaRole = GetLogUserRole();
             ViewBag.ComponentTypes = new SelectList(_componentFileType.GetAll, "ComponentFileTypeId", "ComponentFileTypeName");
 
             return View(model);
@@ -981,6 +995,16 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             EnviarMensaje.Enviar(TempData, "red", "Este programa de seguimiento se encuentra en un estado de cerrado contacte a el administrador");
 
             return RedirectToAction(method, new { tracingId = tracingId, scholarshipProgramUniversityId = scholarshipProgramUniversityId });
+        }
+
+        public bool GetLogUserRole()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Usuario user = _userManager.FindByIdAsync(userId).Result;
+
+            var role = user.Role == RoleName.GestionUniversitaria ? true : false;
+
+            return role;
         }
 
         public string CheckIfTheProgramIsClose(long tracingId)

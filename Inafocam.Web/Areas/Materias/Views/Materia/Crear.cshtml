@@ -39,6 +39,10 @@
     <form class="col s12 formValidate" method="post" asp-area="Materias" asp-controller="Materia" asp-action="Guardar">
 
         <input type="hidden" asp-for="SubjectMatterId" />
+        <input type="hidden" asp-for="TracingStudyPlanDevelopmentId" />
+        <input type="hidden" asp-for="TracingStudyPlanDevelopment.Id" />
+        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+        @*<input type="hidden" asp-for="ScholarshipProgramUniversity.ScholarshipProgramUniversityId" />*@
         <input type="hidden" asp-for="CreationDate" />
 
 
@@ -76,15 +80,27 @@
                     </div>
 
                     <div class="input-field col s12 m6 l4">
-                        <input asp-for="SubjectMatterCode" type="text" class="validate" id="creationdate">
-                        <label for="creationdate">Codigo</label>
+                        <input asp-for="SubjectMatterCode" type="text" class="validate" id="SubjectMatterCode">
+                        <label for="SubjectMatterCode">Codigo</label>
                         <span asp-validation-for="SubjectMatterCode" class="red-text"></span>
+                    </div> 
+                    
+                    <div class="input-field col s12 m6 l4">
+                        <input asp-for="period" type="text" class="validate" id="period">
+                        <label for="period">Periodo</label>
+                        <span asp-validation-for="period" class="red-text"></span>
+                    </div> 
+                    
+                    <div class="input-field col s12 m6 l4">
+                        <input asp-for="Creditos" type="number" class="validate" id="Creditos">
+                        <label for="Creditos">Creditos</label>
+                        <span asp-validation-for="Creditos" class="red-text"></span>
                     </div>
 
 
 
 
-                    <div class="input-field col s12 m6 l4">
+                    @*<div class="input-field col s12 m6 l4">
                         <div class="row">
                             <label for="select2User" class="col s12">Estado</label>
                         </div>
@@ -92,9 +108,9 @@
                             <option value="">Seleccione una Opción</option>
                         </select>
 
-                        @*@Html.ValidationMessageFor(x=> x.StatusId)*@
+                       
 
-                    </div>
+                    </div>*@
 
                 </div>
 

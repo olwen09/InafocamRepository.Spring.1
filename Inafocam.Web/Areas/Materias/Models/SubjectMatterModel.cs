@@ -9,6 +9,7 @@ namespace Inafocam.Web.Areas.Materias.Models
 {
     public class SubjectMatterModel
     {
+    
         public long SubjectMatterId { get; set; }
 
         [Required(ErrorMessage = "El {0} es requerido")]
@@ -16,17 +17,29 @@ namespace Inafocam.Web.Areas.Materias.Models
         public string SubjectMatterCode { get; set; }
         [Required(ErrorMessage = "El {0} es requerido")]
         public string SubjectMatterName { get; set; }
+        [Required]
+        public string period { get; set; }
+        [Required]
+        public long? Creditos { get; set; }
         public long? CreationUserId { get; set; }
         public long? UpgradeUserId { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }
-        [Required(ErrorMessage = "El estado es Requerido")]
         public long? StatusId { get; set; }
+        public long? ScholarshipProgramUniversityId { get; set; }
+        public long? TracingStudyPlanDevelopmentId { get; set; }
+
 
         public virtual User CreationUser { get; set; }
         public virtual Status Status { get; set; }
         public virtual User UpgradeUser { get; set; }
+
+       
+        public virtual ScholarshipProgramUniversity ScholarshipProgramUniversity { get; set; }
+
+      
+        public virtual TracingStudyPlanDevelopment TracingStudyPlanDevelopment { get; set; }
+
         public virtual ICollection<ScholarshipProgramUniversitySubjectMatter> ScholarshipProgramUniversitySubjectMatter { get; set; }
-        public virtual ICollection<TracingStudyPlanDevelopment> TracingStudyPlanDevelopment { get; set; }
     }
 }

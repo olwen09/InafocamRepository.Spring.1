@@ -32,17 +32,23 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             _status = status;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int scholarshipProgramUniversityId)
         {
 
-            var data = _subjectMatter.GetAll;
+            var data = _subjectMatter.GetAllByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
 
-            return View(data);
+            var model = new IndexViewModel();
+            model.SubjectMatterList = _subjectMatter.GetAllByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
+            model.scholarshipProgramUniversityId = scholarshipProgramUniversityId;
+
+
+            return View(model);
         }
 
-        public IActionResult Crear()
+        public IActionResult Crear(int scholarshipProgramUniversityId)
         {
             var model = new SubjectMatterModel();
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View(model);
         }
@@ -108,7 +114,7 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             }
            
 
-            return View("Index", _subjectMatter.GetAll);
+            return RedirectToAction("Index", new { scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
         }
 
     

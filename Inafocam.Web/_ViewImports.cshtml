@@ -4,9 +4,13 @@
 @using Microsoft.AspNetCore.Identity;
 @using Inafocam.core.Modelos;
 @using System.Security.Claims;
+@using Inafocam.Web.Models;
+@using Microsoft.AspNetCore.Authorization;
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject UserManager<Usuario>  _userManager;
+@inject IAuthorizationService _authorizationService
+@*@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.InformacionPrincipalViewModel*@
 @*@using Microsoft.AspNetCore.Mvc.Localization*@
 @*@using Andamios.Web.Resources*@
 @*@inject IHtmlLocalizer<ShareResource> _ShareLocalizer*@
@@ -14,7 +18,5 @@
 @*@inject IViewLocalizer ShareLocalizer*@
 
 
-@{ 
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                Usuario prueba = _userManager.FindByIdAsync(userId).Result; 
-}
+@{ var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    Usuario prueba = _userManager.FindByIdAsync(userId).Result; }

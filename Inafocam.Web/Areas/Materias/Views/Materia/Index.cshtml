@@ -1,4 +1,4 @@
-﻿@model IQueryable<Inafocam.core.Modelos.SubjectMatter>
+﻿@model Inafocam.Web.Areas.Materias.Models.IndexViewModel
 
 @{ MensajesViewModel mensaje = new MensajesViewModel();
 
@@ -55,7 +55,7 @@
                         <div class="col s6 ">
 
 
-                            <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="Materias" asp-controller="Materia" asp-action="Crear">
+                            <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="Materias" asp-controller="Materia" asp-action="Crear" asp-route-scholarshipProgramUniversityId="@Model.scholarshipProgramUniversityId">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>

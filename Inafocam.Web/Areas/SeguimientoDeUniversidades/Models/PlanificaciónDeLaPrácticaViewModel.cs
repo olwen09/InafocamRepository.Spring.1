@@ -10,6 +10,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
     {
         public int? TracingId { get; set; }
         public int? ScholarshipProgramUniversityId { get; set; }
+        public bool IsGestionUniversitariaRole { get; set; }
 
         public short? Started { get; set; }
         public short? Finished { get; set; }

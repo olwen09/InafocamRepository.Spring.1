@@ -49,7 +49,7 @@ namespace Inafocam.core.Repository
             return (int)GetAll.FirstOrDefault(x => x.TeacherId == id).ContactId; ;
         }
 
-        public IQueryable<Teacher> GetTeachersByUSerUniversityId(int userUniversityId)
+        public IQueryable<Teacher> GetTeachersByUSerUniversityId(long? userUniversityId)
         {
             return GetAll.Where(x => x.UniversityId == userUniversityId);
         }

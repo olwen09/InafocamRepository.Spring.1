@@ -2401,8 +2401,11 @@ namespace Inafocam.core.Modelos
                 entity.Property(e => e.SubjectMatterId).HasColumnName("subject_matter_id");
 
                 entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.Creditos).HasColumnName("Creditos");
 
                 entity.Property(e => e.CreationUserId).HasColumnName("creation_user_id");
+
+                //entity.Property(e => e.TracingStudyPlanDevelopmentId).HasColumnName("tracing_study_plan_development_id");
 
                 entity.Property(e => e.StatusId).HasColumnName("status_id");
 
@@ -2823,10 +2826,10 @@ namespace Inafocam.core.Modelos
                     .HasForeignKey(d => d.StatusId)
                     .HasConstraintName("FK_teacher_status_status");
 
-                entity.HasOne(d => d.SubjectMatter)
-                    .WithMany(p => p.TracingStudyPlanDevelopment)
-                    .HasForeignKey(d => d.SubjectMatterId)
-                    .HasConstraintName("FK_teacher_subject_matter");
+                //entity.HasOne(d => d.SubjectMatter)
+                //    .WithMany(p => p.TracingStudyPlanDevelopment)
+                //    .HasForeignKey(d => d.SubjectMatterId)
+                //    .HasConstraintName("FK_teacher_subject_matter");
 
                 entity.HasOne(d => d.Teacher)
                     .WithMany(p => p.TracingStudyPlanDevelopmentTeacher)

@@ -2839,6 +2839,12 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("creation_user_id")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("Creditos")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ScholarshipProgramUniversityId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("StatusId")
                         .HasColumnName("status_id")
                         .HasColumnType("bigint");
@@ -2858,6 +2864,9 @@ namespace Inafocam.core.Migrations
                         .HasMaxLength(64)
                         .IsUnicode(false);
 
+                    b.Property<long?>("TracingStudyPlanDevelopmentId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("UpgradeDate")
                         .HasColumnName("upgrade_date")
                         .HasColumnType("datetime");
@@ -2866,10 +2875,15 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("upgrade_user_id")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("period")
+                        .HasColumnType("text");
+
                     b.HasKey("SubjectMatterId");
 
                     b.HasIndex("CreationUserId")
                         .HasName("FK_subject_matter_user");
+
+                    b.HasIndex("ScholarshipProgramUniversityId");
 
                     b.HasIndex("StatusId")
                         .HasName("FK_subject_matter_status");
@@ -2877,6 +2891,8 @@ namespace Inafocam.core.Migrations
                     b.HasIndex("SubjectMatterCode")
                         .IsUnique()
                         .HasName("subject_matter_code");
+
+                    b.HasIndex("TracingStudyPlanDevelopmentId");
 
                     b.HasIndex("UpgradeUserId")
                         .HasName("FK_subject_matter_user_2");
@@ -3201,7 +3217,7 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.TracingStudyPlanDevelopment", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
                         .HasColumnType("bigint");
@@ -3219,7 +3235,7 @@ namespace Inafocam.core.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<long?>("CreationUserId")
-                        .HasColumnName("creditos")
+                        .HasColumnName("creation_user_id")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("Creditos")
@@ -3697,16 +3713,16 @@ namespace Inafocam.core.Migrations
                         .HasColumnType("varchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<bool>("EmailConfirmed")
+                    b.Property<short>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Estado")
+                    b.Property<short>("Estado")
                         .HasColumnType("bit");
 
                     b.Property<string>("Imagen")
                         .HasColumnType("text");
 
-                    b.Property<bool>("LockoutEnabled")
+                    b.Property<short>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
@@ -3729,7 +3745,7 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<bool>("PhoneNumberConfirmed")
+                    b.Property<short>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Role")
@@ -3738,7 +3754,7 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
-                    b.Property<bool>("TwoFactorEnabled")
+                    b.Property<short>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
                     b.Property<long?>("UniversityId")
@@ -4734,10 +4750,18 @@ namespace Inafocam.core.Migrations
                         .HasForeignKey("CreationUserId")
                         .HasConstraintName("FK_subject_matter_user");
 
+                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramUniversity", "ScholarshipProgramUniversity")
+                        .WithMany()
+                        .HasForeignKey("ScholarshipProgramUniversityId");
+
                     b.HasOne("Inafocam.core.Modelos.Status", "Status")
                         .WithMany("SubjectMatter")
                         .HasForeignKey("StatusId")
                         .HasConstraintName("FK_subject_matter_status");
+
+                    b.HasOne("Inafocam.core.Modelos.TracingStudyPlanDevelopment", "TracingStudyPlanDevelopment")
+                        .WithMany()
+                        .HasForeignKey("TracingStudyPlanDevelopmentId");
 
                     b.HasOne("Inafocam.core.Modelos.User", "UpgradeUser")
                         .WithMany("SubjectMatterUpgradeUser")
@@ -4872,9 +4896,8 @@ namespace Inafocam.core.Migrations
                         .HasConstraintName("FK_teacher_status_status");
 
                     b.HasOne("Inafocam.core.Modelos.SubjectMatter", "SubjectMatter")
-                        .WithMany("TracingStudyPlanDevelopment")
-                        .HasForeignKey("SubjectMatterId")
-                        .HasConstraintName("FK_teacher_subject_matter");
+                        .WithMany()
+                        .HasForeignKey("SubjectMatterId");
 
                     b.HasOne("Inafocam.core.Modelos.File", "SubjectMatterScoreReportFile")
                         .WithMany()

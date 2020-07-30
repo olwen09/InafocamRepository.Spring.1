@@ -180,7 +180,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
                 EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
 
 
-                if (model.TeacherId != 0)
+                if (model.TeacherId != null)
                 {
                     return RedirectToAction("Editar", new { id = model.TeacherId });
                 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Inafocam.core.Modelos
 {
     public partial class TracingStudyPlanDevelopment
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
         public long? ScholarshipProgramTracingId { get; set; }
         public long? SubjectMatterId { get; set; }
         public long? TeacherId { get; set; }
@@ -30,6 +31,8 @@ namespace Inafocam.core.Modelos
         public virtual TeacherEducation HigherTitleSupportMatter { get; set; }
         public virtual ScholarshipProgramTracing ScholarshipProgramTracing { get; set; }
         public virtual Status Status { get; set; }
+
+        [ForeignKey("SubjectMatterId")]
         public virtual SubjectMatter SubjectMatter { get; set; }
         public virtual Teacher Teacher { get; set; }
         public virtual File SubjectMatterScoreReportFile { get; set; }

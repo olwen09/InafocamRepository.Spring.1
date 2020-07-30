@@ -16,6 +16,9 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 
         public Preguntas Preguntas { get; set; }
 
+        public bool IsGestionUniversitariaRole { get; set; }
+
+
         public int? ScholarshipProgramUniversityId { get; set; }
         public int? TracingId { get; set; }
 

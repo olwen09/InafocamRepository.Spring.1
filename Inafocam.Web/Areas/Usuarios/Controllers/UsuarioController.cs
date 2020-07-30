@@ -21,7 +21,7 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
 {
     [Area("Usuarios"), ReturnArea("Usuarios")]
     [ReturnControllador("Seguridad"), ReturnController("Usuario")]
-    [Authorize(Roles  = "ADMINISTRADOR INAFOCAM")]
+    [Authorize(Roles = RoleName.AdministradorInafocam)]
     public class UsuarioController : Controller
     {
 
@@ -32,7 +32,8 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
         private readonly IUniversity _university;
         private readonly SignInManager<Usuario> _signInManager;
         private readonly UserManager<Usuario> _userManager;
-        private readonly RoleManager<Role> _roleManger;
+        private readonly RoleManager<Role> _roleManger; 
+       
 
         public UsuarioController(IUser user, IUserRole userRole, SignInManager<Usuario> signInManager,
             UserManager<Usuario> userManager, IUsuario usuario, IRole role, IUniversity university, RoleManager<Role> roleManger)
@@ -52,6 +53,7 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
 
             var data = _usuario.Usuarios;
 
+            
 
             return View(data);
         }
@@ -152,6 +154,8 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
             {
 
                 var usuarioCreado = _usuario.GetUsuarioById(model.EditarUsuarioModel.Id);
+
+               
 
                 PropertiesParser<EditarUsuarioModel, Usuario>
                     .CopyPropertiesTo<EditarUsuarioModel, Usuario>(model.EditarUsuarioModel, usuarioCreado);
@@ -599,71 +603,71 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
 
 
 
- //       [HttpPost]
- //       [ValidateAntiForgeryToken]
- //       public async Task<IActionResult> GuardarRole(RoleModel model, string returnUrl)
- //       {
- //           var mensaje = new MensajesViewModel();
+        ////[HttpPost]
+        ////[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> GuardarRole(RoleModel model, string returnUrl)
+        //{
+        //    var mensaje = new MensajesViewModel();
 
 
- //           //if (model.Name == null || model.Descripcion == null)
- //           //{
- //           //    TempData.Enviar("red", "El nombre del rol y la descripcion son necesarios, vuelva a intentarlo");
+        //    //if (model.Name == null || model.Descripcion == null)
+        //    //{
+        //    //    TempData.Enviar("red", "El nombre del rol y la descripcion son necesarios, vuelva a intentarlo");
 
- //           //    var roleModel = new RoleModel(returnUrl);
+        //    //    var roleModel = new RoleModel(returnUrl);
 
- //           //    roleModel.Modulos = _modulo.GetAll
- //           //        .Select(x => new ModuloModel()
- //           //        {
- //           //            Nombre = x.Nombre,
- //           //            ModuloId = x.ModuloId,
- //           //            Descripcion = x.Descripcion,
- //           //            Estado = x.Estado,
- //           //            Codigo = x.Codigo
- //           //        }).ToList();
-
-
-
- //           //    return View(nameof(Crear), roleModel);
- //           //}
-
-
- //           model.Name = "Usuario Ejecutivo";
- //           model.Descripcion = "Encargados del area de consulta";
-
- //           if (ModelState.IsValid)
- //           {
- //               var role = await _roleManger.FindByIdAsync(model.Id);
-
- //               //var moduloList = model.Modulos.Where(x => x.Permisos.Any(a => a.Estado)).ToList();
-
- //               if (role == null)
- //               {
-
- //                   role = new Role { Name = model.Name.ToUpper(), Descripcion = model.Descripcion };
+        //    //    roleModel.Modulos = _modulo.GetAll
+        //    //        .Select(x => new ModuloModel()
+        //    //        {
+        //    //            Nombre = x.Nombre,
+        //    //            ModuloId = x.ModuloId,
+        //    //            Descripcion = x.Descripcion,
+        //    //            Estado = x.Estado,
+        //    //            Codigo = x.Codigo
+        //    //        }).ToList();
 
 
 
- //                   var result = await _roleManger.CreateAsync(role);
-
- //                   if (result.Succeeded)
- //                   {
- //                       // Buscar el permiso por roleID
-
- //                       var roleId = await _roleManger.GetRoleIdAsync(role);
-
- //                   }
- //               }
- //           }
-
- //           return View();
- //       }
+        //    //    return View(nameof(Crear), roleModel);
+        //    //}
 
 
- //public IActionResult CrearRole()
- //       {
- //           return View();
- //       }
+        //    model.Name = "USUARIO EJECUTIVO INAFOCAM";
+        //    model.Descripcion = "Encargados del area de consulta inafocam";
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        var role = await _roleManger.FindByIdAsync(model.Id);
+
+        //        //var moduloList = model.Modulos.Where(x => x.Permisos.Any(a => a.Estado)).ToList();
+
+        //        if (role == null)
+        //        {
+
+        //            role = new Role { Name = model.Name.ToUpper(), Descripcion = model.Descripcion };
+
+
+
+        //            var result = await _roleManger.CreateAsync(role);
+
+        //            if (result.Succeeded)
+        //            {
+        //                // Buscar el permiso por roleID
+
+        //                var roleId = await _roleManger.GetRoleIdAsync(role);
+
+        //            }
+        //        }
+        //    }
+
+        //    return View();
+        //}
+
+
+        //public IActionResult CrearRole()
+        //       {
+        //           return View();
+        //       }
 
 
     }

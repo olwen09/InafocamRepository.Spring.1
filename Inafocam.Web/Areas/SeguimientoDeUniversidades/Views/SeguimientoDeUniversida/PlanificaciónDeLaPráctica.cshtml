@@ -137,11 +137,13 @@
                         <br />
                         <br />
                         <br />
-                        <button class="teal btn-small waves-effect waves-light tooltipped left" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
+                        @if (Model.IsGestionUniversitariaRole)
+                        {
+                    <button class="teal btn-small waves-effect waves-light tooltipped left" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
+                        }
 
 
-
-                    </div>
+                                </div>
                 </div>
 
                 <br />

@@ -12,7 +12,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public long? UniversityId { get; set; }
         public long? ScholarshipProgramUniversityId { get; set; }
         public long? CoordinatorId { get; set; }
-       
+
+        public bool IsGestionUniversitariaRole { get; set; }
         public long? TechnicalId { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }

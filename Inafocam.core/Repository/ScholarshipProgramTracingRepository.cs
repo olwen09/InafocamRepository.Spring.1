@@ -78,6 +78,11 @@ namespace Inafocam.core.Repository
             return ScholarshipProgramTracing.Where(x => x.UniversityId == userUniversityId);
         }
 
+        public long? GetUniversityId(int tracingId)
+        {
+            return GetById(tracingId).UniversityId;
+        }
+
         public void Save(ScholarshipProgramTracing model)
         {
          

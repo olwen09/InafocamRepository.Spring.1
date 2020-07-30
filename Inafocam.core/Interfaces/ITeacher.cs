@@ -10,7 +10,7 @@ namespace Inafocam.core.Interfaces
    public interface ITeacher
     {
         IQueryable<Teacher> GetAll { get; }
-        public IQueryable<Teacher> GetTeachersByUSerUniversityId(int userUniversityId);
+        public IQueryable<Teacher> GetTeachersByUSerUniversityId(long? userUniversityId);
 
         Teacher GetById(int id);
         

@@ -31,6 +31,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Inafocam.Web.Models;
 
 namespace Andamios.Web
 {
@@ -60,6 +61,15 @@ namespace Andamios.Web
                 .AddDefaultTokenProviders();
 
 
+
+
+            services.AddAuthorization(op =>
+            {
+                op.AddPolicy(PolicyName.AdminUser, policy => policy.RequireRole(RoleName.AdministradorInafocam));
+                op.AddPolicy(PolicyName.UsuarioEjecutivo, policy => policy.RequireRole(RoleName.UsuarioEjecutivoInafocam));
+                //op.AddPolicy(PolicyName.UsuarioEjecutivo, policy => policy.RequireRole(RoleName.UsuarioEjecutivoUniversitario));
+                op.AddPolicy(PolicyName.GestionUniversitaria, policy => policy.RequireRole(RoleName.GestionUniversitaria));
+            });
             //services.AddScoped<IInventario, InventarioRepository>();
 
 

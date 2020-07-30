@@ -1,5 +1,6 @@
 ﻿@using Inafocam.core.Modelos
 @using System.Globalization;
+@model Inafocam.Web.Areas.Materias.Models.IndexViewModel
 
 <table id="page-length-option" class="display">
 
@@ -10,20 +11,20 @@
             <th> ID</th>
             <th>Codigo</th>
             <th>Nombre</th>
-            <th>Estado</th>
+            <th>Periodo</th>
             <th>Acciones</th>
 
 
         </tr>
     </thead>
     <tbody>
-        @foreach (SubjectMatter item in Model)
+        @foreach (var item in Model.SubjectMatterList)
         {
             <tr>
                 <td>@item?.SubjectMatterId</td>
                 <td>@item?.SubjectMatterCode</td>
                 <td>@item?.SubjectMatterName</td>
-                <td>@item?.Status?.StatusName</td>
+                <td>@item?.period</td>
 
                 <td>
                     <a asp-area="Materias" asp-controller="Materia" asp-action="Editar" asp-route-id="@item.SubjectMatterId" class="tooltipped" data-position="top" data-tooltip="Editar">
@@ -43,7 +44,7 @@
             <th> ID</th>
             <th>Codigo</th>
             <th>Nombre</th>
-            <th>Estado</th>
+            <th>Periodo</th>
             <th>Acciones</th>
 
         </tr>

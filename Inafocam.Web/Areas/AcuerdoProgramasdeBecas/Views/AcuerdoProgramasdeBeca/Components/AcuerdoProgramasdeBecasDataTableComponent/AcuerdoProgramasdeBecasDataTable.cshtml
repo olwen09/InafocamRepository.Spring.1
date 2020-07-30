@@ -33,6 +33,10 @@
                     <a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Editar" asp-route-id="@item?.ScholarshipProgramUniversityId">
                         <i class="material-icons">edit</i>
                     </a>
+
+                    <a asp-area="Materias" asp-controller="Materia" asp-action="Index" asp-route-scholarshipProgramUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Pensum">
+                        <i class="material-icons">subject</i>
+                    </a>
                 </td>
             </tr>
         }

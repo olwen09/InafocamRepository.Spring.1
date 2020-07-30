@@ -17,6 +17,12 @@ using System;
 using Inafocam.Web.Helpers;
 using System.Security.Claims;
 using Inafocam.Web.Areas.Usuarios.Models;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Options;
+
 
 namespace Inafocam.Web.Areas.Identity.Controllers
 {
@@ -533,10 +539,29 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
         public IActionResult AccessDenied()
         {
+            //string baseUrl = string.Format("{0}://{1}{2}", Request..Url.Scheme, Request.Url.Authority, Url.Content("~"));
+            var returnUrl = string.IsNullOrEmpty(Request.Path) ? "~/" : $"~{Request.Path.Value}";
             TempData.AccesoDenegado("Acceso denegado", "No tiene permisos para entrar a esta área", "red");
 
             return RedirectToAction("Home", "Home", new { area = "" });
         }
 
+
+
+        //public void  Url()
+        //{
+
+        //    var prueba = string.IsNullOrEmpty(Request.Path) ? "~/" : $"~{Request.Path.Value}";
+        //    SetLanguage( string.IsNullOrEmpty(Request.Path) ? "~/" : $"~{Request.Path.Value}");
+
+        //}
+
+        //public IActionResult SetLanguage(string returnUrl)
+        //{
+
+        //    return LocalRedirect(returnUrl);
+        //    //return View(nameof(Index));
+
+        //}
     }
 }

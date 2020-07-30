@@ -7,12 +7,14 @@
     <thead>
         <tr>
 
+            <th>Código Scat</th>
+            <th>Número de contrato</th>
             <th>Institución</th>
             <th>Programa</th>
             <th>Coordinador</th>
             <th>Fecha de Apertura</th>
             <th>Fecha de Cierre</th>
-            <th>Porcentaje de Completado</th>
+            <th>Tiempo Restante</th>
             <th>Estado</th>
             <th>Acciones</th>
 
@@ -22,26 +24,41 @@
     <tbody>
         @foreach (ScholarshipProgramTracing item in Model)
         {
+            var today = DateTime.Today;
+            var days = item.EndDate - today;
+            var text = days.Value.TotalDays > 9 ? "badge green  white-text text-accent-2 center" :
+                days.Value.TotalDays <= 9 && days.Value.TotalDays >= 2 ? "badge orange  white-text text-accent-2 center" :
+                "badge red  white-text text-accent-2 center";
+            var time = days.Value.Days > 1 ? days.Value.TotalDays : 0;
+
 <tr>
-    <td>@item?.University.UniversityName</td>
-    <td>@item?.ScholarshipProgramUniversity?.ScholarshipProgram?.ScholarshipProgramName</td>
-    <td>@item?.Coordinator?.Contact?.ContactName</td>
-    <td>@item?.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
-    <td>@item?.EndDate</td>
-    <td></td>
-    <td>
-        @if (item?.Status?.StatusName == "Activo")
-        {
+        
+            <td>@item?.ScholarshipProgramUniversity?.ScatProgramCode</td>
+            <td>@item?.ScholarshipProgramUniversity?.ContractNumber</td>
+            <td>@item?.University.UniversityName</td>
+            <td>@item?.ScholarshipProgramUniversity?.ScholarshipProgram?.ScholarshipProgramName</td>
+            <td>@item?.Coordinator?.Contact?.ContactName</td>
+            <td>@item?.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+            <td>@item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+    
+                <td>
+        
+                <span class="@text">@time</span>
+                </td>
 
-         <span class="badge green  white-text text-accent-2">@item?.Status?.StatusName</span>            
+            <td>
+                @if (item?.Status?.StatusName == "Activo")
+                {
 
-        }
-        else
-        {
-         <span class="badge red  white-text text-accent-2">@item?.Status?.StatusName</span>            
-        }
+                 <span class="badge green  white-text text-accent-2">@item?.Status?.StatusName</span>            
 
-    </td>
+                }
+                else
+                {
+                 <span class="badge red  white-text text-accent-2">@item?.Status?.StatusName</span>            
+                }
+
+            </td>
     <td>
         <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId"class="tooltipped" data-position="top" data-tooltip="Comenzar">
             <i class="material-icons">edit</i>
@@ -55,12 +72,14 @@
     </tbody>
     <tfoot>
         <tr>
+            <th>Código Scat</th>
+            <th>Número de contrato</th>
             <th>Institución</th>
             <th>Programa</th>
             <th>Coordinador</th>
             <th>Fecha de Apertura</th>
             <th>Fecha de Cierree</th>
-            <th>Porcentaje de Completado</th>
+            <th>Tiempo Restante</th>
             <th>Estado</th>
             <th>Acciones</th>
 
