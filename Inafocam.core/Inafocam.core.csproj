@@ -7,6 +7,36 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200720144914_ComponentFileTypeTable.cs" />
     <Compile Remove="Migrations\20200720144914_ComponentFileTypeTable.Designer.cs" />
+    <Compile Remove="Migrations\20200720145523_ComponentFileTypeTable.cs" />
+    <Compile Remove="Migrations\20200720145523_ComponentFileTypeTable.Designer.cs" />
+    <Compile Remove="Migrations\20200720153516_ComponentFileTypeTable.cs" />
+    <Compile Remove="Migrations\20200720153516_ComponentFileTypeTable.Designer.cs" />
+    <Compile Remove="Migrations\20200720154448_ComponentFileTypeTable.cs" />
+    <Compile Remove="Migrations\20200720154448_ComponentFileTypeTable.Designer.cs" />
+    <Compile Remove="Migrations\20200720155124_ComponentFileTypeTable.cs" />
+    <Compile Remove="Migrations\20200720155124_ComponentFileTypeTable.Designer.cs" />
+    <Compile Remove="Migrations\20200720165848_ResultsFromThePreviousPeriod.cs" />
+    <Compile Remove="Migrations\20200720165848_ResultsFromThePreviousPeriod.Designer.cs" />
+    <Compile Remove="Migrations\20200720171241_ResultsFromThePreviousPeriod.cs" />
+    <Compile Remove="Migrations\20200720171241_ResultsFromThePreviousPeriod.Designer.cs" />
+    <Compile Remove="Migrations\20200720172235_ResultsFromThePreviousPeriod.cs" />
+    <Compile Remove="Migrations\20200720172235_ResultsFromThePreviousPeriod.Designer.cs" />
+    <Compile Remove="Migrations\20200720192500_ResultsFromThePreviousPeriodTableAddDesciptionColumn.cs" />
+    <Compile Remove="Migrations\20200720192500_ResultsFromThePreviousPeriodTableAddDesciptionColumn.Designer.cs" />
+    <Compile Remove="Migrations\20200721194844_AddScholarshipProgramTracingAgreementsWithPracticeCenterTable.cs" />
+    <Compile Remove="Migrations\20200721194844_AddScholarshipProgramTracingAgreementsWithPracticeCenterTable.Designer.cs" />
+    <Compile Remove="Migrations\20200721205623_AddScholarShipProgramTracingAgreementsInstitutionRelatedCoCurricularActivitiesTable.cs" />
+    <Compile Remove="Migrations\20200721205623_AddScholarShipProgramTracingAgreementsInstitutionRelatedCoCurricularActivitiesTable.Designer.cs" />
+    <Compile Remove="Migrations\20200722164215_addAgreemen.cs" />
+    <Compile Remove="Migrations\20200722164215_addAgreemen.Designer.cs" />
+    <Compile Remove="Migrations\20200723165035_tableScholarshipProgramTracingStudentSupportcorrection.cs" />
+    <Compile Remove="Migrations\20200723165035_tableScholarshipProgramTracingStudentSupportcorrection.Designer.cs" />
+    <Compile Remove="Migrations\20200723211313_DropcreditosColumnfromTracingStudyPlanDevelopment.cs" />
+    <Compile Remove="Migrations\20200723211313_DropcreditosColumnfromTracingStudyPlanDevelopment.Designer.cs" />
+    <Compile Remove="Migrations\20200723212136_DropcreditosColumnfromTracingStudyPlanDevelopment.cs" />
+    <Compile Remove="Migrations\20200723212136_DropcreditosColumnfromTracingStudyPlanDevelopment.Designer.cs" />
+    <Compile Remove="Migrations\20200729173103_DropCreditosColunmFromSubjectMatterTable.cs" />
+    <Compile Remove="Migrations\20200729173103_DropCreditosColunmFromSubjectMatterTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +56,7 @@
 
   <ItemGroup>
     <Folder Include="Entities\" />
+    <Folder Include="DataBaseScript\" />
   </ItemGroup>
 
 </Project>
