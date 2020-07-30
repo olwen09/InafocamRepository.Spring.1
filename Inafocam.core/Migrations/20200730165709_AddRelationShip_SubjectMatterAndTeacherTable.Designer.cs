@@ -3,14 +3,16 @@ using System;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Inafocam.core.Migrations
 {
     [DbContext(typeof(inafocam_tracingContext))]
-    partial class inafocam_tracingContextModelSnapshot : ModelSnapshot
+    [Migration("20200730165709_AddRelationShip_SubjectMatterAndTeacherTable")]
+    partial class AddRelationShip_SubjectMatterAndTeacherTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2998,6 +3000,8 @@ namespace Inafocam.core.Migrations
                     b.HasIndex("TeacherHiringTypeId")
                         .HasName("FK_teacher_teacher_hiring_type");
 
+                    b.HasIndex("UniversityId");
+
                     b.ToTable("teacher");
                 });
 
@@ -4815,6 +4819,10 @@ namespace Inafocam.core.Migrations
                     b.HasOne("Inafocam.core.Modelos.TeacherHiringType", "TeacherHiringType")
                         .WithMany("Teacher")
                         .HasForeignKey("TeacherHiringTypeId");
+
+                    b.HasOne("Inafocam.core.Modelos.University", "University")
+                        .WithMany()
+                        .HasForeignKey("UniversityId");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.TeacherEducation", b =>

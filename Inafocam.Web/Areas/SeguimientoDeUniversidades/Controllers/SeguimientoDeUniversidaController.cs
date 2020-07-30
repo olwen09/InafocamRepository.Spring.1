@@ -25,6 +25,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
     [Area("SeguimientoDeUniversidades"), ReturnArea("SeguimientoDeUniversidades")]
     [ReturnControllador("Seguimiento De Universidades"), ReturnController("SeguimientoDeUniversida")]
+ 
+
     public class SeguimientoDeUniversidaController : Controller
     {
         private readonly IScholarshipProgramTracing _scholarshipProgramTracing;

@@ -25,6 +25,12 @@ namespace Inafocam.core.Modelos
         public long? ScholarshipProgramUniversityId { get; set; }
         public long? TracingStudyPlanDevelopmentId { get; set; }
 
+        public long? TeacherId { get; set; }
+        public long? AssignedTeacherId { get; set; }
+
+
+        public virtual Teacher Teacher { get; set; }
+        public virtual Teacher AssignedTeacher { get; set; }
 
         public virtual User CreationUser { get; set; }
         public virtual Status Status { get; set; }

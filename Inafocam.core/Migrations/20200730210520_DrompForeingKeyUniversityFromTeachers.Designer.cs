@@ -3,14 +3,16 @@ using System;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Inafocam.core.Migrations
 {
     [DbContext(typeof(inafocam_tracingContext))]
-    partial class inafocam_tracingContextModelSnapshot : ModelSnapshot
+    [Migration("20200730210520_DrompForeingKeyUniversityFromTeachers")]
+    partial class DrompForeingKeyUniversityFromTeachers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

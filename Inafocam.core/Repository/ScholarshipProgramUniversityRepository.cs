@@ -54,6 +54,12 @@ namespace Inafocam.core.Repository
             return ScholarshipProgramUniversity.Where(x => x.UniversityId == universityId);
         }
 
+
+        public long? GetUniversityIdByScholarshipProgramUniversityId(int ScholarshipProgramUniversityId)
+        {
+            return ScholarshipProgramUniversity.FirstOrDefault(x => x.ScholarshipProgramUniversityId == ScholarshipProgramUniversityId).UniversityId;
+        }
+
         public void Save(ScholarshipProgramUniversity model)
         {
             var now = DateTime.Now;

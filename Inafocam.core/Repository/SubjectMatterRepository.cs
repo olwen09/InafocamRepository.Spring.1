@@ -21,6 +21,7 @@ namespace Inafocam.core.Repository
             .Include(x => x.CreationUser)
             .Include(x => x.Status)
             .Include(x => x.UpgradeUser)
+            .Include(x => x.ScholarshipProgramUniversity)
             .Include(x => x.ScholarshipProgramUniversitySubjectMatter)
             .Include(x => x.TracingStudyPlanDevelopment)
             .Include(x => x.TracingStudyPlanDevelopment.SubjectMatterScoreReportFile);
@@ -30,10 +31,14 @@ namespace Inafocam.core.Repository
             return GetAll.Where(x => x.ScholarshipProgramUniversityId == ScholarshipProgramUniversityId);
         }
 
+
+
         public SubjectMatter GetById(int id)
         {
             return GetAll.FirstOrDefault(x => x.SubjectMatterId == id);
         }
+
+
 
         public void Save(SubjectMatter model)
         {

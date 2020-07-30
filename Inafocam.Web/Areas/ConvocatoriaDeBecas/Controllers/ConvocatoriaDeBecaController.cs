@@ -12,13 +12,15 @@ using Inafocam.Web.Areas.ConvocatoriaDeBecas.Models;
 using Microsoft.AspNetCore.Authorization;
 using Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models;
 using Inafocam.Web.Helpers;
+using Inafocam.Web.Models;
 
 namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 {
    
     [Area("ConvocatoriaDeBecas"), ReturnArea("ConvocatoriaDeBecas")]
     [ReturnControllador("Convocatoria De Becas"), ReturnController("ConvocatoriaDeBeca")]
-    [Authorize]
+    [Authorize(Roles = RoleName.AdministradorInafocam)]
+
     public class ConvocatoriaDeBecaController : Controller
     {
         private readonly IScholarshipProgramUniversity _scholarshipProgramUniversity;

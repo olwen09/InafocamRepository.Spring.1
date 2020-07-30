@@ -10,6 +10,7 @@ namespace Inafocam.core.Interfaces
     {
         IQueryable<SubjectMatter> GetAll { get; }
 
+
         SubjectMatter GetById(int id);
 
         IQueryable<SubjectMatter> GetAllByScholarshipProgramUniversityId(int ScholarshipProgramUniversityId);

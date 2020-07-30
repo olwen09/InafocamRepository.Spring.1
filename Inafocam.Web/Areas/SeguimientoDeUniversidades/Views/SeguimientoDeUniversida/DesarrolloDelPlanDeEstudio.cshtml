@@ -11,7 +11,8 @@
 
     }
 
-    var index = 0;}
+    var counter = 0;
+    }
 
 @section Style
 {
@@ -53,6 +54,9 @@
 
             @foreach (var item in Model.subjectMatterList)
             {
+                var teacher = new List<string>();
+                teacher.Add("teacher");
+                teacher.Add("teacher2");
                 Model.SubjectMatterModel = item;
                 Model.TracingStudyPlanDevelopmentModel = item.TracingStudyPlanDevelopment;
                 Model.TracingStudyPlanDevelopmentModel.Id = Model.SubjectMatterModel.TracingStudyPlanDevelopmentId;
@@ -141,57 +145,65 @@
 
 
                                 @*Docente que la  impartió*@
-                                <div class="row">
-                                    <div class="input-field col s12 m6 l3">
+                               
+                            <div class="row">
 
-                                        <div class="row">
-                                            <label for="select2User" class="col s12">Docente que la  impartió</label>
-                                        </div>
+                                <div class="input-field col s12 m6 l3">
+                                    <div class="row">
+                                        <label id="teacher" for="select2User" class="col s12">Asignar Profesor</label>
+                                    </div>
 
-                                        @{ var numero = index++; }
-                                        <select  class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
-                                            <option value="" disabled selected></option>
+                                    
+                                        <select class="prueba form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Teacher">
+                                            <option value="">Seleccione una Opción</option>
                                         </select>
+                                    
 
 
-                                    </div>
-
-                                    <div class="input-field col s12 m6 l2">
-
-                                        @if (Model.IsGestionUniversitariaRole)
-                                        {
-                                    <a class="btn waves-effect waves-light mt-5" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-universityID="@Model.UniversityId">
-                                        Agregar
-                                        <i class="material-icons right">send</i>
-                                    </a> }
-                                                    else
-                                                    {
-                                                        <a class="btn waves-effect waves-light mt-5 disabled" >
-                                                            Agregar
-                                                            <i class="material-icons right">send</i>
-                                                        </a>
-                                                    }
-                                    </div>
 
 
-                                    <div class="input-field col s12 m6 l3">
-
-                                        <input asp-for="TracingStudyPlanDevelopmentModel.ScoreAverageStudents" id="ScoreAverageStudents" type="number" class="validat black-text">
-
-                                        <label for="ScoreAverageStudents">Promedio de calificación del total de estudiantes</label>
 
 
-                                    </div>
-
-                                    <div class="input-field col s12 m6 l3">
-
-                                        <input asp-for="TracingStudyPlanDevelopmentModel.ApprovedStudentsQuantity" id="ApprovedStudentsQuantity" type="number" class="validat black-text">
-
-                                        <label for="ApprovedStudentsQuantity">Cantidad de estudiantes promovidos</label>
-
-
-                                    </div>
                                 </div>
+
+                            
+
+
+                                <div class="input-field col s12 m6 l2">
+
+                                    @if (Model.IsGestionUniversitariaRole)
+                                    {
+                            <a class="btn waves-effect waves-light mt-5" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-universityID="@Model.UniversityId">
+                                Agregar
+                                <i class="material-icons right">send</i>
+                            </a> }
+                        else
+                        {
+                            <a class="btn waves-effect waves-light mt-5 disabled">
+                                Agregar
+                                <i class="material-icons right">send</i>
+                            </a>}
+                                </div>
+
+
+                                <div class="input-field col s12 m6 l3">
+
+                                    <input asp-for="TracingStudyPlanDevelopmentModel.ScoreAverageStudents" id="ScoreAverageStudents" type="number" class="validat black-text">
+
+                                    <label for="ScoreAverageStudents">Promedio de calificación del total de estudiantes</label>
+
+
+                                </div>
+
+                                <div class="input-field col s12 m6 l3">
+
+                                    <input asp-for="TracingStudyPlanDevelopmentModel.ApprovedStudentsQuantity" id="ApprovedStudentsQuantity" type="number" class="validat black-text">
+
+                                    <label for="ApprovedStudentsQuantity">Cantidad de estudiantes promovidos</label>
+
+
+                                </div>
+                            </div>
 
                                 <div class="row">
                                     <div class="input-field col s12 m6 l3">
@@ -310,6 +322,7 @@
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
     <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
     <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
+   
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>
         @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
@@ -395,6 +408,5 @@
             });
 
         }
-
-    </script>
+   </script>
 }

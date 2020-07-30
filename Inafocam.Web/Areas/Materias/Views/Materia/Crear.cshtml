@@ -64,54 +64,45 @@
                 <div class="row ">
 
 
-                    @*<div class="input-field col s12 m6 l6">
-
-                            <input asp-for="SubjectMatterId" id="codigo" type="text" class="validat" disabled style="font-weight: bold;">
-
-                            <label>ID</label>
-
-
-                        </div>*@
-
                     <div class="input-field col s12 m6 l4">
                         <input asp-for="SubjectMatterName" id="name" type="text" class="validate">
                         <label for="name" class="black-text">Nombre</label>
-                        <span class="red-text validationDisplay"></span>
                     </div>
 
                     <div class="input-field col s12 m6 l4">
                         <input asp-for="SubjectMatterCode" type="text" class="validate" id="SubjectMatterCode">
                         <label for="SubjectMatterCode">Codigo</label>
-                        <span asp-validation-for="SubjectMatterCode" class="red-text"></span>
-                    </div> 
-                    
+                    </div>
+
                     <div class="input-field col s12 m6 l4">
                         <input asp-for="period" type="text" class="validate" id="period">
                         <label for="period">Periodo</label>
-                        <span asp-validation-for="period" class="red-text"></span>
-                    </div> 
-                    
+                    </div>
+
                     <div class="input-field col s12 m6 l4">
                         <input asp-for="Creditos" type="number" class="validate" id="Creditos">
                         <label for="Creditos">Creditos</label>
-                        <span asp-validation-for="Creditos" class="red-text"></span>
                     </div>
 
 
 
 
-                    @*<div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l4">
                         <div class="row">
-                            <label for="select2User" class="col s12">Estado</label>
+                            <label for="select2User" class="col s12">Asignar Profesor</label>
                         </div>
-                        <select required asp-for="StatusId" class="form-control js-example-basic-single required" style="width: 100%" asp-items="ViewBag.Status">
+                        <select required asp-for="AssignedTeacherId" class="form-control js-example-basic-single required" style="width: 100%" asp-items="ViewBag.Teachers">
                             <option value="">Seleccione una Opción</option>
                         </select>
 
-                       
 
-                    </div>*@
 
+                    </div>
+
+                    <div class="input-field col s12 m6 l4">
+                        <input asp-for="@Model.UniversityTeacherSelected" type="text" class="black-text" disabled>
+                        <label>Profesor seleccionado por la universidad</label>
+                    </div>
                 </div>
 
 

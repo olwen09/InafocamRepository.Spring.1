@@ -33,12 +33,13 @@ namespace Inafocam.core.Repository
             .Include(x => x.TeacherFile)
             .Include(x => x.TeacherResearch)
             .Include(x => x.TracingStudyPlanDevelopmentAssignedTeacher)
-            .Include(x => x.TracingStudyPlanDevelopmentTeacher)
-            .Include(x => x.University);
+            .Include(x => x.TracingStudyPlanDevelopmentTeacher);
+            //.Include(x => x.University);
 
 
         public Teacher GetById(int id)
         {
+            
            return GetAll.FirstOrDefault(x => x.TeacherId == id);
         }
 

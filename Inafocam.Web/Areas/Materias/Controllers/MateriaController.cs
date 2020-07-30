@@ -11,6 +11,7 @@ using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Materias.Models;
 using Inafocam.Web.Helpers;
+using Inafocam.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,17 +20,23 @@ namespace Inafocam.Web.Areas.Materias.Controllers
 {
     [Area("Materias"),ReturnArea("Materias")]
     [ReturnControllador("Materias"),ReturnController("Materia")]
-    [Authorize]
+    [Authorize(Roles = RoleName.AdministradorInafocam)]
+
     public class MateriaController : Controller
     {
 
         private readonly ISubjectMatter _subjectMatter;
         private readonly IStatus _status;
+        private readonly ITeacher _teacher;
+        private readonly IScholarshipProgramUniversity _scholarshipProgramUniversity;
 
-        public MateriaController(ISubjectMatter subjectMatter,IStatus status)
+        public MateriaController(ISubjectMatter subjectMatter,IStatus status,ITeacher teacher,
+           IScholarshipProgramUniversity scholarshipProgramUniversity)
         {
             _subjectMatter = subjectMatter;
             _status = status;
+            _teacher = teacher;
+            _scholarshipProgramUniversity = scholarshipProgramUniversity;
         }
 
         public IActionResult Index(int scholarshipProgramUniversityId)
@@ -49,17 +56,31 @@ namespace Inafocam.Web.Areas.Materias.Controllers
         {
             var model = new SubjectMatterModel();
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+
+            var universityId = _scholarshipProgramUniversity.GetUniversityIdByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
+           
+
+            ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View(model);
         }
 
-        public IActionResult Editar(int id)
+        public IActionResult Editar(int id, int scholarshipProgramUniversityId)
         {
 
             var data = _subjectMatter.GetById(id);
 
             var model = CopyPropierties.Convert<SubjectMatter, SubjectMatterModel>(data);
+            if(model.TeacherId == null)
+            {
+                model.TeacherId = 0;
+            }
+            var univerityTeacherSelected = _teacher.GetById((int)model.TeacherId);
+            model.UniversityTeacherSelected = univerityTeacherSelected?.Contact?.ContactName?.ToString() + "" + univerityTeacherSelected?.Contact?.ContactLastname?.ToString();
+            var universityId = _scholarshipProgramUniversity.GetUniversityIdByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
 
+
+            ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View("Crear", model);
         }
@@ -117,90 +138,19 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             return RedirectToAction("Index", new { scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
         }
 
-    
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Policy = Constante.UsuariorCanCreate)]
-        //public async Task<IActionResult> Registro(RegisterViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
+        public IEnumerable<SeguimientoDeUniversidades.Models.TeacherIDAndName> TeachersByUniverityIdList(long? universityId)
+        {
+            var teachers = _teacher.GetTeachersByUSerUniversityId(universityId).Select(x => new SeguimientoDeUniversidades.Models.TeacherIDAndName
+            {
+                TeacherId = (long)x.TeacherId,
+                TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
+            }).ToList();
 
-        //        MensajesViewModel mensaje = new MensajesViewModel();
-
-        //        var user = CopyPropierties.Convert<RegisterViewModel, Usuario>(model);
-        //        var email = _usuario.Usuarios.FirstOrDefault(x => x.Email.Equals(model.Email));
-        //        user.EmailConfirmed = true;
-
-        //        //ViewData["Prueba"] =  _localizer["Este email ya existe, intenten con otro"];
+            return teachers;
+        }
 
 
-
-
-        //        try
-        //        {
-
-        //            if (model.Password.Length < 6)
-        //            {
-        //                mensaje.Titulo = "La Contraseña debe contener al menos 6 digitos";
-        //            }
-
-        //            else if (email != null)
-        //            {
-
-        //                mensaje.Titulo = "Este email ya existe, intenten con otro";
-        //                //ViewData["Prueba"] = _localizer["Clientes"];
-        //            }
-        //            else
-        //            {
-
-        //                var result = await _userManager.CreateAsync(user, model.Password);
-
-
-        //                if (result.Succeeded)
-        //                {
-        //                    if (!string.IsNullOrEmpty(user.Role))
-        //                    {
-        //                        result = await _userManager.AddToRoleAsync(user, user.Role);
-        //                    }
-
-        //                    mensaje.Titulo = "Usuario Creado";
-
-        //                    mensaje.Texto = "El usuario se creó satisfactoriamente";
-
-        //                    mensaje.Tipo = "success";
-
-        //                    TempData.Put("mensaje", mensaje);
-
-        //                    return RedirectToAction("Login", "Usuario");
-        //                }
-
-        //                mensaje.Titulo = "Hubo un problema";
-
-        //                if (result.Errors.First().Code == "DuplicateUserName")
-        //                {
-        //                    mensaje.Texto = "El nombre de usuario ya exite, intenten con otro";
-
-        //                }
-
-        //            }
-
-        //            mensaje.Tipo = "error";
-        //            ViewBag.mensaje = mensaje;
-
-        //            return View(model);
-
-        //        }
-        //        catch (System.Exception e)
-        //        {
-        //            var error = e;
-        //            return View(model);
-        //        }
-
-        //    }
-
-        //    return View(model);
-        //}
+       
     }
 }

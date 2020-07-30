@@ -8,6 +8,7 @@ using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Models;
 using Inafocam.Web.Helpers;
+using Inafocam.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,7 +18,8 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
 {
     [Area("AcuerdoProgramasdeBecas"),ReturnArea("AcuerdoProgramasdeBecas")]
     [ReturnControllador("Acuerdo Programas de Becas"),ReturnController("AcuerdoProgramasdeBeca")]
-    [Authorize]
+    [Authorize(Roles = RoleName.AdministradorInafocam)]
+
     public class AcuerdoProgramasdeBecaController : Controller
     {
         private readonly IScholarshipProgramUniversity _scholarshipProgramUniversity;

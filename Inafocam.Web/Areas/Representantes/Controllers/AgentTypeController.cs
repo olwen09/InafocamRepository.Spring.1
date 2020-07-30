@@ -7,6 +7,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Representantes.Models;
+using Inafocam.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,7 +17,8 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
 
     [Area("Representantes"), ReturnArea("Representantes")]
     [ReturnControllador("Tipo de Representante"), ReturnController("AgentType")]
-    [Authorize]
+    [Authorize(Roles = RoleName.AdministradorInafocam)]
+
     public class AgentTypeController : Controller
     {
         private readonly IAgentType _agentType;

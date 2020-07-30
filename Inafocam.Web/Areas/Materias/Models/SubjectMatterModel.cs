@@ -21,6 +21,9 @@ namespace Inafocam.Web.Areas.Materias.Models
         public string period { get; set; }
         [Required]
         public long? Creditos { get; set; }
+
+        public string UniversityTeacherSelected { get; set; }
+
         public long? CreationUserId { get; set; }
         public long? UpgradeUserId { get; set; }
         public DateTime? CreationDate { get; set; }
@@ -29,7 +32,15 @@ namespace Inafocam.Web.Areas.Materias.Models
         public long? ScholarshipProgramUniversityId { get; set; }
         public long? TracingStudyPlanDevelopmentId { get; set; }
 
+        public long? TeacherId { get; set; }
 
+
+        [Required(ErrorMessage ="El profresor asignado es requerido")]
+        public long? AssignedTeacherId { get; set; }
+
+
+        public virtual Teacher Teacher { get; set; }
+        public virtual Teacher AssignedTeacher { get; set; }
         public virtual User CreationUser { get; set; }
         public virtual Status Status { get; set; }
         public virtual User UpgradeUser { get; set; }

@@ -10,6 +10,7 @@ using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Profesores.Models;
 using Inafocam.Web.Helpers;
+using Inafocam.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,8 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
 {
     [Area("Profesores"), ReturnArea("Profesores")]
     [ReturnControllador("Profesores"), ReturnController("Profesor")]
-    [Authorize]
+    [Authorize (Roles = RoleName.AdministradorInafocam)]
+    
     public class ProfesorController : Controller
     {
         private readonly ITeacher _teacher;
@@ -87,8 +89,8 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             {
               var teachersFromThisUniversity = _teacher.GetTeachersByUSerUniversityId(universityId);
                 model.TeacherList = teachersFromThisUniversity;
-                model.UserUniversityId = universityId;
-
+                model.UniversityId = universityId;
+                model.UniversityName = UniversityName(universityId);
 
                 return View(model);
             }
@@ -427,6 +429,11 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             }
 
             return RedirectToAction("AgregarComunicacion", new { id = model.TeacherId });
+        }
+
+        public string UniversityName(int universityId)
+        {
+           return  _university.GetById(universityId).UniversityName;
         }
     }
 }

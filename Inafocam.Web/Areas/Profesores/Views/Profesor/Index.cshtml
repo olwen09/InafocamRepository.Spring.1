@@ -45,11 +45,12 @@
                         <div class="col s6 ">
 
 
-                            <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="Profesores" asp-controller="Profesor" asp-action="Crear" asp-route-userUniversityId="@Model.UserUniversityId">
+                            <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="Profesores" asp-controller="Profesor" asp-action="Crear" asp-route-universityId="@Model.UniversityId">
                                 <i class="material-icons">add</i>
                                 Nuevo
                             </a>
 
+                            <h4 class="card-title">@Model?.UniversityName</h4>
                             @*<a class=" red mb-1 btn-small waves-effect waves-light" data-position="top" href="#">
                                 <i class="material-icons">cancel</i>
                                 Anular

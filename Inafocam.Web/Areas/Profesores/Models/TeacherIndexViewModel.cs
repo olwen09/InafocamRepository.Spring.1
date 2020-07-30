@@ -9,7 +9,8 @@ namespace Inafocam.Web.Areas.Profesores.Models
     public class TeacherIndexViewModel
     {
 
-        public int? UserUniversityId { get; set; }
+        public int? UniversityId { get; set; }
+        public string UniversityName { get; set; }
 
         public IEnumerable<Teacher> TeacherList { get; set; }
     }

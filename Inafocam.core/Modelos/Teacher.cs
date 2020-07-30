@@ -35,7 +35,7 @@ namespace Inafocam.core.Modelos
 
 
 
-        public virtual University University { get; set; }
+        //public virtual University University { get; set; }
         public virtual Contact Contact { get; set; }
         public virtual TeacherEducation HigherTeacherEducation { get; set; }
         public virtual Status Status { get; set; }
