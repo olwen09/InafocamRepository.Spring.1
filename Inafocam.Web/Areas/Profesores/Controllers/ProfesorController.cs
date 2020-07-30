@@ -42,6 +42,8 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
         private readonly IContactAddress _contactAddress;
         private readonly IContactCommunication _contactCommunication;
         private readonly IWebHostEnvironment _hostingEnv;
+        private readonly IUniversity _university;
+
         private IConfiguration _config;
 
 
@@ -50,7 +52,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             IAddressType addressType, IStatus status, IEducationType educationType,
             ITeacherEducation teacherEducation, INationality nationality, IMatirialStatus matirialStatus, IProvince province,
             ITeacherHiringType teacherHiringType, ITeacherFileType teacherFileType, ITeacherFile teacherFile,
-            IWebHostEnvironment hostingEnv,IConfiguration config, IContactAddress contactAddress, IContactCommunication contactCommunication
+            IWebHostEnvironment hostingEnv,IConfiguration config, IContactAddress contactAddress, IContactCommunication contactCommunication,IUniversity university
             )
         {
             _teacher = teacher;
@@ -72,19 +74,20 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             _config = config;
             _contactAddress = contactAddress;
             _contactCommunication = contactCommunication;
+            _university = university;
         }
 
-        public IActionResult Index(int userUniversityId)
+        public IActionResult Index(int universityId)
         {
 
             var model = new TeacherIndexViewModel();
 
             
-            if(userUniversityId != 0)
+            if(universityId != 0)
             {
-              var teachersFromThisUniversity = _teacher.GetTeachersByUSerUniversityId(userUniversityId);
+              var teachersFromThisUniversity = _teacher.GetTeachersByUSerUniversityId(universityId);
                 model.TeacherList = teachersFromThisUniversity;
-                model.UserUniversityId = userUniversityId;
+                model.UserUniversityId = universityId;
 
 
                 return View(model);
@@ -97,10 +100,10 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             return View(model);
         }  
         
-        public IActionResult Crear(TeacherModel model, int userUniversityId)
+        public IActionResult Crear(TeacherModel model, int universityId)
         {
 
-            model.UniversityId = userUniversityId;
+            model.UniversityId = universityId;
             
             ViewBag.ContactTypes = new SelectList(_contactType.GetAll, "ContactTypeId", "ContactTypeName");
             ViewBag.DocumentType = new SelectList(_documentType.GetAll, "DocumentTypeId", "DocumentTypeName");
@@ -112,7 +115,8 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             ViewBag.TeacherEducation = new SelectList(_teacherEducation.GetAll, "TeacherEducationId", "TeacherEducationTitle");
             ViewBag.Nationality = new SelectList(_nationality.GetAll, "NationalityId", "NationalityName");
             ViewBag.MatirialStatus = new SelectList(_matirialStatus.GetAll, "MaritalStatusId", "MaritalStatusName");
-        
+            ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
+            
 
             return View(model);
         }
@@ -140,6 +144,8 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             ViewBag.TeacherEducation = new SelectList(_teacherEducation.GetAll, "TeacherEducationId", "TeacherEducationTitle");
             ViewBag.Nationality = new SelectList(_nationality.GetAll, "NationalityId", "NationalityName");
             ViewBag.MatirialStatus = new SelectList(_matirialStatus.GetAll, "MaritalStatusId", "MaritalStatusName");
+            ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
+
 
             return View("Crear",model);
         }
@@ -202,7 +208,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             }
 
            
-         return RedirectToAction("Index", new { userUniversityId = model.UniversityId });
+         return RedirectToAction("Index", new { UniversityId = model.UniversityId });
 
         }
 

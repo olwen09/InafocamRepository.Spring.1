@@ -330,13 +330,14 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
                                 result = await _userManager.AddToRoleAsync(user, user.Role);
                             }
 
-                            mensaje.Titulo = "Usuario Creado";
+                            //mensaje.Titulo = "Usuario Creado";
 
-                            mensaje.Texto = "El usuario se creó satisfactoriamente";
+                            //mensaje.Texto = "El usuario se creó satisfactoriamente";
 
-                            mensaje.Tipo = "success";
+                            //mensaje.Tipo = "success";
 
-                            TempData.Put("mensaje", mensaje);
+                            EnviarMensaje.Enviar(TempData, "green", "El usuario se creó satisfactoriamente");
+
 
                             return RedirectToAction("Index", "Usuario");
                         }
@@ -408,30 +409,42 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
         public async Task<IActionResult> CambiarEstado(EditarUsuarioModel model)
         {
 
-
-            if (TryValidateModel(model))
-            {
-
                 var usuarioCreado = _usuario.GetUsuarioById(model.Id);
-
-                PropertiesParser<EditarUsuarioModel, Usuario>
-                    .CopyPropertiesTo<EditarUsuarioModel, Usuario>(model, usuarioCreado);
-
-                await _userManager.UpdateAsync(usuarioCreado);
-
-                var roles = await _userManager.GetRolesAsync(usuarioCreado);
-                if (!string.IsNullOrEmpty(model.Role))
+            if (usuarioCreado.Role != null)
+            {
+                if (TryValidateModel(model))
                 {
-                    if (!roles.Contains(model.Role))
-                        await _userManager.AddToRoleAsync(usuarioCreado, model.Role);
-                }
 
-                EnviarMensaje.Enviar(TempData, "green", 3);
+
+
+
+                    PropertiesParser<EditarUsuarioModel, Usuario>
+                        .CopyPropertiesTo<EditarUsuarioModel, Usuario>(model, usuarioCreado);
+
+                    await _userManager.UpdateAsync(usuarioCreado);
+
+                    var roles = await _userManager.GetRolesAsync(usuarioCreado);
+                    if (!string.IsNullOrEmpty(model.Role))
+                    {
+                        if (!roles.Contains(model.Role))
+                            await _userManager.AddToRoleAsync(usuarioCreado, model.Role);
+                    }
+
+                    EnviarMensaje.Enviar(TempData, "green", 3);
+
+
+                    return View("Index", _usuario.Usuarios);
+
+                }
+            }
+            else {
+
+                EnviarMensaje.Enviar(TempData, "red", "El usuario debe tener un rol asignado");
 
 
                 return View("Index", _usuario.Usuarios);
-
             }
+               
 
 
 

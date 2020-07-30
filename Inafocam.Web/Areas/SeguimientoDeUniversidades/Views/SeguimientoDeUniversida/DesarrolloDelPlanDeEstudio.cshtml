@@ -149,7 +149,7 @@
                                         </div>
 
                                         @{ var numero = index++; }
-                                        <select class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
+                                        <select  class="form-control js-example-basic-single " style="width: 100%" asp-items="ViewBag.Teacher">
                                             <option value="" disabled selected></option>
                                         </select>
 
@@ -160,7 +160,7 @@
 
                                         @if (Model.IsGestionUniversitariaRole)
                                         {
-                                    <a class="btn waves-effect waves-light mt-5" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-userUniversityID="@Model.UniversityId">
+                                    <a class="btn waves-effect waves-light mt-5" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-universityID="@Model.UniversityId">
                                         Agregar
                                         <i class="material-icons right">send</i>
                                     </a> }
@@ -374,7 +374,7 @@
                 type: '@mensaje.Tipo',
                 typeAnimated: true,
                 boxWidth: '500px',
-                autoClose: 'cerrar|5000',
+                autoClose: 'cerrar|9000',
                 useBootstrap: false,
                 buttons: {
                     cerrar:{

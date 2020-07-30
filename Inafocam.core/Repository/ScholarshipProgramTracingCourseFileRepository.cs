@@ -22,12 +22,20 @@ namespace Inafocam.core.Repository
             .Include(x => x.File)
             .Include(x => x.FileType)
             .Include(x => x.Status)
-            .Include(x => x.Tracing);
+            .Include(x => x.Tracing)
+            .Include(x => x.ScholarshipProgramTracingCourse);
 
-        public IEnumerable<ScholarshipProgramTracingCourseFile> GetAllByTracingId(int tracingId)
+        public ScholarshipProgramTracingCourseFile CheckIfTheFileExits(long? fileTypeId, long? CourseId)
         {
-            return GetAll.Where(x => x.TracingId == tracingId);
+            return GetAll.FirstOrDefault(x => x.FileTypeId == fileTypeId && x.ScholarshipProgramTracingCourseId == CourseId);
         }
+
+        public IEnumerable<ScholarshipProgramTracingCourseFile> GetAllByCourseIdAndTracingId(int tracingId, int courseId)
+        {
+            return GetAll.Where(x => x.ScholarshipProgramTracingCourseId == courseId && x.TracingId == tracingId);
+        }
+
+
 
         public void Save(ScholarshipProgramTracingCourseFile model)
         {
@@ -36,6 +44,11 @@ namespace Inafocam.core.Repository
             if(model.CourseFileId != 0)
             {
                 model.UpgradeDate = now;
+
+                var currentData = _context.ScholarshipProgramTracingCourseFile.Find(model.CourseFileId);
+     
+                _context.Entry(currentData).CurrentValues.SetValues(model);
+                _context.Entry(currentData).State = EntityState.Modified;
                 _context.ScholarshipProgramTracingCourseFile.Update(model);
             }
 

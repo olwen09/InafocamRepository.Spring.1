@@ -37,7 +37,7 @@
 
         <input type="hidden" asp-for="UniversityId" />
         <input type="hidden" asp-for="CreationDate" />
-        <input type="hidden" asp-for="CommunicationId"/>
+        <input type="hidden" asp-for="CommunicationId" />
         <input type="hidden" asp-for="AddressId" />
         @*<input type="hidden" asp-for="Com" />*@
 
@@ -156,11 +156,11 @@
 
             </div>
             @*<div class="input-field col s12">
-                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                        Guardar
-                        <i class="material-icons right">save</i>
-                    </button>
-                </div>*@
+                <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                    Guardar
+                    <i class="material-icons right">save</i>
+                </button>
+            </div>*@
         </div>
 
         <div class="card">
@@ -170,140 +170,140 @@
 
                 <h4 class="card-title">Dirección y Comunicación</h4>
 
-                
+
                 @*<input type="hidden"  /> addressid*@
                 @*<input type="hidden"  /> cominicationid*@
-            <div class="row ">
+                <div class="row ">
 
-                <div class="input-field col s12 m6 l3">
-                    <div class="row">
-                        <label for="select2User" class="col s12">Tipo de Dirección </label>
+                    <div class="input-field col s12 m6 l3">
+                        <div class="row">
+                            <label for="select2User" class="col s12">Tipo de Dirección </label>
+                        </div>
+                        <select asp-for="Address.AddressTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AddressType">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
+
+
                     </div>
-                    <select asp-for="Address.AddressTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AddressType">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
 
 
-                </div>
+                    <div class="input-field col s12 m6 l3">
+
+                        <div class="row">
+                            <label for="select2User" class="col s12">Pais</label>
+                        </div>
+                        <select asp-for="Address.CountryId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Country">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
 
 
-                <div class="input-field col s12 m6 l3">
-
-                    <div class="row">
-                        <label for="select2User" class="col s12">Pais</label>
                     </div>
-                    <select asp-for="Address.CountryId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Country">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
+
+                    <div class="input-field col s12 m6 l3">
+
+                        <div class="row">
+                            <label for="select2User" class="col s12">Provincia</label>
+                        </div>
+                        <select asp-for="Address.ProvinceId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Province">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
 
 
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-
-                    <div class="row">
-                        <label for="select2User" class="col s12">Provincia</label>
                     </div>
-                    <select asp-for="Address.ProvinceId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Province">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
+
+                    <div class="input-field col s12 m6 l3">
+
+                        <div class="row">
+                            <label for="select2User" class="col s12">Ciudad</label>
+                        </div>
+                        <select asp-for="Address.CityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.City">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
 
 
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-
-                    <div class="row">
-                        <label for="select2User" class="col s12">Ciudad</label>
                     </div>
-                    <select asp-for="Address.CityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.City">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
-
 
                 </div>
 
-            </div>
-
-            <div class="row">
-               
-
-                <div class="input-field col s12 m6 l6">
+                <div class="row">
 
 
-                    @*<i class="material-icons prefix">contacts</i>*@
+                    <div class="input-field col s12 m6 l6">
 
-                    <input asp-for="Address.Address1" id="Direccion1" type="text" class="validat" required>
 
-                    <label for="Direccion1">Dirección 1</label>
+                        @*<i class="material-icons prefix">contacts</i>*@
+
+                        <input asp-for="Address.Address1" id="Direccion1" type="text" class="validat" required>
+
+                        <label for="Direccion1">Dirección 1</label>
+                    </div>
+
+
+                    <div class="input-field col s12 m6 l6">
+
+                        <input asp-for="Address.Address2" id="Direccion2" type="text" class="validat">
+
+                        <label for="Direccion2">Dirección 2</label>
+
+
+                    </div>
+
+
+                    <div class="input-field col s12 m6 l6">
+
+                        @*<input asp-for="Communication.CommunicationEmail" id="Email" type="hidden" class="validat">*@
+                        <input asp-for="Communication.CommunicationEmail" id="Email" type="email" class="validat" required>
+
+                        <label for="Email">Email</label>
+
+                    </div>
+
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Communication.CommunicationWebsite" id="SitioWeb" type="text" class="validat">
+
+                        <label for="SitioWeb">Sitio Web</label>
+
+                    </div>
+
                 </div>
-
-
-                <div class="input-field col s12 m6 l6">
-
-                    <input asp-for="Address.Address2" id="Direccion2" type="text" class="validat">
-
-                    <label for="Direccion2">Dirección 2</label>
-
-
-                </div>
-
-
-                <div class="input-field col s12 m6 l6">
-
-                    @*<input asp-for="Communication.CommunicationEmail" id="Email" type="hidden" class="validat">*@
-                    <input asp-for="Communication.CommunicationEmail" id="Email" type="email" class="validat" required>
-
-                    <label for="Email">Email</label>
-
-                </div>
-
-                <div class="input-field col s12 m6 l6">
-                    <input asp-for="Communication.CommunicationWebsite" id="SitioWeb" type="text" class="validat">
-
-                    <label for="SitioWeb">Sitio Web</label>
-
-                </div>
-
-            </div>
                 <div class="divider"></div>
 
-                <div class="input-field col s12">
 
-                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                        <i class="material-icons left">save</i>
-                        Guardar
-                    </button>
-
-                    <a class="btn " asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="Index">
-                        <i class="material-icons left">view_list</i>
-                        Ver Lista
-                    </a>
-
-                    @*<a class="red btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-            <i class="material-icons left">cancel</i>
-            Anular
-        </a>
-
-        <a class="white btn waves-effect waves-light black-text" type="submit" onclick="onValidate(this.parent)">
-            <i class="material-icons left">cleaning_services</i>
-            Limpiar
-        </a>*@
-
-
-
-
-                </div>
 
             </div>
             @*<div class="input-field col s12">
-                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                        Guardar
-                        <i class="material-icons right">save</i>
-                    </button>
-                </div>*@
+                <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                    Guardar
+                    <i class="material-icons right">save</i>
+                </button>
+            </div>*@
         </div>
+        <div class="input-field col s12">
 
+            <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                <i class="material-icons left">save</i>
+                Guardar
+            </button>
+
+            <a class="btn " asp-area="InstitucionFomadora" asp-controller="InstitucionFomadora" asp-action="Index">
+                <i class="material-icons left">view_list</i>
+                Ver Lista
+            </a>
+
+            @*<a class="red btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                <i class="material-icons left">cancel</i>
+                Anular
+            </a>
+
+            <a class="white btn waves-effect waves-light black-text" type="submit" onclick="onValidate(this.parent)">
+                <i class="material-icons left">cleaning_services</i>
+                Limpiar
+            </a>*@
+
+
+
+
+        </div>
 
     </form>
 </div>

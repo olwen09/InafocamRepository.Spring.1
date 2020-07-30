@@ -30,6 +30,8 @@ namespace Inafocam.core.Repository
             //.Include(x => x.ScholarshipProgramUniversityAgreement.Select(x=> x.AgreementType))
             .Include(x => x.ScholarshipProgramUniversitySubjectMatter);
 
+       
+
         public ScholarshipProgramUniversity GetById(int id)
         {
             return _context.ScholarshipProgramUniversity.Include(x => x.Coordinator)
@@ -45,6 +47,11 @@ namespace Inafocam.core.Repository
             .Include(x => x.ScholarshipProgramUniversityAgent)
             .Include(x => x.ScholarshipProgramUniversityAgreement)
             .Include(x => x.ScholarshipProgramUniversitySubjectMatter).FirstOrDefault(x=> x.ScholarshipProgramUniversityId == id);
+        }
+
+        public IQueryable<ScholarshipProgramUniversity> GetProgramUniversityByUniversityId(int universityId)
+        {
+            return ScholarshipProgramUniversity.Where(x => x.UniversityId == universityId);
         }
 
         public void Save(ScholarshipProgramUniversity model)

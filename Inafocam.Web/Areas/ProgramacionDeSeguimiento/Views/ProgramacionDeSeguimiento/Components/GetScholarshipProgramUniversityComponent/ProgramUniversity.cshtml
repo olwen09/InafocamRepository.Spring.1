@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models.GetScholarShipProgram>
+
+
+    <option value=""> Seleccione el Programa</option>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <option value="@item.ScholarshipProgramUniversityId">@item.ScholarShipProgramName</option>
+        }
+    }

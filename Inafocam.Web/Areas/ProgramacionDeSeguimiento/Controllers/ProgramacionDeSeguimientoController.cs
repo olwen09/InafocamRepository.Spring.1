@@ -67,6 +67,7 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
         
         public IActionResult Crear()
         {
+            var model = new ScholarshipProgramTracingModel();
 
             var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
@@ -81,7 +82,7 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
 
-            return View();
+            return View(model);
         }
 
         public IActionResult Editar(int id)
@@ -162,6 +163,21 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
 
 
             return View("Index",scholarshipProgramTracing);
+        }
+
+
+        [AllowAnonymous]
+        public IActionResult GetScholarshipProgramUniversity(int id, object ScholarshipProgramUniversitySeleccionado = null)
+        {
+            //List<Municipio> municipios = new List<Municipio>();
+            //// ------------- Obteniendo la data de la base de datos ---------------------//
+            //municipios = _provincia.GetMunicipiosByProvincias(id).ToList();
+            //municipios.Insert(0, new Municipio{MunicipioId = 0, ProvinciaId = 0, MunicipioNombre = "Selección"});
+
+            return ViewComponent("GetScholarshipProgramUniversityComponent", new { id = id });
+
+            //return Json(new SelectList(municipios, "MunicipioId", "MunicipioNombre", municipioSeleccionado));
+
         }
 
         //public IActionResult ProgramaDeBecasMateriaUniversitaria(int scholarshipProgramUniversityId,int tracingId,int universityId)

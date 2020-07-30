@@ -408,17 +408,18 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return RedirectToAction("DesarrolloDelPlanDeEstudio", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
         }
 
-        public IActionResult ActividadesCoCurriculares(int tracingId, int scholarshipProgramUniversityId)
+        public IActionResult ActividadesCoCurriculares(int tracingId, int scholarshipProgramUniversityId, int courseId)
         {
 
             var tracings = _scholarshipProgramTracingCourse.GetAllByTracingId(tracingId);
 
             var model = new ActividadesCoCurricularesModel();
 
-            model.TracingId = tracingId;
+            model.TracingId = tracingId;           
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.CourseId = courseId;
             model.TracingCourseList = _scholarshipProgramTracingCourse.GetAvaliableTracingsById(tracingId);
-            model.TracingCourseFileList = _tracingCourseFile.GetAllByTracingId(tracingId);
+            model.TracingCourseFileList = _tracingCourseFile.GetAllByCourseIdAndTracingId(tracingId,courseId);
             model.IsGestionUniversitariaRole = GetLogUserRole();
 
             ViewBag.DocumentTypes = new SelectList(_CourseFileType.GetAll, "Id", "FileTypeName");
@@ -429,10 +430,131 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         [HttpPost]
         public IActionResult SaveActividadesCoCurriculares(ActividadesCoCurricularesModel model, int tracingId, int scholarshipProgramUniversityId)
         {
+
+            if ((CheckIfTheProgramIsClose(model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "DesarrolloDelPlanDeEstudio", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
+            var tracingCourseModel = new ScholarshipProgramTracingCourseModel();
+            tracingCourseModel = model.TracingCourseModel;
+            tracingCourseModel.TracingId = model.TracingId;
+            var data = CopyPropierties.Convert<ScholarshipProgramTracingCourseModel, ScholarshipProgramTracingCourse>(tracingCourseModel);
+
+            try
+            {
+                _scholarshipProgramTracingCourse.Save(data);
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("ActividadesCoCurriculares", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            }
+
             return RedirectToAction("ActividadesCoCurriculares", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SaveCourseFile(ActividadesCoCurricularesModel model, IFormFile file)
+        {
+            if ((CheckIfTheProgramIsClose((long)model.TracingId) == "Cerrado"))
+            {
 
+                return RedirectToAction("RedirectToActiontest", new { method = "DocumentoParaElSistemaDeCalidad", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+            }
+
+           var rutaPdf = _config.GetSection("rutas").GetSection("DocumentosActividadesCo-Curriculares").Value;
+           var fileTypeId = model.TracingCourseFileModel.FileTypeId;
+           var CourseId = model.CourseId;
+           var tracingCourseFile = _tracingCourseFile.CheckIfTheFileExits(fileTypeId, CourseId);
+            var tracingCourseFileModel = new ScholarshipProgramTracingCourseFileModel();
+            tracingCourseFileModel.FileTypeId = model.TracingCourseFileModel.FileTypeId;
+            tracingCourseFileModel.ScholarshipProgramTracingCourseId = model.CourseId;
+            tracingCourseFileModel.TracingId = model.TracingId;
+
+
+            if (tracingCourseFile != null)
+            {
+                tracingCourseFileModel = CopyPropierties.Convert<ScholarshipProgramTracingCourseFile, ScholarshipProgramTracingCourseFileModel>(tracingCourseFile);
+                
+            }
+
+            if (file != null && model.TracingCourseFileModel.FileTypeId != 0)
+            {
+                //upload files to wwwroot
+                //var fileName = Path.GetFileName(file.FileName);         
+
+                //judge if it is pdf file
+                string ext = Path.GetExtension(file.FileName);
+                var fileName = model.TracingCourseFileModel.ScholarshipProgramTracingCourseId + "-" + Guid.NewGuid() + ext;
+                if (ext.ToLower() != ".pdf")
+                {
+                    return RedirectToAction("ActividadesCoCurriculares", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId, courseId = model.CourseId });
+
+                }
+                var fileFullPath = Path.Combine(rutaPdf, fileName);
+                //var filePath = "\\app-assets\\documentos\\teacher" + fileName; 
+
+                using (var fileSteam = new FileStream(fileFullPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileSteam);
+                }
+                //your logic to save filePath to database, for example
+
+
+
+               
+                var fileModel = new core.Modelos.File();
+
+                if (tracingCourseFile != null)
+                {
+                    fileModel.FileId = (long)tracingCourseFileModel.FileId;
+
+                }
+                fileModel.FileName = file.FileName;
+                fileModel.FilePath = fileName;
+                fileModel.FileFullPath = fileFullPath;
+                fileModel.FileTypeId = fileTypeId;
+
+
+                //var tracingCourseFileModel = new ScholarshipProgramTracingCourseFileModel();
+                //tracingCourseFileModel = model.TracingCourseFileModel;
+                tracingCourseFileModel.File = fileModel;
+                var data = CopyPropierties.Convert<ScholarshipProgramTracingCourseFileModel, ScholarshipProgramTracingCourseFile>(tracingCourseFileModel);
+
+                try
+                {
+                    if (tracingCourseFile != null)
+                    {
+
+                        _file.Save(fileModel);
+                    }
+
+                    if (data.CourseFileId == 0)
+                    {
+                        _tracingCourseFile.Save(data);
+                    }
+
+                     
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("ActividadesCoCurriculares", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId, courseId = model.CourseId });
+
+                }
+            }
+            else
+            {
+                EnviarMensaje.Enviar(TempData, "red", "El tipo de documento y el documento son requeridos");
+                return RedirectToAction("ActividadesCoCurriculares", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId, courseId = model.CourseId });
+            }
+
+
+            return RedirectToAction("ActividadesCoCurriculares", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId , courseId = model.CourseId});
+
+        }
 
         public IActionResult DocumentoParaElSistemaDeCalidad(int tracingId, int scholarshipProgramUniversityId)
         {
@@ -992,7 +1114,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
         public IActionResult RedirectToActiontest(string method, long tracingId, long? scholarshipProgramUniversityId)
         {
-            EnviarMensaje.Enviar(TempData, "red", "Este programa de seguimiento se encuentra en un estado de cerrado contacte a el administrador");
+            EnviarMensaje.Enviar(TempData, "red", "Este programa de seguimiento se encuentra en estado cerrado contacte a el administrador");
 
             return RedirectToAction(method, new { tracingId = tracingId, scholarshipProgramUniversityId = scholarshipProgramUniversityId });
         }

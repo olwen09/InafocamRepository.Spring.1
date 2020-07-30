@@ -99,11 +99,11 @@
                         <div class="row">
                             <label class="col s12">Genero</label>
                         </div>
-                        <select class="form-control js-example-basic-single" style="width: 100%">
+                        <select asp-for="Contact.ContactGender" class="form-control js-example-basic-single" style="width: 100%">
 
                             <option value="" disabled selected>Seleccione una Opción</option>
-                            <option value="MASCULINO">MASCULINO</option>
-                            <option value="FEMENINO">FEMENINO</option>
+                            <option value="male">MASCULINO</option>
+                            <option value="female">FEMENINO</option>
                         </select>
 
 
@@ -111,9 +111,9 @@
 
                     <div class="input-field col s12 m6 l3">
                         <div class="row">
-                            <label class="col s12">Tipo de Contacto</label>
+                            <label for="select2User" class="col s12">Universidades</label>
                         </div>
-                        <select asp-for="Contact.ContactTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ContactTypes">
+                        <select asp-for="UniversityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.University">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
@@ -139,7 +139,7 @@
 
 
                     <div class="input-field col s12 m6 l3">
-                        <input asp-for="Document" id="numerodocumento" type="text" class="validate" >
+                        <input asp-for="Document" id="numerodocumento" type="text" class="validate">
                         <label for="numerodocumento">Numero del Documento</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
@@ -149,6 +149,17 @@
                             <label for="select2User" class="col s12">Nacionalidad</label>
                         </div>
                         <select asp-for="Contact.ContactNationalityId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Nationality">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select>
+
+
+                    </div>
+
+                    <div class="input-field col s12 m6 l3">
+                        <div class="row">
+                            <label class="col s12">Tipo de Contacto</label>
+                        </div>
+                        <select asp-for="Contact.ContactTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ContactTypes">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
@@ -185,16 +196,7 @@
 
 
 
-                    <div class="input-field col s12 m6 l4">
-                        <div class="row">
-                            <label for="select2User" class="col s12">Estado de Material</label>
-                        </div>
-                        <select asp-for="Contact.ContactMaritalStatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.MatirialStatus">
-                            <option value="" disabled selected>Seleccione una Opción</option>
-                        </select>
-
-
-                    </div>
+                    
 
 
 

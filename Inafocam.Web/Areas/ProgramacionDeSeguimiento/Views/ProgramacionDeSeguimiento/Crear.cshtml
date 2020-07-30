@@ -77,7 +77,7 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Universidad</label>
                         </div>
-                        <select asp-for="UniversityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.University">
+                        <select asp-for="UniversityId" id="University" class="form-control js-example-basic-single"  style="width: 100%" asp-items="ViewBag.University">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
@@ -90,9 +90,20 @@
                         <div class="row">
                             <label for="select2User" class="col s12">Nombre de Programa</label>
                         </div>
-                        <select asp-for="ScholarshipProgramUniversityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ScholarshipProgram">
-                            <option value="" disabled selected>Seleccione una Opción</option>
-                        </select>
+
+                        @if (Model.ScholarshipProgramUniversityId != null)
+                        {
+                            <select asp-for="ScholarshipProgramUniversityId" id="ScholarshipProgramUniversity" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ScholarshipProgram">
+                                <option value="" disabled selected>Seleccione una Opción</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <select asp-for="ScholarshipProgramUniversityId" id="ScholarshipProgramUniversity" class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(""))">
+                                <option value="" disabled selected>Seleccione una Opción</option>
+                            </select>
+                        }
+                      
 
 
                     </div>
@@ -282,7 +293,34 @@
                 }
             });
 
-        }
+          }
+
+
+        $(function () {
+            $('#University').change(
+                function() {
+                    var universityId = $(this).val();
+                    console.log($("#ScholarshipProgramUniversity").val());
+
+                    $.ajax({
+                        url: "/ProgramacionDeSeguimiento/ProgramacionDeSeguimiento/GetScholarshipProgramUniversity?id=" + universityId,
+                        type: 'post',
+                        contentType: 'html',
+                        success: function(data) {
+                            console.log(data);
+
+                            $("#ScholarshipProgramUniversity").empty();
+                            //$("#MunicipioId").formSelect(data);
+                            $("#ScholarshipProgramUniversity").append(data);
+                            //$("select").formSelect();
+
+                        }
+                    });
+
+
+                }
+            );
+        });
 
     </script>
 }
