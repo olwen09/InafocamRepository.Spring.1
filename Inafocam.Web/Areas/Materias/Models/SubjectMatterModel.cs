@@ -22,7 +22,7 @@ namespace Inafocam.Web.Areas.Materias.Models
         [Required]
         public long? Creditos { get; set; }
 
-        public string UniversityTeacherSelected { get; set; }
+        public string UniversityTeacherSelectedName { get; set; }
 
         public long? CreationUserId { get; set; }
         public long? UpgradeUserId { get; set; }

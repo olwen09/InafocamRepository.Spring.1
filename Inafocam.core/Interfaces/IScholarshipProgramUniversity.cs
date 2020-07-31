@@ -11,7 +11,7 @@ namespace Inafocam.core.Interfaces
         IQueryable<ScholarshipProgramUniversity> ScholarshipProgramUniversity { get; }
         IQueryable<ScholarshipProgramUniversity> GetProgramUniversityByUniversityId(int universityId);
 
-        public long? GetUniversityIdByScholarshipProgramUniversityId(int ScholarshipProgramUniversityId);
+        public long? GetUniversityIdByScholarshipProgramUniversityId(long? ScholarshipProgramUniversityId);
 
         ScholarshipProgramUniversity GetById(int id);
 

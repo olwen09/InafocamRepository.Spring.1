@@ -15,7 +15,7 @@ namespace Inafocam.core.Interfaces
 
         IQueryable<SubjectMatter> GetAllByScholarshipProgramUniversityId(int ScholarshipProgramUniversityId);
 
-
+        bool CheckIfSubjectMatterCodeExits(SubjectMatter subjectMatter);
         void Save(SubjectMatter model);
     }
 }

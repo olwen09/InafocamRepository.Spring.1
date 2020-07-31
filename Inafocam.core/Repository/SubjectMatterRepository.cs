@@ -26,6 +26,17 @@ namespace Inafocam.core.Repository
             .Include(x => x.TracingStudyPlanDevelopment)
             .Include(x => x.TracingStudyPlanDevelopment.SubjectMatterScoreReportFile);
 
+        public bool CheckIfSubjectMatterCodeExits(SubjectMatter subjectMatter)
+        {
+
+            var checkIfItExits = GetAll.FirstOrDefault(x => x.SubjectMatterCode == subjectMatter.SubjectMatterCode
+            && x.SubjectMatterId == subjectMatter.SubjectMatterId) != null ? true : false;
+
+
+
+            return checkIfItExits;
+        }
+
         public IQueryable<SubjectMatter> GetAllByScholarshipProgramUniversityId(int ScholarshipProgramUniversityId)
         {
             return GetAll.Where(x => x.ScholarshipProgramUniversityId == ScholarshipProgramUniversityId);
@@ -47,6 +58,11 @@ namespace Inafocam.core.Repository
            if(model.SubjectMatterId != 0)
             {
                 model.UpgradeDate = now;
+                //var currentData = _context.File.Find(model.SubjectMatterId);
+
+                //_context.Entry(currentData).CurrentValues.SetValues(model);
+                //_context.Entry(currentData).State = EntityState.Modified;
+
                 _context.SubjectMatter.Update(model);
             }
             else

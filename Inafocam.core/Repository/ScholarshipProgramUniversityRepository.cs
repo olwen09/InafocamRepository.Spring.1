@@ -55,7 +55,7 @@ namespace Inafocam.core.Repository
         }
 
 
-        public long? GetUniversityIdByScholarshipProgramUniversityId(int ScholarshipProgramUniversityId)
+        public long? GetUniversityIdByScholarshipProgramUniversityId(long? ScholarshipProgramUniversityId)
         {
             return ScholarshipProgramUniversity.FirstOrDefault(x => x.ScholarshipProgramUniversityId == ScholarshipProgramUniversityId).UniversityId;
         }

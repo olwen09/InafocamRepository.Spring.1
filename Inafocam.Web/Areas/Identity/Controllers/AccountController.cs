@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Options;
-
+using Inafocam.Web.Models;
 
 namespace Inafocam.Web.Areas.Identity.Controllers
 {
@@ -90,6 +90,15 @@ namespace Inafocam.Web.Areas.Identity.Controllers
             /////
             var usuario = _usuario.Usuarios.FirstOrDefault(x => x.UserName == model.UserName);
             //Where(n => n.UserName == model.UserName).Single();
+           
+            if(usuario.Role == RoleName.GestionUniversitaria && usuario.UniversityId == null)
+            {
+                TempData.Enviar("Este usuario debe esperar por la asignación de una universidad", "error", "Verifique el nombre del usuario o contacte al administrador");
+
+                return View(model);
+            }
+
+
             if (usuario != null)
             {
                 var estado = _usuario.Usuarios.Where(n => n.UserName == model.UserName).Select(x => x.Estado).AsQueryable().Single();

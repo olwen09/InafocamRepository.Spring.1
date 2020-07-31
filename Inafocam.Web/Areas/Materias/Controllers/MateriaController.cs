@@ -58,7 +58,7 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
 
             var universityId = _scholarshipProgramUniversity.GetUniversityIdByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
-           
+            var teachers = _teacher.GetTeachersByUSerUniversityId(universityId);
 
             ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
@@ -76,9 +76,9 @@ namespace Inafocam.Web.Areas.Materias.Controllers
                 model.TeacherId = 0;
             }
             var univerityTeacherSelected = _teacher.GetById((int)model.TeacherId);
-            model.UniversityTeacherSelected = univerityTeacherSelected?.Contact?.ContactName?.ToString() + "" + univerityTeacherSelected?.Contact?.ContactLastname?.ToString();
+            model.UniversityTeacherSelectedName = univerityTeacherSelected?.Contact?.ContactName?.ToString() + "" + univerityTeacherSelected?.Contact?.ContactLastname?.ToString();
             var universityId = _scholarshipProgramUniversity.GetUniversityIdByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
-
+            var teachers = _teacher.GetTeachersByUSerUniversityId(universityId);
 
             ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
@@ -88,15 +88,31 @@ namespace Inafocam.Web.Areas.Materias.Controllers
         [HttpPost]
         public IActionResult Guardar(SubjectMatterModel model)
         {
-
+            var universityId = _scholarshipProgramUniversity.GetUniversityIdByScholarshipProgramUniversityId(model.ScholarshipProgramUniversityId);
             MensajesViewModel mensaje = new MensajesViewModel();
+            var data = CopyPropierties.Convert<SubjectMatterModel, SubjectMatter>(model);
 
+            //if (!_subjectMatter.CheckIfSubjectMatterCodeExits(data))
+            //{
+            //    EnviarMensaje.Enviar(TempData, "red", "Ya existe un registro de una materia con este código");
+
+            //    //if (model.SubjectMatterId != 0)
+            //    //{
+            //    //    ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
+            //    //    return RedirectToAction("Editar", new { id = model.SubjectMatterId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            //    //}
+
+
+            //    ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+            //    ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
+            //    return View("Crear");
+            //}
+        
             if (ModelState.IsValid)
             {
                 
                 try
                 {
-                    var data = CopyPropierties.Convert<SubjectMatterModel, SubjectMatter>(model);
 
                     _subjectMatter.Save(data);
                 }
@@ -106,12 +122,13 @@ namespace Inafocam.Web.Areas.Materias.Controllers
 
                     if (model.SubjectMatterId != 0)
                     {
-                        return RedirectToAction("Editar", new { id = model.SubjectMatterId });
+                        ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
+                        return RedirectToAction("Editar", new { id = model.SubjectMatterId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
                     }
                     else
                     {
                         ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
-
+                        ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
                         return View("Crear");
                     }
                 }
@@ -126,11 +143,12 @@ namespace Inafocam.Web.Areas.Materias.Controllers
 
                 if(model.SubjectMatterId != 0)
                 {
-                    return RedirectToAction("Editar", new { id = model.SubjectMatterId });
+                    ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
+                    return RedirectToAction("Editar", new { id = model.SubjectMatterId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
 
                 }
                 ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
-
+                ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
                 return View("Crear");
             }
            
@@ -141,16 +159,25 @@ namespace Inafocam.Web.Areas.Materias.Controllers
 
         public IEnumerable<SeguimientoDeUniversidades.Models.TeacherIDAndName> TeachersByUniverityIdList(long? universityId)
         {
-            var teachers = _teacher.GetTeachersByUSerUniversityId(universityId).Select(x => new SeguimientoDeUniversidades.Models.TeacherIDAndName
+            var teachers = new List<SeguimientoDeUniversidades.Models.TeacherIDAndName>();
+            try
             {
-                TeacherId = (long)x.TeacherId,
-                TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
-            }).ToList();
+           
+             teachers = _teacher.GetTeachersByUSerUniversityId(universityId)
+                .Select(x => new SeguimientoDeUniversidades.Models.TeacherIDAndName
+                 {
+                     TeacherId = (long)x.TeacherId,
+                     TeacherFullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname.ToString()
+                 }).ToList();
+            }catch(Exception e)
+            {
+                Console.WriteLine("");
+            }
 
             return teachers;
         }
 
 
-       
+
     }
 }

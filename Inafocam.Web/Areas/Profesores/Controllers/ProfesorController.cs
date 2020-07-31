@@ -22,7 +22,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
 {
     [Area("Profesores"), ReturnArea("Profesores")]
     [ReturnControllador("Profesores"), ReturnController("Profesor")]
-    [Authorize (Roles = RoleName.AdministradorInafocam)]
+    //[Authorize (Roles = RoleName.AdministradorInafocam)]
     
     public class ProfesorController : Controller
     {
