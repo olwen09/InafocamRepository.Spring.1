@@ -13,6 +13,7 @@ namespace Inafocam.core.Modelos
         public string ComoLoHacenProcedimiento { get; set; }
         public string CuandoSeHacePeriodicidad { get; set; }
         public string QuienEsElResponsable { get; set; }
+        public string Answer { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }
         public long? StatusId { get; set; }

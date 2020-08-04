@@ -42,7 +42,7 @@
                 <div class="card-content">
                     <div class="row">
 
-                        <div class="col s6 ">
+                        <div class="col s4 ">
 
 
                             <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="Profesores" asp-controller="Profesor" asp-action="Crear" asp-route-universityId="@Model.UniversityId">
@@ -50,16 +50,10 @@
                                 Nuevo
                             </a>
 
-                            <h4 class="card-title">@Model?.UniversityName</h4>
-                            @*<a class=" red mb-1 btn-small waves-effect waves-light" data-position="top" href="#">
-                                <i class="material-icons">cancel</i>
-                                Anular
-                            </a>
+                        </div>
 
-                            <a class=" mb-1 btn-small white black-text waves-effect waves-light" data-position="top" data-tooltip="Cambiar estado" href="#">
-                                <i class="material-icons">print</i>
-                                Imrimir
-                            </a>*@
+                        <div class=" col s6">
+                            <h4 class="">@Model?.UniversityName</h4>
 
                         </div>
                         @*<div class="offset-6 right ">

@@ -1,4 +1,6 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ConveniosConLosCentrosDePrácticaViewModel
+﻿@using System.Globalization 
+
+@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ConveniosConLosCentrosDePrácticaViewModel
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -125,7 +127,7 @@
                     <td>@item.Institution</td>
                     <td>@item.ActivityDescription</td>
                     <td>@item.NumberOfParticipatingStudents</td>
-                    <td>@item.Date</td>
+                    <td>@item.Date?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
 
 
 

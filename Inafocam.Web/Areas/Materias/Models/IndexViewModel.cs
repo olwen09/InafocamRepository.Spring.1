@@ -10,6 +10,7 @@ namespace Inafocam.Web.Areas.Materias.Models
     {
 
         public long? scholarshipProgramUniversityId { get; set; }
+
         public IEnumerable<SubjectMatter> SubjectMatterList { get; set; }
     }
 }

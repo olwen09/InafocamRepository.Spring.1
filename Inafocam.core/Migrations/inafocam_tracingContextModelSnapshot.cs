@@ -2379,12 +2379,53 @@ namespace Inafocam.core.Migrations
                     b.ToTable("scholarship_program_tracing_student_practice");
                 });
 
+            modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingStudentPracticeFile", b =>
+                {
+                    b.Property<long>("ScholarshipProgramTracingStudentPracticeFileId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("FileDescription")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("FileId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ScholarshipProgramTracingStudentPracticeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("StatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpgradeDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("ScholarshipProgramTracingStudentPracticeFileId");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("ScholarshipProgramTracingStudentPracticeId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("ScholarshipProgramTracingStudentPracticeFile");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingStudentSupport", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Answer")
+                        .HasColumnName("answer")
+                        .HasColumnType("varchar(1024)")
+                        .HasMaxLength(1024)
+                        .IsUnicode(false);
 
                     b.Property<string>("ComoLoHacenProcedimiento")
                         .HasColumnType("text");
@@ -3267,6 +3308,9 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("higher_title_support_matter_id")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("MaleQuantity")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ReprovedStudentsQuantity")
                         .HasColumnName("reproved_students_quantity")
                         .HasColumnType("int");
@@ -3281,6 +3325,9 @@ namespace Inafocam.core.Migrations
 
                     b.Property<long?>("StatusId")
                         .HasColumnName("status_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("StudentReportFileId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("SubjectMatterId")
@@ -3311,6 +3358,9 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("upgrade_user_id")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("femaleQuantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedTeacherId")
@@ -3324,6 +3374,8 @@ namespace Inafocam.core.Migrations
 
                     b.HasIndex("StatusId")
                         .HasName("FK_teacher_status_status");
+
+                    b.HasIndex("StudentReportFileId");
 
                     b.HasIndex("SubjectMatterId")
                         .HasName("FK_teacher_subject_matter");
@@ -4632,6 +4684,21 @@ namespace Inafocam.core.Migrations
                         .HasConstraintName("FK_student_practice_tracing");
                 });
 
+            modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingStudentPracticeFile", b =>
+                {
+                    b.HasOne("Inafocam.core.Modelos.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
+                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramTracingStudentPractice", "ScholarshipProgramTracingStudentPractice")
+                        .WithMany()
+                        .HasForeignKey("ScholarshipProgramTracingStudentPracticeId");
+
+                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+                });
+
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingStudentSupport", b =>
                 {
                     b.HasOne("Inafocam.core.Modelos.Status", "Status")
@@ -4916,6 +4983,10 @@ namespace Inafocam.core.Migrations
                         .WithMany("TracingStudyPlanDevelopment")
                         .HasForeignKey("StatusId")
                         .HasConstraintName("FK_teacher_status_status");
+
+                    b.HasOne("Inafocam.core.Modelos.File", "StudentReportFile")
+                        .WithMany()
+                        .HasForeignKey("StudentReportFileId");
 
                     b.HasOne("Inafocam.core.Modelos.SubjectMatter", "SubjectMatter")
                         .WithMany()

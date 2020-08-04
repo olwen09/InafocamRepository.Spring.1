@@ -329,7 +329,7 @@ namespace Andamios.Web
             services.AddScoped<IActivityType, ActivityTypeRepository>();
             services.AddScoped<IResultsFromThePreviousPeriod, ResultsFromThePreviousPeriodRepository>();
             services.AddScoped<IScholarshipProgramTracingAgreementsWithPracticeCenter, ScholarshipProgramTracingAgreementsWithPracticeCenterRepository>();
-            services.AddScoped<IAgreementWithInstitutionsRelatedToCurricularActivities, AgreementWithInstitutionsRelatedToCurricularActivitiesRepository>();
+            services.AddScoped<IAgreementWithInstitutionsRelatedToCurricularActivities, AgreementWithInstitutionsRelatedToCurricularActivitiesRepository>(); services.AddScoped<IScholarshipProgramTracingStudentPracticeFile, ScholarshipProgramTracingStudentPracticeFileRepository>();
 
 
             #endregion

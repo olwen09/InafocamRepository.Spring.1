@@ -16,7 +16,7 @@ namespace Inafocam.Web.Areas.ProgramasDeBeca.Controllers
 {
 
     [Area("ProgramasDeBecas"), ReturnArea("ProgramasDeBecas")]
-    [ReturnControllador("Programa De Becas"), ReturnController("ProgramaDeBeca")]
+    [ReturnControllador("Programas Informativos"), ReturnController("ProgramaDeBeca")]
     [Authorize(Roles = RoleName.AdministradorInafocam)]
 
     public class ProgramaDeBecaController : Controller

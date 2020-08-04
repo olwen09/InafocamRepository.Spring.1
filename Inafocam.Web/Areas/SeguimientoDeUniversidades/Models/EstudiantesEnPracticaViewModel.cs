@@ -14,6 +14,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 
 
         public IEnumerable<ScholarshipProgramTracingStudentPractice> StudentPracticeList { get; set; }
+        public ScholarshipProgramTracingStudentPracticeFileModel StudentPracticeFileModel { get; set; }
         public ScholarshipProgramTracingStudentPracticeModel StudentPracticeModel { get; set; }
     }
 }

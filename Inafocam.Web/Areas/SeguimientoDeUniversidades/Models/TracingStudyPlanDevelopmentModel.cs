@@ -18,6 +18,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public int? ApprovedStudentsQuantity { get; set; }
         public int? ReprovedStudentsQuantity { get; set; }
         public int? DesertedStudentsQuantity { get; set; }
+        public int? MaleQuantity { get; set; }
+        public int? femaleQuantity { get; set; }
         public short? HigherTitleMatchAssignedMatter { get; set; }
         public long? SubjectMatterScoreReportFileId { get; set; }
         public TimeSpan? SubjectMatterTimeStart { get; set; }
@@ -27,10 +29,14 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public long? CreationUserId { get; set; }
         public long? UpgradeUserId { get; set; }
         public long? StatusId { get; set; }
+        public long? StudentReportFileId { get; set; }
+
 
         public virtual Teacher AssignedTeacher { get; set; }
         public virtual TeacherEducation HigherTitleSupportMatter { get; set; }
         public virtual ScholarshipProgramTracing ScholarshipProgramTracing { get; set; }
+        public virtual File StudentReportFile { get; set; }
+
         public virtual Status Status { get; set; }
         public virtual SubjectMatter SubjectMatter { get; set; }
         public virtual Teacher Teacher { get; set; }

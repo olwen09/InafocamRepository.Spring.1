@@ -92,7 +92,7 @@ namespace Inafocam.core.Modelos
         public virtual DbSet<ActivityType> ActivityType { get; set; }
         public virtual DbSet<ScholarshipProgramTracingAgreementsWithPracticeCenter> ScholarshipProgramTracingAgreementsWithPracticeCenter { get; set; }
         public virtual DbSet<AgreementsInstitutionRelatedCoCurricularActivities> AgreementsInstitutionRelatedCoCurricularActivities { get; set; }
-        public virtual DbSet<AgreementWithInstitutionsRelatedToCurricularActivities> AgreementWithInstitutionsRelatedToCurricularActivities { get; set; }
+        public virtual DbSet<AgreementWithInstitutionsRelatedToCurricularActivities> AgreementWithInstitutionsRelatedToCurricularActivities { get; set; } public virtual DbSet<ScholarshipProgramTracingStudentPracticeFile> ScholarshipProgramTracingStudentPracticeFile { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -2008,10 +2008,10 @@ namespace Inafocam.core.Modelos
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                //entity.Property(e => e.Answer)
-                //    .HasColumnName("answer")
-                //    .HasMaxLength(1024)
-                //    .IsUnicode(false);
+                entity.Property(e => e.Answer)
+                    .HasColumnName("answer")
+                    .HasMaxLength(1024)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.CreationDate).HasColumnName("creation_date");
 

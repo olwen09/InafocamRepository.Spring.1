@@ -24,7 +24,10 @@ namespace Inafocam.core.Repository
             .Include(x => x.ScholarshipProgramUniversity)
             .Include(x => x.ScholarshipProgramUniversitySubjectMatter)
             .Include(x => x.TracingStudyPlanDevelopment)
-            .Include(x => x.TracingStudyPlanDevelopment.SubjectMatterScoreReportFile);
+            .Include(x => x.AssignedTeacher.Contact)
+            .Include(x => x.Teacher.Contact)
+            .Include(x => x.TracingStudyPlanDevelopment.SubjectMatterScoreReportFile)
+            .Include(x => x.TracingStudyPlanDevelopment.StudentReportFile);
 
         public bool CheckIfSubjectMatterCodeExits(SubjectMatter subjectMatter)
         {

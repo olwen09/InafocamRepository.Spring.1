@@ -1,4 +1,6 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.EstudiantesEnPracticaViewModel
+﻿@inject Inafocam.core.Interfaces.IScholarshipProgramTracingStudentPracticeFile _studentPracticeFile
+@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.EstudiantesEnPracticaViewModel
+
 
 @{ ViewData["Title"] = "Create";
 
@@ -36,154 +38,226 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveEstudiantesEnPractica">
-
-
-        <input type="hidden" asp-for="TracingId" />
-        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
-        <input type="hidden" asp-for="StudentPracticeModel.TracingId" />
-        <input type="hidden" asp-for="StudentPracticeModel.CreationDate" />
-        <input type="hidden" asp-for="StudentPracticeModel.UpgradeDate" />
-        <input type="hidden" asp-for="StudentPracticeModel.CreationDate" />
-        <input type="hidden" asp-for="StudentPracticeModel.StatusId" />
-
+    
         <div>
             <span asp-validation-sumary=""></span>
         </div>
 
         <div class="card">
             <div class="card-content">
-
-                <h4 class="card-title"> Estudiantes en práctica </h4>
-
-                <br />
-                <h4 class="card-title">
-                    A continuación solo seleccione el tipo de práctica que desea anexar o sustiturir!
-                </h4>
+                <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveEstudiantesEnPractica">
 
 
+                    <input type="hidden" asp-for="TracingId" />
+                    <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+                    <input type="hidden" asp-for="StudentPracticeModel.TracingId" />
+                    <input type="hidden" asp-for="StudentPracticeModel.CreationDate" />
+                    <input type="hidden" asp-for="StudentPracticeModel.UpgradeDate" />
+                    <input type="hidden" asp-for="StudentPracticeModel.CreationDate" />
+                    <input type="hidden" asp-for="StudentPracticeModel.StatusId" />
+
+                    <h4 class="card-title"> Estudiantes en práctica </h4>
+
+                    <br />
+                    <h4 class="card-title">
+                        A continuación solo seleccione el tipo de práctica que desea anexar o sustiturir!
+                    </h4>
 
 
 
-                <div class="row ">
 
-                    <div class="input-field col s12 m6 l4">
 
-                        <div class="row">
-                            <label for="select2User" class="col s12">Tipos de prácticas</label>
+                    <div class="row ">
+
+                        <div class="input-field col s12 m6 l4">
+
+                            <div class="row">
+                                <label for="select2User" class="col s12">Tipos de prácticas</label>
+                            </div>
+                            <select asp-for="StudentPracticeModel.StudentPracticeTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.StudentPracticeType">
+                                <option value="" disabled selected>Seleccione una Opción</option>
+                            </select>
+
                         </div>
-                        <select asp-for="StudentPracticeModel.StudentPracticeTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.StudentPracticeType">
-                            <option value="" disabled selected>Seleccione una Opción</option>
-                        </select>
+
+                        <div class=" input-field col s12 m6 l4">
+                            <input asp-for="StudentPracticeModel.StudentsQuantity" id="StudentsQuantity" type="number" class="validat black-text">
+                            <label for="StudentsQuantity">Cantidad estudiantes</label>
+                        </div>
+
+                        <div class=" input-field col s12 m6 l4 ">
+                            <input asp-for="StudentPracticeModel.PracticeCenterQuantity" id="PracticeCenterQuantity" type="number" class="validat black-text">
+                            <label for="PracticeCenterQuantity">Cantidad de centros de prácticas</label>
+                        </div>
 
                     </div>
 
-                    <div class=" input-field col s12 m6 l4">
-                        <input asp-for="StudentPracticeModel.StudentsQuantity" id="StudentsQuantity" type="number" class="validat black-text">
-                        <label for="StudentsQuantity">Cantidad estudiantes</label>
-                    </div>
+                    <div class="row">
+                        <div class=" input-field col s12 m6 l4">
+                            <input asp-for="StudentPracticeModel.SupervisorQuantity" id="SupervisorQuantity" type="number" class="validat black-text">
+                            <label for="SupervisorQuantity">Cantidad supervisores</label>
+                        </div>
 
-                    <div class=" input-field col s12 m6 l4 ">
-                        <input asp-for="StudentPracticeModel.PracticeCenterQuantity" id="PracticeCenterQuantity" type="number" class="validat black-text">
-                        <label for="PracticeCenterQuantity">Cantidad de centros de prácticas</label>
-                    </div>
+                        <div class=" input-field col s12 m6 l4">
+                            <input asp-for="StudentPracticeModel.TeacherQuantity" id="" type="number" class="validat black-text">
+                            <label for="">Cantidad de docentes anfitriones</label>
+                        </div>
 
-                </div>
+                        <div class="input-field col s12 m6 l1">
+                            <br />
+                            @if (Model.IsGestionUniversitariaRole)
+                            {
+                <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>}
 
-                <div class="row">
-                    <div class=" input-field col s12 m6 l4">
-                        <input asp-for="StudentPracticeModel.SupervisorQuantity" id="SupervisorQuantity" type="number" class="validat black-text">
-                        <label for="SupervisorQuantity">Cantidad supervisores</label>
-                    </div>
 
-                    <div class=" input-field col s12 m6 l4">
-                        <input asp-for="StudentPracticeModel.TeacherQuantity" id="" type="number" class="validat black-text">
-                        <label for="">Cantidad de docentes anfitriones</label>
-                    </div>
-
-                    <div class="input-field col s12 m6 l1">
-                        <br />
-                        @if (Model.IsGestionUniversitariaRole)
-                        {
-                        <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
-                        }
+                        </div>
 
 
                     </div>
-
-
-                </div>
-
+                </form>
                 <br />
                 <span class="card-title">Información Anexa</span>
                 <div class="divider"></div>
                 <div class="col s12">
-                    <table>
-                        <thead>
+                    @foreach (var item in Model.StudentPracticeList)
+                    {
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+
+                        <div class="col s2">@item.StudentPracticeType.StudentPracticeTypeTypeName </div>
+                        <div class="col s2">Cantidad estudiantes: @item.StudentsQuantity</div>
+                        <div class="col s3">Cantidad de centros de prácticas: @item.PracticeCenterQuantity</div>
+                        <div class="col s3">Cantidad supervisores: @item.SupervisorQuantity</div>
+                        <div class="col s3">Cantidad de docentes anfitriones: @item.TeacherQuantity</div>
+                    </div>
+
+
+                    <div class="collapsible-body">
+                        @*@Model.StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId = @item.Id;*@
+                        <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="AgregarEstudiantePracticeFile" asp-route-practiceId="@item.Id">
+                            <input type="hidden" asp-for="StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId" />
+                            <input type="hidden" asp-for="StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeFileId" />
+                            <input type="hidden" asp-for="TracingId" />
+                            <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+
+                            <div class="divider"></div>
+
+                            <div class="file-field input-field col s12 m6 l5">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input name="file" type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input name="file" class="file-path validate" type="text">
+                                </div>
+                            </div>
+
+                            <div class="file-field input-field col s12 m6 l6">
+                                <textarea asp-for="StudentPracticeFileModel.FileDescription" id="textarea1" class="materialize-textarea"></textarea>
+                                <label for="textarea1">Descripción</label>
+                            </div>
+
+                            <div class="file-field input-field col s12 m6 l1">
+                                @if (Model.IsGestionUniversitariaRole)
+                                {
+                        <button class="teal btn-small waves-effect waves-light tooltipped mt-5" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>}
+                            </div>
+                        </form>
+                        <div class="divider"></div>
+                        <table>
+                            <thead>
+
+
+                                <tr>
+                                    <th>Nombre de Archivo</th>
+                                    <th>Descripcion</th>
+                                    <th>Acciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ var id = Convert.ToInt32(item.Id);}
+                                @foreach (var file in _studentPracticeFile.GetAllByPracticeId(id))
+                                {
+                                <tr>
+                                    <td>@file.File.FileName</td>
+                                    <td>@file.FileDescription</td>
+                                    <td><a href="\app-assets\documentos\EstudiantesEnPracticaFiles\@file?.File?.FilePath" target="_blank">Ver</a></td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+
+            </ul>}@*<table>
+                                    <thead>
+                                        <tr>
+                                            <th>Practica</th>
+                                            <th>Cantidad estudiantes</th>
+                                            <th>Cantidad de centros de prácticas</th>
+                                            <th>Cantidad supervisores</th>
+                                            <th>Cantidad de docentes anfitriones</th>
+                                        </tr>
+                                    </thead>
+
+
+
+                                    <tbody>
+
+                                        @foreach (var item in Model.StudentPracticeList)
+                                        {
+                                            var numero = count++;
+
                             <tr>
-                                <th>Practica</th>
-                                <th>Cantidad estudiantes</th>
-                                <th>Cantidad de centros de prácticas</th>
-                                <th>Cantidad supervisores</th>
-                                <th>Cantidad de docentes anfitriones</th>
+
+                                <td>@item.StudentPracticeType.StudentPracticeTypeTypeName</td>
+                                <td>@item.StudentsQuantity</td>
+                                <td>@item.PracticeCenterQuantity</td>
+                                <td>@item.SupervisorQuantity</td>
+                                <td>@item.TeacherQuantity</td>
                             </tr>
-                        </thead>
-
-
-
-                        <tbody>
-
-                            @foreach (var item in Model.StudentPracticeList)
-                            {
-                                var numero = count++;
-
-                <tr>
-
-                    <td>@item.StudentPracticeType.StudentPracticeTypeTypeName</td>
-                    <td>@item.StudentsQuantity</td>
-                    <td>@item.PracticeCenterQuantity</td>
-                    <td>@item.SupervisorQuantity</td>
-                    <td>@item.TeacherQuantity</td>
-                </tr>
-}
+            }
 
 
 
 
-                        </tbody>
-                    </table>
-                </div>
+                                    </tbody>
+                                </table>*@
+            </div>
 
 
 
             </div>
-            @*<div class="input-field col s12">
-                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                        Guardar
-                        <i class="material-icons right">save</i>
-                    </button>
-                </div>*@
-        </div>
+@*<div class="input-field col s12">
+        <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+            Guardar
+            <i class="material-icons right">save</i>
+        </button>
+    </div>*@
+</div>
 
-        <div class="input-field col s12">
-
-
+<div class="input-field col s12">
 
 
 
-            <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ApoyoAlStudiante" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
-                Atras
-            </a>
 
-            <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="PlanificaciónDeLaPráctica" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+    <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ApoyoAlStudiante" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
-                Siguiente
-            </a>
+        Atras
+    </a>
 
-        </div>
+    <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="PlanificaciónDeLaPráctica" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
 
-    </form>
+        Siguiente
+    </a>
+
+</div>
+
+
 </div>
 
 @section Scripts

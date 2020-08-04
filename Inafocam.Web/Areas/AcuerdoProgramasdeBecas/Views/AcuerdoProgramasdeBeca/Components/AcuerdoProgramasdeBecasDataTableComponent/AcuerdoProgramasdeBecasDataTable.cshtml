@@ -1,4 +1,5 @@
 ﻿@using Inafocam.core.Modelos
+@using System.Globalization
 
 <table id="page-length-option" class="display">
 
@@ -26,7 +27,7 @@
                 <td>@item?.ScholarshipProgram?.ScholarshipProgramName </td>
                 <td>@item?.University?.UniversityName </td>
                 <td>@item?.ScatProgramCode</td>
-                <td>@item?.StartDate - @item?.EndDate</td>
+                <td>@item?.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es")) - @item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
                 <td>@item?.ScholarshipProgram?.ScholarshipLevel?.ScholarshipLevelName</td>
                 <td>@item?.Status?.StatusName</td>
                 <td>

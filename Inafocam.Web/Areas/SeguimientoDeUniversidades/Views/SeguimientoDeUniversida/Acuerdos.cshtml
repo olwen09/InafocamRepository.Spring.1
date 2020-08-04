@@ -56,9 +56,12 @@
             <div class="divider"></div>
             @foreach (var item in Model.ScholarshipProgramUniversityAgreementList)
             {
+
+                var badgeColor = item.Status.StatusName == "Pendiente" ? "orange" : "teal";
+
 <ul class="collapsible collapsible-accordion">
     <li>
-        <div class="collapsible-header" style="background-color:#eeeeee ">@item.ScholarshipProgramUniversityAgreement1 - @item.AgreementType.AgreementTypeName</div>
+        <div class="collapsible-header" style="background-color:#eeeeee ">@item.ScholarshipProgramUniversityAgreement1 - @item.AgreementType.AgreementTypeName  <span class="badge @badgeColor flow-text"> @item.Status.StatusName </span></div>
         <div class="collapsible-body">
             <div class="row card">
 
@@ -111,7 +114,7 @@
                         </div>
 
                         <div class="file-field input-field col s12 m6 l1">
-                       @if (Model.IsGestionUniversitariaRole)
+                       @if (Model.IsGestionUniversitariaRole && item.Status.StatusName != "Pendiente")
                        {
                             <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
                        }
@@ -134,13 +137,14 @@
                                 @{ var id = Convert.ToInt32(item.ScholarshipProgramUniversityAgreementId); }
                                 @foreach (var file in AgreementFile.GetAllByscholarshipPogramTracingAgreementId(id))
                                 {
-                <tr>
-                    <td>@file.File.FileName</td>
-                    <td>@file.AgreementFileDescription</td>
-                    <td><a href="\app-assets\documentos\acuerdos\@file?.File?.FilePath" target="_blank">Ver</a></td>
 
-                </tr>
-}
+                                        <tr>
+                                            <td>@file.File.FileName</td>
+                                            <td>@file.AgreementFileDescription</td>
+                                            <td><a href="\app-assets\documentos\acuerdos\@file?.File?.FilePath" target="_blank">Ver</a></td>
+
+                                        </tr>               
+                                }
 
                             </tbody>
                         </table>

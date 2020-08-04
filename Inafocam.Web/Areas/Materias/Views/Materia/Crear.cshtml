@@ -39,6 +39,7 @@
     <form class="col s12 formValidate" method="post" asp-area="Materias" asp-controller="Materia" asp-action="Guardar">
 
         <input type="hidden" asp-for="SubjectMatterId" />
+        <input type="hidden" asp-for="UniversityId" />
         <input type="hidden" asp-for="TracingStudyPlanDevelopmentId" />
         <input type="hidden" asp-for="TracingStudyPlanDevelopment.Id" />
         <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
@@ -89,7 +90,7 @@
 
                     <div class="input-field col s12 m6 l4">
                         <div class="row">
-                            <label for="select2User" class="col s12">Asignar Profesor</label>
+                            <label for="select2User" class="col s12">Profesor seleccionado</label>
                         </div>
                         <select required asp-for="AssignedTeacherId" class="form-control js-example-basic-single required" style="width: 100%" asp-items="ViewBag.Teachers">
                             <option value="">Seleccione una Opción</option>
@@ -123,10 +124,9 @@
                     Ir a La Lista
                 </a>
 
-                @*<a class="white btn waves-effect waves-light black-text" asp-area="Materias" asp-controller="Materia" asp-action="Crear">
-                        <i class="material-icons left">cleaning_services</i>
-                        Limpiar
-                    </a>*@
+                <a class="white btn waves-effect waves-light black-text" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-universityID="@Model.UniversityId">
+                    Agregar profesor
+                </a>
 
             </div>
             @*<div class="input-field col s12">

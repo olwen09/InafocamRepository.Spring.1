@@ -1,4 +1,5 @@
 ﻿@using Inafocam.core.Modelos
+@using System.Globalization;
 
 <table id="page-length-option" class="display">
 
@@ -20,25 +21,24 @@
     <tbody>
         @foreach (ScholarshipProgramTracing item in Model)
         {
-            <tr>
-                <td>@item?.ScholarshipProgramTracingId</td>
-                @*<td>@item.ScholarshipProgramUniversity.ScholarshipProgram.ScholarshipProgramName</td>*@
-                <td>@item?.ScholarshipProgramUniversity.ScholarshipProgram?.ScholarshipProgramName</td>
-                <td>@item?.ScholarshipProgramUniversity?.University?.UniversityName</td>
-                <td>@item?.Coordinator?.Contact?.ContactName</td>
-                <td>@item?.StartDate  - @item?.EndDate</td>
-                <td>@item?.Status?.StatusName</td>
-                <td class="blue-text">
-                    <a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="Editar" asp-route-id="@item.ScholarshipProgramTracingId">
-                        <i class="material-icons">edit</i>
+<tr>
+    <td>@item?.ScholarshipProgramTracingId</td>
+    @*<td>@item.ScholarshipProgramUniversity.ScholarshipProgram.ScholarshipProgramName</td>*@
+    <td>@item?.ScholarshipProgramUniversity.ScholarshipProgram?.ScholarshipProgramName</td>
+    <td>@item?.ScholarshipProgramUniversity?.University?.UniversityName</td>
+    <td>@item?.Coordinator?.Contact?.ContactName</td>
+    <td>@item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))  - @item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+    <td>@item?.Status?.StatusName</td>
+    <td class="blue-text">
+        <a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="Editar" asp-route-id="@item.ScholarshipProgramTracingId">
+            <i class="material-icons">edit</i>
 
-                    </a>
-                    @*<a  asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="ProgramaDeBecasMateriaUniversitaria" asp-route-scholarshipProgramUniversityId="@item.ScholarshipProgramUniversityId" asp-route-tracingId="@item.ScholarshipProgramTracingId" asp-route-universityId="@item.UniversityId" class="tooltipped" data-position="top" data-tooltip="Agregar Desarrollo de Plan de Estudio">
-                        <i class="material-icons">library_books</i>
-                    </a>*@
-                </td>
-            </tr>
-        }
+        </a>
+        @*<a  asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="ProgramaDeBecasMateriaUniversitaria" asp-route-scholarshipProgramUniversityId="@item.ScholarshipProgramUniversityId" asp-route-tracingId="@item.ScholarshipProgramTracingId" asp-route-universityId="@item.UniversityId" class="tooltipped" data-position="top" data-tooltip="Agregar Desarrollo de Plan de Estudio">
+                <i class="material-icons">library_books</i>
+            </a>*@
+    </td>
+</tr>}
 
 
 

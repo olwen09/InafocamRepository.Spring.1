@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Andamios.Web.Helpers;
 using Inafocam.core.Interfaces;
@@ -17,7 +18,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
 {
     [Area("AcuerdoProgramasdeBecas"),ReturnArea("AcuerdoProgramasdeBecas")]
-    [ReturnControllador("Acuerdo Programas de Becas"),ReturnController("AcuerdoProgramasdeBeca")]
+    [ReturnControllador("Acuerdos de Programas Informativos"),ReturnController("AcuerdoProgramasdeBeca")]
     [Authorize(Roles = RoleName.AdministradorInafocam)]
 
     public class AcuerdoProgramasdeBecaController : Controller
@@ -55,6 +56,23 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
             ViewBag.AgreementTypes = new SelectList(_agreementType.GetAll, "AgreementTypeId", "AgreementTypeName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             return View();
+        }
+
+
+        public IActionResult CambiarEstado(string estado, long agreementId,int scholarshipProgramUniversityId) 
+        {
+
+            try
+            {
+                _scholarshipProgramUniversityAgreement.CambiarEstado(agreementId, estado);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Editar", new { id = scholarshipProgramUniversityId });
+            }
+
+            return RedirectToAction("Editar", new { id = scholarshipProgramUniversityId });
+
         }
 
 

@@ -18,7 +18,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 {
    
     [Area("ConvocatoriaDeBecas"), ReturnArea("ConvocatoriaDeBecas")]
-    [ReturnControllador("Convocatoria De Becas"), ReturnController("ConvocatoriaDeBeca")]
+    [ReturnControllador("Convocatoria de Programas Informativos"), ReturnController("ConvocatoriaDeBeca")]
     [Authorize(Roles = RoleName.AdministradorInafocam)]
 
     public class ConvocatoriaDeBecaController : Controller

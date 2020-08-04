@@ -1,4 +1,6 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ActividadesCoCurricularesModel
+﻿@using System.Globalization
+
+@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ActividadesCoCurricularesModel
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -93,7 +95,7 @@
 
                             <input asp-for="TracingCourseModel.CourseStartDate" id="CourseStartDate" type="text" class="validat datepicker" required>
 
-                            <label for="CourseStartDate">Fecha en que fue Impartido</label>
+                            <label for="CourseStartDate">Fecha de inicio</label>
 
 
                         </div>
@@ -102,7 +104,7 @@
 
                             <input asp-for="TracingCourseModel.CourseEndDate" id="CourseEndDate" type="text" class="validat datepicker" required>
 
-                            <label for="CourseEndDate"></label>
+                            <label for="CourseEndDate">Fecha de termino</label>
 
 
                         </div>
@@ -135,7 +137,8 @@
                                 @*<th>Numero</th>*@
                                 <th>Nombre del Curso</th>
                                 <th>Duracion en Horas</th>
-                                <th>Fecha en que fue impartido</th>
+                                <th>Fecha de inico</th>
+                                <th>Fecha de termino</th>
                                 <th>Participantes</th>
                                 <th>Acciones</th>
                             </tr>
@@ -144,19 +147,21 @@
                         <tbody>
                             @foreach (var item in Model.TracingCourseList)
                             {
-                <tr>
-                    @*<td>@item.Id</td>*@
-                    <td>@item.CourseName</td>
-                    <td>@item.HoursTaken</td>
-                    <td>@item.CourseStartDate - @item.CourseEndDate</td>
-                    <td>@item.StudentsQuantity</td>
-                    <td>
-                        <a class="tooltipped green-text" data-position="top" data-tooltip="Agregar Documentos" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ActividadesCoCurriculares" asp-route-courseId="@item.Id"
-                           asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
-                            <i class="material-icons">attach_file</i>
-                        </a>
-                    </td>
-                </tr>}
+                                <tr>
+                                    @*<td>@item.Id</td>*@
+                                    <td>@item?.CourseName</td>
+                                    <td>@item?.HoursTaken</td>
+                                    <td>@item?.CourseStartDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+                                    <td>@item?.CourseEndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+                                    <td>@item?.StudentsQuantity</td>
+                                    <td>
+                                        <a class="tooltipped green-text" data-position="top" data-tooltip="Agregar Documentos" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ActividadesCoCurriculares" asp-route-courseId="@item.Id"
+                                           asp-route-tracingId="@Model?.TracingId" asp-route-scholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId">
+                                            <i class="material-icons">attach_file</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
 
 
                         </tbody>
@@ -277,7 +282,7 @@
 
                 </div>
 
-                <h5>Lista de Convocatorias Creadas</h5>
+                <h5>Lista de documentos anexos</h5>
                 <table>
                     <thead>
                         <tr>

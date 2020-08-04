@@ -1,5 +1,7 @@
 ﻿@using Inafocam.Web.Helpers
 @using Microsoft.AspNetCore.Razor.Language.CodeGeneration
+@using System.Globalization
+
 @model Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Models.AcuerdoProgramasdeBecaModel
 
 @{ ViewData["Title"] = "Create";
@@ -244,8 +246,8 @@
                             <br  class="hide-on-small-and-down mt-5"/>*@
 
                         @*<br  class="hide-on-small-and-down"/>*@
-
-                        <button class="btn btn-small black-text mt-1 grey lighten-4 ">
+                       
+                        <button class="btn btn-small black-text mt-1 grey lighten-4">
                             <p>
 
                                 <i class="material-icons">arrow_forward</i>
@@ -267,7 +269,9 @@
                             <th style="border: solid 1px; border-color: #e0e0e0;">No.</th>
                             <th style="border: solid 1px; border-color: #e0e0e0;">Acuerdo</th>
                             <th style="border: solid 1px; border-color: #e0e0e0;">Tipo de Acuerdo</th>
-                            <th style="border: solid 1px; border-color: #e0e0e0;"></th>
+                            <th style="border: solid 1px; border-color: #e0e0e0;">Fecha de creacion</th>
+                            <th style="border: solid 1px; border-color: #e0e0e0;">Estado</th>
+                            <th style="border: solid 1px; border-color: #e0e0e0;" class="center">Acciones</th>
                         </tr>
                     </thead>
 
@@ -275,12 +279,40 @@
 
                         @foreach (var item in Model?.ScholarshipProgramUniversityAgreement)
                         {
-            <tr>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@item.ScholarshipProgramUniversityAgreementId</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@item.ScholarshipProgramUniversityAgreement1</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.AgreementType?.AgreementTypeName</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;" class="red-text center tooltipped" data-position="top" data-tooltip="Eliminar"><i class="material-icons">delete</i></td>
-            </tr>}
+                            var badgeColor = item.Status.StatusName == "Pendiente" ? "orange" :
+                                item.Status.StatusName == "Activo" ? "teal" : "red";
+
+                            <tr>
+                                <td style="border: solid 1px; border-color: #e0e0e0;">@item.ScholarshipProgramUniversityAgreementId</td>
+                                <td style="border: solid 1px; border-color: #e0e0e0;">@item.ScholarshipProgramUniversityAgreement1</td>
+                                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.AgreementType?.AgreementTypeName</td>
+                                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.CreationDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+                                <td style="border: solid 1px; border-color: #e0e0e0;"><span class="badge @badgeColor">@item?.Status.StatusName</span></td>
+                                <td style="border: solid 1px; border-color: #e0e0e0;" class="center">
+
+                                    <a class="green-text center tooltipped" data-position="top" data-tooltip="Activar" asp-area="AcuerdoProgramasdeBecas" 
+                                       asp-controller="AcuerdoProgramasdeBeca" asp-action="CambiarEstado" asp-route-estado="Activo"
+                                       asp-route-agreementId="@item.ScholarshipProgramUniversityAgreementId" asp-route-scholarshipProgramUniversityId="@item.ScholarshipProgramUniversityId">
+                                        <i class="material-icons">lock_open</i>
+                                    </a>
+
+                                    <a class="orange-text center tooltipped" data-position="top" data-tooltip="Pendiente de revisión" asp-area="AcuerdoProgramasdeBecas" 
+                                       asp-controller="AcuerdoProgramasdeBeca" asp-action="CambiarEstado"
+                                       asp-route-estado="Pendiente" asp-route-agreementId="@item.ScholarshipProgramUniversityAgreementId"
+                                       asp-route-scholarshipProgramUniversityId="@item.ScholarshipProgramUniversityId">
+                                        <i class="material-icons">lock_outline</i>
+                                    </a>
+
+                                    <a class="red-text center tooltipped" data-position="top" data-tooltip="Anular" asp-area="AcuerdoProgramasdeBecas" 
+                                       asp-controller="AcuerdoProgramasdeBeca" asp-action="CambiarEstado"
+                                       asp-route-estado="Cerrado" asp-route-agreementId="@item.ScholarshipProgramUniversityAgreementId" 
+                                       asp-route-scholarshipProgramUniversityId="@item.ScholarshipProgramUniversityId">
+
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                         }
 
 
                     </tbody>

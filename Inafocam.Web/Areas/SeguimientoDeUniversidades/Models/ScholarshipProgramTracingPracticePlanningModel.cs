@@ -1,6 +1,7 @@
 ﻿using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,9 +11,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
     {
         public long Id { get; set; }
         public long? TracingId { get; set; }
+
+        [Required (ErrorMessage = "El tipo de planificación es requerido")]
         public long? ActionTypeId { get; set; }
         public short? Started { get; set; }
         public short? Finished { get; set; }
+
+        [Required]
         public string Comment { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }

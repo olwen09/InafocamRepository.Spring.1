@@ -81,7 +81,7 @@
                         </div>*@
 
                     <div class=" input-field col s12 m6 l8">
-                        <textarea asp-for="PracticePlanningModel.Comment" id="Comment" class="materialize-textarea"></textarea>
+                        <textarea asp-for="PracticePlanningModel.Comment" id="Comment" class="materialize-textarea" required></textarea>
                         <label for="Comment">Observación</label>
                     </div>
 
@@ -166,20 +166,21 @@
 
                         <tbody>
 
-                            @foreach (var item in Model.PracticePlanningList)
-                            {
-                                var numero = count++;
+                       @foreach (var item in Model.PracticePlanningList)
+                       {
+                           var numero = count++;
+                           var doesItFinished = item.Finished == 1 ? "Si" : "No";
+                           var doesItStarted = item.Started == 1 ? "Si" : "No";
+                                        <tr>
 
-                <tr>
+                                            <td>@item.ActionType.ActionTypeName</td>
+                                            <td>@doesItStarted</td>
+                                            <td>@doesItFinished</td>
+                                            <td>@item.Comment</td>
+                                            <td>@item.CreationDate</td>
 
-                    <td>@item.ActionType.ActionTypeName</td>
-                    <td>@item.Started</td>
-                    <td>@item.Finished</td>
-                    <td>@item.Comment</td>
-                    <td>@item.CreationDate</td>
-
-                </tr>
-}
+                                        </tr>
+                       }
 
 
 

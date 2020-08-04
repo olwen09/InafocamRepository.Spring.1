@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Inafocam.Web.Areas.Materias.Controllers
 {
     [Area("Materias"),ReturnArea("Materias")]
-    [ReturnControllador("Materias"),ReturnController("Materia")]
+    //[ReturnControllador("Materias"),ReturnController("Materia")]
     [Authorize(Roles = RoleName.AdministradorInafocam)]
 
     public class MateriaController : Controller
@@ -54,10 +54,11 @@ namespace Inafocam.Web.Areas.Materias.Controllers
 
         public IActionResult Crear(int scholarshipProgramUniversityId)
         {
+            var universityId = _scholarshipProgramUniversity.GetUniversityIdByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
             var model = new SubjectMatterModel();
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.UniversityId = universityId; 
 
-            var universityId = _scholarshipProgramUniversity.GetUniversityIdByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
             var teachers = _teacher.GetTeachersByUSerUniversityId(universityId);
 
             ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");

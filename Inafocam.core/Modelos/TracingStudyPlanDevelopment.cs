@@ -14,6 +14,8 @@ namespace Inafocam.core.Modelos
         public long? HigherTitleSupportMatterId { get; set; }
         public double? ScoreAverageStudents { get; set; }
         public int? ApprovedStudentsQuantity { get; set; }
+        public int? MaleQuantity { get; set; }
+        public int? femaleQuantity { get; set; }
         public long? Creditos { get; set; }
         public int? ReprovedStudentsQuantity { get; set; }
         public int? DesertedStudentsQuantity { get; set; }
@@ -26,6 +28,7 @@ namespace Inafocam.core.Modelos
         public long? CreationUserId { get; set; }
         public long? UpgradeUserId { get; set; }
         public long? StatusId { get; set; }
+        public long? StudentReportFileId { get; set; }
 
         public virtual Teacher AssignedTeacher { get; set; }
         public virtual TeacherEducation HigherTitleSupportMatter { get; set; }
@@ -35,6 +38,7 @@ namespace Inafocam.core.Modelos
         [ForeignKey("SubjectMatterId")]
         public virtual SubjectMatter SubjectMatter { get; set; }
         public virtual Teacher Teacher { get; set; }
+        public virtual File StudentReportFile { get; set; }
         public virtual File SubjectMatterScoreReportFile { get; set; }
     }
 }

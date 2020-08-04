@@ -21,6 +21,7 @@ namespace Inafocam.Web.Areas.Materias.Models
         public string period { get; set; }
         [Required]
         public long? Creditos { get; set; }
+        public long? UniversityId { get; set; }
 
         public string UniversityTeacherSelectedName { get; set; }
 
