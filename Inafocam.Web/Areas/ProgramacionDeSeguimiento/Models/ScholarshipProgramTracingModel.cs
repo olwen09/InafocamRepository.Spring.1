@@ -23,6 +23,8 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models
         [Display(Name = "Técnico")]
         public long? TechnicalId { get; set; }
 
+        public string SelectedProgram { get; set; }
+
         [Required]
         public DateTime? StartDate { get; set; }
 

@@ -23,7 +23,12 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Components.ScholarshipPro
         public IViewComponentResult Invoke(int id)
         {
             var ProgramUniversity = _scholarshipProgramUniversity.GetProgramUniversityByUniversityId(id)
-                 .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
+               .Select(x => new GetScholarShipProgram
+               {
+                   ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId,
+                   ScholarShipProgramNameScatCodeContractNumber = x.ScholarshipProgram.ScholarshipProgramName.ToString() + ", " + x.ScatProgramCode.ToString()
+                   + ", " + x.ContractNumber.ToString()
+               });
 
             return View("ProgramUniversity", ProgramUniversity);
         }
@@ -31,7 +36,8 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Components.ScholarshipPro
         public IViewComponentResult ProgramUniversity(int id)
         {
             var ProgramUniversity = _scholarshipProgramUniversity.GetProgramUniversityByUniversityId(id)
-                 .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName }); 
+                 .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramNameScatCodeContractNumber = x.ScholarshipProgram.ScholarshipProgramName + " "+ x.ScatProgramCode 
+                     +", " + x.ContractNumber }); 
 
             return View("ProgramUniversity", ProgramUniversity);
         }

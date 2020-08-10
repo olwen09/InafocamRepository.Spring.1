@@ -156,13 +156,12 @@
         </div>
     </form>
 
-    @if (Model.ScholarshipProgramId != 0)
+    @*@if (Model.ScholarshipProgramId != 0)
     {
 <form class="col s12 formValidate" method="post" asp-area="ProgramasDeBecas" asp-controller="ProgramaDeBeca" asp-action="AgregarConvocatoriaProperties">
 
     <input type="hidden" asp-for="ScholarshipProgramId" />
     <input type="hidden" asp-for="ScholarshipProgramUniversity.StatusId" />
-    @*<input type="hidden" asp-for="ScholarshipProgramUniversity.UniversityId" />*@
     <input type="hidden" asp-for="ScholarshipProgramUniversity.TechnicalId" />
     <input type="hidden" asp-for="ScholarshipProgramUniversity.ScholarshipProgramId" />
     <input type="hidden" asp-for="ScholarshipProgramUniversity.ScholarshipProgramUniversityId" />
@@ -182,7 +181,6 @@
                     <div class="input-field col s12 m6 l4">
                         <input asp-for="ScholarshipProgramUniversity.ScatProgramCode" id="codigodescat" type="text" class="validate" required>
                         <label for="codigodescat">Codigo de SCAT</label>
-                      @*  <span asp-validation-for="ScholarshipProgramUniversity.ScatProgramCode" class="red-text validationDisplay"></span>*@
                     </div>
 
 
@@ -202,7 +200,6 @@
                         <select asp-for="ScholarshipProgramUniversity.UniversityId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.University">
                             <option value="" disabled selected> Seleccione una Opción </option>
                         </select>
-                       @* <span asp-validation-for="ScholarshipProgramUniversity.UniversityId" class="red-text"></span>*@
 
                     </div>
 
@@ -270,7 +267,6 @@
                             <th style="border: solid 1px; border-color: #e0e0e0;">No. Contrato</th>
                             <th style="border: solid 1px; border-color: #e0e0e0;">Periodo de convocatoria</th>
                             <th style="border: solid 1px; border-color: #e0e0e0;">Periodo del Programa</th>
-                            <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
                         </tr>
                     </thead>
 
@@ -295,11 +291,7 @@
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.ContractNumber</td>
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.AnnouncementStartDate - @item?.AnnouncementEndDate</td>
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.StartDate - @item?.EndDate</td>
-    <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-        <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
-            <i class="material-icons ">delete</i>
-        </a>
-    </td>
+  
 
 </tr>}}
 
@@ -309,7 +301,7 @@
             </div>
 
         </div>
-</form>}
+</form>}*@
 
 
 </div>

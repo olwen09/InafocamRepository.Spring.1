@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inafocam.core.Modelos
 {
@@ -9,7 +10,7 @@ namespace Inafocam.core.Modelos
         {
             Company = new HashSet<Company>();
             //ContactAddress = new HashSet<ContactAddress>();
-            ContactCommunication = new HashSet<ContactCommunication>();
+            ContactCommunicationList = new HashSet<ContactCommunication>();
             Teacher = new HashSet<Teacher>();
             User = new HashSet<User>();
         }
@@ -25,9 +26,14 @@ namespace Inafocam.core.Modelos
         public DateTime? ContactBornDate { get; set; }
         public string ContactBornPlace { get; set; }
         public long? ContactNationalityId { get; set; }
+
+
+        [MaxLength(50)]
+        public string Nationality { get; set; }
         public long? ContactMaritalStatusId { get; set; }
         public long? ContactJobInformationId { get; set; }
         public long? CreationUserId { get; set; }
+        public long? ContactCommunicationId { get; set; }
         public long? UpgradeUserId { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }
@@ -40,9 +46,8 @@ namespace Inafocam.core.Modelos
         public virtual User UpgradeUser { get; set; }
         public virtual ICollection<Company> Company { get; set; }
         public virtual ContactAddress ContactAddres { get; set; }
-        //public virtual ICollection<ContactAddress> ContactAddress { get; set; }
-        //public virtual ContactCommunication ContactCommunicatio { get; set; }
-        public virtual ICollection<ContactCommunication> ContactCommunication { get; set; }
+        public ContactCommunication ContactCommunication { get; set; }
+        public virtual ICollection<ContactCommunication> ContactCommunicationList { get; set; }
         public virtual ICollection<Teacher> Teacher { get; set; }
         public virtual ICollection<User> User { get; set; }
     }

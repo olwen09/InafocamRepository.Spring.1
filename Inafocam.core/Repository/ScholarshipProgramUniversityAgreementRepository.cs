@@ -22,9 +22,9 @@ namespace Inafocam.core.Repository
             .Include(x => x.AgreementType)
             .Include(x => x.ScholarshipProgramUniversity)
             .Include(x => x.Status)
-            .Include(x => x.ScholarshipProgramTracingAgreement)
-            .Include(x => x.CreationUser)
-            .Include(x => x.UpgradeUser);
+            .Include(x => x.ScholarshipProgramTracingAgreement);
+            //.Include(x => x.CreationUser)
+            //.Include(x => x.UpgradeUser);
 
         public void CambiarEstado(long agremmentId,string estado)
         {
@@ -32,11 +32,11 @@ namespace Inafocam.core.Repository
 
 
             //Id de los estados
-            var activo = 1;
+            var Completado = 19;
             var pendiente = 17;
             var cerrado = 9;
 
-            var estatusId = estado == "Activo" ? activo : estado == "Pendiente" ? pendiente : cerrado;
+            var estatusId = estado == "Completado" ? Completado : estado == "Pendiente" ? pendiente : cerrado;
 
             var agreement = _context.ScholarshipProgramUniversityAgreement.Find(agremmentId);
             agreement.StatusId = estatusId;
@@ -68,6 +68,7 @@ namespace Inafocam.core.Repository
         public void Save(ScholarshipProgramUniversityAgreement model)
         {
             var now = DateTime.Now;
+            var estadoPendiente = 17;
             if(model.ScholarshipProgramUniversityAgreementId != 0)
             {
                 model.UpgradeDate = now;
@@ -76,6 +77,7 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
+                model.StatusId = estadoPendiente;
                 _context.Add(model);
             }
             _context.SaveChanges();

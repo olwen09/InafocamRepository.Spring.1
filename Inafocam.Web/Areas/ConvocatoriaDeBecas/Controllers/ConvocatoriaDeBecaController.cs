@@ -18,7 +18,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 {
    
     [Area("ConvocatoriaDeBecas"), ReturnArea("ConvocatoriaDeBecas")]
-    [ReturnControllador("Convocatoria de Programas Informativos"), ReturnController("ConvocatoriaDeBeca")]
+    [ReturnControllador("Creación de Cohorte"), ReturnController("ConvocatoriaDeBeca")]
     [Authorize(Roles = RoleName.AdministradorInafocam)]
 
     public class ConvocatoriaDeBecaController : Controller
@@ -76,7 +76,15 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 
 
             var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+
+            //var scholarshipProgram = _scholarshipProgram.GetAll.Select(x => new GetScholarShipProgram
+            //{
+            //    ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId,
+            //    ScholarShipProgramNameScatCodeContractNumber = x.ScholarshipProgram.ScholarshipProgramName.ToString() + ", " + x.ScatProgramCode.ToString()
+            //     + ", " + x.ContractNumber.ToString()
+            //});
 
             ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
             ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
@@ -92,7 +100,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
         public IActionResult GuardarConvocatoriaDeBeca(ScholarshipProgramUniversityModel model)
         {
             var data = CopyPropierties.Convert<ScholarshipProgramUniversityModel, ScholarshipProgramUniversity>(model);
-            var scholarshipProgramUniversity = _scholarshipProgramUniversity.ScholarshipProgramUniversity.ToList();
+            //var scholarshipProgramUniversity = _scholarshipProgramUniversity.ScholarshipProgramUniversity.ToList();
 
             if (ModelState.IsValid)
             {
@@ -133,7 +141,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 
 
 
-            return View("Index",scholarshipProgramUniversity);
+          return RedirectToAction("Index");
         }
 
         public IActionResult ProgramaDeBecasMateriaUniversitaria()

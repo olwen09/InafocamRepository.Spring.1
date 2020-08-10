@@ -18,7 +18,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
 {
     [Area("AcuerdoProgramasdeBecas"),ReturnArea("AcuerdoProgramasdeBecas")]
-    [ReturnControllador("Acuerdos de Programas Informativos"),ReturnController("AcuerdoProgramasdeBeca")]
+    [ReturnControllador("Acuerdos de Programas Formativos"),ReturnController("AcuerdoProgramasdeBeca")]
     [Authorize(Roles = RoleName.AdministradorInafocam)]
 
     public class AcuerdoProgramasdeBecaController : Controller
@@ -59,6 +59,7 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
         }
 
 
+
         public IActionResult CambiarEstado(string estado, long agreementId,int scholarshipProgramUniversityId) 
         {
 
@@ -90,7 +91,6 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
 
             return View("Crear",acuerdoProgramasdeBecaModel);
         }
-
         public IActionResult Guardar(AcuerdoProgramasdeBecaModel model)
         {
 
@@ -114,10 +114,13 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
             return View("Index", scholarshipProgramUniversity);
         }
 
+
         [HttpPost]
         public IActionResult AgregarAcuerdo(AcuerdoProgramasdeBecaModel model)
         {
 
+
+           
             if(model.AgreementId == 0 ||string.IsNullOrWhiteSpace(model.ScholarshipProgramUniversityAgreement1))
             {
                 EnviarMensaje.Enviar(TempData, "red", "Ambos campos son requeridos");
@@ -167,5 +170,49 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
             return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
 
         }
+
+        public IActionResult EditarAcuerdos(int acuerdoId, int scholarshipProgramUniversityId)
+        {
+            var data = _scholarshipProgramUniversityAgreement.GetById(acuerdoId);
+
+            var model = CopyPropierties.Convert<ScholarshipProgramUniversityAgreement, EditarAcuerdoViewModel>(data);
+
+            ViewBag.AgreementTypes = new SelectList(_agreementType.GetAll, "AgreementTypeId", "AgreementTypeName");
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditarAcuerdos(EditarAcuerdoViewModel model, int acuerdoId, int scholarshipProgramUniversityId)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var data = CopyPropierties.Convert<EditarAcuerdoViewModel, ScholarshipProgramUniversityAgreement>(model);
+
+                try
+                {
+                    _scholarshipProgramUniversityAgreement.Save(data);
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("EditarAcuerdos", new { acuerdoId = model.ScholarshipProgramUniversityAgreementId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+                }
+            }
+            else
+            {
+
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count() > 0).First();
+
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
+                return RedirectToAction("EditarAcuerdos", new { acuerdoId = model.ScholarshipProgramUniversityAgreementId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            }
+
+          
+
+            return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
+
+        }
+
     }
 }

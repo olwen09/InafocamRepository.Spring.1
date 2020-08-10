@@ -27,17 +27,33 @@ namespace Inafocam.core.Repository
             .Include(x => x.AssignedTeacher.Contact)
             .Include(x => x.Teacher.Contact)
             .Include(x => x.TracingStudyPlanDevelopment.SubjectMatterScoreReportFile)
+            .Include(x => x.TracingStudyPlanDevelopment.Teacher)
+            .Include(x => x.TracingStudyPlanDevelopment.Teacher.Contact)
             .Include(x => x.TracingStudyPlanDevelopment.StudentReportFile);
 
         public bool CheckIfSubjectMatterCodeExits(SubjectMatter subjectMatter)
         {
-
             var checkIfItExits = GetAll.FirstOrDefault(x => x.SubjectMatterCode == subjectMatter.SubjectMatterCode
-            && x.SubjectMatterId == subjectMatter.SubjectMatterId) != null ? true : false;
+            && x.ScholarshipProgramUniversityId == subjectMatter.ScholarshipProgramUniversityId);
 
 
+            bool result = false; ;
 
-            return checkIfItExits;
+            if(checkIfItExits != null)
+            {
+               if(checkIfItExits.SubjectMatterId != subjectMatter.SubjectMatterId)
+                {
+                    result = true;
+                }
+            }
+
+            if (checkIfItExits != null)
+            {
+                _context.Entry(checkIfItExits).State = EntityState.Detached;
+                _context.Entry(checkIfItExits.TracingStudyPlanDevelopment).State = EntityState.Detached;
+            }
+
+            return result;
         }
 
         public IQueryable<SubjectMatter> GetAllByScholarshipProgramUniversityId(int ScholarshipProgramUniversityId)
@@ -60,8 +76,8 @@ namespace Inafocam.core.Repository
 
            if(model.SubjectMatterId != 0)
             {
-                model.UpgradeDate = now;
                 //var currentData = _context.File.Find(model.SubjectMatterId);
+                model.UpgradeDate = now;
 
                 //_context.Entry(currentData).CurrentValues.SetValues(model);
                 //_context.Entry(currentData).State = EntityState.Modified;
@@ -76,5 +92,7 @@ namespace Inafocam.core.Repository
 
             _context.SaveChanges();
         }
+
+      
     }
 }

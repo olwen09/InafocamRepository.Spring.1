@@ -8,11 +8,12 @@
         <tr>
 
             <th class="center"> Id </th>
+            <th>Código de SCAT</th>
+            <th>Número de contrato</th>
             <th>Programa</th>
             <th>Universidad</th>
-            <th>Codigo de SCAT</th>
-            <th>Periodo de Convocatoria</th>
-            <th>Periodo para el Programa</th>
+            <th>Periodo de convocatoria</th>
+            <th>Periodo para el programa</th>
             <th>Nivel</th>
             <th>Estado</th>
             <th>Acciones</th>
@@ -25,9 +26,10 @@
         {
         <tr>
             <td>@item?.ScholarshipProgramUniversityId</td>
+            <td>@item?.ScatProgramCode</td>
+            <td>@item?.ContractNumber</td>
             <td>@item?.ScholarshipProgram?.ScholarshipProgramName</td>
             <td>@item?.University?.UniversityName</td>
-            <td>@item?.ScatProgramCode</td>
             <td>@item.AnnouncementStartDate?.ToString("D", CultureInfo.GetCultureInfo("es")) - @item.AnnouncementEndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
             <td>@item.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es")) - @item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
             <td>@item.ScholarshipLevel?.ScholarshipLevelName</td>
@@ -51,9 +53,10 @@
         <tr>
 
             <th class="center"> Id </th>
+            <th>Código de SCAT</th>
+            <th>Número de contrato</th>
             <th>Programa</th>
             <th>Universidad</th>
-            <th>Codigo de SCAT</th>
             <th>Periodo de Convocatoria</th>
             <th>Periodo para el Programa</th>
             <th>Nivel</th>

@@ -787,7 +787,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
 
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
-            model.StudentPracticeList = _studentPractice.GetAllByTracingId(tracingId).OrderBy(x => x.StudentPracticeTypeId);
+            model.StudentPracticeList = _studentPractice.GetAllByTracingId(tracingId).OrderBy(x => x.StudentPracticeTypeId).ToList();
             model.IsGestionUniversitariaRole = GetLogUserRole();
 
 
@@ -806,6 +806,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             }
 
+            if(model.StudentPracticeModel.StudentPracticeTypeId  == null)
+            {
+                EnviarMensaje.Enviar(TempData, "red", "El tipo de Practica es requerido");
+
+                return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+            }
 
             var studentPracticeModel = new ScholarshipProgramTracingStudentPracticeModel();
             var studentPracticeTypeId = Convert.ToInt32(model.StudentPracticeModel.StudentPracticeTypeId);
@@ -840,12 +846,21 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
 
         [HttpPost]
-        public  async Task<IActionResult> AgregarEstudiantePracticeFile(EstudiantesEnPracticaViewModel model , IFormFile file,int practiceId)
+        public  async Task<IActionResult> AgregarEstudiantePracticeFile(EstudiantesEnPracticaViewModel model , IFormFile file,int practiceId,int practiceTypeId)
         {
+
+
+            if ((CheckIfTheProgramIsClose(model.TracingId) == "Cerrado"))
+            {
+
+                return RedirectToAction("RedirectToActiontest", new { method = "EstudiantesEnPractica", tracingId = model.TracingId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+
+                }
 
             var rutaPdf = _config.GetSection("rutas").GetSection("EstudiantesEnPracticaFiles").Value;
             var studentPracticeFileModel = new ScholarshipProgramTracingStudentPracticeFileModel();
             studentPracticeFileModel = model.StudentPracticeFileModel;
+            studentPracticeFileModel.StudentPracticeTypeId = practiceTypeId;
             studentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId = practiceId;
 
             if (file != null)
@@ -858,7 +873,9 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
                 var fileName = model.StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId + "-" + Guid.NewGuid() + ext;
                 if (ext.ToLower() != ".pdf")
                 {
-                    return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId });
+                    return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.TracingId,
+                        scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId
+                    });
                 }
                 var fileFullPath = Path.Combine(rutaPdf, fileName);
                 //var filePath = "\\app-assets\\documentos\\teacher" + fileName; 
@@ -875,6 +892,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
                 fileModel.FileFullPath = fileFullPath;
 
                 studentPracticeFileModel.File = fileModel;
+                
 
                 var data = CopyPropierties.Convert<ScholarshipProgramTracingStudentPracticeFileModel, ScholarshipProgramTracingStudentPracticeFile>(studentPracticeFileModel);
 
@@ -884,18 +902,24 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId });
+                    return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.TracingId,
+                        scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId
+                    });
                 }
             }
             else
             {
                 EnviarMensaje.Enviar(TempData, "red", "El archivo es requerido");
 
-                return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId });
+                return RedirectToAction("EstudiantesEnPractica", new {tracingId = model.TracingId,
+                    scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId
+                });
 
             }
 
-            return RedirectToAction("EstudiantesEnPractica", new { tracingId = model.StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId });
+            return RedirectToAction("EstudiantesEnPractica", new { model.TracingId,
+                scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId
+            });
 
 
         }

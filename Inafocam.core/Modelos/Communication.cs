@@ -13,7 +13,7 @@ namespace Inafocam.core.Modelos
             University = new HashSet<University>();
         }
 
-        public long CommunicationId { get; set; }
+        public long? CommunicationId { get; set; }
         public string CommunicationPhoneNumber1 { get; set; }
         public string CommunicationPhoneNumber2 { get; set; }
         public string CommunicationEmail { get; set; }

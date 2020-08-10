@@ -18,6 +18,6 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Models
     public class GetScholarShipProgram
     {
         public long? ScholarshipProgramUniversityId { get; set; }
-        public string ScholarShipProgramName { get; set; }
+        public string ScholarShipProgramNameScatCodeContractNumber { get; set; }
     }
 }

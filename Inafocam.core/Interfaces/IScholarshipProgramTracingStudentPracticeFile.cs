@@ -9,7 +9,7 @@ namespace Inafocam.core.Interfaces
     {
         IEnumerable<ScholarshipProgramTracingStudentPracticeFile> GetAll { get; }
 
-        IEnumerable<ScholarshipProgramTracingStudentPracticeFile> GetAllByPracticeId(long practiceId);
+        IEnumerable<ScholarshipProgramTracingStudentPracticeFile> GetAllByPracticeId(long practiceId , long practiceTypeId);
 
         void Save(ScholarshipProgramTracingStudentPracticeFile model);
     }

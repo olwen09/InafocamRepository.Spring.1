@@ -7,6 +7,7 @@ using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Inafocam.core.Utilidades;
 using Inafocam.Web.Areas.Representantes.Models;
+using Inafocam.Web.Helpers;
 using Inafocam.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
     {
         private readonly IAgent _agent;
         private readonly IAgentType _agentType;
+        private readonly IContact _contact;
         private readonly IContactType _contactType;
         private readonly IDocumentType _documentType;
         private readonly IAddressType _addressType;
@@ -38,7 +40,7 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
 
         public RepresentanteController(IAgent agent,IContactType contactType, IDocumentType documentType,
             IAgentType agentType,IAddressType addressType,ICountry country,IProvince province,ICity city,
-            IStatus status)
+            IStatus status,IContact contact)
         {
             _agent = agent;
             _contactType = contactType;
@@ -51,6 +53,7 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
             _city = city;
             _status = status;
             _status = status;
+            _contact = contact;
         }
 
         public IActionResult Index()
@@ -99,15 +102,65 @@ namespace Inafocam.Web.Areas.Representantes.Controllers
         public IActionResult Guardar(AgentModel model)
         {
             var data = CopyPropierties.Convert<AgentModel, Agent>(model);
+            var contactComunicationModel = new  ContactCommunication();
+            data.Contact.ContactCommunication.ContactId = model.ContactId;
 
-            try
+
+            if (ModelState.IsValid)
             {
-                _agent.Save(data);
+
+                if (_contact.CheckIfContactDocumentNumberExits(data.Contact))
+                {
+                    EnviarMensaje.Enviar(TempData, "red", "Ya existe un registro con este número documento");
+
+                    ViewBag.ContactType = new SelectList(_contactType.GetAll, "ContactTypeId", "ContactTypeName");
+                    ViewBag.AgentType = new SelectList(_agentType.GetAll, "AgentTypeId", "AgentTypeName");
+                    ViewBag.DocumentType = new SelectList(_documentType.GetAll, "DocumentTypeId", "DocumentTypeName");
+                    ViewBag.AddressType = new SelectList(_addressType.addressTypes, "AddressTypeId", "AddressTypeName");
+                    ViewBag.Countries = new SelectList(_country.GetAll, "CountryId", "CountryName");
+                    ViewBag.Provinces = new SelectList(_province.Provinces, "ProvinceId", "ProvinceName");
+                    ViewBag.Cities = new SelectList(_city.Cities, "CityId", "CityName");
+                    ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+                    return View("Crear", model);
+                }
+
+                try
+                {
+                    _agent.Save(data);
+                }
+                catch (Exception e)
+                {
+
+
+                    ViewBag.ContactType = new SelectList(_contactType.GetAll, "ContactTypeId", "ContactTypeName");
+                    ViewBag.AgentType = new SelectList(_agentType.GetAll, "AgentTypeId", "AgentTypeName");
+                    ViewBag.DocumentType = new SelectList(_documentType.GetAll, "DocumentTypeId", "DocumentTypeName");
+                    ViewBag.AddressType = new SelectList(_addressType.addressTypes, "AddressTypeId", "AddressTypeName");
+                    ViewBag.Countries = new SelectList(_country.GetAll, "CountryId", "CountryName");
+                    ViewBag.Provinces = new SelectList(_province.Provinces, "ProvinceId", "ProvinceName");
+                    ViewBag.Cities = new SelectList(_city.Cities, "CityId", "CityName");
+                    ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+                    return View("Crear", model);
+                }
             }
-            catch (Exception e)
+            else
             {
-                return View("Index", _agent.Agents.DistinctBy(x => x.AgentId).ToList());
+                var erros = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count() > 0).First();
+
+                EnviarMensaje.Enviar(TempData, "red", erros.ErrorMessage);
+
+                ViewBag.ContactType = new SelectList(_contactType.GetAll, "ContactTypeId", "ContactTypeName");
+                ViewBag.AgentType = new SelectList(_agentType.GetAll, "AgentTypeId", "AgentTypeName");
+                ViewBag.DocumentType = new SelectList(_documentType.GetAll, "DocumentTypeId", "DocumentTypeName");
+                ViewBag.AddressType = new SelectList(_addressType.addressTypes, "AddressTypeId", "AddressTypeName");
+                ViewBag.Countries = new SelectList(_country.GetAll, "CountryId", "CountryName");
+                ViewBag.Provinces = new SelectList(_province.Provinces, "ProvinceId", "ProvinceName");
+                ViewBag.Cities = new SelectList(_city.Cities, "CityId", "CityName");
+                ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+                return View("Crear", model);
             }
+
+           
 
             return View("Index", _agent.Agents.DistinctBy(x => x.AgentId).ToList());
         }

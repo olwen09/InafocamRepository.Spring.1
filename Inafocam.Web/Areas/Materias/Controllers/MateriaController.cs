@@ -76,9 +76,13 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             {
                 model.TeacherId = 0;
             }
+
             var univerityTeacherSelected = _teacher.GetById((int)model.TeacherId);
+
             model.UniversityTeacherSelectedName = univerityTeacherSelected?.Contact?.ContactName?.ToString() + "" + univerityTeacherSelected?.Contact?.ContactLastname?.ToString();
+
             var universityId = _scholarshipProgramUniversity.GetUniversityIdByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
+
             var teachers = _teacher.GetTeachersByUSerUniversityId(universityId);
 
             ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
@@ -93,25 +97,25 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             MensajesViewModel mensaje = new MensajesViewModel();
             var data = CopyPropierties.Convert<SubjectMatterModel, SubjectMatter>(model);
 
-            //if (!_subjectMatter.CheckIfSubjectMatterCodeExits(data))
-            //{
-            //    EnviarMensaje.Enviar(TempData, "red", "Ya existe un registro de una materia con este código");
+            if (CheckIfSubjectMatterCodeExits(data))
+            {
+                EnviarMensaje.Enviar(TempData, "red", "Este programa ya contiene un registro de una materia con este código");
 
-            //    //if (model.SubjectMatterId != 0)
-            //    //{
-            //    //    ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
-            //    //    return RedirectToAction("Editar", new { id = model.SubjectMatterId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
-            //    //}
+                //if (model.SubjectMatterId != 0)
+                //{
+                //    ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
+                //    return RedirectToAction("Editar", new { id = model.SubjectMatterId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
+                //}
 
 
-            //    ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
-            //    ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
-            //    return View("Crear");
-            //}
-        
+                ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
+                ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
+                return View("Crear",model);
+            }
+
             if (ModelState.IsValid)
             {
-                
+
                 try
                 {
 
@@ -142,7 +146,7 @@ namespace Inafocam.Web.Areas.Materias.Controllers
 
                 EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
 
-                if(model.SubjectMatterId != 0)
+                if (model.SubjectMatterId != 0)
                 {
                     ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
                     return RedirectToAction("Editar", new { id = model.SubjectMatterId, scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
@@ -152,7 +156,7 @@ namespace Inafocam.Web.Areas.Materias.Controllers
                 ViewBag.Teachers = new SelectList(TeachersByUniverityIdList(universityId), "TeacherId", "TeacherFullName");
                 return View("Crear");
             }
-           
+
 
             return RedirectToAction("Index", new { scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId });
         }
@@ -179,6 +183,11 @@ namespace Inafocam.Web.Areas.Materias.Controllers
         }
 
 
+        public bool CheckIfSubjectMatterCodeExits(SubjectMatter data)
+        {
+            var check = _subjectMatter.CheckIfSubjectMatterCodeExits(data);
 
+            return check;
+        }
     }
 }

@@ -24,7 +24,9 @@ namespace Inafocam.core.Repository
             .Include(x => x.Address.Province)
             .Include(x => x.Address.City)
             .Include(x => x.Contact)
-            .Include(x => x.Status);
+            .Include(x => x.Status)
+            //.Include(x => x.)
+            .Include(x => x.Address.Country);
 
         public ContactAddress GetById(int id)
         {

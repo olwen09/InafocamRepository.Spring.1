@@ -14,10 +14,10 @@ namespace Inafocam.core.Modelos
             ScholarshipProgramUniversityTechnical = new HashSet<ScholarshipProgramUniversity>();
         }
 
-        public long AgentId { get; set; }
-        public long AgentTypeId { get; set; }
-        public long UserId { get; set; }
-        public long ContactId { get; set; }
+        public long? AgentId { get; set; }
+        public long? AgentTypeId { get; set; }
+        public long? UserId { get; set; }
+        public long? ContactId { get; set; }
         public long? CreationUserId { get; set; }
         public long? UpgradeUserId { get; set; }
         public DateTime? CreationDate { get; set; }

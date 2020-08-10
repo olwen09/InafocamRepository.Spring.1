@@ -95,13 +95,13 @@
 
 
                 <div class="input-field col s12 m6 l6">
-                    <input asp-for="Communication.CommunicationPhoneNumber1" id="celular1" type="tel" class="validate">
+                    <input asp-for="Communication.CommunicationPhoneNumber1" id="celular1" type="tel" class="validate" required>
                     <label for="celular1">Celular 1</label>
                     <span class="red-text validationDisplay"></span>
                 </div>
 
                 <div class="input-field col s12 m6 l6">
-                    <input asp-for="Communication.CommunicationPhoneNumber2" id="celular2" type="tel" class="validate">
+                    <input asp-for="Communication.CommunicationPhoneNumber2" id="celular2" type="tel" class="validate" required>
                     <label for="celular2">Celular 2</label>
                     <span class="red-text validationDisplay"></span>
                 </div>
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="input-field col s12 m6 l6">
-                    <input asp-for="ContactCommunicationComment" id="contactComment" type="text" class="validate" >
+                    <input asp-for="ContactCommunicationComment" id="contactComment" type="text" class="validate" required>
                     <label for="contactComment">Comentario</label>
                     <span class="red-text validationDisplay"></span>
                 </div>
@@ -148,7 +148,7 @@ else
             <th style="border: solid 1px; border-color: #e0e0e0;">Numero de Celular 2</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Email</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Comentario</th>
-            <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
+           @* <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>*@
         </tr>
     </thead>
 
@@ -164,11 +164,11 @@ else
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber2</td>
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationEmail</td>
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.ContactCommunicationComment</td>
-    <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+    @*<td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
         <a class="red-text tooltipped" data-position="top" data-tooltip="eliminar" href="#">
             <i class="material-icons ">delete</i>
         </a>
-    </td>
+    </td>*@
 
 </tr>
 }
@@ -190,16 +190,19 @@ else
             </button>
 
 
-
-            <a class="red btn waves-effect waves-light">
-                <i class="material-icons left">cancel</i>
-                Anular
+            <a class="btn waves-effect waves-light" asp-area="Profesores" asp-controller="Profesor" asp-action="Index">
+                <i class="material-icons left"></i>
+                Ir ala lista
             </a>
+            @*<a class="red btn waves-effect waves-light">
+            <i class="material-icons left">cancel</i>
+            Anular
+        </a>
 
-            <a class="white btn waves-effect waves-light black-text">
-                <i class="material-icons left">cleaning_services</i>
-                Limpiar
-            </a>
+        <a class="white btn waves-effect waves-light black-text">
+            <i class="material-icons left">cleaning_services</i>
+            Limpiar
+        </a>*@
 
         </div>
 

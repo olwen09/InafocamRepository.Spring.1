@@ -134,6 +134,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             model.Name = data.Contact.ContactName;
             model.LastName = data.Contact.ContactLastname;
             model.Document = data.Contact.ContactDocumentNumber;
+            model.Nacionality = data.Contact.Nationality;
             
 
             ViewBag.ContactTypes = new SelectList(_contactType.GetAll, "ContactTypeId", "ContactTypeName");
@@ -154,7 +155,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
 
         [HttpPost]
         public IActionResult GuardarTeacher(TeacherModel model)
-        {
+       {
 
             
 
@@ -167,6 +168,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
                     data.Contact.ContactName = model.Name;
                     data.Contact.ContactLastname = model.LastName;
                     data.Contact.ContactDocumentNumber = model.Document;
+                    data.Contact.Nationality = model.Nacionality;
                     _teacher.Save(data);
 
                 }
@@ -374,14 +376,40 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
         {
             var data = CopyPropierties.Convert<ContactAddressModel, ContactAddress>(model);
 
-            try
+            if (ModelState.IsValid)
             {
-                _contactAddress.Save(data);
+                try
+                {
+                    _contactAddress.Save(data);
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("AgregarDireccion", new { id = model.TeacherId });
+                }
             }
-            catch (Exception e)
+            else
             {
-                return RedirectToAction("AgregarDireccion", new { id = model.TeacherId });
+                var errors = ModelState.Select(x => x.Value.Errors).FirstOrDefault(x => x.Count() > 0).First();
+                EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
+
+
+                var contactId = _teacher.GetContactId((int)model.TeacherId);
+                var teacherById = _teacher.GetById((int)model.TeacherId);
+
+                model.ContactId = contactId;
+                model.TeacherId = teacherById.TeacherId;
+                model.TeacherFullName = teacherById.Contact.ContactName + " " + teacherById.Contact.ContactLastname;
+                model.ContactAddressList = _contactAddress.GetByContactId(contactId).ToList();
+
+                ViewBag.Countries = new SelectList(_country.GetAll, "CountryId", "CountryName");
+                ViewBag.Cities = new SelectList(_city.Cities, "CityId", "CityName");
+                ViewBag.Province = new SelectList(_province.Provinces, "ProvinceId", "ProvinceName");
+                ViewBag.AddressTypes = new SelectList(_addressType.addressTypes, "AddressTypeId", "AddressTypeName");
+
+                return View(model);
+
             }
+         
 
             return RedirectToAction("AgregarDireccion", new { id = model.TeacherId });
         }

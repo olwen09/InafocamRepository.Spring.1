@@ -8,7 +8,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 {
     public class EstudiantesEnPracticaViewModel
     {
-        public int? TracingId { get; set; }
+        public long TracingId { get; set; }
         public int? ScholarshipProgramUniversityId { get; set; }
         public bool IsGestionUniversitariaRole { get; set; }
 

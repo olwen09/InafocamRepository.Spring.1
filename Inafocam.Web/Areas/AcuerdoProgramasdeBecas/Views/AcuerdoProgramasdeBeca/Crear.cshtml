@@ -280,7 +280,7 @@
                         @foreach (var item in Model?.ScholarshipProgramUniversityAgreement)
                         {
                             var badgeColor = item.Status.StatusName == "Pendiente" ? "orange" :
-                                item.Status.StatusName == "Activo" ? "teal" : "red";
+                                item.Status.StatusName == "Completado" ? "teal" : "red";
 
                             <tr>
                                 <td style="border: solid 1px; border-color: #e0e0e0;">@item.ScholarshipProgramUniversityAgreementId</td>
@@ -290,8 +290,14 @@
                                 <td style="border: solid 1px; border-color: #e0e0e0;"><span class="badge @badgeColor">@item?.Status.StatusName</span></td>
                                 <td style="border: solid 1px; border-color: #e0e0e0;" class="center">
 
-                                    <a class="green-text center tooltipped" data-position="top" data-tooltip="Activar" asp-area="AcuerdoProgramasdeBecas" 
-                                       asp-controller="AcuerdoProgramasdeBeca" asp-action="CambiarEstado" asp-route-estado="Activo"
+                                    <a class="green-text center tooltipped" data-position="top" data-tooltip="Editar Acuerdo" asp-area="AcuerdoProgramasdeBecas" 
+                                       asp-controller="AcuerdoProgramasdeBeca" asp-action="EditarAcuerdos"  asp-route-acuerdoId="@item.ScholarshipProgramUniversityAgreementId" 
+                                       asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+
+                                    <a class="green-text center tooltipped" data-position="top" data-tooltip="Completado" asp-area="AcuerdoProgramasdeBecas" 
+                                       asp-controller="AcuerdoProgramasdeBeca" asp-action="CambiarEstado" asp-route-estado="Completado"
                                        asp-route-agreementId="@item.ScholarshipProgramUniversityAgreementId" asp-route-scholarshipProgramUniversityId="@item.ScholarshipProgramUniversityId">
                                         <i class="material-icons">lock_open</i>
                                     </a>

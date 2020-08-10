@@ -19,6 +19,8 @@
     <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+
 }
 
 
@@ -40,44 +42,44 @@
         <input type="hidden" asp-for="AgentId" />
         <input type="hidden" asp-for="UserId" />
         <input type="hidden" asp-for="ContactId" />
+        <input type="hidden" asp-for="Contact.ContactId" />
         <input type="hidden" asp-for="Contact.ContactAddres.AddressId" />
         <input type="hidden" asp-for="Contact.ContactNationalityId" />
         <input type="hidden" asp-for="Contact.CreationUserId" />
         <input type="hidden" asp-for="Contact.UpgradeUserId" />
         <input type="hidden" asp-for="Contact.ContactAddres.Address.UpgradeUserId" />
         <input type="hidden" asp-for="Contact.ContactAddres.ContactAddressId" />
-        <input type="hidden" asp-for="Contact.ContactId" />
+        <input type="hidden" asp-for="Contact.ContactCommunication.ContactId" />
+        <input type="hidden" asp-for="Contact.ContactCommunication.ContactCommunicationId" />
+        <input type="hidden" asp-for="Contact.ContactCommunication.CommunicationId" />
+        <input type="hidden" asp-for="Contact.ContactCommunication.Communication.CommunicationId" />
         <input type="hidden" asp-for="CreationDate" />
         @*<input type="hidden" asp-for="Contact.ContactTypeId" />
-        <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
-        <input type="hidden" asp-for="Contact.UpgradeUserId" />
-        <input type="hidden" asp-for="Contact.DocumentTypeId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.AddressId" />*@
+            <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
+            <input type="hidden" asp-for="Contact.UpgradeUserId" />
+            <input type="hidden" asp-for="Contact.DocumentTypeId" />
+            <input type="hidden" asp-for="Contact.ContactAddres.AddressId" />*@
         @*<input type="hidden" asp-for="Contact.ContactAddres.Address.AddressId" />*@
         @*<input type="hidden" asp-for="Contact.ContactAddres.Address.AddressTypeId" />*@
         @*<input type="hidden" asp-for="Contact.ContactAddres.Address.StatusId" />
-        <input type="hidden" asp-for="Contact.ContactAddres.ContactId" />
-        <input type="hidden" asp-for="Contact.ContactJobInformationId" />
-        <input type="hidden" asp-for="Contact.StatusId" />
-        <input type="hidden" asp-for="Contact.CreationUserId" />
-        <input type="hidden" asp-for="Contact.UpgradeUserId" />*@
+            <input type="hidden" asp-for="Contact.ContactAddres.ContactId" />
+            <input type="hidden" asp-for="Contact.ContactJobInformationId" />
+            <input type="hidden" asp-for="Contact.StatusId" />
+            <input type="hidden" asp-for="Contact.CreationUserId" />
+            <input type="hidden" asp-for="Contact.UpgradeUserId" />*@
         @*<input type="hidden" asp-for="Contact.ContactAddres.StatusId" />
-        <input type="hidden" asp-for="StatusId" />*@
+            <input type="hidden" asp-for="StatusId" />*@
         @*<input type="hidden" asp-for="HigherTeacherEducation.StatusId" />
-        <input type="hidden" asp-for="HigherTeacherEducation.TeacherId" />
-        <input type="hidden" asp-for="HigherTeacherEducationId" />
-        <input type="hidden" asp-for="TeacherHiringTypeId" />*@
+            <input type="hidden" asp-for="HigherTeacherEducation.TeacherId" />
+            <input type="hidden" asp-for="HigherTeacherEducationId" />
+            <input type="hidden" asp-for="TeacherHiringTypeId" />*@
 
 
 
         <div>
             <span asp-validation-sumary=""></span>
         </div>
-
-
-
-
-
+        @*Informacion personal*@
 
         <div class="card">
             <div class="card-content">
@@ -89,12 +91,12 @@
 
                     @*<div class="input-field col s12 m6 l3">
 
-                        <input value="lll" id="id" type="text" class="validat" disabled style="font-weight: bold;">
+                            <input value="lll" id="id" type="text" class="validat" disabled style="font-weight: bold;">
 
-                        <label for="id">Representante ID</label>
+                            <label for="id">Representante ID</label>
 
 
-                    </div>*@
+                        </div>*@
 
 
                     <div class="input-field col s12 m6 l4">
@@ -115,8 +117,8 @@
                         </div>
                         <select asp-for="Contact.ContactGender" class="form-control js-example-basic-single" style="width: 100%">
                             <option value="" disabled selected>Seleccione una Opción</option>
-                            <option value="MASCULINO" >MASCULINO</option>
-                            <option value="FEMENINO" >FEMENINO</option>
+                            <option value="MASCULINO">MASCULINO</option>
+                            <option value="FEMENINO">FEMENINO</option>
                         </select>
 
 
@@ -162,7 +164,7 @@
 
                     <div class="input-field col s12 m6 l3">
                         <input asp-for="Contact.ContactDocumentNumber" id="numerodocumento" type="text" class="validate">
-                        <label for="numerodocumento">Numero del Documento</label>
+                        <label for="numerodocumento">Número del Documento</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
 
@@ -177,17 +179,23 @@
 
 
 
+                    <div class="input-field col s12 m6 l3">
+                        <input asp-for="Contact.Nationality" id="Nationality" type="text" class="validate">
+                        <label for="Nationality">Nacionalidad</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
 
 
 
-
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <input asp-for="Contact.ContactBornPlace" id="lugarnacimiento" type="text" class="validate">
                         <label for="lugarnacimiento">Lugar de Nacimiento</label>
                         <span class="red-text validationDisplay"></span>
                     </div>
 
-                    <div class="input-field col s12 m6 l4">
+
+
+                    <div class="input-field col s12 m6 l3">
                         <input asp-for="Contact.ContactBornDate" id="fechanacimiento" type="text" class="datepicker">
                         <label for="fechanacimiento">Fecha de Nacimiento</label>
                         <span class="red-text validationDisplay"></span>
@@ -196,7 +204,7 @@
 
 
 
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <div class="row">
                             <label for="select2User" class="col s12">Estado</label>
                         </div>
@@ -219,45 +227,124 @@
 
         </div>
 
-        @*<div class="card">
+
+
+        @*comunicacion*@
+
+        <div class="card">
             <div class="card-content">
 
-                <h4 class="card-title">Datos de Comunicación</h4>
+                <h4 class="card-title">Información de contacto</h4>
+
+                <div class="row ">
 
 
-                <div class="input-field col s12 m6 l6">
-                    <input asp-for="Contact.ContactCommunicatio.Communication.CommunicationPhoneNumber1" id="celular1" type="tel" class="validate">
-                    <label for="celular1">Celular 1</label>
-                    <span class="red-text validationDisplay"></span>
-                </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Contact.ContactCommunication.Communication.CommunicationPhoneNumber1" id="celular1" type="tel" class="validate">
+                        <label for="celular1">Celular 1</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
 
-                <div class="input-field col s12 m6 l6">
-                    <input asp-for="Contact.ContactCommunicatio.Communication.CommunicationPhoneNumber2" id="celular2" type="tel" class="validate">
-                    <label for="celular2">Celular 2</label>
-                    <span class="red-text validationDisplay"></span>
-                </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Contact.ContactCommunication.Communication.CommunicationPhoneNumber2" id="celular2" type="tel" class="validate">
+                        <label for="celular2">Celular 2</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
 
-                <div class="input-field col s12 m6 l6">
-                    <input asp-for="Contact.ContactCommunicatio.Communication.CommunicationEmail" id="email" type="email" class="validate">
-                    <label for="email">Email</label>
-                    <span class="red-text validationDisplay"></span>
-                </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Contact.ContactCommunication.Communication.CommunicationEmail" id="email" type="email" class="validate" required>
+                        <label for="email">Email</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
 
-                <div class="input-field col s12 m6 l6">
-                    <input asp-for="Contact.ContactCommunicatio.ContactCommunicationComment" id="contactComment" type="text" class="validate">
-                    <label for="contactComment">Comentario</label>
-                    <span class="red-text validationDisplay"></span>
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Contact.ContactCommunication.ContactCommunicationComment" id="contactComment" type="text" class="validate">
+                        <label for="contactComment">Comentario</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
+
+
+
                 </div>
 
             </div>
-        </div>*@
+
+
+
+        </div>
+
+        @*<div class="card">
+                <div class="card-content">
+
+                    <h4 class="card-title">Datos de Comunicación</h4>
+
+
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Contact.ContactCommunicatio.Communication.CommunicationPhoneNumber1" id="celular1" type="tel" class="validate">
+                        <label for="celular1">Celular 1</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Contact.ContactCommunicatio.Communication.CommunicationPhoneNumber2" id="celular2" type="tel" class="validate">
+                        <label for="celular2">Celular 2</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Contact.ContactCommunicatio.Communication.CommunicationEmail" id="email" type="email" class="validate">
+                        <label for="email">Email</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
+                    <div class="input-field col s12 m6 l6">
+                        <input asp-for="Contact.ContactCommunicatio.ContactCommunicationComment" id="contactComment" type="text" class="validate">
+                        <label for="contactComment">Comentario</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
+                </div>
+            </div>*@
 
         <div class="card">
             <div class="card-content">
 
                 <h4 class="card-title">Datos de la Dirección</h4>
 
+                <div class="input-field col s12 m6 l4">
+                    <div class="row">
+                        <label for="select2User" class="col s12">Pais</label>
+                    </div>
+                    <select asp-for="Contact.ContactAddres.Address.CountryId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Countries">
+                        <option value="" disabled selected>Seleccione una Opción</option>
+                    </select>
 
+                </div>
+
+
+
+
+                <div class="input-field col s12 m6 l4">
+                    <div class="row">
+                        <label for="select2User" class="col s12">Provincia</label>
+                    </div>
+                    <select asp-for="Contact.ContactAddres.Address.ProvinceId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Provinces">
+                        <option value="" disabled selected>Seleccione una Opción</option>
+                    </select>
+
+                </div>
+
+
+                <div class="input-field col s12 m6 l4">
+                    <div class="row">
+                        <label for="select2User" class="col s12">Ciudad</label>
+                    </div>
+                    <select asp-for="Contact.ContactAddres.Address.CityId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Cities">
+                        <option value="" disabled selected>Seleccione una Opción</option>
+                    </select>
+
+                </div>
 
                 <div class="input-field col s12 m6 l6">
                     <input asp-for="Contact.ContactAddres.Address.Address1" id="address1" type="text" class="validate">
@@ -285,49 +372,7 @@
                     <span class="red-text validationDisplay"></span>
                 </div>
 
-                <div class="input-field col s12 m6 l3">
-                    <div class="row">
-                        <label for="select2User" class="col s12">Pais</label>
-                    </div>
-                    <select asp-for="Contact.ContactAddres.Address.CountryId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Countries">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
 
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-                    <div class="row">
-                        <label for="select2User" class="col s12">Tipo de Dirección</label>
-                    </div>
-                    <select asp-for="Contact.ContactAddres.Address.AddressTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AddressType">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
-
-
-                </div>
-
-
-
-                <div class="input-field col s12 m6 l3">
-                    <div class="row">
-                        <label for="select2User" class="col s12">Provincia</label>
-                    </div>
-                    <select asp-for="Contact.ContactAddres.Address.ProvinceId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Provinces">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
-
-                </div>
-
-
-                <div class="input-field col s12 m6 l3">
-                    <div class="row">
-                        <label for="select2User" class="col s12">Ciudad</label>
-                    </div>
-                    <select asp-for="Contact.ContactAddres.Address.CityId" class="form-control js-example-basic-single" style="width: 100%" asp-items=" ViewBag.Cities">
-                        <option value="" disabled selected>Seleccione una Opción</option>
-                    </select>
-
-                </div>
 
 
 
@@ -336,36 +381,36 @@
 
 
         @*<div class="card">
-            <div class="card-content">
+                <div class="card-content">
 
-                <h4 class="card-title">Preferencias</h4>
+                    <h4 class="card-title">Preferencias</h4>
 
-                <div class="input-field col s12 m6 l4">
-                    <div class="row">
-                        <label for="select2User" class="col s12">Estatus</label>
+                    <div class="input-field col s12 m6 l4">
+                        <div class="row">
+                            <label for="select2User" class="col s12">Estatus</label>
+                        </div>
+                        <select class="form-control js-example-basic-single" style="width: 100%">
+                        </select>
+
+
                     </div>
-                    <select class="form-control js-example-basic-single" style="width: 100%">
-                    </select>
+
+                    <div class="input-field col s12 m6 l4">
+                        <input id="fechatermino" type="text" class="datepicker" disabled>
+                        <label for="institucionformadora">Fecha de Creacion</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
+                    <div class="input-field col s12 m6 l4">
+                        <input id="fechatermino" type="text" class="datepicker" disabled>
+                        <label for="institucionformadora">Fecha de actualización</label>
+                        <span class="red-text validationDisplay"></span>
+                    </div>
+
 
 
                 </div>
-
-                <div class="input-field col s12 m6 l4">
-                    <input id="fechatermino" type="text" class="datepicker" disabled>
-                    <label for="institucionformadora">Fecha de Creacion</label>
-                    <span class="red-text validationDisplay"></span>
-                </div>
-
-                <div class="input-field col s12 m6 l4">
-                    <input id="fechatermino" type="text" class="datepicker" disabled>
-                    <label for="institucionformadora">Fecha de actualización</label>
-                    <span class="red-text validationDisplay"></span>
-                </div>
-
-
-
-            </div>
-        </div>*@
+            </div>*@
 
         <div class="input-field col s12">
 
@@ -376,15 +421,15 @@
 
 
 
-            <a class="red btn waves-effect waves-light" asp-area="Representantes" asp-controller="Representante" asp-action="Index">
+            <a class=" btn waves-effect waves-light" asp-area="Representantes" asp-controller="Representante" asp-action="Index">
                 <i class="material-icons left">list</i>
                 Ir a La Lista
             </a>
 
             @*<a class="white btn waves-effect waves-light black-text">
-                <i class="material-icons left">cleaning_services</i>
-                Limpiar
-            </a>*@
+                    <i class="material-icons left">cleaning_services</i>
+                    Limpiar
+                </a>*@
 
         </div>
 
@@ -413,6 +458,9 @@
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
+    <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
+
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>
         @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
@@ -442,6 +490,35 @@
         $(document).ready(function () {
             $('.datepicker').datepicker();
         });
+
+          if ("@mensaje.Tipo".length > 0) {
+            $.confirm({
+                title: '@mensaje.Titulo',
+                content: '@mensaje.Texto',
+                type: '@mensaje.Tipo',
+                typeAnimated: true,
+                boxWidth: '500px',
+                autoClose: 'cerrar|5000',
+                useBootstrap: false,
+                buttons: {
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function () {
+                    // before the modal is hidden.
+                    $.ajax({
+                        type: 'get',
+                        url: '/home/ClearTempData',
+                        success: function() {
+
+                        }
+                    });
+                }
+            });
+
+        }
 
     </script>
 }

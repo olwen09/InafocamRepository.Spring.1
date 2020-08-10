@@ -12,6 +12,11 @@
     }
 
     var counter = 0;
+    var counterId = 0;
+
+    var teacher = "";
+    var teacherId = "";
+    var teacherClassList = new List<string>();
     }
 
 @section Style
@@ -54,9 +59,18 @@
 
             @foreach (var item in Model.subjectMatterList)
             {
-                var teacher = new List<string>();
-                teacher.Add("teacher");
-                teacher.Add("teacher2");
+                //var teacher = new List<string>();
+                //teacher.Add("teacher");
+                //teacher.Add("teacher2");
+
+               teacher = "teacher" + "" + counter++;
+               teacherId = "teacherId" + "" + counterId++;
+
+               
+                @*<p>@teacherId</p>*@
+
+                teacherClassList.Add(teacher);
+
                 Model.SubjectMatterModel = item;
                 Model.TracingStudyPlanDevelopmentModel = item.TracingStudyPlanDevelopment;
                 //Model.TracingStudyPlanDevelopmentModel.Id = Model.SubjectMatterModel.TracingStudyPlanDevelopmentId;
@@ -73,18 +87,16 @@
 
 
                         <input type="hidden" asp-for="TracingId" />
+                        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
                         <input type="hidden" asp-for="SubjectMatterModel.SubjectMatterId" />
                         <input type="hidden" asp-for="SubjectMatterModel.Creditos" />
                         <input type="hidden" asp-for="SubjectMatterModel.CreationDate" />
                         <input type="hidden" asp-for="SubjectMatterModel.AssignedTeacherId" />
-                        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
-                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.Id" />
-                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StatusId" />
-                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.ScholarshipProgramTracingId" />
-                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterId" />
-                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.CreationDate" />
+                        
+
 
                         @*SubjectMatterScoreRepor*@
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterId" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFileId" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFile.FileId" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFile.FileTypeId" />
@@ -93,10 +105,12 @@
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFile.FilePath" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFile.CreationDate" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFile.StatusId" />
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StatusId" />
+                        <input id="@teacherId" type="hidden" asp-for="TracingStudyPlanDevelopmentModel.TeacherId" />
 
 
                         @*StudentReportFile*@
-                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StudentReportFileId" />
+                        <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.Id" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StudentReportFile.FileId" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StudentReportFile.FileTypeId" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StudentReportFile.FileName" />
@@ -152,9 +166,9 @@
 
                                     <div class="input-field col s12 m6 l3">
 
-                                        <input asp-for="SubjectMatterModel.period" id="StartDate" type="text" class="validat black-text">
+                                        <input asp-for="TracingStudyPlanDevelopmentModel.UniverityPeriod" id="UniverityPeriod" type="text" class="validat black-text">
 
-                                        <label for="StartDate">Periodo académico en que se impartió</label>
+                                        <label for="UniverityPeriod">Periodo académico en que se impartió</label>
 
 
                                     </div>
@@ -172,15 +186,21 @@
                                         </div>
 
 
-                                        @*@Html.DropDownListFor(x=> x.TeacherLis,)*@
+                                        @{ 
+                                            var teacherFullName = item.TracingStudyPlanDevelopment?.Teacher?.Contact?.ContactName + " " +
+                                                item.TracingStudyPlanDevelopment?.Teacher?.Contact?.ContactLastname;
 
-                                        <select id="prueba" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Teacher">
-                                            <option value="">Seleccione una Opción</option>
+                                            var text = teacherFullName.Length > 1 ? teacherFullName : "Seleccione una Opción";
+                                        }
+
+                                        <select class="@teacher form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Teacher">
+                                           
+                                          <option value="" disabled selected >@text</option>
                                         </select>
 
                                     </div>
 
-
+                                   @*<p>@teacher</p>*@
 
 
                                     @*<div class="input-field col s12 m6 l1">
@@ -418,7 +438,7 @@
 
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
-                placeholder: "Seleccione una Opción",
+                //placeholder: "Seleccione una Opción",
             });
         });
 
@@ -434,31 +454,7 @@
         });
 
 
-        $(function () {
-            $('#').change(
-                function () {
-                    var provinciaId = $(this).val();
-                    console.log($("#HigherTitleSupportMatterId").val());
 
-                    $.ajax({
-                        url: "/Clientes/Cliente/GetMunicipios?id=" + provinciaId,
-                        type: 'post',
-                        contentType: 'html',
-                        success: function (data) {
-                            console.log(data);
-
-                            $("#MunicipioId").empty();
-                            //$("#MunicipioId").formSelect(data);
-                            $("#MunicipioId").append(data);
-                            //$("select").formSelect();
-
-                        }
-                    });
-
-
-                }
-            );
-        });
 
         if ("@mensaje.Tipo".length > 0) {
             $.confirm({
@@ -488,5 +484,75 @@
             });
 
         }
-   </script>
+
+
+
+       @*var count = @Model.subjectMatterList.Count();
+
+        for (var i = 0; i < count.length; i++) {
+            console.log(i);
+            alert("olwen");
+        }*@
+
+        @*var list = @Html.Raw(Json.Serialize(teacherClassList));
+
+      console.log(list)
+        var text = "";
+        var i;
+        for (i = 0; i < list.length; i++) {
+            text = "." + list[i]
+            var prueba = "" + text + "";
+
+            alert(text)
+
+            $(document).ready(function () {
+                $(`${prueba}`).change(function () {
+                    var selectedCountry = $(this).children("option:selected").val();
+                    alert("You have selected the country - " + selectedCountry);
+                });
+            });
+
+        }*@
+
+
+     var list = @Html.Raw(Json.Serialize(teacherClassList));
+
+        var teachers = "";
+        var teacherIds = "";
+        var counter = 0;
+        var counterId = 0;
+
+
+            $(document).ready(function () {
+        for (i = 0; i < list.length; i++) {
+
+            teachers = "teacher" + counter++;
+            teacherIds = "teacherId" + counterId++;
+
+            
+                $(`.${teachers}`).change(function () {
+                    var selectedCountry = $(this).children("option:selected").val();
+
+
+
+                    var prueba = teachers.match(/(\d+)/)[0];
+                    //teacherIds = "teacherId" + counterId;
+                    $(`#teacherId`).val(`${selectedCountry}`);
+                    console.log(prueba);
+                    alert("You have selected the country - " + selectedCountry);
+
+                });
+
+
+
+        }
+            });
+
+
+
+
+
+
+
+    </script>
 }

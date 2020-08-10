@@ -757,7 +757,7 @@ namespace Inafocam.core.Modelos
                     .HasConstraintName("FK_contact_communication_communication");
 
                 entity.HasOne(d => d.Contact)
-                    .WithMany(p => p.ContactCommunication)
+                    .WithMany(p => p.ContactCommunicationList)
                     .HasForeignKey(d => d.ContactId)
                     .HasConstraintName("FK_contact_communication_contact");
 

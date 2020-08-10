@@ -80,7 +80,11 @@
                         <label for="period">Periodo</label>
                     </div>
 
-                    <div class="input-field col s12 m6 l4">
+
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12 m6 l3">
                         <input asp-for="Creditos" type="number" class="validate" id="Creditos">
                         <label for="Creditos">Creditos</label>
                     </div>
@@ -88,7 +92,7 @@
 
 
 
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <div class="row">
                             <label for="select2User" class="col s12">Profesor seleccionado</label>
                         </div>
@@ -100,9 +104,15 @@
 
                     </div>
 
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <input asp-for="@Model.UniversityTeacherSelectedName" type="text" class="black-text" disabled>
                         <label>Profesor seleccionado por la universidad</label>
+                    </div>
+
+
+                    <div class="input-field col s12 m6 l3">
+                        <input asp-for="@Model.TracingStudyPlanDevelopment.UniverityPeriod" type="text" class="black-text" disabled>
+                        <label>Periodo seleccionado por la universidad</label>
                     </div>
                 </div>
 
@@ -110,36 +120,36 @@
 
             </div>
 
-            <div class="input-field col s12">
 
-                <button class="teal btn waves-effect waves-light" type="submit">
-                    <i class="material-icons left">save</i>
-                    Guardar
-                </button>
-
-
-
-                <a class="btn waves-effect waves-light" asp-area="Materias" asp-controller="Materia" asp-action="Index">
-                    <i class="material-icons left">list</i>
-                    Ir a La Lista
-                </a>
-
-                <a class="white btn waves-effect waves-light black-text" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-universityID="@Model.UniversityId">
-                    Agregar profesor
-                </a>
-
-            </div>
             @*<div class="input-field col s12">
-                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                        Guardar
-                        <i class="material-icons right">save</i>
-                    </button>
-                </div>*@
+                <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
+                    Guardar
+                    <i class="material-icons right">save</i>
+                </button>
+            </div>*@
         </div>
 
         @*convocatorias del programa*@
 
+        <div class="input-field col s12">
 
+            <button class="teal btn waves-effect waves-light" type="submit">
+                <i class="material-icons left">save</i>
+                Guardar
+            </button>
+
+
+
+            @*<a class="btn waves-effect waves-light" asp-area="Materias" asp-controller="Materia" asp-action="Index">
+                <i class="material-icons left">list</i>
+                Ir a La Lista
+            </a>*@
+
+            <a class="white btn waves-effect waves-light black-text" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-universityID="@Model?.UniversityId">
+                Agregar profesor
+            </a>
+
+        </div>
 
 
 

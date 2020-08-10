@@ -22,6 +22,8 @@ namespace Inafocam.core.Repository
             //.Include(x => x.Contact.ContactAddres) 
             .Include(x => x.Contact.ContactAddres)
             .Include(x => x.Contact.ContactAddres.Address)
+            .Include(x => x.Contact.ContactCommunication)
+            .Include(x => x.Contact.ContactCommunication.Communication)
             .Include(x => x.Contact.DocumentType)
             .Include(x => x.Contact.ContactType)
             .Include(x => x.AgentType)

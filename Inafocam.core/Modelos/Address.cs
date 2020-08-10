@@ -13,7 +13,7 @@ namespace Inafocam.core.Modelos
             University = new HashSet<University>();
         }
 
-        public long AddressId { get; set; }
+        public long? AddressId { get; set; }
         public long? AddressTypeId { get; set; }
         public long? CountryId { get; set; }
         public long? ProvinceId { get; set; }
@@ -30,6 +30,7 @@ namespace Inafocam.core.Modelos
         public virtual AddressType AddressType { get; set; }
         public virtual City City { get; set; }
         public virtual User CreationUser { get; set; }
+        public virtual Country Country { get; set; }
         public virtual Province Province { get; set; }
         public virtual Status Status { get; set; }
         public virtual User UpgradeUser { get; set; }

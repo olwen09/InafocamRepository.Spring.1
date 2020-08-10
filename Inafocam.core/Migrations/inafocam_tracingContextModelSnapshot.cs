@@ -69,7 +69,7 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.Address", b =>
                 {
-                    b.Property<long>("AddressId")
+                    b.Property<long?>("AddressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("address_id")
                         .HasColumnType("bigint");
@@ -186,16 +186,16 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.Agent", b =>
                 {
-                    b.Property<long>("AgentId")
+                    b.Property<long?>("AgentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("agent_id")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("AgentTypeId")
+                    b.Property<long?>("AgentTypeId")
                         .HasColumnName("agent_type_id")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ContactId")
+                    b.Property<long?>("ContactId")
                         .HasColumnName("contact_id")
                         .HasColumnType("bigint");
 
@@ -219,7 +219,7 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("upgrade_user_id")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnName("user_id")
                         .HasColumnType("bigint");
 
@@ -453,7 +453,7 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.Communication", b =>
                 {
-                    b.Property<long>("CommunicationId")
+                    b.Property<long?>("CommunicationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("communication_id")
                         .HasColumnType("bigint");
@@ -680,6 +680,12 @@ namespace Inafocam.core.Migrations
                         .HasMaxLength(256)
                         .IsUnicode(false);
 
+                    b.Property<long?>("ContactCommunicationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ContactCommunicationId1")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("ContactDocumentNumber")
                         .HasColumnName("contact_document_number")
                         .HasColumnType("varchar(16)")
@@ -730,6 +736,10 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("document_type_id")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Nationality")
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
+
                     b.Property<long?>("StatusId")
                         .HasColumnName("status_id")
                         .HasColumnType("bigint");
@@ -743,6 +753,8 @@ namespace Inafocam.core.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("ContactId");
+
+                    b.HasIndex("ContactCommunicationId1");
 
                     b.HasIndex("ContactDocumentNumber")
                         .IsUnique()
@@ -768,7 +780,7 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.ContactAddress", b =>
                 {
-                    b.Property<long>("ContactAddressId")
+                    b.Property<long?>("ContactAddressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("contact_address_id")
                         .HasColumnType("bigint");
@@ -816,7 +828,7 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.ContactCommunication", b =>
                 {
-                    b.Property<long>("ContactCommunicationId")
+                    b.Property<long?>("ContactCommunicationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("contact_communication_id")
                         .HasColumnType("bigint");
@@ -2400,6 +2412,9 @@ namespace Inafocam.core.Migrations
                     b.Property<long?>("StatusId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("StudentPracticeTypeId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("UpgradeDate")
                         .HasColumnType("datetime");
 
@@ -3350,6 +3365,10 @@ namespace Inafocam.core.Migrations
                         .HasColumnName("teacher_id")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("UniverityPeriod")
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
+
                     b.Property<DateTime?>("UpgradeDate")
                         .HasColumnName("upgrade_date")
                         .HasColumnType("datetime");
@@ -4006,14 +4025,11 @@ namespace Inafocam.core.Migrations
                     b.HasOne("Inafocam.core.Modelos.AgentType", "AgentType")
                         .WithMany("Agent")
                         .HasForeignKey("AgentTypeId")
-                        .HasConstraintName("FK_agent_agent_type")
-                        .IsRequired();
+                        .HasConstraintName("FK_agent_agent_type");
 
                     b.HasOne("Inafocam.core.Modelos.Contact", "Contact")
                         .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContactId");
 
                     b.HasOne("Inafocam.core.Modelos.User", "CreationUser")
                         .WithMany("AgentCreationUser")
@@ -4033,8 +4049,7 @@ namespace Inafocam.core.Migrations
                     b.HasOne("Inafocam.core.Modelos.User", "User")
                         .WithMany("AgentUser")
                         .HasForeignKey("UserId")
-                        .HasConstraintName("FK_agent_user")
-                        .IsRequired();
+                        .HasConstraintName("FK_agent_user");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.AgentType", b =>
@@ -4168,6 +4183,10 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.Contact", b =>
                 {
+                    b.HasOne("Inafocam.core.Modelos.ContactCommunication", "ContactCommunication")
+                        .WithMany()
+                        .HasForeignKey("ContactCommunicationId1");
+
                     b.HasOne("Inafocam.core.Modelos.ContactType", "ContactType")
                         .WithMany("Contact")
                         .HasForeignKey("ContactTypeId")
@@ -4220,7 +4239,7 @@ namespace Inafocam.core.Migrations
                         .HasConstraintName("FK_contact_communication_communication");
 
                     b.HasOne("Inafocam.core.Modelos.Contact", "Contact")
-                        .WithMany("ContactCommunication")
+                        .WithMany("ContactCommunicationList")
                         .HasForeignKey("ContactId")
                         .HasConstraintName("FK_contact_communication_contact");
 

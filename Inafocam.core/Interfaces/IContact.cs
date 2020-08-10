@@ -12,6 +12,9 @@ namespace Inafocam.core.Interfaces
 
         Contact GetById(int id);
 
+        bool CheckIfContactDocumentNumberExits(Contact model);
+
+
         void Save(Contact model);
     }
 }

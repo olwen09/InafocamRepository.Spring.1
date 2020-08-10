@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Inafocam.core.Modelos
@@ -29,6 +30,9 @@ namespace Inafocam.core.Modelos
         public long? UpgradeUserId { get; set; }
         public long? StatusId { get; set; }
         public long? StudentReportFileId { get; set; }
+
+        [MaxLength(50)]
+        public string UniverityPeriod{ get; set; }
 
         public virtual Teacher AssignedTeacher { get; set; }
         public virtual TeacherEducation HigherTitleSupportMatter { get; set; }

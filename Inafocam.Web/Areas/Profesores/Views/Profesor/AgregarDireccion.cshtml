@@ -29,6 +29,8 @@
     <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/data-tables/css/select.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="~/app-assets/css/custom/custom.css">
     <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css">
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+
 }
 
 
@@ -53,17 +55,17 @@
         @*@{ Model.HigherTeacherEducation.TeacherId = Model.TeacherId; }*@
 
         @*<input type="hidden" asp-for="TeacherId" />
-        <input type="hidden" asp-for="Contact.ContactId" />
-        <input type="hidden" asp-for="Contact.StatusId" />
-        <input type="hidden" asp-for="StatusId" />
-        <input type="hidden" asp-for="HigherTeacherEducationId" />
+            <input type="hidden" asp-for="Contact.ContactId" />
+            <input type="hidden" asp-for="Contact.StatusId" />
+            <input type="hidden" asp-for="StatusId" />
+            <input type="hidden" asp-for="HigherTeacherEducationId" />
 
 
-        <input type="hidden" asp-for="HigherTeacherEducation.StatusId" />
-        <input type="hidden" asp-for="HigherTeacherEducation.TeacherId" />
-        <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
-        <input type="hidden" asp-for="HigherTeacherEducationId" />
-        <input type="hidden" asp-for="TeacherHiringTypeId" />*@
+            <input type="hidden" asp-for="HigherTeacherEducation.StatusId" />
+            <input type="hidden" asp-for="HigherTeacherEducation.TeacherId" />
+            <input type="hidden" asp-for="HigherTeacherEducation.TeacherEducationId" />
+            <input type="hidden" asp-for="HigherTeacherEducationId" />
+            <input type="hidden" asp-for="TeacherHiringTypeId" />*@
 
 
 
@@ -85,56 +87,20 @@
                 <h5 class="center">@Model?.TeacherFullName</h5>
 
 
-
-
-                <div class="input-field col s12 m6 l3">
-                    <input asp-for="Address.Address1" id="Address1" type="text" class="validate">
-                    <label for="Address1">Dirección 1</label>
-                    <span asp-validation-for="Address.Address1" class="red-text validationDisplay"></span>
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-                    <input asp-for="Address.Address2" id="Address2" type="text" class="validate">
-                    <label for="Address2">Dirección 2</label>
-                    <span asp-validation-for="Address.Address2" class="red-text validationDisplay"></span>
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-                    <input asp-for="Address.HomeNumber" id="HomeNumber" type="number" class="validate">
-                    <label for="HomeNumber">Numero de Casa</label>
-                    <span asp-validation-for="Address.HomeNumber" class="red-text validationDisplay"></span>
-                </div>
-
-                <div class="input-field col s12 m6 l3">
-                    <input asp-for="ContactAddressComment" id="tituloeducacion" type="text" class="validate">
-                    <label for="tituloeducacion">Comentario</label>
-                    <span asp-validation-for="ContactAddressComment" class="red-text validationDisplay"></span>
-                </div>
-
                 <div class="row">
-                    <div class="input-field col s12 m6 l3">
-                        <div class="row">
-                            <label class="col s12">Tipo de Dirección</label>
-                        </div>
-                        <select id="AddressTypeId" asp-for="Address.AddressTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AddressTypes">
-                            <option value="" disabled selected>Seleccione una Opción</option>
-                        </select>
-                        <span asp-validation-for="Address.AddressTypeId" class="red-text validationDisplay"></span>
 
-                    </div>
-
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l4">
                         <div class="row">
                             <label class="col s12">Pais</label>
                         </div>
                         <select id="countryId" asp-for="Address.CountryId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Countries">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
-                        <span asp-validation-for="Address.CountryId" class="red-text validationDisplay"></span>
+                        @* <span asp-validation-for="Address.CountryId" class="red-text validationDisplay"></span>*@
 
                     </div>
 
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l4">
                         <div class="row">
                             <label class="col s12">Provincia</label>
                         </div>
@@ -145,7 +111,7 @@
 
                     </div>
 
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l4">
                         <div class="row">
                             <label class="col s12">Ciudad</label>
                         </div>
@@ -157,17 +123,48 @@
                     </div>
                 </div>
 
-                @*<div class="input-field col s12 m6 l3">
-                    <input asp-for="TeacherEducationInstitution" id="institucionformadora" type="text" class="validate">
-                    <label for="institucionformadora">Institución Formadora</label>
-                    <span asp-validation-for="TeacherEducationInstitution" class="red-text validationDisplay"></span>
+
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <textarea asp-for="Address.Address1" id="Address1" class="materialize-textarea"></textarea>
+                        <label for="Address1">Dirección 1</label>
+                        @*        <span asp-validation-for="Address.Address1" class="red-text validationDisplay"></span>*@
+                    </div>
+
+                    <div class="input-field col s12 m6 l6">
+                        @* <input  id="Address2" type="text" class="validate">*@
+                        <textarea asp-for="Address.Address2" id="Address2" class="materialize-textarea"></textarea>
+                        <label for="Address2">Dirección 2</label>
+                        @*     <span asp-validation-for="Address.Address2" class="red-text validationDisplay"></span>*@
+                    </div>
                 </div>
 
-                <div class="input-field col s12 m6 l3">
-                    <input asp-for="TeacherEducationFinishDate" id="fechatermino" type="text" class="datepicker">
-                    <label for="fechatermino">Fecha de Término</label>
-                    <span asp-validation-for="TeacherEducationFinishDate" class="red-text validationDisplay"></span>
+                <div class="row">
+
+
+                    <div class="input-field col s12 m6 l12">
+                        <textarea asp-for="ContactAddressComment" id="ContactAddressComment" class="materialize-textarea"></textarea>
+                        <label for="ContactAddressComment">Comentario</label>
+                    </div>
                 </div>
+
+
+                @*<div class="input-field col s12 m6 l3">
+                        <input asp-for="Address.HomeNumber" id="HomeNumber" type="number" class="validate">
+                        <label for="HomeNumber">Numero de Casa</label>
+                    </div>*@
+
+                @*<div class="input-field col s12 m6 l3">
+                        <input asp-for="TeacherEducationInstitution" id="institucionformadora" type="text" class="validate">
+                        <label for="institucionformadora">Institución Formadora</label>
+                        <span asp-validation-for="TeacherEducationInstitution" class="red-text validationDisplay"></span>
+                    </div>
+
+                    <div class="input-field col s12 m6 l3">
+                        <input asp-for="TeacherEducationFinishDate" id="fechatermino" type="text" class="datepicker">
+                        <label for="fechatermino">Fecha de Término</label>
+                        <span asp-validation-for="TeacherEducationFinishDate" class="red-text validationDisplay"></span>
+                    </div>
 
                 *@
 
@@ -190,43 +187,52 @@
 
 else
 {
-    <table>
-        <thead>
+<table>
+    <thead>
+        <tr>
+
+            <th style="border: solid 1px; border-color: #e0e0e0;">Pais</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Dirección 1</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Dirección 2</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Numero de Casa</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Ciudad</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Provincia</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Comentario</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model?.ContactAddressList)
+        {
+            var Noespecificada = "No especificada";
+            var Noespecificado = "No especificado";
+
+            var cityName = item?.Address.City?.CityName != null ? item?.Address.City?.CityName : Noespecificada;
+            var provinceName = item?.Address.Province?.ProvinceName != null ? item?.Address.City?.CityName : Noespecificada;
+            var comentario = item?.ContactAddressComment != null ? item?.ContactAddressComment : Noespecificado;
             <tr>
 
-                <th style="border: solid 1px; border-color: #e0e0e0;">Dirección 1</th>
-                <th style="border: solid 1px; border-color: #e0e0e0;">Numero de Casa</th>
-                @*<th style="border: solid 1px; border-color: #e0e0e0;">Pais</th>*@
-                <th style="border: solid 1px; border-color: #e0e0e0;">Provincia</th>
-                <th style="border: solid 1px; border-color: #e0e0e0;">Ciudad</th>
-                <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address?.Country?.CountryName</td>
+                <td style="border: solid 1px; border-color: #e0e0e0; overflow: hidden"><p>@item?.Address?.Address1</p></td>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address?.Address2</td>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address.HomeNumber</td>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@cityName</td>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@provinceName</td>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@comentario</td>
+                @*<td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+                        <a class="red-text tooltipped" data-position="top" data-tooltip="eliminar" href="#">
+                            <i class="material-icons ">delete</i>
+                        </a>
+                    </td>*@
+
             </tr>
-        </thead>
-
-        <tbody>
-
-            @foreach (var item in Model?.ContactAddressList)
-            {
-
-    <tr>
-
-
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address.Address1</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address.HomeNumber</td>
-        @*<td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address.co</td>*@
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address.Province?.ProvinceName</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address.City?.CityName</td>
-        <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-            <a class="red-text tooltipped" data-position="top" data-tooltip="eliminar" href="#">
-                <i class="material-icons ">delete</i>
-            </a>
-        </td>
-
-    </tr>
-}
+            
+            }
 
         </tbody>
-    </table>}
+    </table>
+    }
 
 
 
@@ -242,16 +248,19 @@ else
             </button>
 
 
-
-            <a class="red btn waves-effect waves-light">
-                <i class="material-icons left">cancel</i>
-                Anular
+            <a class="btn waves-effect waves-light" asp-area="Profesores" asp-controller="Profesor" asp-action="Index">
+                <i class="material-icons left"></i>
+                Ir ala lista
             </a>
+            @*<a class="red btn waves-effect waves-light">
+                    <i class="material-icons left">cancel</i>
+                    Anular
+                </a>
 
-            <a class="white btn waves-effect waves-light black-text">
-                <i class="material-icons left">cleaning_services</i>
-                Limpiar
-            </a>
+                <a class="white btn waves-effect waves-light black-text">
+                    <i class="material-icons left">cleaning_services</i>
+                    Limpiar
+                </a>*@
 
         </div>
 
@@ -290,6 +299,7 @@ else
     <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
     <script src="~/app-assets/js/custom/custom-script.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
     <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
     @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
         <script src="~/app-assets/js/scripts/form-masks.js"></script>

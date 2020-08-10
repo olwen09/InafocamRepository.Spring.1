@@ -9,6 +9,7 @@ namespace Inafocam.core.Modelos
         public long ScholarshipProgramTracingStudentPracticeFileId { get; set; }
 
         public long? ScholarshipProgramTracingStudentPracticeId { get; set; }
+        public long? StudentPracticeTypeId { get; set; }
         public string FileDescription { get; set; }
         public long? FileId { get; set; }
         public DateTime? CreationDate { get; set; }

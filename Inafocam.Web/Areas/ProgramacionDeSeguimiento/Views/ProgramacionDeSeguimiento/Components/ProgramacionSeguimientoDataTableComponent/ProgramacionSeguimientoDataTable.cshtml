@@ -8,6 +8,8 @@
         <tr>
 
             <th>Id Seguimiento</th>
+            <th>Código Scat</th>
+            <th>Número de contrato</th>
             <th>Programa</th>
             <th>Universidad</th>
             <th>Cordinador</th>
@@ -23,7 +25,8 @@
         {
 <tr>
     <td>@item?.ScholarshipProgramTracingId</td>
-    @*<td>@item.ScholarshipProgramUniversity.ScholarshipProgram.ScholarshipProgramName</td>*@
+    <td>@item?.ScholarshipProgramUniversity?.ScatProgramCode</td>
+    <td>@item.ScholarshipProgramUniversity?.ContractNumber</td>
     <td>@item?.ScholarshipProgramUniversity.ScholarshipProgram?.ScholarshipProgramName</td>
     <td>@item?.ScholarshipProgramUniversity?.University?.UniversityName</td>
     <td>@item?.Coordinator?.Contact?.ContactName</td>
@@ -47,6 +50,8 @@
     <tfoot>
         <tr>
             <th>Id Seguimiento</th>
+            <th>Código Scat</th>
+            <th>Número de contrato</th>
             <th>Programa</th>
             <th>Universidad</th>
             <th>Cordinador</th>

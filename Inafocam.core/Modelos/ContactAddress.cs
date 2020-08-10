@@ -5,7 +5,7 @@ namespace Inafocam.core.Modelos
 {
     public partial class ContactAddress
     {
-        public long ContactAddressId { get; set; }
+        public long? ContactAddressId { get; set; }
         public long? ContactId { get; set; }
         public long? AddressId { get; set; }
         public string ContactAddressComment { get; set; }

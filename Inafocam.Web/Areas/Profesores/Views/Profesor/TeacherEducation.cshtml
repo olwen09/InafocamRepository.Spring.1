@@ -87,19 +87,19 @@
                 <div class="input-field col s12 m6 l3">
                     <input asp-for="TeacherEducationTitle" id="tituloeducacion" type="text" class="validate">
                     <label for="tituloeducacion">Titulo de la Educacion</label>
-                    <span asp-validation-for="TeacherEducationTitle" class="red-text validationDisplay"></span>
+                @*    <span asp-validation-for="TeacherEducationTitle" class="red-text validationDisplay"></span>*@
                 </div>
 
                 <div class="input-field col s12 m6 l3">
                     <input asp-for="TeacherEducationInstitution" id="institucionformadora" type="text" class="validate">
                     <label for="institucionformadora">Institución Formadora</label>
-                    <span asp-validation-for="TeacherEducationInstitution" class="red-text validationDisplay"></span>
+                  @*  <span asp-validation-for="TeacherEducationInstitution" class="red-text validationDisplay"></span>*@
                 </div>
 
                 <div class="input-field col s12 m6 l3">
                     <input asp-for="TeacherEducationFinishDate" id="fechatermino" type="text" class="datepicker">
                     <label for="fechatermino">Fecha de Término</label>
-                    <span asp-validation-for="TeacherEducationFinishDate" class="red-text validationDisplay"></span>
+                   @* <span asp-validation-for="TeacherEducationFinishDate" class="red-text validationDisplay"></span>*@
                 </div>
 
                 <div class="input-field col s12 m6 l3">
@@ -140,7 +140,7 @@ else
             <th style="border: solid 1px; border-color: #e0e0e0;">Tipo de Educacion</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Institución</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Fecha de Termino</th>
-            <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
+         @*   <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>*@
         </tr>
     </thead>
 
@@ -158,11 +158,11 @@ else
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationInstitution</td>
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationFinishDate</td>
     @*<td style="border: solid 1px; border-color: #e0e0e0;">@item?.StartDate - @item.EndDate</td>*@
-    <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+    @*<td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
         <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
             <i class="material-icons ">delete</i>
         </a>
-    </td>
+    </td>*@
 
 </tr>
 }
@@ -185,15 +185,15 @@ else
 
 
 
-            <a class="red btn waves-effect waves-light">
-                <i class="material-icons left">cancel</i>
-                Anular
+            <a class="btn waves-effect waves-light" asp-area="Profesores" asp-controller="Profesor" asp-action="Index">
+                <i class="material-icons left"></i>
+               Ir a la lista
             </a>
 
-            <a class="white btn waves-effect waves-light black-text">
+            @*<a class="white btn waves-effect waves-light black-text">
                 <i class="material-icons left">cleaning_services</i>
                 Limpiar
-            </a>
+            </a>*@
 
         </div>
 

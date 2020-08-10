@@ -31,6 +31,27 @@ namespace Inafocam.core.Repository
             .Include(x => x.Teacher)
             .Include(x => x.User);
 
+        public bool CheckIfContactDocumentNumberExits(Contact model)
+        {
+
+            var result = false;
+            var data = GetAll.FirstOrDefault(x => x.ContactDocumentNumber == model.ContactDocumentNumber); 
+
+            if(data != null)
+            {
+             result = data.ContactId == model.ContactId ? false : true;
+
+                _context.Entry(data).State = EntityState.Detached;
+                _context.Entry(data.ContactAddres).State = EntityState.Detached;
+                _context.Entry(data.ContactCommunication).State = EntityState.Detached;
+                //_context.Entry(data.ContactCommunication.Communication).State = EntityState.Detached;
+
+            }
+
+
+            return result;
+        }
+
         public Contact GetById(int id)
         {
             return GetAll.FirstOrDefault(x => x.ContactId == id);

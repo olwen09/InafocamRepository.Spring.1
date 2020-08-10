@@ -81,12 +81,12 @@
                         </div>
 
                         <div class=" input-field col s12 m6 l4">
-                            <input asp-for="StudentPracticeModel.StudentsQuantity" id="StudentsQuantity" type="number" class="validat black-text">
+                            <input asp-for="StudentPracticeModel.StudentsQuantity" id="StudentsQuantity" type="number" class="validat black-text" required>
                             <label for="StudentsQuantity">Cantidad estudiantes</label>
                         </div>
 
                         <div class=" input-field col s12 m6 l4 ">
-                            <input asp-for="StudentPracticeModel.PracticeCenterQuantity" id="PracticeCenterQuantity" type="number" class="validat black-text">
+                            <input asp-for="StudentPracticeModel.PracticeCenterQuantity" id="PracticeCenterQuantity" type="number" class="validat black-text" required>
                             <label for="PracticeCenterQuantity">Cantidad de centros de prácticas</label>
                         </div>
 
@@ -94,12 +94,12 @@
 
                     <div class="row">
                         <div class=" input-field col s12 m6 l4">
-                            <input asp-for="StudentPracticeModel.SupervisorQuantity" id="SupervisorQuantity" type="number" class="validat black-text">
+                            <input asp-for="StudentPracticeModel.SupervisorQuantity" id="SupervisorQuantity" type="number" class="validat black-text" required>
                             <label for="SupervisorQuantity">Cantidad supervisores</label>
                         </div>
 
                         <div class=" input-field col s12 m6 l4">
-                            <input asp-for="StudentPracticeModel.TeacherQuantity" id="" type="number" class="validat black-text">
+                            <input asp-for="StudentPracticeModel.TeacherQuantity" id="" type="number" class="validat black-text" required>
                             <label for="">Cantidad de docentes anfitriones</label>
                         </div>
 
@@ -135,9 +135,10 @@
 
                     <div class="collapsible-body">
                         @*@Model.StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId = @item.Id;*@
-                        <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="AgregarEstudiantePracticeFile" asp-route-practiceId="@item.Id">
+                        <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="AgregarEstudiantePracticeFile" asp-route-practiceId="@item.Id" asp-route-practiceTypeId="@item.StudentPracticeTypeId">
                             <input type="hidden" asp-for="StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeId" />
                             <input type="hidden" asp-for="StudentPracticeFileModel.ScholarshipProgramTracingStudentPracticeFileId" />
+                            <input type="hidden" asp-for="StudentPracticeModel.StudentPracticeTypeId" />
                             <input type="hidden" asp-for="TracingId" />
                             <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
 
@@ -149,19 +150,20 @@
                                     <input name="file" type="file">
                                 </div>
                                 <div class="file-path-wrapper">
-                                    <input name="file" class="file-path validate" type="text">
+                                    <input name="file" class="file-path validate" type="text" required>
                                 </div>
                             </div>
 
                             <div class="file-field input-field col s12 m6 l6">
-                                <textarea asp-for="StudentPracticeFileModel.FileDescription" id="textarea1" class="materialize-textarea"></textarea>
+                                <textarea asp-for="StudentPracticeFileModel.FileDescription" id="textarea1" class="materialize-textarea" required></textarea>
                                 <label for="textarea1">Descripción</label>
                             </div>
 
                             <div class="file-field input-field col s12 m6 l1">
                                 @if (Model.IsGestionUniversitariaRole)
                                 {
-                        <button class="teal btn-small waves-effect waves-light tooltipped mt-5" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>}
+                        <button class="teal btn-small waves-effect waves-light tooltipped mt-5" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
+                                }
                             </div>
                         </form>
                         <div class="divider"></div>
@@ -177,12 +179,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @{ var id = Convert.ToInt32(item.Id);}
-                                @foreach (var file in _studentPracticeFile.GetAllByPracticeId(id))
+                                @{ 
+                                    var practiceId = Convert.ToInt32(item.Id);
+                                    var practiceTypeId = Convert.ToInt32(item.StudentPracticeTypeId);
+                                 }
+                                @foreach (var file in _studentPracticeFile.GetAllByPracticeId(practiceId, practiceTypeId))
                                 {
                                 <tr>
-                                    <td>@file.File.FileName</td>
-                                    <td>@file.FileDescription</td>
+                                    <td>@file.File?.FileName</td>
+                                    <td>@file?.FileDescription</td>
                                     <td><a href="\app-assets\documentos\EstudiantesEnPracticaFiles\@file?.File?.FilePath" target="_blank">Ver</a></td>
                                 </tr>
                                 }

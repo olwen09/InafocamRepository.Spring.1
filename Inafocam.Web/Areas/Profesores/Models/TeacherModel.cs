@@ -22,6 +22,10 @@ namespace Inafocam.Web.Areas.Profesores.Models
         public string Document { get; set; }
 
 
+        [Required]
+        public string Nacionality { get; set; }
+
+
 
         public long? ContactId { get; set; }
 

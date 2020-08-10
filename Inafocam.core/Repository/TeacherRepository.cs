@@ -26,14 +26,14 @@ namespace Inafocam.core.Repository
             .Include(x => x.HigherTeacherEducation.EducationType)
             .Include(x => x.HigherTeacherEducation.TeacherNavigation)
             .Include(x => x.Status)
-            .Include(x => x.TeacherHiringType)
-            .Include(x => x.ScholarshipProgramUniversitySubjectMatterPredictedTeacher)
-            .Include(x => x.ScholarshipProgramUniversitySubjectMatterTeacher)
-            .Include(x => x.TeacherEducation)
-            .Include(x => x.TeacherFile)
-            .Include(x => x.TeacherResearch)
-            .Include(x => x.TracingStudyPlanDevelopmentAssignedTeacher)
-            .Include(x => x.TracingStudyPlanDevelopmentTeacher);
+            .Include(x => x.TeacherHiringType);
+            //.Include(x => x.ScholarshipProgramUniversitySubjectMatterPredictedTeacher)
+            //.Include(x => x.ScholarshipProgramUniversitySubjectMatterTeacher)
+            //.Include(x => x.TeacherEducation)
+            //.Include(x => x.TeacherFile)
+            //.Include(x => x.TeacherResearch)
+            //.Include(x => x.TracingStudyPlanDevelopmentAssignedTeacher)
+            //.Include(x => x.TracingStudyPlanDevelopmentTeacher);
             //.Include(x => x.University);
 
 

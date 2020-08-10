@@ -22,9 +22,9 @@ namespace Inafocam.core.Repository
             .Include(x => x.File)
             .Include(x => x.ScholarshipProgramTracingStudentPractice);
 
-        public IEnumerable<ScholarshipProgramTracingStudentPracticeFile> GetAllByPracticeId(long practiceId)
+        public IEnumerable<ScholarshipProgramTracingStudentPracticeFile> GetAllByPracticeId(long practiceId, long practiceTypeId)
         {
-            return GetAll.Where(x => x.ScholarshipProgramTracingStudentPracticeId == practiceId);
+            return GetAll.Where(x => x.ScholarshipProgramTracingStudentPracticeId == practiceId && x.StudentPracticeTypeId == practiceTypeId);
         }
 
         public void Save(ScholarshipProgramTracingStudentPracticeFile model)

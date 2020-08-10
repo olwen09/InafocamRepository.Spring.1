@@ -16,6 +16,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public long? HigherTitleSupportMatterId { get; set; }
         public double? ScoreAverageStudents { get; set; }
         public int? ApprovedStudentsQuantity { get; set; }
+        public string UniverityPeriod { get; set; }
+
         public int? ReprovedStudentsQuantity { get; set; }
         public int? DesertedStudentsQuantity { get; set; }
         public int? MaleQuantity { get; set; }

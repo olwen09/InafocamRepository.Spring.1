@@ -66,18 +66,18 @@
 
                     @*<div class="input-field col s12 m6 l2">
 
-                            <input value="TRACING-00001" id="codigo" type="text" class="validat" disabled style=" font-weight: bold;">
+            <input value="TRACING-00001" id="codigo" type="text" class="validat" disabled style=" font-weight: bold;">
 
-                            <label>Id Seguimiento</label>
+            <label>Id Seguimiento</label>
 
 
-                        </div>*@
+        </div>*@
 
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <div class="row">
                             <label for="select2User" class="col s12">Universidad</label>
                         </div>
-                        <select asp-for="UniversityId" id="University" class="form-control js-example-basic-single"  style="width: 100%" asp-items="ViewBag.University">
+                        <select asp-for="UniversityId" id="University" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.University">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select>
 
@@ -85,7 +85,7 @@
                     </div>
 
 
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
 
                         <div class="row">
                             <label for="select2User" class="col s12">Nombre de Programa</label>
@@ -93,23 +93,28 @@
 
                         @if (Model.ScholarshipProgramUniversityId != null)
                         {
-                            <select asp-for="ScholarshipProgramUniversityId" id="ScholarshipProgramUniversity" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ScholarshipProgram">
-                                <option value="" disabled selected>Seleccione una Opción</option>
-                            </select>
+                        <select id="ScholarshipProgramUniversity" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ScholarshipProgram">
+                            <option value="" disabled selected>Seleccione una Opción</option>
+                        </select> 
                         }
-                        else
-                        {
-                            <select asp-for="ScholarshipProgramUniversityId" id="ScholarshipProgramUniversity" class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(""))">
-                                <option value="" disabled selected>Seleccione una Opción</option>
-                            </select>
-                        }
-                      
+                            else
+                            {
+                                <select asp-for="ScholarshipProgramUniversityId" id="ScholarshipProgramUniversity" class="form-control js-example-basic-single " style="width: 100%;" asp-items="@(new SelectList(""))">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                </select>
+                            }
+
 
 
                     </div>
 
+                    <div class="input-field col s12 m6 l3">
+                        <input asp-for="SelectedProgram"  type="text" class="black-text" id="SelectedProgram" disabled>
+                        <label for="SelectedProgram">Programa seleccionado</label>
+                    </div>
 
-                    <div class="input-field col s12 m6 l4">
+
+                    <div class="input-field col s12 m6 l3">
                         <div class="row">
                             <label for="select2User" class="col s12">Cordinador</label>
                         </div>

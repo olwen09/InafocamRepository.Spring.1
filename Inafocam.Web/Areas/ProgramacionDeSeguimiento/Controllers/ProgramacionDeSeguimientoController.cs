@@ -13,6 +13,7 @@ using Inafocam.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
 {
@@ -74,11 +75,16 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
             var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
-               .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
+               .Select(x => new GetScholarShipProgram
+               {
+                   ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId,
+                   ScholarShipProgramNameScatCodeContractNumber = x.ScholarshipProgram.ScholarshipProgramName.ToString() + " " + x.ScatProgramCode.ToString()
+                   + ", " + x.ContractNumber.ToString()
+               });
 
 
        
-            ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramName");
+            ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramNameScatCodeContractNumber");
             ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId","FullName");
             ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
@@ -97,10 +103,19 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
             var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
-               .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
+                .Select(x => new GetScholarShipProgram
+                {
+                    ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId,
+                    ScholarShipProgramNameScatCodeContractNumber = x.ScholarshipProgram.ScholarshipProgramName.ToString() + ", " + x.ScatProgramCode.ToString()
+                   + ", " + x.ContractNumber.ToString()
+                });
+
+            scholarshipProgramTracingModel.SelectedProgram = scholarshipProgramTracingModel.ScholarshipProgramUniversity.ScholarshipProgram.ScholarshipProgramName.ToString() + ", " +
+                scholarshipProgramTracingModel.ScholarshipProgramUniversity.ScatProgramCode.ToString() + ", " +
+                scholarshipProgramTracingModel.ScholarshipProgramUniversity.ContractNumber.ToString();
 
 
-            ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramName");
+            ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramNameScatCodeContractNumber");
             ViewBag.Coordinator = new SelectList(coordinators, "AgentId", "FullName");
             ViewBag.Technical = new SelectList(technicals, "AgentId", "FullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
@@ -146,7 +161,12 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
                 var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
                 var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
                 var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
-                   .Select(x => new GetScholarShipProgram { ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId, ScholarShipProgramName = x.ScholarshipProgram.ScholarshipProgramName });
+                   .Select(x => new GetScholarShipProgram
+                   {
+                       ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId,
+                       ScholarShipProgramNameScatCodeContractNumber = x.ScholarshipProgram.ScholarshipProgramName + " " + x.ScatProgramCode
+                   + ", " + x.ContractNumber
+                   });
 
 
 
