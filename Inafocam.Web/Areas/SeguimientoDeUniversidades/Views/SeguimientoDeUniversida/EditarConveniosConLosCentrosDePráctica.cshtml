@@ -1,4 +1,6 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.InstitucionesAfinesALosProgramasParaActividadesViewModel
+﻿@using System.Globalization
+
+@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.ConveniosConLosCentrosDePrácticaViewModel
 @{ ViewData["Title"] = "Create";
 
     MensajesViewModel mensaje = new MensajesViewModel();
@@ -36,15 +38,17 @@
 
 
 <div class="row">
-    <form class="col s12 formValidate" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveInstitucionesAfinesALosProgramasParaActividades">
+    <form class="col s12 formValidate" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveConveniosConLosCentrosDePráctica">
 
         <input type="hidden" asp-for="TracingId" />
         <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
-        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.TracingId" />
-        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.AgreementWithInstitutionsRelatedToCurricularActivitiesId" />
-        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.StatusId" />
-        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.CreationDate" />
-        <input type="hidden" asp-for="RelatedToCurricularActivitiesModel.UpgradeDate" />
+        <input type="hidden" asp-for="AgreementsWithPracticeCenterModel.TracingId" />
+        <input type="hidden" asp-for="AgreementsWithPracticeCenterModel.AgreementsWithPracticeCenterId" />
+        <input type="hidden" asp-for="AgreementsWithPracticeCenterModel.StatusId" />
+        <input type="hidden" asp-for="AgreementsWithPracticeCenterModel.CreationDate" />
+        <input type="hidden" asp-for="AgreementsWithPracticeCenterModel.UpgradeDate" />
+        @*<input type="hidden" asp-for="" />*@
+
 
         @*<input type="hidden" asp-for="Com" />*@
 
@@ -58,27 +62,25 @@
 
 
 
-                <h4 class="card-title">
-                    Formalización de convenios con instituciones afines a los programas para actividades co-curriculares
-                </h4>
+                <h4 class="card-title">Editar formalización de convenios con los centros de práctica</h4>
                 <div class=" input-field col s12 m6 l3">
-                    <input asp-for="RelatedToCurricularActivitiesModel.Institution" id="Institution" type="text" class="validat black-text">
+                    <input asp-for="AgreementsWithPracticeCenterModel.Institution" id="Institution" type="text" class="validat black-text">
                     <label for="Institution">Institución</label>
                 </div>
 
 
                 <div class=" input-field col s12 m6 l3">
-                    <input asp-for="RelatedToCurricularActivitiesModel.ActivityDescription" id="ActivityDescription" type="text" class="validat black-text">
+                    <input asp-for="AgreementsWithPracticeCenterModel.ActivityDescription" id="ActivityDescription" type="text" class="validat black-text">
                     <label for="ActivityDescription">Descripción de la actividad</label>
                 </div>
 
                 <div class=" input-field col s12 m6 l3">
-                    <input asp-for="RelatedToCurricularActivitiesModel.NumberOfParticipatingStudents" id="NumberOfParticipatingStudents" type="number" class="validat black-text">
+                    <input asp-for="AgreementsWithPracticeCenterModel.NumberOfParticipatingStudents" id="NumberOfParticipatingStudents" type="number" class="validat black-text">
                     <label for="NumberOfParticipatingStudents">Cantidad de alumnos participantes</label>
                 </div>
 
                 <div class=" input-field col s12 m6 l3">
-                    <input asp-for="RelatedToCurricularActivitiesModel.Date" id="Date" type="text" class="validat black-text datepicker">
+                    <input asp-for="AgreementsWithPracticeCenterModel.Date" id="Date" type="text" class="validat black-text datepicker">
                     <label for="Date">Fecha</label>
                 </div>
                 <div class="row">
@@ -86,10 +88,9 @@
 
                     </div>
                     <div class="col s12 m6 l2">
-                        @if (Model.IsGestionUniversitariaRole)
-                        {
-                        <button class="teal btn waves-effect waves-light" type="submit">Guardar</button>
-                        }
+                       
+                            <button class="teal btn waves-effect waves-light" type="submit">Guardar</button>
+                      
                     </div>
                     <div class="col s12 m6 l4">
 
@@ -97,60 +98,11 @@
                 </div>
 
 
-                <br />
-                <br />
-                <span class="card-title">Convenios con instituciones afines a los programas para actividades co-curriculares</span>
-                <div class="divider"></div>
-                <div class="col s12">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Institución</th>
-                                <th>Descripción de la actividad </th>
-                                <th>Cantidad de alumnos participantes</th>
-                                <th>Fecha</th>
-                                @*<th>Periodicidad</th>*@
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            @foreach (var item in Model.RelatedToCurricularActivitiesList)
-                            {
-                                //var numero = count++;
-
-                            <tr>
-
-                                <td>@item.Institution</td>
-                                <td>@item.ActivityDescription</td>
-                                <td>@item.NumberOfParticipatingStudents</td>
-                                <td>@item.Date</td>
-                                <td>
-
-                                   @if (Model.IsGestionUniversitariaRole)
-                                   {
-                                    <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida"
-                                       asp-action="EditarInstitucionesAfinesALosProgramasParaActividades" asp-route-tracingId="@Model.TracingId"
-                                       asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
-                                       asp-route-agreementWithInstitutionsRelatedToCurricularActivitiesId="@item.AgreementWithInstitutionsRelatedToCurricularActivitiesId"
-                                       class="tooltipped" data-position="top" data-tooltip="Editar">
-                                        <i class="material-icons">edit</i>
-                                    </a>
-                                   }
-                                </td>
-
-
-                            </tr>
-                            }
-
-
-                        </tbody>
-                    </table>
-                </div>
+               
             </div>
 
         </div>
-
 
 
 
@@ -165,15 +117,15 @@
 
 
         </div>
-        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ConveniosConLosCentrosDePráctica" asp-route-tracingId="@Model?.TracingId">
-
-            Atras
+        <a class="btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InstitucionesAfinesALosProgramasParaActividades" asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.TracingId">
+            <i class="material-icons">arrow_back</i>
+            Volver atras
         </a>
 
-        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ResultadosDelPeriodoAnterior" asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.TracingId">
+        @*<a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InstitucionesAfinesALosProgramasParaActividades" asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.TracingId">
 
             Siguiente
-        </a>
+        </a>*@
 
         @*<button class="teal btn waves-effect waves-light" type="submit">Guardar</button>*@
     </form>
@@ -234,9 +186,7 @@
             $('.datepicker').datepicker();
         });
 
-
-
-        if ("@mensaje.Tipo".length > 0) {
+                if ("@mensaje.Tipo".length > 0) {
             $.confirm({
                 title: '@mensaje.Titulo',
                 content: '@mensaje.Texto',
@@ -264,5 +214,6 @@
             });
 
         }
+
     </script>
 }

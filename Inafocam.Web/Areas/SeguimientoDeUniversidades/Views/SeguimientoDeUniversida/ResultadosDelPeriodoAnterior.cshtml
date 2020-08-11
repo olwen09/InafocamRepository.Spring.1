@@ -49,6 +49,7 @@
         <input type="hidden" asp-for="PreviousPeriodModel.UpgradeDate" />
         <input type="hidden" asp-for="PreviousPeriodModel.CreationDate" />
         <input type="hidden" asp-for="PreviousPeriodModel.StatusId" />
+        <input type="hidden" asp-for="IsGestionUniversitariaRole" />
 
         <div>
             <span asp-validation-sumary=""></span>
@@ -175,10 +176,10 @@
                 Atras
             </a>
 
-            @*<a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ApoyoAlStudiante" asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+            <a class="white black-text btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Index">
 
-                    Siguiente
-                </a>*@
+                    Finalizar
+                </a>
 
         </div>
 

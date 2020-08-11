@@ -24,7 +24,7 @@
     <link href="~/app-assets/vendors/noUiSlider/nouislider.css" rel="stylesheet" />
     <link href="~/app-assets/css/custom/custom.css" rel="stylesheet" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.5/dist/css/select2.min.css" rel="stylesheet" />
     <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
 
 }
@@ -106,7 +106,7 @@
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFile.CreationDate" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.SubjectMatterScoreReportFile.StatusId" />
                         <input type="hidden" asp-for="TracingStudyPlanDevelopmentModel.StatusId" />
-                        <input id="@teacherId" type="hidden" asp-for="TracingStudyPlanDevelopmentModel.TeacherId" />
+                        @*<input id="@teacherId" type="hidden" asp-for="TracingStudyPlanDevelopmentModel.TeacherId" />*@
 
 
                         @*StudentReportFile*@
@@ -193,7 +193,7 @@
                                             var text = teacherFullName.Length > 1 ? teacherFullName : "Seleccione una Opción";
                                         }
 
-                                        <select class="@teacher form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Teacher">
+                                        <select asp-for="TracingStudyPlanDevelopmentModel.TeacherId" class="@teacher form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Teacher">
                                            
                                           <option value="" disabled selected >@text</option>
                                         </select>
@@ -429,18 +429,23 @@
     @*<script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.5/dist/js/select2.min.js"></script>
     <!-- END PAGE LEVEL JS-->
     <script>
         @*$('#descripcionTxtArea').val('@Model.Descripcion');
         M.textareaAutoResize($('#textarea2'));*@
 
 
+        ////$(document).ready(function () {
+        ////    $('.js-example-basic-single').select2({
+        ////        //placeholder: "Seleccione una Opción",
+        ////    });
+        ////});
+
         $(document).ready(function () {
-            $('.js-example-basic-single').select2({
-                //placeholder: "Seleccione una Opción",
-            });
+            $('select').select2();
         });
+
 
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.datepicker');
@@ -515,7 +520,7 @@
         }*@
 
 
-     var list = @Html.Raw(Json.Serialize(teacherClassList));
+     @*var list = @Html.Raw(Json.Serialize(teacherClassList));
 
         var teachers = "";
         var teacherIds = "";
@@ -546,7 +551,7 @@
 
 
         }
-            });
+            });*@
 
 
 

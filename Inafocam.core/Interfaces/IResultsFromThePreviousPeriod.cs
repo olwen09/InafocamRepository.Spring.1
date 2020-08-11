@@ -11,7 +11,7 @@ namespace Inafocam.core.Interfaces
         IEnumerable<ResultsFromThePreviousPeriod> GetAll { get; }
 
 
-        public IEnumerable<ResultsFromThePreviousPeriod> GetAllByTracingId(int tracingId);
+        public IEnumerable<ResultsFromThePreviousPeriod> GetAllByTracingId(int? tracingId);
         void Save(ResultsFromThePreviousPeriod model);
     }
 }

@@ -28,7 +28,7 @@ namespace Inafocam.core.Repository
 
         public AgreementWithInstitutionsRelatedToCurricularActivities GetById(int id)
         {
-            throw new NotImplementedException();
+            return GetAll.FirstOrDefault(x => x.AgreementWithInstitutionsRelatedToCurricularActivitiesId == id);
         }
 
         public void Save(AgreementWithInstitutionsRelatedToCurricularActivities model)

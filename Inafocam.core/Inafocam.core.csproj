@@ -37,6 +37,20 @@
     <Compile Remove="Migrations\20200723212136_DropcreditosColumnfromTracingStudyPlanDevelopment.Designer.cs" />
     <Compile Remove="Migrations\20200729173103_DropCreditosColunmFromSubjectMatterTable.cs" />
     <Compile Remove="Migrations\20200729173103_DropCreditosColunmFromSubjectMatterTable.Designer.cs" />
+    <Compile Remove="Migrations\20200807132847_AddNationalityColumnToContactTable.cs" />
+    <Compile Remove="Migrations\20200807132847_AddNationalityColumnToContactTable.Designer.cs" />
+    <Compile Remove="Migrations\20200807133534_AddNationalityColumnToContactTable.cs" />
+    <Compile Remove="Migrations\20200807133534_AddNationalityColumnToContactTable.Designer.cs" />
+    <Compile Remove="Migrations\20200807133827_AddNationalityColumnToContactTable.cs" />
+    <Compile Remove="Migrations\20200807133827_AddNationalityColumnToContactTable.Designer.cs" />
+    <Compile Remove="Migrations\20200807133938_AddNationalityColumnToContactTable.cs" />
+    <Compile Remove="Migrations\20200807133938_AddNationalityColumnToContactTable.Designer.cs" />
+    <Compile Remove="Migrations\20200807134320_AddNationalityColumnToContactTable.cs" />
+    <Compile Remove="Migrations\20200807134320_AddNationalityColumnToContactTable.Designer.cs" />
+    <Compile Remove="Migrations\20200807134602_AddNationalityColumnToContactTable.cs" />
+    <Compile Remove="Migrations\20200807134602_AddNationalityColumnToContactTable.Designer.cs" />
+    <Compile Remove="Migrations\20200810182304_AddontactCommunicationIdColumnToContact.cs" />
+    <Compile Remove="Migrations\20200810182304_AddontactCommunicationIdColumnToContact.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

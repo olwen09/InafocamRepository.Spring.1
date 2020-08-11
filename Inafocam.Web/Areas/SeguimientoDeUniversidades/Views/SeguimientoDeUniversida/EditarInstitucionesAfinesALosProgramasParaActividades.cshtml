@@ -86,10 +86,9 @@
 
                     </div>
                     <div class="col s12 m6 l2">
-                        @if (Model.IsGestionUniversitariaRole)
-                        {
+
                         <button class="teal btn waves-effect waves-light" type="submit">Guardar</button>
-                        }
+
                     </div>
                     <div class="col s12 m6 l4">
 
@@ -97,56 +96,7 @@
                 </div>
 
 
-                <br />
-                <br />
-                <span class="card-title">Convenios con instituciones afines a los programas para actividades co-curriculares</span>
-                <div class="divider"></div>
-                <div class="col s12">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Institución</th>
-                                <th>Descripción de la actividad </th>
-                                <th>Cantidad de alumnos participantes</th>
-                                <th>Fecha</th>
-                                @*<th>Periodicidad</th>*@
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            @foreach (var item in Model.RelatedToCurricularActivitiesList)
-                            {
-                                //var numero = count++;
-
-                            <tr>
-
-                                <td>@item.Institution</td>
-                                <td>@item.ActivityDescription</td>
-                                <td>@item.NumberOfParticipatingStudents</td>
-                                <td>@item.Date</td>
-                                <td>
-
-                                   @if (Model.IsGestionUniversitariaRole)
-                                   {
-                                    <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida"
-                                       asp-action="EditarInstitucionesAfinesALosProgramasParaActividades" asp-route-tracingId="@Model.TracingId"
-                                       asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
-                                       asp-route-agreementWithInstitutionsRelatedToCurricularActivitiesId="@item.AgreementWithInstitutionsRelatedToCurricularActivitiesId"
-                                       class="tooltipped" data-position="top" data-tooltip="Editar">
-                                        <i class="material-icons">edit</i>
-                                    </a>
-                                   }
-                                </td>
-
-
-                            </tr>
-                            }
-
-
-                        </tbody>
-                    </table>
-                </div>
             </div>
 
         </div>
@@ -165,14 +115,9 @@
 
 
         </div>
-        <a class="red btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ConveniosConLosCentrosDePráctica" asp-route-tracingId="@Model?.TracingId">
-
-            Atras
-        </a>
-
-        <a class="teal btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ResultadosDelPeriodoAnterior" asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.TracingId">
-
-            Siguiente
+        <a class="btn waves-effect waves-light" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="InstitucionesAfinesALosProgramasParaActividades" asp-route-ScholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId" asp-route-tracingId="@Model?.TracingId">
+            <i class="material-icons">arrow_back</i>
+            Volver atras
         </a>
 
         @*<button class="teal btn waves-effect waves-light" type="submit">Guardar</button>*@

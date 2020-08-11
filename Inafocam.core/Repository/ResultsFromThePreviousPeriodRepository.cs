@@ -23,7 +23,7 @@ namespace Inafocam.core.Repository
             .Include(x => x.File)
             .Include(x => x.ComponentFileType);
 
-        public IEnumerable<ResultsFromThePreviousPeriod> GetAllByTracingId(int tracingId)
+        public IEnumerable<ResultsFromThePreviousPeriod> GetAllByTracingId(int? tracingId)
         {
             return GetAll.Where(x => x.TracingId == tracingId);
         }

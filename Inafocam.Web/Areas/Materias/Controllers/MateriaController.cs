@@ -72,12 +72,12 @@ namespace Inafocam.Web.Areas.Materias.Controllers
             var data = _subjectMatter.GetById(id);
 
             var model = CopyPropierties.Convert<SubjectMatter, SubjectMatterModel>(data);
-            if(model.TeacherId == null)
+            if(model.TracingStudyPlanDevelopment.TeacherId == null)
             {
-                model.TeacherId = 0;
+                model.TracingStudyPlanDevelopment.TeacherId = 0;
             }
 
-            var univerityTeacherSelected = _teacher.GetById((int)model.TeacherId);
+            var univerityTeacherSelected = _teacher.GetById((int)model.TracingStudyPlanDevelopment.TeacherId);
 
             model.UniversityTeacherSelectedName = univerityTeacherSelected?.Contact?.ContactName?.ToString() + "" + univerityTeacherSelected?.Contact?.ContactLastname?.ToString();
 

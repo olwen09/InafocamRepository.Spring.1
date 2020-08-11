@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 {
@@ -10,11 +11,23 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
     {
         public long Id { get; set; }
         public long? TracingId { get; set; }
+
+        [Required]
         public string CourseName { get; set; }
+
+        [Required]
         public int? HoursTaken { get; set; }
+
+        [Required]
         public DateTime? CourseStartDate { get; set; }
+
+        [Required]
         public DateTime? CourseEndDate { get; set; }
+
+        [Required]
         public int? StudentsQuantity { get; set; }
+
+
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }
         public long? CreationUserId { get; set; }

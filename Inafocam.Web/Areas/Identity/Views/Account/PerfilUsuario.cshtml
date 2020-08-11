@@ -97,7 +97,6 @@
                                                 font-size: 2rem;
                                             }
                                         </style>
-
                                         <button id="Image" type="file">
                                             Test button
                                         </button>*@
@@ -119,7 +118,7 @@
 
 
 
-                                    <span class="center">
+                                
                                         <h5 class="teal-text lighten-2">@Model.EditarUsuarioModel.Nombre @Model.EditarUsuarioModel.Apellido  </h5>
                                         <h6 class="teal-text lighten-2">@Model.EditarUsuarioModel.UserName</h6>
 
@@ -134,15 +133,15 @@
 
                                         }
 
-                                    </span>
+                               
                                 </div>
 
-                                @*<div class="col s12 center-align center m-0">
-                                    <a class="btn modal-trigger  waves-effect waves-light teal tooltipped" href="#contrasena" data-position="top" data-tooltip="Cambiar Contraseña">
-                                        <i class="material-icons">lock_open</i>
-                                        Contraseña
-                                    </a>
-                                </div>*@
+                                <div class="col s12 center-align center m-0">
+                                        <a class="btn modal-trigger  waves-effect waves-light teal tooltipped" href="#contrasena" data-position="top" data-tooltip="Cambiar Contraseña">
+                                            <i class="material-icons">lock_open</i>
+                                            Contraseña
+                                        </a>
+                                </div>
 
                             </div>
 
@@ -175,7 +174,7 @@
                                 <div class="input-field col s9">
                                     <i class="material-icons prefix pt-2">face</i>
                                     <input readonly disabled class="validate" id="nombre" type="text" asp-for="@Model.EditarUsuarioModel.Nombre">
-                                    <label  for="username" class="center-align">Nombre</label>
+                                    <label for="username" class="center-align">Nombre</label>
                                     <span asp-validation-for="@Model.EditarUsuarioModel.Nombre" class="red-text"></span>
 
                                 </div>
@@ -197,7 +196,6 @@
                                         <input class="validate" id="Email" type="text" asp-for="EditarUsuarioModel.Email">
                                         <label for="Email" class="center-align ">Email</label>
                                         <span asp-validation-for="EditarUsuarioModel.Email" class="red-text"></span>
-
                                     </div>
                                 </div>*@
 
@@ -246,7 +244,6 @@
                     @*<div class="row">
                             <div class="input-field col s12 m12 l12">
                                 <div class="input-field col s3 m13 l3">
-
                                     <button type="submit" class="btn waves-effect waves-light border-round teal col s12 btn-small ">
                                         <i class="material-icons dp48">save</i>
                                         Guardar Cambios
@@ -322,13 +319,10 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
     <script>
-
-
         //$(document).ready(function() {
         //    $('.tooltipped').tooltip();
         //});
-
-                if ("@mensaje.Tipo".length > 0) {
+                     if ("@mensaje.Tipo".length > 0) {
             $.confirm({
                 title: '@mensaje.Titulo',
                 content: '@mensaje.Texto',
@@ -338,11 +332,12 @@
                 autoClose: 'cerrar|5000',
                 useBootstrap: false,
                 buttons: {
-                    cerrar: {
-                    cerrar: "Cerrar",
-                    action: function () { }
-              },
-                onClose: function() {
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                },
+                onClose: function () {
                     // before the modal is hidden.
                     $.ajax({
                         type: 'get',
@@ -353,68 +348,42 @@
                     });
                 }
             });
+
         }
 
 
         $('#userInformations').on("submit", function (event) {
-
-
             var Password = $("#Password").val();
             var ConfirmPassword = $("#ConfirmPassword").val();
-
             //var diferentes = $("#diferentes").val();
             //var contraseña = $("#contraseña").val()
-
             //if (diferentes != "") {
             //    diferentes = ""
             //}
             $('#diferentes').text('');
             $('#contraseña').text('');
-
-
-
             if (Password != ConfirmPassword) {
                 $( "#diferentes" ).append( "<strong>Las Contraseñas no coinciden</strong>" );
-
                 event.preventDefault();
-
-
             }
-
-
             if (Password.length < 6 || Password == '') {
                     $( "#contraseña" ).append( "<strong>La contraseñas debe ser de por lo menos 6 caracteres de longitud</strong>" );
-
                 event.preventDefault();
-
             }
-
-});
-
-
-
+        });
 
 
         $(document).ready(function () {
             $('.modal').modal();
-
             $('.js-example-basic-single').select2({
                 placeholder: "Select a state",
             });
-
             $('.phone').formatter({
                 'pattern': '({{999}}) {{999}}-{{9999}}',
                 'persistent': false
             });
-
             $(".validationDisplay").attr("style", "display:none");
-
-
         });
 
-  //Toastr.init("@mensaje.Tipo", "@mensaje.Titulo", "@mensaje.Texto");
-
     </script>
-
-
 }
