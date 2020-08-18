@@ -16,13 +16,5 @@
 @inject IAuthorizationService _authorizationService
 
 
-@*@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.InformacionPrincipalViewModel*@
-@*@using Microsoft.AspNetCore.Mvc.Localization*@
-@*@using Andamios.Web.Resources*@
-@*@inject IHtmlLocalizer<ShareResource> _ShareLocalizer*@
-@*@using Microsoft.AspNetCore.Mvc.Localization*@
-@*@inject IViewLocalizer ShareLocalizer*@
-
-
 @{ var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
     Usuario prueba = _userManager.FindByIdAsync(userId).Result; }
