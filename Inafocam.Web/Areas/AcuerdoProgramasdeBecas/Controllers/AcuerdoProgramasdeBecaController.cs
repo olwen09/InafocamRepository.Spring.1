@@ -136,8 +136,7 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
                     ScholarshipProgramUniversityAgreementId = model.Agreement.ScholarshipProgramUniversityAgreementId,
                     ScholarshipProgramUniversityId = model.ScholarshipProgramUniversityId,
                     ScholarshipProgramUniversityAgreement1 = model.ScholarshipProgramUniversityAgreement1,
-                    AgreementTypeId = model.AgreementId,
-                    CreationUserId = 1,
+                    AgreementTypeId = model.AgreementId,                    
                     StatusId = 1
                 };
 

@@ -148,7 +148,7 @@ else
             <th style="border: solid 1px; border-color: #e0e0e0;">Nombre</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Comentario</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Tipo de Documento</th>
-            <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;" class="center">Acciones</th>
             @*<th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>*@
             @*<th style="border: solid 1px; border-color: #e0e0e0;">Fecha de Termino</th>*@
         </tr>
@@ -159,29 +159,31 @@ else
         @foreach (var item in Model?.TeacherFileList)
         {
 
-<tr>
+            <tr>
 
 
 
-    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.File?.FileName</td>
-    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherFileComment</td>
-    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherFileType?.TeacherFileTypeName</td>
-    <td style="border: solid 1px; border-color: #e0e0e0;">
-        @{ 
-//var fileRute = "wwwroot/app-assets/Documentos/Teacher" + '/' + item?.File?.FileName;
-//var fileRute = item.File.FilePath;
-        }
-        <a href="\app-assets\documentos\teacher\@item?.File?.FilePath" target="_blank">Ver</a>
-    </td>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.File?.FileName</td>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherFileComment</td>
+                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherFileType?.TeacherFileTypeName</td>
+                <td style="border: solid 1px; border-color: #e0e0e0;" class="center">
+                    @{ 
+                    //var fileRute = "wwwroot/app-assets/Documentos/Teacher" + '/' + item?.File?.FileName;
+                    //var fileRute = item.File.FilePath;
+                    }
+                    <a class="tooltipped" data-position="top" data-tooltip="Ver documento" href="\app-assets\documentos\teacher\@item?.File?.FilePath" target="_blank">
+                        <i class="material-icons">remove_red_eye</i>
+                    </a>
 
-    @*<td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-            <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
-                <i class="material-icons ">delete</i>
-            </a>
-        </td>*@
+                      <a class="tooltipped red-text ml-2" href="#" data-position="top" data-tooltip="Eliminar" onclick="eliminar('@Url.Action("EliminarTeacherFile", "Profesor", new { area = "Profesores", teacherFileId= item.TeacherFileId })')">
+                        <i class="material-icons">delete</i>
+                      </a>
+                </td>
 
-</tr>
-}
+  
+
+             </tr>
+    }
 
     </tbody>
 </table>}
@@ -311,6 +313,107 @@ else
 
                         }
                     });
+                }
+            });
+  }
+
+                        function eliminar(url) {
+            $.confirm({
+                title: 'Eliminar informe',
+                content: 'Esta seguro de eliminar este documento?',
+                type: 'red',
+                boxWidth: '500px',
+                useBootstrap: false,
+                typeAnimated: true,
+                buttons: {
+                    eliminar: {
+                        text: 'Eliminar',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            $.ajax({
+                                type: 'post',
+                                url: url,
+                                success: function (data) {
+
+                                    if (data === 1 || data === "1") {
+                                        $.confirm({
+                                            title: 'Eliminado',
+                                            content: 'El documento fue eliminado',
+                                            type: 'green',
+                                            typeAnimated: true,
+                                            boxWidth: '500px',
+                                            autoClose: 'cerrar|5000',
+                                            useBootstrap: false,
+                                            buttons: {
+                                                cerrar: {
+                                                text: "Cerrar",
+                                                action: function () { }
+                                            }
+                                            },
+                                            onClose: function () {
+
+                                                // before the modal is hidden.
+                                                var container = $("#page-length-option");
+                                                $.ajax({
+                                                    type: 'get',
+                                                    url: '/Profesores/Profesor/AgregarDocumento?id=@Model.TeacherId',
+                                                    success: function () {
+                                                        $.get('/Profesores/Profesor/AgregarDocumento?id=@Model.TeacherId', function (data) {
+                                                            //console.log(data);
+                                                            container.html(data);
+                                                            location.reload();
+                                                            //dtable.ajax.reload();
+                                                            //console.log("recargó");
+
+                                                        });
+                                                        $.ajax({
+                                                            type: 'get',
+                                                            url: '/home/ClearTempData',
+                                                            success: function() {
+
+                                                            }
+                                                        });
+                                                    }
+                                                });
+
+                                            }
+                                        });
+                                    } else {
+                                        $.confirm({
+                                            title: 'Hubo un error',
+                                            content: 'No se pudo procesar la solicitud',
+                                            type: 'orange',
+                                            typeAnimated: true,
+                                            boxWidth: '500px',
+                                            autoClose: 'cerrar|5000',
+                                            useBootstrap: false,
+                                            buttons: {
+                                                cerrar: {
+                                                text: "Cerrar",
+                                                action: function () { }
+                                            }
+                                            },
+                                            onClose: function () {
+                                                // before the modal is hidden.
+                                                $.ajax({
+                                                    type: 'get',
+                                                    url: '/home/ClearTempData',
+                                                    success: function() {
+
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+
+                                }
+                            });
+                        }
+                    },
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
                 }
             });
         }

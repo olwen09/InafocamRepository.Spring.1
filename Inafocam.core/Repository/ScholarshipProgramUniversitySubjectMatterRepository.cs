@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Inafocam.core.Repository
             }
             else
             {
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
             _context.SaveChanges();

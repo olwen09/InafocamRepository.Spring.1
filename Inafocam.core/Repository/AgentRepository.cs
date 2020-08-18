@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -56,11 +57,11 @@ namespace Inafocam.core.Repository
         public void Save(Agent model)
         {
             var now = DateTime.Now;
-            model.UserId  = 1;
+          
             if(model.AgentId != 0)
             {
                 model.UpgradeDate = now;
-                //model.CreationDate = now;
+               
                 model.Contact.UpgradeDate = now;
                 _context.Agent.Update(model);
             }
@@ -68,6 +69,7 @@ namespace Inafocam.core.Repository
             {
                 model.CreationDate = now;
                 model.Contact.CreationDate = now;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
 

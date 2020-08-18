@@ -157,20 +157,20 @@ else
         @foreach (var item in Model?.CommunicationList)
         {
 
-<tr>
+        <tr>
 
 
-    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber1</td>
-    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber2</td>
-    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationEmail</td>
-    <td style="border: solid 1px; border-color: #e0e0e0;">@item?.ContactCommunicationComment</td>
-    @*<td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-        <a class="red-text tooltipped" data-position="top" data-tooltip="eliminar" href="#">
-            <i class="material-icons ">delete</i>
-        </a>
-    </td>*@
+            <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber1</td>
+            <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationPhoneNumber2</td>
+            <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Communication?.CommunicationEmail</td>
+            <td style="border: solid 1px; border-color: #e0e0e0;">@item?.ContactCommunicationComment</td>
+            <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+                <a asp-area="Profesores" asp-controller="Profesor" asp-action="EditarComunicacion" asp-route-id="@item.ContactCommunicationId" class="tooltipped" data-position="top" data-tooltip="Editar">
+                    <i class="material-icons">edit</i>
+                </a>
+            </td>
 
-</tr>
+        </tr>
 }
 
     </tbody>

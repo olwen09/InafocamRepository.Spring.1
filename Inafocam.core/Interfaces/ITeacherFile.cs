@@ -15,7 +15,8 @@ namespace Inafocam.core.Interfaces
 
         IEnumerable<TeacherFile> GetByTeacherId(int id);
 
-
         void Save(TeacherFile model);
+
+       void Delete(long teacherFileId);
     }
 }

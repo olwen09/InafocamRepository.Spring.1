@@ -93,6 +93,8 @@ namespace Inafocam.core.Modelos
         public virtual DbSet<ScholarshipProgramTracingAgreementsWithPracticeCenter> ScholarshipProgramTracingAgreementsWithPracticeCenter { get; set; }
         public virtual DbSet<AgreementsInstitutionRelatedCoCurricularActivities> AgreementsInstitutionRelatedCoCurricularActivities { get; set; }
         public virtual DbSet<AgreementWithInstitutionsRelatedToCurricularActivities> AgreementWithInstitutionsRelatedToCurricularActivities { get; set; } public virtual DbSet<ScholarshipProgramTracingStudentPracticeFile> ScholarshipProgramTracingStudentPracticeFile { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<Report> Report { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

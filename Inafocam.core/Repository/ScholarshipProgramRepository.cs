@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Inafocam.core.Help;
 
 namespace Inafocam.core.Repository
 {
@@ -44,6 +45,7 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
 

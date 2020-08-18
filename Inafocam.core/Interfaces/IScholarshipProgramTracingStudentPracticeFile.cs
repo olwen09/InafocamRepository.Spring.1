@@ -12,5 +12,7 @@ namespace Inafocam.core.Interfaces
         IEnumerable<ScholarshipProgramTracingStudentPracticeFile> GetAllByPracticeId(long practiceId , long practiceTypeId);
 
         void Save(ScholarshipProgramTracingStudentPracticeFile model);
+
+        void Delete(long studentPracticeFileId);
     }
 }

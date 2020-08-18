@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -52,7 +53,7 @@ namespace Inafocam.core.Repository
         public void Save(ScholarshipProgramTracingCourse model)
         {
             var now = DateTime.Now;
-            var estadoActivo = 1;
+            
             if(model.Id != 0)
             {
                 model.UpgradeDate = now;
@@ -61,7 +62,7 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
-                model.StatusId = estadoActivo;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
             _context.SaveChanges();

@@ -140,7 +140,7 @@ else
             <th style="border: solid 1px; border-color: #e0e0e0;">Tipo de Educacion</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Institución</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Fecha de Termino</th>
-         @*   <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>*@
+            <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
         </tr>
     </thead>
 
@@ -158,11 +158,11 @@ else
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationInstitution</td>
     <td style="border: solid 1px; border-color: #e0e0e0;">@item?.TeacherEducationFinishDate</td>
     @*<td style="border: solid 1px; border-color: #e0e0e0;">@item?.StartDate - @item.EndDate</td>*@
-    @*<td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-        <a class="red-text tooltipped" data-position="top" data-tooltip="Eliminar" href="#">
-            <i class="material-icons ">delete</i>
-        </a>
-    </td>*@
+<td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+    <a asp-area="Profesores" asp-controller="Profesor" asp-action="EditarTeacherEducation" asp-route-id="@item.TeacherEducationId" class="tooltipped" data-position="top" data-tooltip="Editar">
+        <i class="material-icons">edit</i>
+    </a>
+</td>
 
 </tr>
 }

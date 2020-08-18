@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,9 +23,19 @@ namespace Inafocam.core.Repository
             .Include(x => x.File)
             .Include(x => x.ScholarshipProgramTracingStudentPractice);
 
+        public void Delete(long studentPracticeFileId)
+        {
+           var model = _context.ScholarshipProgramTracingStudentPracticeFile.Find(studentPracticeFileId);
+            model.StatusId = StatusValues.Eliminado;
+
+            _context.ScholarshipProgramTracingStudentPracticeFile.Update(model);
+
+            _context.SaveChanges();
+        }
+
         public IEnumerable<ScholarshipProgramTracingStudentPracticeFile> GetAllByPracticeId(long practiceId, long practiceTypeId)
         {
-            return GetAll.Where(x => x.ScholarshipProgramTracingStudentPracticeId == practiceId && x.StudentPracticeTypeId == practiceTypeId);
+            return GetAll.Where(x => x.ScholarshipProgramTracingStudentPracticeId == practiceId && x.StudentPracticeTypeId == practiceTypeId && x.StatusId != StatusValues.Eliminado);
         }
 
         public void Save(ScholarshipProgramTracingStudentPracticeFile model)
@@ -40,7 +51,7 @@ namespace Inafocam.core.Repository
             {
 
                 model.CreationDate = now;
-                model.StatusId  = 1;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Inafocam.core.Help;
 
 namespace Inafocam.core.Repository
 {
@@ -34,7 +35,7 @@ namespace Inafocam.core.Repository
         public void Save(ScholarshipProgramTracingPractice model)
         {
             var now = DateTime.Now;
-            var activateStatus = 1;
+           
 
             var dateString = Convert.ToString(now);
 
@@ -45,12 +46,11 @@ namespace Inafocam.core.Repository
 
                 _context.Entry(currentData).CurrentValues.SetValues(model);
                 _context.Entry(currentData).State = EntityState.Modified;
-                //_context.ScholarshipProgramTracingPractice.Update(model);
             }
             else
             {
                 model.CreationDate = dateString;
-                model.StatusId = activateStatus;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
 

@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -76,17 +77,19 @@ namespace Inafocam.core.Repository
 
            if(model.SubjectMatterId != 0)
             {
-                //var currentData = _context.File.Find(model.SubjectMatterId);
                 model.UpgradeDate = now;
 
-                //_context.Entry(currentData).CurrentValues.SetValues(model);
-                //_context.Entry(currentData).State = EntityState.Modified;
+                if(model.TracingStudyPlanDevelopment.TeacherId == 0)
+                {
+                    model.TracingStudyPlanDevelopment.TeacherId = null;
+                }
 
                 _context.SubjectMatter.Update(model);
             }
             else
             {
                 model.CreationDate = now;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
 

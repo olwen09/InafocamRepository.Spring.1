@@ -45,6 +45,7 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
         private readonly IContactCommunication _contactCommunication;
         private readonly IWebHostEnvironment _hostingEnv;
         private readonly IUniversity _university;
+        private readonly ITeacherEducation teacherEducation;
 
         private IConfiguration _config;
 
@@ -229,8 +230,26 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             model.TeacherEducationList =  _teacherEducation.GetAll.Where(x=> x.TeacherId == id).ToList();
             ViewBag.EducationType = new SelectList(_educationType.GetAll, "EducationTypeId", "EducationTypeName");
             return View(model);
-        }  
-        
+        }
+
+        [HttpGet]
+        public IActionResult EditarTeacherEducation(int id)
+        {
+
+            var data = _teacherEducation.GetById(id);
+            var model = CopyPropierties.Convert<TeacherEducation, TeacherEducationModel>(data);
+
+            var teacherById = _teacher.GetById(id);
+
+            model.TeacherFullName = teacherById.Contact.ContactName + " " + teacherById.Contact.ContactLastname;
+
+            model.TeacherId = id;
+            model.TeacherEducationList = _teacherEducation.GetAll.Where(x => x.TeacherId == id).ToList();
+            ViewBag.EducationType = new SelectList(_educationType.GetAll, "EducationTypeId", "EducationTypeName");
+            return View(model);
+        }
+
+
         [HttpPost]
         public IActionResult GuardarTeacherEducation(TeacherEducationModel model)
         {
@@ -349,6 +368,89 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
         }
 
+
+        [HttpPost]
+        public int EliminarTeacherFile(int teacherFileId)
+        {
+
+            try
+            {
+                _teacherFile.Delete(teacherFileId);
+            }
+            catch(Exception e)
+            {
+                return 0;
+            }
+
+            return 1;
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> EditarFile(TeacherFileModel model, IFormFile file)
+        //{
+        //    var rutaPdf = _config.GetSection("rutas").GetSection("TeacherFiles").Value;
+        //    //var file = model.FormFile;
+        //    if (model.TeacherFileTypeId == null)
+        //    {
+        //        EnviarMensaje.Enviar(TempData, "red", "El tipo de archivo es requerido");
+
+
+        //        return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
+        //    }
+
+
+        //    if (file != null)
+        //    {
+        //        //upload files to wwwroot
+        //        //var fileName = Path.GetFileName(file.FileName);         
+
+        //        //judge if it is pdf file
+        //        string ext = Path.GetExtension(file.FileName);
+        //        var fileName = model.TeacherId + "-" + Guid.NewGuid() + ext;
+        //        if (ext.ToLower() != ".pdf")
+        //        {
+        //            return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
+        //        }
+        //        var fileFullPath = Path.Combine(rutaPdf, fileName);
+        //        //var filePath = "\\app-assets\\documentos\\teacher" + fileName; 
+
+        //        using (var fileSteam = new FileStream(fileFullPath, FileMode.Create))
+        //        {
+        //            await file.CopyToAsync(fileSteam);
+        //        }
+        //        //your logic to save filePath to database, for example
+
+
+        //        model.File.FileName = file.FileName;
+        //        model.File.FilePath = fileName;
+        //        model.File.FileFullPath = fileFullPath;
+        //        model.File.FileTypeId = model.TeacherFileTypeId;
+
+
+        //        var data = CopyPropierties.Convert<TeacherFileModel, TeacherFile>(model);
+
+        //        try
+        //        {
+        //            _teacherFile.Save(data);
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
+        //        }
+        //    }
+        //    else
+        //    {
+        //        EnviarMensaje.Enviar(TempData, "red", "El archivo es requerido");
+
+        //        return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
+
+        //    }
+
+
+
+        //    return RedirectToAction("AgregarDocumento", new { id = model.TeacherId });
+        //}
+
         public IActionResult AgregarDireccion(int id)
         {
 
@@ -370,6 +472,27 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
             return View(model);
         }
 
+
+        public IActionResult EditarDireccion(int id)
+        {
+
+            var data = _contactAddress.GetById(id);
+
+            var model = CopyPropierties.Convert<ContactAddress, ContactAddressModel>(data);
+            var contactId = _teacher.GetContactId(id);
+            var teacherById = _teacher.GetById(id);
+
+            model.ContactId = contactId;
+            model.TeacherId = teacherById.TeacherId;
+            model.TeacherFullName = teacherById.Contact.ContactName + " " + teacherById.Contact.ContactLastname;
+            model.ContactAddressList = _contactAddress.GetByContactId(contactId).ToList();
+
+            ViewBag.Countries = new SelectList(_country.GetAll, "CountryId", "CountryName");
+            ViewBag.Cities = new SelectList(_city.Cities, "CityId", "CityName");
+            ViewBag.Province = new SelectList(_province.Provinces, "ProvinceId", "ProvinceName");
+            ViewBag.AddressTypes = new SelectList(_addressType.addressTypes, "AddressTypeId", "AddressTypeName");
+            return View(model);
+        }
 
         [HttpPost]
         public IActionResult AgregarDireccion(ContactAddressModel model)
@@ -417,6 +540,22 @@ namespace Inafocam.Web.Areas.Profesores.Controllers
         public IActionResult AgregarComunicacion(int id)
         {
             var model = new ContactCommunicationModel();
+            var contactId = _teacher.GetContactId(id);
+            var teacherById = _teacher.GetById(id);
+
+            model.ContactId = contactId;
+            model.TeacherId = teacherById.TeacherId;
+            model.TeacherFullName = teacherById.Contact.ContactName + " " + teacherById.Contact.ContactLastname;
+            model.CommunicationList = _contactCommunication.GetAllByContactId(contactId).ToList();
+
+            return View(model);
+        }
+
+
+        public IActionResult EditarComunicacion(int id)
+        {
+            var data = _contactCommunication.GetById(id);
+            var model = CopyPropierties.Convert<ContactCommunication, ContactCommunicationModel>(data);
             var contactId = _teacher.GetContactId(id);
             var teacherById = _teacher.GetById(id);
 

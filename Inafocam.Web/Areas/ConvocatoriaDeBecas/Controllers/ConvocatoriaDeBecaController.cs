@@ -58,12 +58,12 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
             //scholarshipProgramUniversity.ScholarshipProgramUniversitySubjectMatter = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(id).ToList();
             var scholarshipProgramUniversityModel = CopyPropierties.Convert<ScholarshipProgramUniversity, ScholarshipProgramUniversityModel>(scholarshipProgramUniversity);
            scholarshipProgramUniversityModel.TracingStudyPlanDevelopmentList = _tracingStudyPlanDevelopment.GetAllByProgramTracingId(id);
-            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
-            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
 
 
-            ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
-            ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
+            ViewBag.Coordinator = new SelectList(coordinators, "AgentId", "FullName");
+            ViewBag.Technical = new SelectList(technicals, "AgentId", "FullName");
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
             ViewBag.Nivel = new SelectList(_scholarshipLevel.ScholarshipsLevel, "ScholarshipLevelId", "ScholarshipLevelName");
             ViewBag.scholarshipProgram = new SelectList(_scholarshipProgram.GetAll, "ScholarshipProgramId", "ScholarshipProgramName");
@@ -75,9 +75,9 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
         {
 
 
-            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname }).ToList();
 
-            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname }).ToList();
 
             //var scholarshipProgram = _scholarshipProgram.GetAll.Select(x => new GetScholarShipProgram
             //{
@@ -86,8 +86,8 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
             //     + ", " + x.ContractNumber.ToString()
             //});
 
-            ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId", "FullName");
-            ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
+            ViewBag.Coordinator = new SelectList(coordinators, "AgentId", "FullName");
+            ViewBag.Technical = new SelectList(technicals, "AgentId", "FullName");
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
             ViewBag.Nivel = new SelectList(_scholarshipLevel.ScholarshipsLevel, "ScholarshipLevelId", "ScholarshipLevelName");
             ViewBag.scholarshipProgram = new SelectList(_scholarshipProgram.GetAll, "ScholarshipProgramId", "ScholarshipProgramName");
@@ -119,7 +119,7 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 
                 EnviarMensaje.Enviar(TempData, "red", errors.ErrorMessage);
 
-                if(model.ScholarshipProgramUniversityId != 0)
+                if(model.ScholarshipProgramUniversityId != null)
                 {
                 return RedirectToAction("Editar", new { id = model.ScholarshipProgramUniversityId });
 

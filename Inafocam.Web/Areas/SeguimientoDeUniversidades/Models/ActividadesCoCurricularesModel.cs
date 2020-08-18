@@ -9,10 +9,10 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 {
     public class ActividadesCoCurricularesModel
     {
+        public int? CourseId { get; set; }
         public ScholarshipProgramTracingCourseModel TracingCourseModel { get; set; }
         public int? ScholarshipProgramUniversityId { get; set; }
         public long TracingId { get; set; }
-        public int? CourseId { get; set; }
         public bool IsGestionUniversitariaRole { get; set; }
 
 

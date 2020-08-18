@@ -13,6 +13,8 @@ namespace Inafocam.core.Interfaces
 
         public long? GetUniversityIdByScholarshipProgramUniversityId(long? ScholarshipProgramUniversityId);
 
+        ScholarshipProgramUniversity GetUniversityByScholarshipProgramUniversity(int id);
+
         ScholarshipProgramUniversity GetById(int id);
 
         void Save(ScholarshipProgramUniversity model);

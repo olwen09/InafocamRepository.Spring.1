@@ -51,6 +51,12 @@
     <Compile Remove="Migrations\20200807134602_AddNationalityColumnToContactTable.Designer.cs" />
     <Compile Remove="Migrations\20200810182304_AddontactCommunicationIdColumnToContact.cs" />
     <Compile Remove="Migrations\20200810182304_AddontactCommunicationIdColumnToContact.Designer.cs" />
+    <Compile Remove="Migrations\20200817160036_AddReportTable.cs" />
+    <Compile Remove="Migrations\20200817160036_AddReportTable.Designer.cs" />
+    <Compile Remove="Migrations\20200818143449_AddStatusIdPropertyToReportTable.cs" />
+    <Compile Remove="Migrations\20200818143449_AddStatusIdPropertyToReportTable.Designer.cs" />
+    <Compile Remove="Migrations\20200818143915_AddStatusIdPropertyToReportTable.cs" />
+    <Compile Remove="Migrations\20200818143915_AddStatusIdPropertyToReportTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

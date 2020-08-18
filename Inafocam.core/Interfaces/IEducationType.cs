@@ -9,5 +9,7 @@ namespace Inafocam.core.Interfaces
   public  interface IEducationType
     {
         IQueryable<EducationType> GetAll { get; }
+
+
     }
 }

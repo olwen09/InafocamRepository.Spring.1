@@ -121,6 +121,7 @@
                                     <th>Supervisor</th>
                                     <th>Docente de práctica</th>
                                     <th>Periodicidad</th>
+                                    <th>Acciones</th>
                                     @*<th class="right">Acciones</th>*@
                                 </tr>
                             </thead>
@@ -137,6 +138,21 @@
                         <td>@item.Superviser</td>
                         <td>@item.Teacher</td>
                         <td>@item.Periodicity</td>
+                        <td>
+                            <span class="badge flow-text">
+                                <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
+                                   asp-area="SeguimientoDeUniversidades"
+                                   asp-controller="SeguimientoDeUniversida"
+                                   asp-action="AgregarComentario"
+                                   asp-route-tracingId="@Model?.TracingId"
+                                   asp-route-scholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId"
+                                   asp-route-screenComment="@PantallasModel.SeguimientoALapráctica"
+                                   asp-route-description="@item?.ActivityType?.ActivityTypeName"
+                                   asp-route-actionName="@ActionsNames.SeguimientoALapráctica">
+                                    <i class="material-icons">comment</i>
+                                </a>
+                            </span>
+                        </td>
 
                     </tr>}
 

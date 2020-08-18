@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,13 +31,7 @@ namespace Inafocam.core.Repository
         {
             var now = DateTime.Now;
 
-
-            //Id de los estados
-            var Completado = 19;
-            var pendiente = 17;
-            var cerrado = 9;
-
-            var estatusId = estado == "Completado" ? Completado : estado == "Pendiente" ? pendiente : cerrado;
+            var estatusId = estado == "Completado" ? StatusValues.Completado : estado == "Pendiente" ? StatusValues.Pendiente : StatusValues.Anulado;
 
             var agreement = _context.ScholarshipProgramUniversityAgreement.Find(agremmentId);
             agreement.StatusId = estatusId;
@@ -55,7 +50,7 @@ namespace Inafocam.core.Repository
 
         public IEnumerable<ScholarshipProgramUniversityAgreement> GetAllPendingAndActiveByScholarshipProgramUniversityId(int id)
         {
-            return GetAll.Where(x => x.ScholarshipProgramUniversityId == id  && x.Status.StatusName  != "Cerrado").ToList();
+            return GetAll.Where(x => x.ScholarshipProgramUniversityId == id  && x.StatusId != StatusValues.Cerrado).ToList();
         }
 
         public ScholarshipProgramUniversityAgreement GetById(int agremmentId)
@@ -68,7 +63,6 @@ namespace Inafocam.core.Repository
         public void Save(ScholarshipProgramUniversityAgreement model)
         {
             var now = DateTime.Now;
-            var estadoPendiente = 17;
             if(model.ScholarshipProgramUniversityAgreementId != 0)
             {
                 model.UpgradeDate = now;
@@ -77,7 +71,7 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
-                model.StatusId = estadoPendiente;
+                model.StatusId = StatusValues.Pendiente;
                 _context.Add(model);
             }
             _context.SaveChanges();

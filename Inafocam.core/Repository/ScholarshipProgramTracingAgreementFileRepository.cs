@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,7 +26,7 @@ namespace Inafocam.core.Repository
 
       public  IEnumerable<ScholarshipProgramTracingAgreementFile> GetAllByscholarshipPogramTracingAgreementId(int id)
         {
-            return GetAll.Where(x => x.ScholarshipProgramTracingAgreementId == id);
+            return GetAll.Where(x => x.ScholarshipProgramTracingAgreementId == id && x.StatusId != StatusValues.Eliminado);
         }
 
         public void Save(ScholarshipProgramTracingAgreementFile model)
@@ -40,11 +41,21 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
             _context.SaveChanges();
         }
 
-     
+        public void Delete(long evidenceId)
+        {
+           
+            var evidenciaData = _context.ScholarshipProgramTracingAgreementFile.Find(evidenceId);
+            evidenciaData.StatusId = StatusValues.Eliminado;
+
+            _context.ScholarshipProgramTracingAgreementFile.Update(evidenciaData);
+
+            _context.SaveChanges();
+        }
     }
 }

@@ -75,9 +75,11 @@
     <Folder Include="wwwroot\app-assets\documentos\DocumentosParaElSistemaDeCalidad\" />
     <Folder Include="wwwroot\app-assets\documentos\DocumentosActividadesCoCurriculares\" />
     <Folder Include="wwwroot\app-assets\documentos\EstudiantesEnPracticaFiles\" />
+    <Folder Include="wwwroot\app-assets\documentos\InformesFiles\" />
     <Folder Include="wwwroot\app-assets\documentos\ResultadosDelPeriodoAnterior\" />
     <Folder Include="wwwroot\app-assets\images\inventario\" />
     <Folder Include="wwwroot\app-assets\images\piezas\" />
+    <Folder Include="wwwroot\textos_html\" />
   </ItemGroup>
 
 

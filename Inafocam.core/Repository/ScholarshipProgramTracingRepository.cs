@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -53,14 +54,11 @@ namespace Inafocam.core.Repository
         {
             var scholarshipProgramTracing = new List<ScholarshipProgramTracing>();
             var now = DateTime.Today;
-            var estadoCerrado = 9;
-            
-            
 
             foreach (var item in ScholarshipProgramTracing)
             {
                 var date = item.EndDate - now;
-                if (date.Value.TotalDays <= 0 && item.Status.StatusName != "Cerrado")
+                if (date.Value.TotalDays <= 0 && item.StatusId != StatusValues.Cerrado)
                 {
                     
                 scholarshipProgramTracing.Add(item);
@@ -71,7 +69,7 @@ namespace Inafocam.core.Repository
 
             foreach(var item in scholarshipProgramTracing)
             {
-                item.StatusId = estadoCerrado;
+                item.StatusId = StatusValues.Cerrado;
                 Save(item);
             }
 
@@ -87,14 +85,13 @@ namespace Inafocam.core.Repository
         {
          
             var now = DateTime.Today;
-            var estadoActivo = 1;
             var date = model.EndDate - now;
 
           if(model.ScholarshipProgramTracingId != 0)
             {
                 if (date.Value.TotalDays > 0)
                 {
-                    model.StatusId = estadoActivo;
+                    model.StatusId = StatusValues.Activo;
                 }
 
                 model.UpgradeDate = now;
@@ -103,6 +100,7 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
 

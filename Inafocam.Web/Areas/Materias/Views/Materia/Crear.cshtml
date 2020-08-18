@@ -40,6 +40,7 @@
 
         <input type="hidden" asp-for="SubjectMatterId" />
         <input type="hidden" asp-for="UniversityId" />
+        <input type="hidden" asp-for="StatusId" />
         <input type="hidden" asp-for="TracingStudyPlanDevelopmentId" />
         <input type="hidden" asp-for="TracingStudyPlanDevelopment.Id" />
         <input type="hidden" asp-for="TracingStudyPlanDevelopment.ScholarshipProgramTracingId" />
@@ -58,6 +59,7 @@
         <input type="hidden" asp-for="TracingStudyPlanDevelopment.femaleQuantity" />
         <input type="hidden" asp-for="TracingStudyPlanDevelopment.StudentReportFileId" />
         <input type="hidden" asp-for="TracingStudyPlanDevelopment.UniverityPeriod" />
+        <input type="hidden" asp-for="TracingStudyPlanDevelopment.StatusId" />
 
         <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
         @*<input type="hidden" asp-for="ScholarshipProgramUniversity.ScholarshipProgramUniversityId" />*@
@@ -148,25 +150,25 @@
 
         @*convocatorias del programa*@
 
-        <div class="input-field col s12">
+    <div class="input-field col s12">
 
-            <button class="teal btn waves-effect waves-light" type="submit">
-                <i class="material-icons left">save</i>
-                Guardar
-            </button>
+        <button class="teal btn waves-effect waves-light" type="submit">
+            <i class="material-icons left">save</i>
+            Guardar
+        </button>
+
+        <a class="white btn waves-effect waves-light black-text" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-universityID="@Model?.UniversityId">
+            Agregar profesor
+        </a>
+
+        <a class="btn waves-effect waves-light" asp-area="Materias" asp-controller="Materia" asp-action="Index" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+            <i class="material-icons left">list</i>
+            Ir a La Lista
+        </a>
 
 
 
-            @*<a class="btn waves-effect waves-light" asp-area="Materias" asp-controller="Materia" asp-action="Index">
-                <i class="material-icons left">list</i>
-                Ir a La Lista
-            </a>*@
-
-            <a class="white btn waves-effect waves-light black-text" asp-area="Profesores" asp-controller="Profesor" asp-action="Index" asp-route-universityID="@Model?.UniversityId">
-                Agregar profesor
-            </a>
-
-        </div>
+    </div>
 
 
 

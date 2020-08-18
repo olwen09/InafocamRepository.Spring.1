@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,6 +22,7 @@ namespace Inafocam.core.Repository
             .Include(x => x.Tracing)
             .Include(x => x.Status)
             .Include(x => x.File)
+            //.Include(x => x.ComponentFileType)
             .Include(x => x.ComponentFileType);
 
         public IEnumerable<ResultsFromThePreviousPeriod> GetAllByTracingId(int? tracingId)
@@ -30,7 +32,7 @@ namespace Inafocam.core.Repository
 
         public void Save(ResultsFromThePreviousPeriod model)
         {
-            var statusActivate = 1;
+           
             var now = DateTime.Now;
 
             if(model.PreviousPeriodId != 0)
@@ -46,7 +48,7 @@ namespace Inafocam.core.Repository
             else
             {
 
-                model.StatusId = statusActivate;
+                model.StatusId = StatusValues.Activo;
                 model.CreationDate = now;
                 _context.Add(model);
             }

@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,13 +26,12 @@ namespace Inafocam.core.Repository
 
         public IEnumerable<ScholarshipProgramTracingQualitySystem> GetAllByTracingId(int tracingId)
         {
-            return GetAll.Where(x => x.TracingId == tracingId && x.Status.StatusName == "Activo");
+            return GetAll.Where(x => x.TracingId == tracingId && x.StatusId == StatusValues.Activo);
         }
 
         public void Save(ScholarshipProgramTracingQualitySystem model)
             {
-            var now = DateTime.Now;
-            var estadoActivo = 1; 
+            var now = DateTime.Now;           
 
             if(model.QualityFileId != 0)
             {
@@ -41,17 +41,14 @@ namespace Inafocam.core.Repository
 
                 _context.Entry(currentData).CurrentValues.SetValues(model);
                 _context.Entry(currentData).State = EntityState.Modified;
-
-         
+       
             }
             else
             {
                 
                 model.CreationDate = now;
-                model.StatusId = estadoActivo;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
-
-
 
             }
             _context.SaveChanges();

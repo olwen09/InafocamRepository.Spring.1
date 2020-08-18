@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,7 +34,7 @@ namespace Inafocam.core.Repository
 
       public IEnumerable<TeacherFile> GetByTeacherId(int id)
         {
-            return GetAll.Where(x => x.TeacherId == id).ToList();
+            return GetAll.Where(x => x.TeacherId == id && x.StatusId != StatusValues.Eliminado).ToList();
         }
 
         public void Save(TeacherFile model)
@@ -47,10 +48,21 @@ namespace Inafocam.core.Repository
             }
             else
             {
-                model.StatusId = 1;
+                model.StatusId = StatusValues.Activo;
                 model.CreationDate = now;
                 _context.Add(model);
             }
+
+            _context.SaveChanges();
+        }
+
+
+        public void Delete(long teacherFileId)
+        {
+            var model = _context.TeacherFile.Find(teacherFileId);
+            model.StatusId = StatusValues.Eliminado;
+
+            _context.TeacherFile.Update(model);
 
             _context.SaveChanges();
         }

@@ -11,5 +11,7 @@ namespace Inafocam.core.Interfaces
        public IEnumerable<ScholarshipProgramTracingAgreementFile> GetAllByscholarshipPogramTracingAgreementId(int id);
 
         void Save(ScholarshipProgramTracingAgreementFile model);
+
+        void Delete(long evidenceId);
     }
 }

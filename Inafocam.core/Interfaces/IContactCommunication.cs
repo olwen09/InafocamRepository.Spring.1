@@ -12,6 +12,8 @@ namespace Inafocam.core.Interfaces
 
         IEnumerable<ContactCommunication> GetAllByContactId(int id);
 
+
+        ContactCommunication GetById(int id);
         ContactCommunication GetByContactId(int id);
 
         void Save(ContactCommunication model);

@@ -131,6 +131,21 @@
                         <div class="col s3">Cantidad de centros de prácticas: @item.PracticeCenterQuantity</div>
                         <div class="col s3">Cantidad supervisores: @item.SupervisorQuantity</div>
                         <div class="col s3">Cantidad de docentes anfitriones: @item.TeacherQuantity</div>
+
+
+                        <span class="badge flow-text">
+                            <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
+                               asp-area="SeguimientoDeUniversidades"
+                               asp-controller="SeguimientoDeUniversida"
+                               asp-action="AgregarComentario"
+                               asp-route-tracingId="@Model.TracingId"
+                               asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
+                               asp-route-screenComment="@PantallasModel.EstudiantesEnPractica"
+                               asp-route-description="@item.StudentPracticeType.StudentPracticeTypeTypeName"
+                               asp-route-actionName="@ActionsNames.EstudiantesEnPractica">
+                                <i class="material-icons">comment</i>
+                            </a>
+                        </span>
                     </div>
 
 
@@ -189,7 +204,15 @@
                                 <tr>
                                     <td>@file.File?.FileName</td>
                                     <td>@file?.FileDescription</td>
-                                    <td><a href="\app-assets\documentos\EstudiantesEnPracticaFiles\@file?.File?.FilePath" target="_blank">Ver</a></td>
+                                    <td>
+                                        <a class="tooltipped" data-position="top" data-tooltip="Ver documento" href="\app-assets\documentos\EstudiantesEnPracticaFiles\@file?.File?.FilePath" target="_blank">
+                                            <i class="material-icons">remove_red_eye</i>
+                                        </a>
+
+                                        <a class="tooltipped red-text ml-2" href="#" data-position="top" data-tooltip="Eliminar" onclick="eliminar('@Url.Action("EliminarEstudiantePracticeFile", "SeguimientoDeUniversida", new { area = "SeguimientoDeUniversidades", studentPracticeFileId= file.ScholarshipProgramTracingStudentPracticeFileId })')">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 }
 
@@ -198,51 +221,13 @@
                     </div>
                 </li>
 
-            </ul>}@*<table>
-                                    <thead>
-                                        <tr>
-                                            <th>Practica</th>
-                                            <th>Cantidad estudiantes</th>
-                                            <th>Cantidad de centros de prácticas</th>
-                                            <th>Cantidad supervisores</th>
-                                            <th>Cantidad de docentes anfitriones</th>
-                                        </tr>
-                                    </thead>
-
-
-
-                                    <tbody>
-
-                                        @foreach (var item in Model.StudentPracticeList)
-                                        {
-                                            var numero = count++;
-
-                            <tr>
-
-                                <td>@item.StudentPracticeType.StudentPracticeTypeTypeName</td>
-                                <td>@item.StudentsQuantity</td>
-                                <td>@item.PracticeCenterQuantity</td>
-                                <td>@item.SupervisorQuantity</td>
-                                <td>@item.TeacherQuantity</td>
-                            </tr>
-            }
-
-
-
-
-                                    </tbody>
-                                </table>*@
+            </ul>}
             </div>
 
 
 
             </div>
-@*<div class="input-field col s12">
-        <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-            Guardar
-            <i class="material-icons right">save</i>
-        </button>
-    </div>*@
+
 </div>
 
 <div class="input-field col s12">
@@ -347,5 +332,106 @@
 
         }
 
+
+            function eliminar(url) {
+            $.confirm({
+                title: 'Eliminar informe',
+                content: 'Esta seguro de eliminar esta evidencia?',
+                type: 'red',
+                boxWidth: '500px',
+                useBootstrap: false,
+                typeAnimated: true,
+                buttons: {
+                    eliminar: {
+                        text: 'Eliminar',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            $.ajax({
+                                type: 'post',
+                                url: url,
+                                success: function (data) {
+
+                                    if (data === 1 || data === "1") {
+                                        $.confirm({
+                                            title: 'Eliminado',
+                                            content: 'La evidencia fue eliminada',
+                                            type: 'green',
+                                            typeAnimated: true,
+                                            boxWidth: '500px',
+                                            autoClose: 'cerrar|5000',
+                                            useBootstrap: false,
+                                            buttons: {
+                                                cerrar: {
+                                                text: "Cerrar",
+                                                action: function () { }
+                                            }
+                                            },
+                                            onClose: function () {
+
+                                                // before the modal is hidden.
+                                                var container = $("#page-length-option");
+                                                $.ajax({
+                                                    type: 'get',
+                                                    url: '/SeguimientoDeUniversidades/seguimientodeuniversida/EstudiantesEnPractica?tracingId=@Model.TracingId&scholarshipProgramUniversityId=@Model.ScholarshipProgramUniversityId',
+                                                    success: function () {
+                                                        $.get('/SeguimientoDeUniversidades/seguimientodeuniversida/EstudiantesEnPractica?tracingId=@Model.TracingId&scholarshipProgramUniversityId=@Model.ScholarshipProgramUniversityId', function (data) {
+                                                            //console.log(data);
+                                                            container.html(data);
+                                                            location.reload();
+                                                            //dtable.ajax.reload();
+                                                            //console.log("recargó");
+
+                                                        });
+                                                        $.ajax({
+                                                            type: 'get',
+                                                            url: '/home/ClearTempData',
+                                                            success: function() {
+
+                                                            }
+                                                        });
+                                                    }
+                                                });
+
+                                            }
+                                        });
+                                    } else {
+                                        $.confirm({
+                                            title: 'Hubo un error',
+                                            content: 'No se pudo procesar la solicitud',
+                                            type: 'orange',
+                                            typeAnimated: true,
+                                            boxWidth: '500px',
+                                            autoClose: 'cerrar|5000',
+                                            useBootstrap: false,
+                                            buttons: {
+                                                cerrar: {
+                                                text: "Cerrar",
+                                                action: function () { }
+                                            }
+                                            },
+                                            onClose: function () {
+                                                // before the modal is hidden.
+                                                $.ajax({
+                                                    type: 'get',
+                                                    url: '/home/ClearTempData',
+                                                    success: function() {
+
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+
+                                }
+                            });
+                        }
+                    },
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                }
+            });
+        }
     </script>
 }

@@ -194,10 +194,10 @@ else
             <th style="border: solid 1px; border-color: #e0e0e0;">Pais</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Dirección 1</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Dirección 2</th>
-            <th style="border: solid 1px; border-color: #e0e0e0;">Numero de Casa</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Ciudad</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Provincia</th>
             <th style="border: solid 1px; border-color: #e0e0e0;">Comentario</th>
+            <th style="border: solid 1px; border-color: #e0e0e0;">Acciones</th>
         </tr>
     </thead>
 
@@ -209,22 +209,22 @@ else
             var Noespecificado = "No especificado";
 
             var cityName = item?.Address.City?.CityName != null ? item?.Address.City?.CityName : Noespecificada;
-            var provinceName = item?.Address.Province?.ProvinceName != null ? item?.Address.City?.CityName : Noespecificada;
+            var provinceName = item?.Address.Province?.ProvinceName != null ? item?.Address.Province.ProvinceName : Noespecificada;
             var comentario = item?.ContactAddressComment != null ? item?.ContactAddressComment : Noespecificado;
             <tr>
 
                 <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address?.Country?.CountryName</td>
                 <td style="border: solid 1px; border-color: #e0e0e0; overflow: hidden"><p>@item?.Address?.Address1</p></td>
                 <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address?.Address2</td>
-                <td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address.HomeNumber</td>
+                @*<td style="border: solid 1px; border-color: #e0e0e0;">@item?.Address.HomeNumber</td>*@
                 <td style="border: solid 1px; border-color: #e0e0e0;">@cityName</td>
                 <td style="border: solid 1px; border-color: #e0e0e0;">@provinceName</td>
                 <td style="border: solid 1px; border-color: #e0e0e0;">@comentario</td>
-                @*<td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
-                        <a class="red-text tooltipped" data-position="top" data-tooltip="eliminar" href="#">
-                            <i class="material-icons ">delete</i>
-                        </a>
-                    </td>*@
+                <td style="border: solid 1px; border-color: #e0e0e0;" class="center-align">
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="EditarDireccion" asp-route-id="@item.ContactAddressId" class="tooltipped" data-position="top" data-tooltip="Editar">
+                        <i class="material-icons">edit</i>
+                    </a>
+                </td>
 
             </tr>
             

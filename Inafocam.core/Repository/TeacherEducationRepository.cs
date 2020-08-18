@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,6 +30,11 @@ namespace Inafocam.core.Repository
             return GetAll.Where(x => x.TeacherId == teacherId).ToList();
         }
 
+        public TeacherEducation GetById(int id)
+        {
+            return GetAll.FirstOrDefault(x => x.TeacherEducationId == id);
+        }
+
         public void Save(TeacherEducation model)
         {
             var now = DateTime.Now;
@@ -40,6 +46,7 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
+                model.StatusId = StatusValues.Activo;
                 _context.Add(model);
             }
             _context.SaveChanges();

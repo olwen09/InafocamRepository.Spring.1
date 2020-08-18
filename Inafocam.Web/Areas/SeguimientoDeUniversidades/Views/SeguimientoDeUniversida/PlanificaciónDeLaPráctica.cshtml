@@ -159,6 +159,7 @@
                                 <th>Finalizada</th>
                                 <th>Observación</th>
                                 <th>Fecha de creación</th>
+                                <th>Acciones</th>
                                 @*<th>Cantidad de docentes anfitriones</th>*@
                             </tr>
                         </thead>
@@ -179,7 +180,21 @@
                                             <td>@doesItFinished</td>
                                             <td>@item.Comment</td>
                                             <td>@item.CreationDate</td>
-
+                                            <td>
+                                                <span class="badge flow-text">
+                                                    <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
+                                                       asp-area="SeguimientoDeUniversidades"
+                                                       asp-controller="SeguimientoDeUniversida"
+                                                       asp-action="AgregarComentario"
+                                                       asp-route-tracingId="@Model?.TracingId"
+                                                       asp-route-scholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId"
+                                                       asp-route-screenComment="@PantallasModel.PlanificaciónDeLaPráctica"
+                                                       asp-route-description="@item?.ActionType?.ActionTypeName"
+                                                       asp-route-actionName="@ActionsNames.PlanificaciónDeLaPráctica">
+                                                        <i class="material-icons">comment</i>
+                                                    </a>
+                                                </span>
+                                            </td>
                                         </tr>
                        }
 

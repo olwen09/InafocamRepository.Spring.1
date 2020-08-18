@@ -39,6 +39,7 @@
 <div class="row">
     <form class="col s12 formValidate" method="post" asp-area="ProgramacionDeSeguimiento" asp-controller="ProgramacionDeSeguimiento" asp-action="GuardarScholarshipProgramTracing">
         <input asp-for="ScholarshipProgramTracingId" type="hidden" />
+        <input asp-for="StatusId" type="hidden" />
         <input asp-for="CreationDate" type="hidden" />
         <input asp-for="CreationUserId" type="hidden" />
 
@@ -93,7 +94,7 @@
 
                         @if (Model.ScholarshipProgramUniversityId != null)
                         {
-                        <select id="ScholarshipProgramUniversity" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ScholarshipProgram">
+                        <select asp-for="ScholarshipProgramUniversityId"  class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.ScholarshipProgram">
                             <option value="" disabled selected>Seleccione una Opción</option>
                         </select> 
                         }

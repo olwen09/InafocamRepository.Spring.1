@@ -1,4 +1,5 @@
-﻿using Inafocam.core.Interfaces;
+﻿using Inafocam.core.Help;
+using Inafocam.core.Interfaces;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -69,6 +70,7 @@ namespace Inafocam.core.Repository
             else
             {
                 model.CreationDate = now;
+                model.StatusId =StatusValues.Activo;
                 _context.Add(model);
             }
 

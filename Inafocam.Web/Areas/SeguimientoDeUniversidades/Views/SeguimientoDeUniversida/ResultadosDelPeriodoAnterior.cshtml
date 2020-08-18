@@ -137,17 +137,33 @@
                             {
                                 var numero = count++;
 
-                <tr>
-                    <td>@numero</td>
-                    <td>@item?.ComponentFileType?.ComponentFileTypeName</td>
-                    <td>@item?.Quantity</td>
-                    <td>@item?.Observations</td>
-                    <td>@item?.File?.FileName</td>
-                    <td>@item?.FileDescription</td>
+                                <tr>
+                                    <td>@numero</td>
+                                    <td>@item?.ComponentFileType?.ComponentFileTypeName</td>
+                                    <td>@item?.Quantity</td>
+                                    <td>@item?.Observations</td>
+                                    <td>@item?.File?.FileName</td>
+                                    <td>@item?.FileDescription</td>
 
-                    <td><a class="left" href="\app-assets\documentos\resultadosdelperiodoanterior\@item?.File?.FilePath" target="_blank">Ver</a></td>
-                </tr>
-}
+                                    <td>
+                                        <a class="left" href="\app-assets\documentos\resultadosdelperiodoanterior\@item?.File?.FilePath" target="_blank">Ver</a>
+
+                                        <span class="badge flow-text">
+                                            <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
+                                               asp-area="SeguimientoDeUniversidades"
+                                               asp-controller="SeguimientoDeUniversida"
+                                               asp-action="AgregarComentario"
+                                               asp-route-tracingId="@Model?.TracingId"
+                                               asp-route-scholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId"
+                                               asp-route-screenComment="@PantallasModel.ResultadosDelPeriodoAnterior"
+                                               asp-route-description="@item?.ComponentFileType?.ComponentFileTypeName"
+                                               asp-route-actionName="@ActionsNames.ResultadosDelPeriodoAnterior">
+                                                <i class="material-icons">comment</i>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
 
 
                         </tbody>

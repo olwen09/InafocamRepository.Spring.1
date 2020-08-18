@@ -62,7 +62,22 @@
 
 <ul class="collapsible collapsible-accordion">
     <li>
-        <div class="collapsible-header" style="background-color:#eeeeee ">@Model.Indicador.IndicadorId . @Model.Indicador.IndicadorNombre</div>
+        <div class="collapsible-header" style="background-color:#eeeeee ">
+            @Model.Indicador.IndicadorId . @Model.Indicador.IndicadorNombre
+            <span class="badge flow-text">
+                <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
+                   asp-area="SeguimientoDeUniversidades"
+                   asp-controller="SeguimientoDeUniversida"
+                   asp-action="AgregarComentario"
+                   asp-route-tracingId="@Model.TracingId"
+                   asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
+                   asp-route-screenComment="@PantallasModel.ApoyoAlStudiante"
+                   asp-route-description="@item.IndicadorNombre"
+                   asp-route-actionName="@ActionsNames.ApoyoAlStudiante">
+                    <i class="material-icons">comment</i>
+                </a>
+            </span>
+        </div>
         <div class="collapsible-body">
             <div class="row">
 

@@ -59,11 +59,20 @@
                 }
 
             </td>
-    <td>
-        <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId"class="tooltipped" data-position="top" data-tooltip="Comenzar">
-            <i class="material-icons">edit</i>
-        </a>
-    </td>
+            <td>
+                <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Comenzar">
+                    <i class="material-icons">edit</i>
+                </a>
+
+
+                <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Informes" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Agregar informe">
+                    <i class="material-icons">add</i>
+                </a>
+
+                <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Comentarios" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Ver la lista de comentarios">
+                    <i class="material-icons">remove_red_eye</i>
+                </a>
+            </td>
 </tr>}
 
 

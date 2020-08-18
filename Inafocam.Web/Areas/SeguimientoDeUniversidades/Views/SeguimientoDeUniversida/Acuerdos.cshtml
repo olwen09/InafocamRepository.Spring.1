@@ -61,7 +61,21 @@
 
 <ul class="collapsible collapsible-accordion">
     <li>
-        <div class="collapsible-header" style="background-color:#eeeeee ">@item.ScholarshipProgramUniversityAgreement1 - @item.AgreementType.AgreementTypeName  <span class="badge @badgeColor flow-text"> @item.Status.StatusName </span></div>
+        <div class="collapsible-header" style="background-color:#eeeeee ">
+            @item.ScholarshipProgramUniversityAgreement1 - @item.AgreementType.AgreementTypeName  <span class="badge @badgeColor flow-text"> @item.Status.StatusName </span>
+            <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
+               asp-area="SeguimientoDeUniversidades"
+               asp-controller="SeguimientoDeUniversida" 
+               asp-action="AgregarComentario"
+               asp-route-tracingId="@Model.ScholarshipProgramTracingId" 
+               asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
+               asp-route-screenComment="@PantallasModel.Acuerdos" 
+               asp-route-description="@item.ScholarshipProgramUniversityAgreement1"
+               asp-route-actionName="@ActionsNames.Acuerdos">
+                <i class="material-icons">comment</i>
+            </a>
+
+        </div>
         <div class="collapsible-body">
             <div class="row card">
 
@@ -141,7 +155,16 @@
                                         <tr>
                                             <td>@file.File.FileName</td>
                                             <td>@file.AgreementFileDescription</td>
-                                            <td><a href="\app-assets\documentos\acuerdos\@file?.File?.FilePath" target="_blank">Ver</a></td>
+                                            <td>
+                                                <a class="tooltipped" data-position="top" data-tooltip="Ver documento" href="\app-assets\documentos\acuerdos\@file?.File?.FilePath" target="_blank">
+                                                    <i class="material-icons">remove_red_eye</i>
+                                                </a>
+
+
+                                                <a class="tooltipped red-text ml-2" href="#" data-position="top" data-tooltip="Eliminar" onclick="eliminar('@Url.Action("EliminarEvidenciaAcuerdos", "SeguimientoDeUniversida", new { area = "SeguimientoDeUniversidades", evidenciaId= file.ScholarshipProgramTracingAgreementFileId })')">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                            </td>
 
                                         </tr>               
                                 }
@@ -171,105 +194,7 @@
 
 
 
-    @*<div class="card">
-            <div class="card-content">
-
-
-
-                <h4 class="card-title">Convenidos</h4>
-                <div class="divider"></div>
-
-                <ul class="collapsible">
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">pan_tool</i>First</div>
-                        <div class="collapsible-body">
-                            <div class="row card">
-
-                                <div class="card-content">
-                                    <form class="col s12">
-
-
-                                        <span class="card-title">Detalles</span>
-                                        <div class="file-field input-field col s12 m6 l4">
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Descripción del avance</label>
-                                        </div>
-                                        <div class="file-field input-field col s12 m6 l4 ">
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Descripción que evidencie el cumplimiento</label>
-                                        </div>
-                                        <div class="file-field input-field col s12 m6 l4">
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Observaciones</label>
-                                        </div>
-
-
-
-
-                                        <span class="card-title">Seleccionar Evidencia</span>
-                                        <div class="divider"></div>
-
-                                        <div class="file-field input-field col s12 m6 l5">
-                                            <div class="btn">
-                                                <span>File</span>
-                                                <input name="file" type="file">
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input name="file" class="file-path validate" type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="file-field input-field col s12 m6 l6">
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Observaciones</label>
-                                        </div>
-
-                                        <div class="file-field input-field col s12 m6 l1">
-                                            <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
-                                        </div>
-                                        <br />
-                                        <div class="divider"></div>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombre de Archivo</th>
-                                                    <th>Descripcion</th>
-                                                    <th>Acciones</th>
-
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>Jonathan</td>
-                                                    <td>Lollipop</td>
-                                                    <td>ver</td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-
-
-
-
-
-
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-
-                </ul>
-
-            </div>
-
-        </div>*@
-
+  
 
     <div class="input-field col s12">
 
@@ -385,6 +310,107 @@
                 }
             });
 
+        }
+
+                function eliminar(url) {
+            $.confirm({
+                title: 'Eliminar informe',
+                content: 'Esta seguro de eliminar esta evidencia?',
+                type: 'red',
+                boxWidth: '500px',
+                useBootstrap: false,
+                typeAnimated: true,
+                buttons: {
+                    eliminar: {
+                        text: 'Eliminar',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            $.ajax({
+                                type: 'post',
+                                url: url,
+                                success: function (data) {
+
+                                    if (data === 1 || data === "1") {
+                                        $.confirm({
+                                            title: 'Eliminado',
+                                            content: 'La evidencia fue eliminada',
+                                            type: 'green',
+                                            typeAnimated: true,
+                                            boxWidth: '500px',
+                                            autoClose: 'cerrar|5000',
+                                            useBootstrap: false,
+                                            buttons: {
+                                                cerrar: {
+                                                text: "Cerrar",
+                                                action: function () { }
+                                            }
+                                            },
+                                            onClose: function () {
+
+                                                // before the modal is hidden.
+                                                var container = $("#page-length-option");
+                                                $.ajax({
+                                                    type: 'get',
+                                                    url: '/SeguimientoDeUniversidades/seguimientodeuniversida/Acuerdos?tracingId=@Model.ScholarshipProgramTracingId&scholarshipProgramUniversityId=@Model.ScholarshipProgramUniversityId',
+                                                    success: function () {
+                                                        $.get('/SeguimientoDeUniversidades/seguimientodeuniversida/Acuerdos?tracingId=@Model.ScholarshipProgramTracingId&scholarshipProgramUniversityId=@Model.ScholarshipProgramUniversityId', function (data) {
+                                                            //console.log(data);
+                                                            container.html(data);
+                                                            location.reload();
+                                                            //dtable.ajax.reload();
+                                                            //console.log("recargó");
+
+                                                        });
+                                                        $.ajax({
+                                                            type: 'get',
+                                                            url: '/home/ClearTempData',
+                                                            success: function() {
+
+                                                            }
+                                                        });
+                                                    }
+                                                });
+
+                                            }
+                                        });
+                                    } else {
+                                        $.confirm({
+                                            title: 'Hubo un error',
+                                            content: 'No se pudo procesar la solicitud',
+                                            type: 'orange',
+                                            typeAnimated: true,
+                                            boxWidth: '500px',
+                                            autoClose: 'cerrar|5000',
+                                            useBootstrap: false,
+                                            buttons: {
+                                                cerrar: {
+                                                text: "Cerrar",
+                                                action: function () { }
+                                            }
+                                            },
+                                            onClose: function () {
+                                                // before the modal is hidden.
+                                                $.ajax({
+                                                    type: 'get',
+                                                    url: '/home/ClearTempData',
+                                                    success: function() {
+
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+
+                                }
+                            });
+                        }
+                    },
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                }
+            });
         }
     </script>
 }

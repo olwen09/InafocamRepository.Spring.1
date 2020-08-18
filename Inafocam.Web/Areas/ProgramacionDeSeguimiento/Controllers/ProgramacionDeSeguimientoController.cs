@@ -72,8 +72,8 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
         {
             var model = new ScholarshipProgramTracingModel();
 
-            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
-            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentTypeId = x.AgentTypeId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var technicals = _agent.GetTechnicals.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
+            var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname });
             var scholarshipProgram = _scholarshipProgramUniversity.ScholarshipProgramUniversity
                .Select(x => new GetScholarShipProgram
                {
@@ -85,8 +85,8 @@ namespace Inafocam.Web.Areas.ProgramacionDeSeguimiento.Controllers
 
        
             ViewBag.ScholarshipProgram = new SelectList(scholarshipProgram, "ScholarshipProgramUniversityId", "ScholarShipProgramNameScatCodeContractNumber");
-            ViewBag.Coordinator = new SelectList(coordinators, "AgentTypeId","FullName");
-            ViewBag.Technical = new SelectList(technicals, "AgentTypeId", "FullName");
+            ViewBag.Coordinator = new SelectList(coordinators, "AgentId", "FullName");
+            ViewBag.Technical = new SelectList(technicals, "AgentId", "FullName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");
             ViewBag.University = new SelectList(_university.Universities, "UniversityId", "UniversityName");
 
