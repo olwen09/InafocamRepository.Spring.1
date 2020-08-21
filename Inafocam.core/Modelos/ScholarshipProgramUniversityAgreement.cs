@@ -14,6 +14,11 @@ namespace Inafocam.core.Modelos
         public long? ScholarshipProgramUniversityId { get; set; }
         public string ScholarshipProgramUniversityAgreement1 { get; set; }
         public long? AgreementTypeId { get; set; }
+
+        public string DescripcionDelAvance { get; set; }
+        public string DescripcionQueEvidencieElCumplimiento { get; set; }
+        public string Observaciones { get; set; }
+
         public DateTime? CreationDate { get; set; }
         public DateTime? UpgradeDate { get; set; }
         public long? CreationUserId { get; set; }

@@ -39,7 +39,6 @@
 
 <div class="row">
     <form class="col s12 formValidate" method="post">
-        @*<form class="col s12 formValidate" method="post" asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Guardar">*@
 
         <input asp-for="ScholarshipProgramUniversityId" type="hidden" />
         <input asp-for="CreationDate" type="hidden" />
@@ -50,15 +49,12 @@
         <input asp-for="TechnicalId" type="hidden" />
         <input asp-for="UniversityId" type="hidden" />
 
-        @* Detalles del programa*@
         <div>
             <span asp-validation-sumary=""></span>
         </div>
-        @*<div class="card"></div>*@
 
 
 
-        @* detalles del programa *@
 
         <div class="card">
             <div class="card-content">
@@ -71,7 +67,6 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input value="TRACING-0000" id="codigo" type="text" class="validat" disabled style=" font-weight: bold;">
                         <label>Programa ID</label>
@@ -81,7 +76,6 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input asp-for="ScholarshipProgram.ScholarshipProgramName" id="nombreprograma" type="text" class="validat" readonly>
                         <label>Nombre Programa</label>
@@ -92,7 +86,6 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input asp-for="University.UniversityName" id="universidad" type="text" class="validat" readonly />
                         <label for="universidad">Universidad</label>
@@ -107,7 +100,6 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input asp-for="ScatProgramCode" id="codscat" type="text" class="validat" readonly>
                         <label for="codscat">Cod.Scat</label>
@@ -118,7 +110,6 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input asp-for="ContractNumber" id="nocontrato" type="text" class="validat" readonly>
                         <label for="nocontrato">No. Contrato</label>
@@ -129,7 +120,6 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input asp-for="Coordinator.Contact.ContactName" id="cordinador" type="text" class="validat" readonly>
                         <label for="cordinador">Cordinador</label>
@@ -148,7 +138,6 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input asp-for="Technical.Contact.ContactName" id="tecnico" type="text" class="validat" readonly>
                         <label for="tecnico">Tecnico</label>
@@ -159,16 +148,11 @@
 
                     <div class="input-field col s12 m6 l4">
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input asp-for="Status.StatusName" id="estado" type="text" class="validat" readonly>
 
                         <label for="estado">Estado</label>
-                        @*<div class="row">
-                                <label for="select2User" class="col s12">Estado</label>
-                            </div>
-                            <select asp-for="StatusId" class="form-control js-example-basic-single" style="width: 100%" asp-items="  ViewBag.Status ">
-                            </select>*@
+
 
                     </div>
 
@@ -191,12 +175,7 @@
                 </div>
 
             </div>
-            @*<div class="input-field col s12">
-                    <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                        Guardar
-                        <i class="material-icons right">save</i>
-                    </button>
-                </div>*@
+
         </div>
     </form>
 </div>
@@ -206,9 +185,7 @@
         <input asp-for="ScholarshipProgramUniversityId" type="hidden" />
         <input asp-for="Agreement.CreationUserId" type="hidden" />
         <input asp-for="Agreement.StatusId" type="hidden" />
-        @*<input asp-for="Agreement.AgreementTypeId" type="hidden" />*@
-        @*<input asp-for="StatusId" type="hidden" />*@
-        @*<input asp-for="" type="hidden" />*@
+
         <input asp-for="UniversityId" type="hidden" />
         <div class="card">
             <div class="card-content">
@@ -242,11 +219,7 @@
                     <div class="s6 m6 l2 text-center">
 
 
-                        @*<br  class="hide-on-small-and-down mt-5"/>
-                            <br  class="hide-on-small-and-down mt-5"/>*@
 
-                        @*<br  class="hide-on-small-and-down"/>*@
-                       
                         <button class="btn btn-small black-text mt-1 grey lighten-4">
                             <p>
 
@@ -279,8 +252,8 @@
 
                         @foreach (var item in Model?.ScholarshipProgramUniversityAgreement)
                         {
-                            var badgeColor = item.Status.StatusName == "Pendiente" ? "orange" :
-                                item.Status.StatusName == "Completado" ? "teal" : "red";
+                            var badgeColor = item?.Status?.StatusName == "Pendiente" ? "orange" :
+                                             item?.Status?.StatusName == "Completado" ? "teal" : "red";
 
                             <tr>
                                 <td style="border: solid 1px; border-color: #e0e0e0;">@item.ScholarshipProgramUniversityAgreementId</td>
@@ -327,10 +300,7 @@
 
                 <div class="input-field col s12">
 
-                    @*<button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                            <i class="material-icons left">save</i>
-                            Guardar
-                        </button>*@
+
 
                     <a class="btn " asp-area="AcuerdoProgramasdeBecas" asp-controller="AcuerdoProgramasdeBeca" asp-action="Index">
                         <i class="material-icons left">view_list</i>
@@ -372,17 +342,10 @@
     <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
     <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
     <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
-    @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
-        <script src="~/app-assets/js/scripts/form-masks.js"></script>
-        @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
-    @*<script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <!-- END PAGE LEVEL JS-->
     <script>
-        @*$('#descripcionTxtArea').val('@Model.Descripcion');
-        M.textareaAutoResize($('#textarea2'));*@
+
 
 
         $(document).ready(function () {

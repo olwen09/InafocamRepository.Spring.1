@@ -53,23 +53,38 @@
                 <div class="card-content">
                     <div class="row">
 
-                        <div class="col s4 ">
+                        <div class="col s1 ">
 
+                            @if (!Model.IsGestionUniversitariaRole)
+                            {
 
-                            <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="AgregarInformes"
-                               asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
-                                    <i class="material-icons">add</i>
-                                    Nuevo
+                                <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="AgregarInformes"
+                                   asp-route-tracingId="@Model.TracingId" asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId">
+                                        <i class="material-icons">add</i>
+                                        Nuevo
                                 </a>
+                            }
 
 
 
                         </div>
 
-                        <div class="col s4 ">
+                        <div class="col s2">
+                            <h5 class="center">Informes:</h5>
+
+                        </div> 
+                        
+                        <div class="col s4">
                             <h5 class="center">@Model.UniversityName</h5>
 
                         </div>
+
+                        <div class="col s5">
+                            <h5 class="">@Model.ProgramNameScatCodeContractCode</h5>
+
+                        </div>
+                        
+                        
 
 
                     </div>

@@ -56,6 +56,7 @@
             <div class="divider"></div>
 
 
+                <ul class="collapsible collapsible-accordion">
             @foreach (var item in Model.subjectMatterList)
             {
                 //var teacher = new List<string>();
@@ -69,23 +70,27 @@
                                 Model.TracingStudyPlanDevelopmentModel = item.TracingStudyPlanDevelopment;
                                 //Model.TracingStudyPlanDevelopmentModel.Id = Model.SubjectMatterModel.TracingStudyPlanDevelopmentId;
 
-                <ul class="collapsible collapsible-accordion">
                     <li>
                         <div class="collapsible-header" style="background-color:#eeeeee ">
                             @item.SubjectMatterCode - @item.SubjectMatterName
-                            <span class="badge flow-text">
-                                <a class="right"
-                                   asp-area="SeguimientoDeUniversidades"
-                                   asp-controller="SeguimientoDeUniversida"
-                                   asp-action="AgregarComentario"
-                                   asp-route-tracingId="@Model.TracingId"
-                                   asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
-                                   asp-route-screenComment="@PantallasModel.DesarrolloDelPlanDeEstudio"
-                                   asp-route-description="@item.SubjectMatterName"
-                                   asp-route-actionName="@ActionsNames.DesarrolloDelPlanDeEstudio">
-                                    <i class="material-icons">comment</i>
-                                </a>
-                            </span>
+                             @if (!Model.IsGestionUniversitariaRole)
+                             {
+
+                                <span class="badge flow-text">
+                                    <a class="right"
+                                       asp-area="SeguimientoDeUniversidades"
+                                       asp-controller="SeguimientoDeUniversida"
+                                       asp-action="AgregarComentario"
+                                       asp-route-tracingId="@Model.TracingId"
+                                       asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
+                                       asp-route-screenComment="@PantallasModel.DesarrolloDelPlanDeEstudio"
+                                       asp-route-description="@item.SubjectMatterName"
+                                       asp-route-actionName="@ActionsNames.DesarrolloDelPlanDeEstudio">
+                                        <i class="material-icons">comment</i>
+                                    </a>
+                                </span>
+
+                            }
                         </div>
                       
 
@@ -383,7 +388,8 @@
                             <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
                             <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                         </li>*@
-                </ul>       }
+                }
+                </ul> 
 
 
         </div>

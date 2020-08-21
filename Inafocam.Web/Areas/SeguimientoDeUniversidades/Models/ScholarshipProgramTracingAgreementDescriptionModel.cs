@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 {
-    public class ScholarshipProgramTracingAgreementModel
+    public class ScholarshipProgramTracingAgreementDescriptionModel
     {
-        public long ScholarshipProgramTracingAgreementId { get; set; }
+        public long ScholarshipProgramTracingAgreementDescriptionId { get; set; }
+
         public long? ScholarshipProgramTracingId { get; set; }
         public long? ScholarshipProgramUniversityAgreementId { get; set; }
-        public string ScholarshipProgramTracingAgreementDescription { get; set; }
+        public string ScholarshipProgramTracingAgreementDescription1 { get; set; }
         public string ScholarshipProgramTracingAgreementDescription2 { get; set; }
         public string ScholarshipProgramTracingAgreementDescription3 { get; set; }
 

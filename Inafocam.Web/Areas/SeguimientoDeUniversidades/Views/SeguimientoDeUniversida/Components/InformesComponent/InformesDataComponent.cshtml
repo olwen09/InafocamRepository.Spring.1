@@ -35,9 +35,13 @@
                         <i class="material-icons">remove_red_eye</i>
                     </a>
 
-                    <a class="tooltipped red-text ml-2" href="#" data-position="top" data-tooltip="Eliminar" onclick="eliminar('@Url.Action("EliminarInforme", "SeguimientoDeUniversida", new { area = "SeguimientoDeUniversidades", reportId= item.ReportId })')">
-                        <i class="material-icons">delete</i>
-                    </a>
+                    @if (!Model.IsGestionUniversitariaRole)
+                    {
+                        <a class="tooltipped red-text ml-2" href="#" data-position="top" data-tooltip="Eliminar" onclick="eliminar('@Url.Action("EliminarInforme", "SeguimientoDeUniversida", new { area = "SeguimientoDeUniversidades", reportId= item.ReportId })')">
+                            <i class="material-icons">delete</i>
+                        </a>
+
+                    }
                 </td>
             </tr>
         }

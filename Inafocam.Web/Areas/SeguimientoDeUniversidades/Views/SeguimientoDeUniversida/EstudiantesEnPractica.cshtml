@@ -132,7 +132,8 @@
                         <div class="col s3">Cantidad supervisores: @item.SupervisorQuantity</div>
                         <div class="col s3">Cantidad de docentes anfitriones: @item.TeacherQuantity</div>
 
-
+                     @if (!Model.IsGestionUniversitariaRole)
+                     {
                         <span class="badge flow-text">
                             <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
                                asp-area="SeguimientoDeUniversidades"
@@ -146,6 +147,7 @@
                                 <i class="material-icons">comment</i>
                             </a>
                         </span>
+                     }
                     </div>
 
 

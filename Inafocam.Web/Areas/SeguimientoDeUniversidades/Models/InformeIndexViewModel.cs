@@ -11,8 +11,11 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
        public IEnumerable<Report> ReportList { get; set; }
 
         public int? TracingId { get; set; }
+        public bool IsGestionUniversitariaRole { get; set; }
+
         public int? ScholarshipProgramUniversityId { get; set; }
 
         public string  UniversityName { get; set; }
+        public string ProgramNameScatCodeContractCode { get; set; }
     }
 }

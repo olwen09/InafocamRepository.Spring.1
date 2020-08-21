@@ -22,6 +22,11 @@ namespace Inafocam.core.Modelos
         [MaxLength(50)]
         public string CreatorUserId { get; set; }
 
+        public long StatusId { get; set; }
+
+        [MaxLength(100)]
+        public string NormalizedDescription { get; set; }
+
         public long? ScholarshipProgramTracingId { get; set; }
 
         public DateTime CreationDate { get; set; }
@@ -35,6 +40,9 @@ namespace Inafocam.core.Modelos
 
         [ForeignKey("CreatorUserId")]
         public virtual Usuario Usuario { get; set; }
+
+        [ForeignKey("StatusId")]
+        public virtual Status Status { get; set; }
 
 
     }

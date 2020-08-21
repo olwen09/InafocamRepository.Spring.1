@@ -3,14 +3,16 @@ using System;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Inafocam.core.Migrations
 {
     [DbContext(typeof(inafocam_tracingContext))]
-    partial class inafocam_tracingContextModelSnapshot : ModelSnapshot
+    [Migration("20200820220543_AddScholarshipProgramTracingAgreementDescriptionCorectionTable")]
+    partial class AddScholarshipProgramTracingAgreementDescriptionCorectionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1973,9 +1975,8 @@ namespace Inafocam.core.Migrations
 
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingAgreementDescription", b =>
                 {
-                    b.Property<long>("ScholarshipProgramTracingAgreementDescriptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                    b.Property<string>("ScholarshipProgramTracingAgreementDescriptionId")
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("CommentedUserId")
                         .HasColumnType("varchar(60)")
@@ -1987,9 +1988,6 @@ namespace Inafocam.core.Migrations
                     b.Property<string>("CreationUserId")
                         .HasColumnType("varchar(60)")
                         .HasMaxLength(60);
-
-                    b.Property<string>("ScholarshipProgramTracingAgreementDescription1")
-                        .HasColumnType("text");
 
                     b.Property<string>("ScholarshipProgramTracingAgreementDescription2")
                         .HasColumnType("text");
@@ -2794,15 +2792,6 @@ namespace Inafocam.core.Migrations
                     b.Property<long?>("CreationUserId")
                         .HasColumnName("creation_user_id")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("DescripcionDelAvance")
-                        .HasColumnType("text");
-
-                    b.Property<string>("DescripcionQueEvidencieElCumplimiento")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Observaciones")
-                        .HasColumnType("text");
 
                     b.Property<string>("ScholarshipProgramUniversityAgreement1")
                         .HasColumnName("scholarship_program_university_agreement")

@@ -1,0 +1,348 @@
+﻿@using Andamios.Web.Helpers
+@using Andamios.Web.Views.Shared.Components.PagerViewComponent
+
+@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.CommentsIndexViewModel
+
+@{
+
+
+    MensajesViewModel mensaje = new MensajesViewModel();
+
+    if (TempData["mensaje"] != null)
+    {
+
+        mensaje = TempData.Get<MensajesViewModel>("mensaje");
+
+    }
+
+    var urlImg = "default.png";
+    var counter = 0;
+}
+
+@section Style
+{
+
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/flag-icon/css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/pages/data-tables.css">
+
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/data-tables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/data-tables/css/select.dataTables.min.css">
+    <link href="~/lib/jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+
+    <link href="~/app-assets/vendors/Searchbar/css/searchbar.css" rel="stylesheet" />
+
+}
+
+@* BREADCRUMB *@
+
+@await Component.InvokeAsync("BreadcrumbComponent", new
+{
+    area = (string)ViewData["area"],
+    controller = (string)ViewData["controller"],
+    controlador = (string)ViewData["controlador"],
+    vista = (string)ViewData["vista"]
+})
+
+@*///////////////////*@
+
+<div class="mt-3"></div>
+
+<div class="s003">
+    <form asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="ConsultarComentarios" id="searchForm" asp-route-searchForm="@true" asp-route-tracingId="@Model?.TracingId" asp-route-programUniversityId="@Model?.ScholarshipProgramUniversityId">
+        <input asp-for="ScholarshipProgramUniversityId" type="hidden" />
+        <input asp-for="TracingId" type="hidden" />
+        
+        <div class="inner-form">
+            <div class="input-field-search first-wrap mr-5" style="border: none;">
+                <div class="input-select text-truncate" style="width: 400px; border: none;">
+
+
+                    <select asp-for="Pantalla" data-trigger="" id="">
+                        <option placeholder="" value="formularios">Formularios</option>
+                        <option value="@ScreenCommentNames.Acuerdos">Acuerdos</option>
+                        <option value="@ScreenCommentNames.DesarrolloDelPlanDeEstudio">Desarrollo del plan de estudio</option>
+                        <option value="@ScreenCommentNames.ActividadesCoCurriculares">Actividades Co-Curriculares</option>
+                        <option value="@ScreenCommentNames.DocumentoParaElSistemaDeCalidad">Documentos para el Sistema de Calidad</option>
+                        <option value="@ScreenCommentNames.ApoyoAlStudiante">Apoyo al Estudiante</option>
+                        <option value="@ScreenCommentNames.EstudiantesEnPractica">Estudiantes en práctica</option>
+                        <option value="@ScreenCommentNames.PlanificaciónDeLaPráctica">Planificación de la práctica</option>
+                        <option value="@ScreenCommentNames.SeguimientoALapráctica">Seguimiento a la práctica</option>
+                        <option value="@ScreenCommentNames.ConveniosConLosCentrosDePráctica">Convenios con los centros de práctica</option>
+                        <option value="@ScreenCommentNames.InstitucionesAfinesALosProgramasParaActividades">Instituciones afines a los programas para actividades co-curriculares</option>
+                        <option value="@ScreenCommentNames.ResultadosDelPeriodoAnterior">Resultados del período anterior</option>
+                    </select>
+                 
+
+
+
+                </div>
+            </div >
+            <div class="input-field-search second-wrap ml-10">
+                <input asp-for="Descripcion" id=""  type="text" placeholder="Escriba aquí para buscar" onfocus="this.value = ''" />
+            </div>
+            <div class="input-field-search third-wrap">
+                <button class="btn btn-search teal" type="submit" id="btnSubmit"  >
+                    <svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+@*/////////////////////*@
+<div class="row">
+
+    <div class="col s12 m9 l12 mt-1">
+        <div class="card z-depth-1">
+            <div class="card-content" style="border-top:solid 3px #00BB17">
+
+                <div class="row">
+                    <div class="col s4">
+                        <h1 class="card-title left">@Model.ProgramNameScatCodeContractCode</h1>
+
+                    </div>
+
+                    <div class="col s4">
+                        <h1 class="card-title center">@Model.UniversityName</h1>
+
+                    </div>
+
+                    <div class="col s2">
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+
+
+
+
+                    <div class="col s12 m12 l12 mt">
+
+
+
+                        <div class="result">
+                            <div class="row">
+                                <div class="col s12 m12 l12">
+                                    <ul class="collapsible expandable">
+                                        @foreach (var item in Model.CommentList)
+                                        {
+                                            counter++;
+                                            <li class="mt-1 active hoverable">
+                                                <div class="collapsible-header">
+                                                    <div class="col blue-text text-darken-2">@counter.</div>
+                                                    <div class="col s2"><span class="blue-text text-darken-2 flow-text">Creador: </span><br /> <h5>@item?.Usuario?.Nombre @item?.Usuario?.Apellido</h5></div>
+                                                    <div class="col s4"><span class="blue-text text-darken-2 flow-text"> Formulario:</span><br /><h5> @item?.CommentScreen</h5></div>
+                                                    <div class="col s4"><span class="blue-text text-darken-2 flow-text"> Descripcion:</span><br /><h5> @item?.Description</h5></div>
+                                                    <div class="col s2"><span class="blue-text text-darken-2 flow-text "> Fecha de Creacion:</span><br /><h5> @item?.CreationDate.ToString("D", CultureInfo.GetCultureInfo("es"))</h5></div>
+
+                                                    @if (Model.IsAdministradorInafocamRole)
+                                                    {
+                                                        <div class="">
+
+                                                                <a class="green-text center tooltipped" data-position="top" data-tooltip="Pendiente"
+                                                                   onclick="CambiarEstado('@Url.Action("CambiarComentarioStatusById", "SeguimientoDeUniversida", new { area = "SeguimientoDeUniversidades", statusId= StatusValues.Pendiente, commentId = item.CommentId })')">
+                                                                    @*asp-controller="SeguimientoDeUniversida" asp-action="CambiarComentarioStatusById"  asp-route-statusId="@StatusValues.Activo" asp-route-tracingId="@item.ScholarshipProgramTracingId"*@
+
+                                                                    <i class="material-icons">lock_open</i>
+                                                                </a>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                                <div class="collapsible-body">
+
+                                                    <span> <h5 class="blue-text text-darken-2 flow-text">Comentario: </h5> <span class="flow-text">@item.Comments</span></span>
+                                                </div>
+                                            </li>
+
+
+
+                                        }
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="col s2 m2 l2">
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    @await Component.InvokeAsync("VerticalScriptSectionComponent")
+
+<script>
+        $(document).ready(function(){
+            $('.tooltipped').tooltip();
+            if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+        });
+        const choices = new Choices('[data-trigger]',
+            {
+                searchEnabled: false,
+                itemSelectText: '',
+            });
+
+        $("#search").on('input',
+            function (e) {
+                var count = e.target.value.trim().length;
+                console.log(count);
+
+                if (e.target.value.trim().length > 0) {
+
+                    $('#btnSubmit').removeAttr('disabled', false);
+                } else {
+                    $('#btnSubmit').attr('disabled', true);
+
+                }
+                // $('#btnSubmit').removeAttr('disabled');
+            });
+
+    $(document).ready(function () {
+        $("button").prop('disabled', true);
+        $("select#search").change(function () {
+            var selectedSearchValue = $(this).children("option:selected").val();
+            if (selectedSearchValue == 'formularios') {
+
+                $("button").prop('disabled', true);
+            }
+            else {
+                $("button").prop('disabled', false);
+            }
+        });
+    });
+
+        var elem = document.querySelector('.collapsible.expandable');
+        var instance = M.Collapsible.init(elem, {
+            accordion: false
+        });
+
+
+            function CambiarEstado(url) {
+            $.confirm({
+                title: 'Cambiar Estado',
+                content: 'Al pasar este comentario a un estado pendiente el su creador podra editar el comentario.',
+                type: 'red',
+                boxWidth: '500px',
+                useBootstrap: false,
+                typeAnimated: true,
+                buttons: {
+                    eliminar: {
+                        text: 'Cambiar Estado',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            $.ajax({
+                                type: 'post',
+                                url: url,
+                                success: function (data) {
+
+                                    if (data === 1 || data === "1") {
+                                        $.confirm({
+                                            title: 'Cambiar estado',
+                                            content: 'El comentario a pasado a un estado de pendiente',
+                                            type: 'green',
+                                            typeAnimated: true,
+                                            boxWidth: '500px',
+                                            autoClose: 'cerrar|5000',
+                                            useBootstrap: false,
+                                            buttons: {
+                                                cerrar: {
+                                                text: "Cerrar",
+                                                action: function () { }
+                                            }
+                                            },
+                                            onClose: function () {
+
+                                                // before the modal is hidden.
+                                                var container = $("#page-length-option");
+                                                $.ajax({
+                                                    type: 'get',
+                                                    url: '/SeguimientoDeUniversidades/seguimientodeuniversida/ConsultarComentarios?tracingId=@Model.TracingId&scholarshipProgramUniversityId=@Model.ScholarshipProgramUniversityId',
+                                                    success: function () {
+                                                        $.get('/SeguimientoDeUniversidades/seguimientodeuniversida/ConsultarComentarios?tracingId=@Model.TracingId&scholarshipProgramUniversityId=@Model.ScholarshipProgramUniversityId', function (data) {
+                                                            //console.log(data);
+                                                            container.html(data);
+                                                            location.reload();
+                                                            //dtable.ajax.reload();
+                                                            //console.log("recargó");
+
+                                                        });
+                                                        $.ajax({
+                                                            type: 'get',
+                                                            url: '/home/ClearTempData',
+                                                            success: function() {
+
+                                                            }
+                                                        });
+                                                    }
+                                                });
+
+                                            }
+                                        });
+                                    } else {
+                                        $.confirm({
+                                            title: 'Hubo un error',
+                                            content: 'No se pudo procesar la solicitud',
+                                            type: 'orange',
+                                            typeAnimated: true,
+                                            boxWidth: '500px',
+                                            autoClose: 'cerrar|5000',
+                                            useBootstrap: false,
+                                            buttons: {
+                                                cerrar: {
+                                                text: "Cerrar",
+                                                action: function () { }
+                                            }
+                                            },
+                                            onClose: function () {
+                                                // before the modal is hidden.
+                                                $.ajax({
+                                                    type: 'get',
+                                                    url: '/home/ClearTempData',
+                                                    success: function() {
+
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+
+                                }
+                            });
+                        }
+                    },
+                    cerrar:{
+                        text: "Cerrar",
+                        action: function () { }
+                    }
+                }
+            });
+        }
+</script>
+}

@@ -86,20 +86,6 @@
                         <div class="col s12 m9 l9 user-section-negative-margin ml-8">
                             <div class="row">
                                 <div class="col s12 center-align center m-0">
-                                    @*<img class="responsive-img circle z-depth-5" width="120" src="../../../app-assets/images/user/12.jpg" alt="">*@
-
-                                    @*<style>
-                                            #Image {
-                                                background-image: url( '/app-assets/images/inventario/default.png');
-                                                background-size: cover;
-                                                width: 300px;
-                                                height: 200px;
-                                                font-size: 2rem;
-                                            }
-                                        </style>
-                                        <button id="Image" type="file">
-                                            Test button
-                                        </button>*@
 
                                     <div class=" col s12 ">
 
@@ -151,7 +137,6 @@
                             </div>
 
                             <div class="col s12 m4 l4 ">
-                                @*Este div esta creado para rellenar el lado de la derecha *@
 
                             </div>
                         </div>
@@ -161,14 +146,7 @@
 
                     <div class="row ml-3">
                         <div class="col m12 s6 l6">
-                            @*<div class="row margin">
-                                    <div class="input-field col s9">
-                                        <i class="material-icons prefix pt-2">person_outline</i>
-                                        <input class="validate" id="username" type="text" asp-for="@Model.EditarUsuarioModel.UserName" />
-                                        <label for="username" class="center-align">Usuario</label>
-                                        <span asp-validation-for="@Model.EditarUsuarioModel.UserName" class="red-text"></span>
-                                    </div>
-                                </div>*@
+
 
                             <div class="row margin">
                                 <div class="input-field col s9">
@@ -190,14 +168,6 @@
                                 </div>
                             </div>
 
-                            @*<div class="row margin">
-                                    <div class="input-field col s9">
-                                        <i class="material-icons prefix pt-2">face</i>
-                                        <input class="validate" id="Email" type="text" asp-for="EditarUsuarioModel.Email">
-                                        <label for="Email" class="center-align ">Email</label>
-                                        <span asp-validation-for="EditarUsuarioModel.Email" class="red-text"></span>
-                                    </div>
-                                </div>*@
 
                         </div>
 
@@ -213,7 +183,6 @@
                                 </div>
                             </div>
 
-                            @*<input asp-for="EditarUsuarioModel.Role" type="hidden" />*@
 
 
 
@@ -224,7 +193,6 @@
 
                             <div class="row margin">
                                 <div class="input-field col s9 ">
-                                    @*       <button type="submit">Update</button>*@
 
                                     <button type="submit" class="btn waves-effect waves-light  teal col s12 btn-small">
                                         <i class="material-icons dp48">save</i>
@@ -239,18 +207,6 @@
                         </div>
                     </div>
 
-
-
-                    @*<div class="row">
-                            <div class="input-field col s12 m12 l12">
-                                <div class="input-field col s3 m13 l3">
-                                    <button type="submit" class="btn waves-effect waves-light border-round teal col s12 btn-small ">
-                                        <i class="material-icons dp48">save</i>
-                                        Guardar Cambios
-                                    </button>
-                                </div>
-                            </div>
-                        </div>*@
 
                 </div>
             </div>
@@ -267,10 +223,7 @@
 
 
                 <div class="modal mt-4" id="contrasena">
-                    @*@{
-                            Model.ResetPasswordViewModel.area = "Identity";
-                            Model.ResetPasswordViewModel.controller = "Account";
-                        }*@
+
 
                     @await Component.InvokeAsync("ResetPasswordComponent", Model.ResetPasswordViewModel);
 
@@ -319,9 +272,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
     <script>
-        //$(document).ready(function() {
-        //    $('.tooltipped').tooltip();
-        //});
+
                      if ("@mensaje.Tipo".length > 0) {
             $.confirm({
                 title: '@mensaje.Titulo',
@@ -355,11 +306,7 @@
         $('#userInformations').on("submit", function (event) {
             var Password = $("#Password").val();
             var ConfirmPassword = $("#ConfirmPassword").val();
-            //var diferentes = $("#diferentes").val();
-            //var contraseña = $("#contraseña").val()
-            //if (diferentes != "") {
-            //    diferentes = ""
-            //}
+
             $('#diferentes').text('');
             $('#contraseña').text('');
             if (Password != ConfirmPassword) {

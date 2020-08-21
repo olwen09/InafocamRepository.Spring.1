@@ -79,12 +79,6 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
 
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents { AgentId = x.AgentId, FullName = x.Contact.ContactName.ToString() + " " + x.Contact.ContactLastname }).ToList();
 
-            //var scholarshipProgram = _scholarshipProgram.GetAll.Select(x => new GetScholarShipProgram
-            //{
-            //    ScholarshipProgramUniversityId = x.ScholarshipProgramUniversityId,
-            //    ScholarShipProgramNameScatCodeContractNumber = x.ScholarshipProgram.ScholarshipProgramName.ToString() + ", " + x.ScatProgramCode.ToString()
-            //     + ", " + x.ContractNumber.ToString()
-            //});
 
             ViewBag.Coordinator = new SelectList(coordinators, "AgentId", "FullName");
             ViewBag.Technical = new SelectList(technicals, "AgentId", "FullName");
@@ -100,7 +94,6 @@ namespace Inafocam.Web.Areas.ConvocatoriaDeBecas.Controllers
         public IActionResult GuardarConvocatoriaDeBeca(ScholarshipProgramUniversityModel model)
         {
             var data = CopyPropierties.Convert<ScholarshipProgramUniversityModel, ScholarshipProgramUniversity>(model);
-            //var scholarshipProgramUniversity = _scholarshipProgramUniversity.ScholarshipProgramUniversity.ToList();
 
             if (ModelState.IsValid)
             {

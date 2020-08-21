@@ -62,22 +62,9 @@
 
                 <div class="row ">
 
-
-                    @*<div class="input-field col s12 m6 l1">
-
-
-
-                        <input value="INST-0000" id="codigo" type="text" class="validat" disabled style=" font-weight: bold;">
-
-                        <label>Id Universidad</label>
-
-
-                    </div>*@
-
                     <div class="input-field col s12 m6 l3">
 
 
-                        @*<i class="material-icons prefix">contacts</i>*@
 
                         <input id="Nombre" asp-for="UniversityName" type="text" class="validat">
 
@@ -115,53 +102,9 @@
 
                 </div>
 
-                @*<div class="row">
-
-
-                    <div class="input-field col s12 m6 l3">
-                        <div class="row">
-                            <label for="select2User" class="col s12">Tecnico</label>
-                        </div>
-                        <select class="form-control js-example-basic-single" style="width: 100%">
-                        </select>
-
-
-                    </div>
-
-
-                    <div class="input-field col s12 m6 l3">
-
-                        <div class="row">
-                            <label for="select2User" class="col s12">Estado</label>
-                        </div>
-                        <select class="form-control js-example-basic-single" style="width: 100%">
-                        </select>
-
-
-                    </div>
-
-                    <div class="s6 m6 l5">
-
-
-                        <div class="input-field col s12 m6 l2">
-                            <input type="text" class="datepicker" id="inicioConvocatoria">
-                            <label for="inicioConvocatoria">Fecha de Inicio</label>
-                        </div>
-
-                        <div class="input-field col s12 m6 l2">
-                            <input type="text" class="datepicker" id="finConvocatoria">
-                            <label for="finConvocatoria">Fecha de Termino</label>
-                        </div>
-                    </div>
-                </div>*@
 
             </div>
-            @*<div class="input-field col s12">
-                <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                    Guardar
-                    <i class="material-icons right">save</i>
-                </button>
-            </div>*@
+
         </div>
 
         <div class="card">
@@ -171,22 +114,9 @@
 
                 <h4 class="card-title">Dirección y Comunicación</h4>
 
-
-                @*<input type="hidden"  /> addressid*@
-                @*<input type="hidden"  /> cominicationid*@
                 <div class="row ">
 
-                    @*<div class="input-field col s12 m6 l3">
-                        <div class="row">
-                            <label for="select2User" class="col s12">Tipo de Dirección </label>
-                        </div>
-                        <select asp-for="Address.AddressTypeId" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.AddressType">
-                            <option value="" disabled selected>Seleccione una Opción</option>
-                        </select>
-
-
-                    </div>*@
-
+              
 
                     <div class="input-field col s12 m6 l4">
 
@@ -272,12 +202,7 @@
 
 
             </div>
-            @*<div class="input-field col s12">
-                <button class="teal btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                    Guardar
-                    <i class="material-icons right">save</i>
-                </button>
-            </div>*@
+
         </div>
         <div class="input-field col s12">
 
@@ -290,18 +215,6 @@
                 <i class="material-icons left">view_list</i>
                 Ver Lista
             </a>
-
-            @*<a class="red btn waves-effect waves-light" type="submit" onclick="onValidate(this.parent)">
-                <i class="material-icons left">cancel</i>
-                Anular
-            </a>
-
-            <a class="white btn waves-effect waves-light black-text" type="submit" onclick="onValidate(this.parent)">
-                <i class="material-icons left">cleaning_services</i>
-                Limpiar
-            </a>*@
-
-
 
 
         </div>
@@ -329,17 +242,11 @@
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/app-assets/js/toastr.init.js" type="text/javascript"></script>
     <script src="~/app-assets/vendors/formatter/jquery.formatter.min.js" type="text/javascript"></script>
-    @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
-        <script src="~/app-assets/js/scripts/form-masks.js"></script>
-        @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
-    @*<script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <!-- END PAGE LEVEL JS-->
     <script>
-        @*$('#descripcionTxtArea').val('@Model.Descripcion');
-        M.textareaAutoResize($('#textarea2'));*@
+
 
 
         $(document).ready(function () {

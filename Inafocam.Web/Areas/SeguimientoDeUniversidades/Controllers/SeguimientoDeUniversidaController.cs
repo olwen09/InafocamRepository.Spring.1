@@ -37,7 +37,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         private readonly IScholarshipProgramTracingAgreementFile _scholarshipProgramTracingAgreementFile;
         private readonly IScholarshipProgramTracingStudentSupport _studentSupport;
         private readonly IScholarshipProgramUniversity _scholarshipProgramUniversity;
-        private readonly IScholarshipProgramTracingAgreement _scholarshipProgramTracingAgreement;
+        private readonly IScholarshipProgramTracingAgreementDescription  _agreementDescription;
         private readonly IAgent _agent;
         private readonly ITracingStudyPlanDevelopment _tracingStudyPlanDevelopment;
         private readonly IContactCommunication _contactCommunication;
@@ -70,7 +70,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
         public SeguimientoDeUniversidaController(IScholarshipProgramTracing scholarshipProgramTracing, IScholarshipProgramTracingStudentSupport studentSupport,
             IScholarshipProgramUniversity scholarshipProgramUniversity, IAgent agent, IContactCommunication contactCommunication,
-            IScholarshipProgramUniversityAgreement scholarshipProgramUniversityAgreement, IScholarshipProgramTracingAgreement scholarshipProgramTracingAgreement,
+            IScholarshipProgramUniversityAgreement scholarshipProgramUniversityAgreement, IScholarshipProgramTracingAgreementDescription agreementDescription,
             IScholarshipProgramTracingAgreementFile scholarshipProgramTracingAgreementFile, ITracingStudyPlanDevelopment tracingStudyPlanDevelopment, ITeacher teacher
             , UserManager<Usuario> userManager, IScholarshipProgramTracingCourse scholarshipProgramTracingCourse,
             IScholarshipProgramTracingCourseFile tracingCourseFile, IScholarshipProgramTracingCourseFileType CourseFileType,
@@ -90,7 +90,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             _agent = agent;
             _contactCommunication = contactCommunication;
             _scholarshipProgramUniversityAgreement = scholarshipProgramUniversityAgreement;
-            _scholarshipProgramTracingAgreement = scholarshipProgramTracingAgreement;
+            _agreementDescription = agreementDescription;
             _scholarshipProgramTracingAgreementFile = scholarshipProgramTracingAgreementFile;
             _tracingStudyPlanDevelopment = tracingStudyPlanDevelopment;
             _teacher = teacher;
@@ -122,7 +122,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         public IActionResult Index()
         {
 
-
+            var model = new IndexViewModel();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
 
@@ -130,13 +131,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             if (user.Role == RoleName.GestionUniversitaria || user.Role == RoleName.UsuarioEjecutivoUniversitario)
             {
-                var availableTracings = _scholarshipProgramTracing.GetTracingByUserUniversityId(universityId);
-                return View(availableTracings);
+                model.AveliableScholarshipProgramTracingList = _scholarshipProgramTracing.GetTracingByUserUniversityId(universityId);
+                return View(model);
             }
             else if (user.Role == RoleName.AdministradorInafocam || user.Role == RoleName.UsuarioEjecutivoInafocam)
             {
-                var tracings = _scholarshipProgramTracing.ScholarshipProgramTracing;
-                return View(tracings);
+                model.AveliableScholarshipProgramTracingList = _scholarshipProgramTracing.ScholarshipProgramTracing;
+                return View(model);
             }
 
             return View();
@@ -149,8 +150,13 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             var model = new InformeIndexViewModel();
                model.ReportList = _Informe.GetAllByTracingId(tracingId);
                model.ScholarshipProgramUniversityId = programUniversityId;
-               model.TracingId = tracingId;    
-                     
+               model.UniversityName = GetUniversityName(programUniversityId);
+               model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
+               model.TracingId = tracingId;
+            var program = _scholarshipProgramUniversity.GetById(programUniversityId);
+            model.ProgramNameScatCodeContractCode = program.ScholarshipProgram.ScholarshipProgramName.ToString() +
+            ", " + program.ScatProgramCode.ToString() + ", " + program.ContractNumber.ToString();
+
             return View(model);
         }
 
@@ -238,19 +244,68 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
         }
 
-      
-        //public IActionResult ReloadInformesView(int tracingId, int programUniversityId)
-        //{
-        //    return RedirectToAction("Informes", new { tracingId = tracingId, programUniversityId = programUniversityId });
-        //}
 
         public IActionResult Comentarios(int programUniversityId, int tracingId)
         {
 
             var model = new  CommentsIndexViewModel();
-            model.CommentList = _comment.GetAllByTracingId(tracingId);
+            model.TracingId = tracingId;
+            model.ScholarshipProgramUniversityId = programUniversityId;
+            model.CommentList = _comment.GetAllByTracingId(tracingId).ToList();
             model.UniversityName = GetUniversityName(programUniversityId);
-            
+            var program = _scholarshipProgramUniversity.GetById(programUniversityId);
+            model.ProgramNameScatCodeContractCode = program.ScholarshipProgram.ScholarshipProgramName.ToString() +
+            ", " + program.ScatProgramCode.ToString() + ", " + program.ContractNumber.ToString();
+
+            return View(model);
+        }
+
+
+        public IActionResult ConsultarComentarios(CommentsIndexViewModel model,int scholarshipProgramUniversityId, int tracingId ,bool searchForm)
+        {
+            model.UniversityName = GetUniversityName(scholarshipProgramUniversityId);
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.IsAdministradorInafocamRole = CheckIfUserRoleIsAdministradorInafocam();
+            var program = _scholarshipProgramUniversity.GetById(scholarshipProgramUniversityId);
+            model.ProgramNameScatCodeContractCode = program.ScholarshipProgram.ScholarshipProgramName.ToString() + 
+                ", " + program.ScatProgramCode.ToString() + ", "+ program.ContractNumber.ToString();
+
+            if (searchForm)
+            {
+
+                var description = model.Descripcion != null ? model.Descripcion.ToUpper() : " ";
+
+                model.CommentList = _comment.GetAllActiveByTracingId(tracingId).Where(x => x.CommentScreen == model.Pantalla && x.NormalizedDescription.Contains(description)).ToList();
+
+            }
+            else
+            {
+                model.CommentList = _comment.GetAllActiveByTracingId(tracingId);
+            }
+
+            return View(model);
+        }
+
+        public IActionResult ConsultarComentariosPorUsuario(CommentsIndexViewModel model, int scholarshipProgramUniversityId, int tracingId, bool searchForm)
+        {
+            model.UniversityName = GetUniversityName(scholarshipProgramUniversityId);
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            var program = _scholarshipProgramUniversity.GetById(scholarshipProgramUniversityId);
+            model.ProgramNameScatCodeContractCode = program.ScholarshipProgram.ScholarshipProgramName.ToString() +
+            ", " + program.ScatProgramCode.ToString() + ", " + program.ContractNumber.ToString();
+
+            if (searchForm)
+            {
+
+                var description = model.Descripcion != null ? model.Descripcion.ToUpper() : "";
+
+                model.CommentList = _comment.GetAllByTracingIdAndUserId(tracingId ,GetUserId()).Where(x => x.CommentScreen == model.Pantalla && x.NormalizedDescription.Contains(description)).ToList();
+
+            }
+            else
+            {
+                model.CommentList = model.CommentList = _comment.GetAllByTracingIdAndUserId(tracingId, GetUserId());
+            }
 
             return View(model);
         }
@@ -274,13 +329,27 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return View(model);
         }
 
+        public IActionResult EditarComentario(int commentId,int scholarshipProgramUniversityId, string actionName ,int tracingId)
+        {
+
+            var data = _comment.GetById(commentId);
+
+            var model = CopyPropierties.Convert<Comment, ComentariosViewModel>(data);
+            model.ActionName = actionName;
+            model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            model.TracingId = tracingId;
+
+            return View("AgregarComentario",model);
+           
+        }
+
 
         [HttpPost]
         public IActionResult GuardarComentario(ComentariosViewModel model)
         {
 
             var data = CopyPropierties.Convert<ComentariosViewModel, Comment>(model);
-
+            data.NormalizedDescription = model.Description.ToUpper();
 
             if (ModelState.IsValid)
             {
@@ -307,6 +376,21 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
          }
 
+
+        public int CambiarComentarioStatusById(int commentId, int statusId)
+        {
+            try
+            {
+                _comment.ChangeStatus(commentId, statusId);
+            }
+            catch(Exception e)
+            {
+                return 0;
+            }
+
+            return 1;
+
+        }
         public IActionResult Instrucciones(int tracingId, int programUniversityId)
         {
 
@@ -341,7 +425,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             var data = _scholarshipProgramTracing.GetById(tracingId);
             var model = CopyPropierties.Convert<ScholarshipProgramTracing, InformacionPrincipalViewModel>(data);
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
 
             var coordinators = _agent.GetCoordinators.Select(x => new GetAgents
@@ -403,11 +487,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
         public IActionResult Acuerdos(int scholarshipProgramUniversityId, int tracingId)
         {
             var model = new AcuerdosViewModel();
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
             model.ScholarshipProgramUniversityAgreementList = _scholarshipProgramUniversityAgreement.GetAllPendingAndActiveByScholarshipProgramUniversityId(scholarshipProgramUniversityId);
             model.ScholarshipProgramTracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
+            
             return View(model);
         }
 
@@ -421,22 +506,22 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             }
 
-            //Pasando las los valores de los parametros al modelo ScholarshipProgramTracingAgreementModel
-            model.ScholarshipProgramTracingAgreementModel.ScholarshipProgramUniversityAgreementId = universityAgreementId;
-            model.ScholarshipProgramTracingAgreementModel.ScholarshipProgramTracingAgreementId = universityAgreementId;
-            model.ScholarshipProgramTracingAgreementModel.ScholarshipProgramTracingId = tracingId;
+            ////Pasando las los valores de los parametros al modelo ScholarshipProgramTracingAgreementDescriptionModel
+            //model.ScholarshipProgramUniversityAgreement.ScholarshipProgramTracingAgreementDescriptionId = universityAgreementId;
+            //model.ScholarshipProgramUniversityAgreement.ScholarshipProgramTracingAgreementDescriptionId = universityAgreementId;
+            //model.ScholarshipProgramUniversityAgreement.ScholarshipProgramTracingId = tracingId;
 
 
             var rutaPdf = _config.GetSection("rutas").GetSection("AcuerdosFiles").Value;
-            var scholarshipProgramTracingAgreementModel = new ScholarshipProgramTracingAgreementModel();
-            scholarshipProgramTracingAgreementModel = model.ScholarshipProgramTracingAgreementModel;
-            var tracingAgreementData = CopyPropierties.Convert<ScholarshipProgramTracingAgreementModel, ScholarshipProgramTracingAgreement>(scholarshipProgramTracingAgreementModel);
+            //var scholarshipProgramTracingAgreementDescriptionModel = new ScholarshipProgramTracingAgreementDescriptionModel();
+            //scholarshipProgramTracingAgreementDescriptionModel = model.ScholarshipProgramTracingAgreementDescriptionModel;
+            //var tracingAgreementData = CopyPropierties.Convert<ScholarshipProgramTracingAgreementDescriptionModel, ScholarshipProgramTracingAgreement>(scholarshipProgramTracingAgreementDescriptionModel);
 
 
             if (file != null)
             {
                 string ext = Path.GetExtension(file.FileName);
-                var fileName = model.ScholarshipProgramTracingAgreementModel.ScholarshipProgramTracingAgreementId + "-" + Guid.NewGuid() + ext;
+                var fileName = model.ScholarshipProgramTracingId + "-" + Guid.NewGuid() + ext;
                 if (ext.ToLower() != ".pdf")
                 {
                     return RedirectToAction("Acuerdos", new { scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId, tracingId = model.ScholarshipProgramTracingId });
@@ -493,6 +578,28 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
 
         [HttpPost]
+        public IActionResult SaveDescripcionDeAcuerdos(AcuerdosViewModel model, int agremmentId, int universityAgreementId, int tracingId)
+        {
+            var universityAgreementModel = new ScholarshipProgramUniversityAgreement();
+            universityAgreementModel = model.ScholarshipProgramUniversityAgreementModel;
+
+
+            //var data = CopyPropierties.Convert<ScholarshipProgramTracingAgreementDescriptionModel, ScholarshipProgramTracingAgreementDescription>(agreementDescriptionModel);
+
+            try
+            {
+                _scholarshipProgramUniversityAgreement.Save(universityAgreementModel);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Acuerdos", new { scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId, tracingId = model.ScholarshipProgramTracingId });
+            }
+
+            return RedirectToAction("Acuerdos", new { scholarshipProgramUniversityId = model.ScholarshipProgramUniversityId, tracingId = model.ScholarshipProgramTracingId });
+        }
+
+
+        [HttpPost]
         public int EliminarEvidenciaAcuerdos(long evidenciaId)
         {
 
@@ -514,7 +621,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             var model = new DesarrolloDelPlanDeEstudioModel();
             var universityId = _scholarshipProgramTracing.GetUniversityId(tracingId);
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
 
 
@@ -648,7 +755,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.CourseId = courseId;
             model.TracingCourseList = _scholarshipProgramTracingCourse.GetAvaliableTracingsById(tracingId);
             model.TracingCourseFileList = _tracingCourseFile.GetAllByCourseIdAndTracingId(tracingId,courseId);
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
             ViewBag.DocumentTypes = new SelectList(_CourseFileType.GetAll, "Id", "FileTypeName");
 
@@ -672,7 +779,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.CourseId = courseId;
             model.TracingCourseList = _scholarshipProgramTracingCourse.GetAvaliableTracingsById(tracingId);
             model.TracingCourseFileList = _tracingCourseFile.GetAllByCourseIdAndTracingId(tracingId, courseId);
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
             ViewBag.DocumentTypes = new SelectList(_CourseFileType.GetAll, "Id", "FileTypeName");
 
@@ -805,7 +912,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.TracingId = tracingId;
             model.QualitySystemList = _qualitySystem.GetAllByTracingId(tracingId);
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
             ViewBag.QualitySystemFileTye = new SelectList(_qualitySystemFileType.GetAll, "Id", "FileTypeName");
 
@@ -918,7 +1025,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
                 TracingId = tracingId,
                 ScholarshipProgramUniversityId = scholarshipProgramUniversityId
             };
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
 
             return View(model);
@@ -963,7 +1070,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
 
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
             model.StudentPracticeList = _studentPractice.GetAllByTracingId(tracingId).OrderBy(x => x.StudentPracticeTypeId).ToList();
 
 
@@ -1128,7 +1235,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.TracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.PracticePlanningList = _practicePlanning.GetAllByTracingId(tracingId);
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
             ViewBag.ActionType = new SelectList(_actionType.GetAll, "ActionTypeId", "ActionTypeName");
             return View(model);
@@ -1207,7 +1314,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             var model = new SeguimientoALaprácticaViewModel();
             model.TracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
             model.PracticeList = _tracingPractice.GetAllByTracingId(tracingId);
 
             ViewBag.ActivityType = new SelectList(_activityType.GetAll, "ActivityTypeId", "ActivityTypeName");
@@ -1289,7 +1396,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             model.AgreementsWithPracticeCenterModel = ScholarshipProgramTracingAgreementsWithPracticeCenterModel;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
             return View(model);
         }
@@ -1360,7 +1467,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
 
             model.RelatedToCurricularActivitiesModel = ScholarshipProgramTracingAgreementsWithPracticeCenterModel;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
 
             return View(model);
         }
@@ -1415,7 +1522,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             model.TracingId = tracingId;
             model.ScholarshipProgramUniversityId = scholarshipProgramUniversityId;
             model.PreviousPeriodList = _previousPeriod.GetAllByTracingId(tracingId);
-            model.IsGestionUniversitariaRole = GetLogUserRole();
+            model.IsGestionUniversitariaRole = CheckIfUserRoleIsGestionUniversitaria();
             ViewBag.ComponentTypes = new SelectList(_componentFileType.GetAll, "ComponentFileTypeId", "ComponentFileTypeName");
 
             return View(model);
@@ -1597,12 +1704,22 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Controllers
             return model;
         }
 
-        public bool GetLogUserRole()
+        public bool CheckIfUserRoleIsGestionUniversitaria()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
 
             var role = user.Role == RoleName.GestionUniversitaria ? true : false;
+
+            return role;
+        }
+
+        public bool CheckIfUserRoleIsAdministradorInafocam()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Usuario user = _userManager.FindByIdAsync(userId).Result;
+
+            var role = user.Role == RoleName.AdministradorInafocam ? true : false;
 
             return role;
         }

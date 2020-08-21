@@ -20,8 +20,12 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public string CreatorName { get; set; }
         public string Description { get; set; }
 
+        public string NormalizedDescription { get; set; }
 
         public string CommentScreen { get; set; }
+
+        public long StatusId { get; set; }
+
 
 
         public string CreatorUserId { get; set; }
@@ -41,5 +45,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 
 
         public virtual Usuario Usuario { get; set; }
+
+        public virtual Status Status { get; set; }
+
     }
 }

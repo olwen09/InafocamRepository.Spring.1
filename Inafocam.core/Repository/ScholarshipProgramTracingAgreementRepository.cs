@@ -9,31 +9,31 @@ using System.Text;
 
 namespace Inafocam.core.Repository
 {
-    public class ScholarshipProgramTracingAgreementRepository : IScholarshipProgramTracingAgreement
+    public class ScholarshipProgramTracingAgreementDescriptionRepository : IScholarshipProgramTracingAgreementDescription
     {
         private readonly inafocam_tracingContext _context;
 
-        public ScholarshipProgramTracingAgreementRepository(inafocam_tracingContext context)
+        public ScholarshipProgramTracingAgreementDescriptionRepository(inafocam_tracingContext context)
         {
             _context = context;
         }
-        public IEnumerable<ScholarshipProgramTracingAgreement> GetAll => _context.ScholarshipProgramTracingAgreement
+        public IEnumerable<ScholarshipProgramTracingAgreementDescription> GetAll => _context.ScholarshipProgramTracingAgreementDescription
             .Include(x => x.ScholarshipProgramTracing)
             .Include(x => x.ScholarshipProgramUniversityAgreement)
             .Include(x => x.Status);
 
-        public IEnumerable<ScholarshipProgramTracingAgreement> GetAllByScholarshipProgramUniversityId(int id)
+        public IEnumerable<ScholarshipProgramTracingAgreementDescription> GetAllByScholarshipProgramUniversityId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(ScholarshipProgramTracingAgreement model)
+        public void Save(ScholarshipProgramTracingAgreementDescription model)
         {
             var now = DateTime.Now;
-            if(model.ScholarshipProgramTracingAgreementId != 0)
+            if (model.ScholarshipProgramTracingAgreementDescriptionId != 0)
             {
-                model.UpgradeDate= now;
-                _context.ScholarshipProgramTracingAgreement.Update(model);
+                model.UpgradeDate = now;
+                _context.ScholarshipProgramTracingAgreementDescription.Update(model);
             }
             else
             {

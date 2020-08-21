@@ -57,6 +57,24 @@
     <Compile Remove="Migrations\20200818143449_AddStatusIdPropertyToReportTable.Designer.cs" />
     <Compile Remove="Migrations\20200818143915_AddStatusIdPropertyToReportTable.cs" />
     <Compile Remove="Migrations\20200818143915_AddStatusIdPropertyToReportTable.Designer.cs" />
+    <Compile Remove="Migrations\20200820174448_AddStatusIdColumnToCommentTable.cs" />
+    <Compile Remove="Migrations\20200820174448_AddStatusIdColumnToCommentTable.Designer.cs" />
+    <Compile Remove="Migrations\20200820212704_AddRelationShip_UsuariosAndTableScholarshipProgramTracingAgreement.cs" />
+    <Compile Remove="Migrations\20200820212704_AddRelationShip_UsuariosAndTableScholarshipProgramTracingAgreement.Designer.cs" />
+    <Compile Remove="Migrations\20200820213219_DeleteScholarshipProgramTracingAgreement.cs" />
+    <Compile Remove="Migrations\20200820213219_DeleteScholarshipProgramTracingAgreement.Designer.cs" />
+    <Compile Remove="Migrations\20200820213741_DeleteScholarshipProgramTracingAgreement.cs" />
+    <Compile Remove="Migrations\20200820213741_DeleteScholarshipProgramTracingAgreement.Designer.cs" />
+    <Compile Remove="Migrations\20200820215200_AddScholarshipProgramTracingAgreementDescriptionTable.cs" />
+    <Compile Remove="Migrations\20200820215200_AddScholarshipProgramTracingAgreementDescriptionTable.Designer.cs" />
+    <Compile Remove="Migrations\20200820220256_AddScholarshipProgramTracingAgreementDescriptionTable.cs" />
+    <Compile Remove="Migrations\20200820220256_AddScholarshipProgramTracingAgreementDescriptionTable.Designer.cs" />
+    <Compile Remove="Migrations\20200820220419_AddScholarshipProgramTracingAgreementDescriptionCorectionTable.cs" />
+    <Compile Remove="Migrations\20200820220419_AddScholarshipProgramTracingAgreementDescriptionCorectionTable.Designer.cs" />
+    <Compile Remove="Migrations\20200821133521_AddScholarshipProgramTracingAgreementDescription1Column.cs" />
+    <Compile Remove="Migrations\20200821133521_AddScholarshipProgramTracingAgreementDescription1Column.Designer.cs" />
+    <Compile Remove="Migrations\20200821142319_AddScholarshipProgramUniversityAgreementColumns.cs" />
+    <Compile Remove="Migrations\20200821142319_AddScholarshipProgramUniversityAgreementColumns.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

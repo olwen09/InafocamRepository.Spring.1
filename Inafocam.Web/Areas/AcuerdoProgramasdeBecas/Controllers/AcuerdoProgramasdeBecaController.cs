@@ -27,7 +27,7 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
         private readonly IScholarshipProgramUniversityAgreement _scholarshipProgramUniversityAgreement;
         private readonly IAgreementType _agreementType;
         private readonly IStatus _status;
-        //private readonly IScholarshipProgramUniversity _scholarshipProgramUniversity;
+
 
         public AcuerdoProgramasdeBecaController(IScholarshipProgramUniversity scholarshipProgramUniversity,
             IAgreementType agreementType, IStatus status, IScholarshipProgramUniversityAgreement scholarshipProgramUniversityAgreement)
@@ -84,7 +84,7 @@ namespace Inafocam.Web.Areas.AcuerdoProgramasdeBecas.Controllers
             var acuerdoProgramasdeBecaModel = CopyPropierties.Convert<ScholarshipProgramUniversity, AcuerdoProgramasdeBecaModel>(data);
            var agreementList = _scholarshipProgramUniversityAgreement.GetAll.Where(x => x.ScholarshipProgramUniversityId == data.ScholarshipProgramUniversityId).ToList();
             acuerdoProgramasdeBecaModel.ScholarshipProgramUniversityAgreement = agreementList;
-            //acuerdoProgramasdeBecaModel.Agreement.ScholarshipProgramUniversityId = data.ScholarshipProgramUniversityId;
+
 
             ViewBag.AgreementTypes = new SelectList(_agreementType.GetAll, "AgreementTypeId", "AgreementTypeName");
             ViewBag.Status = new SelectList(_status.Status, "StatusId", "StatusName");

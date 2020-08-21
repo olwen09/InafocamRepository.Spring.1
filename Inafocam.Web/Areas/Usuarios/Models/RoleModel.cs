@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using Andamios.Web.Areas.Clientes.Models;
+//using Andamios.Web.Areas.Clientes.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Andamios.Web.Areas.Usuarios.Models
@@ -12,7 +12,7 @@ namespace Andamios.Web.Areas.Usuarios.Models
         public string ReturnUrl { get; set; }
 
 
-        public List<ModuloModel> Modulos { get; set; }
+        //public List<ModuloModel> Modulos { get; set; }
 
 
         public RoleModel()

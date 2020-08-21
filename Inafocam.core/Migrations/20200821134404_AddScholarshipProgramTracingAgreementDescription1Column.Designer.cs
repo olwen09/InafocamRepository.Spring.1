@@ -3,14 +3,16 @@ using System;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Inafocam.core.Migrations
 {
     [DbContext(typeof(inafocam_tracingContext))]
-    partial class inafocam_tracingContextModelSnapshot : ModelSnapshot
+    [Migration("20200821134404_AddScholarshipProgramTracingAgreementDescription1Column")]
+    partial class AddScholarshipProgramTracingAgreementDescription1Column
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2794,15 +2796,6 @@ namespace Inafocam.core.Migrations
                     b.Property<long?>("CreationUserId")
                         .HasColumnName("creation_user_id")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("DescripcionDelAvance")
-                        .HasColumnType("text");
-
-                    b.Property<string>("DescripcionQueEvidencieElCumplimiento")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Observaciones")
-                        .HasColumnType("text");
 
                     b.Property<string>("ScholarshipProgramUniversityAgreement1")
                         .HasColumnName("scholarship_program_university_agreement")

@@ -3,14 +3,16 @@ using System;
 using Inafocam.core.Modelos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Inafocam.core.Migrations
 {
     [DbContext(typeof(inafocam_tracingContext))]
-    partial class inafocam_tracingContextModelSnapshot : ModelSnapshot
+    [Migration("20200820182718_AddStatusIdColumnToCommentTable")]
+    partial class AddStatusIdColumnToCommentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1971,66 +1973,6 @@ namespace Inafocam.core.Migrations
                     b.ToTable("scholarship_program_tracing_agreement");
                 });
 
-            modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingAgreementDescription", b =>
-                {
-                    b.Property<long>("ScholarshipProgramTracingAgreementDescriptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("CommentedUserId")
-                        .HasColumnType("varchar(60)")
-                        .HasMaxLength(60);
-
-                    b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("CreationUserId")
-                        .HasColumnType("varchar(60)")
-                        .HasMaxLength(60);
-
-                    b.Property<string>("ScholarshipProgramTracingAgreementDescription1")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ScholarshipProgramTracingAgreementDescription2")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ScholarshipProgramTracingAgreementDescription3")
-                        .HasColumnType("text");
-
-                    b.Property<long?>("ScholarshipProgramTracingId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ScholarshipProgramUniversityAgreementId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("StatusId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("UpgradeDate")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("UpgradeUserId")
-                        .HasColumnType("varchar(60)")
-                        .HasMaxLength(60);
-
-                    b.HasKey("ScholarshipProgramTracingAgreementDescriptionId");
-
-                    b.HasIndex("CommentedUserId");
-
-                    b.HasIndex("CreationUserId");
-
-                    b.HasIndex("ScholarshipProgramTracingId");
-
-                    b.HasIndex("ScholarshipProgramUniversityAgreementId")
-                        .HasName("IX_ScholarshipProgramTracingAgreementDescription_ScholarshipPr~1");
-
-                    b.HasIndex("StatusId");
-
-                    b.HasIndex("UpgradeUserId");
-
-                    b.ToTable("ScholarshipProgramTracingAgreementDescription");
-                });
-
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingAgreementFile", b =>
                 {
                     b.Property<long>("ScholarshipProgramTracingAgreementFileId")
@@ -2794,15 +2736,6 @@ namespace Inafocam.core.Migrations
                     b.Property<long?>("CreationUserId")
                         .HasColumnName("creation_user_id")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("DescripcionDelAvance")
-                        .HasColumnType("text");
-
-                    b.Property<string>("DescripcionQueEvidencieElCumplimiento")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Observaciones")
-                        .HasColumnType("text");
 
                     b.Property<string>("ScholarshipProgramUniversityAgreement1")
                         .HasColumnName("scholarship_program_university_agreement")
@@ -4759,34 +4692,6 @@ namespace Inafocam.core.Migrations
                         .WithMany("ScholarshipProgramTracingAgreementUpgradeUser")
                         .HasForeignKey("UpgradeUserId")
                         .HasConstraintName("FK_scholarship_program_tracking_agreement_user_2");
-                });
-
-            modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingAgreementDescription", b =>
-                {
-                    b.HasOne("Inafocam.core.Modelos.Usuario", "CommentedUser")
-                        .WithMany()
-                        .HasForeignKey("CommentedUserId");
-
-                    b.HasOne("Inafocam.core.Modelos.Usuario", "CreationUser")
-                        .WithMany()
-                        .HasForeignKey("CreationUserId");
-
-                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramTracing", "ScholarshipProgramTracing")
-                        .WithMany()
-                        .HasForeignKey("ScholarshipProgramTracingId");
-
-                    b.HasOne("Inafocam.core.Modelos.ScholarshipProgramUniversityAgreement", "ScholarshipProgramUniversityAgreement")
-                        .WithMany()
-                        .HasForeignKey("ScholarshipProgramUniversityAgreementId")
-                        .HasConstraintName("FK_ScholarshipProgramTracingAgreementDescription_scholarship_p~1");
-
-                    b.HasOne("Inafocam.core.Modelos.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
-
-                    b.HasOne("Inafocam.core.Modelos.Usuario", "UpgradeUser")
-                        .WithMany()
-                        .HasForeignKey("UpgradeUserId");
                 });
 
             modelBuilder.Entity("Inafocam.core.Modelos.ScholarshipProgramTracingAgreementFile", b =>

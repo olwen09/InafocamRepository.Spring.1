@@ -16,7 +16,7 @@ using System.IO;
 using System;
 using Inafocam.Web.Helpers;
 using System.Security.Claims;
-using Inafocam.Web.Areas.Usuarios.Models;
+//using Inafocam.Web.Areas.Usuarios.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Localization;
@@ -53,20 +53,10 @@ namespace Inafocam.Web.Areas.Identity.Controllers
             return View();
         }
 
-        //public ActionResult Login()
-        //{
-        //    return View();
-        //}
 
-        //public IActionResult AccessDenied()
-        //{
-        //    TempData.Enviar("Acceso denegado!", "error", "no tiene permitido acceder a este lugar");
-        //    return RedirectToAction("Login", "Usuario", new { area = "Usuarios", mensaje = "Acceso denegado!" });
-        //}
 
         [ReturnVista("Login")]
         [AllowAnonymous]
-        //[Authorize(Policy = Constante.UsuarioCanRead)]
         public IActionResult Login()
         {
 
@@ -82,17 +72,12 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Policy = Constante.UsuarioCanRead)]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
 
             if (!ModelState.IsValid) return View(model);
-            /////
-            var usuario = _usuario.Usuarios.FirstOrDefault(x => x.UserName == model.UserName);
-            //Where(n => n.UserName == model.UserName).Single();
-           
-          
 
+            var usuario = _usuario.Usuarios.FirstOrDefault(x => x.UserName == model.UserName);
 
             if (usuario != null)
             {
@@ -116,16 +101,7 @@ namespace Inafocam.Web.Areas.Identity.Controllers
                     if (result.Succeeded)
                     {
 
-
-
-                        //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                        //Usuario user = _userManager.FindByIdAsync(userId).Result;
-                        // _logger.LogInformation("User logged in.");
-
                         return RedirectToAction("Home", "Home", new { area = "" });
-
-
-
 
                     }
 
@@ -140,15 +116,13 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
                     if (result.IsLockedOut)
                     {
-                        // _logger.LogWarning("User account locked out.");
                         return RedirectToPage("./Lockout");
                     }
                     else
                     {
-                        //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                        //TempData.Enviar("error", "green", "olwen");
+
                         TempData.Enviar("Datos incorrectos", "error", "La Contraseña o el usuario no coinciden");
-                        //EnviarMensaje.Enviar(TempData, "red", 13);
+
                         return View(model);
                     }
                 }
@@ -166,34 +140,18 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
             else
             {
-                //var value = _localizer["Este usuario no existe"]. == null ? "Este usuario no existe" : "This user does not exist";
+               
                 TempData.Enviar("Este usuario no existe", "error", "Verifique el nombre del usuario o contacte al administrador");
 
                 return View(model);
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            return View(model);
-
+           return View(model);
 
         }
 
         [ReturnVista("Nuevo")]
         [AllowAnonymous]
-        //[Authorize(Policy = Constante.UsuarioCanRead)]
         public ActionResult Register()
         {
             return View();
@@ -201,7 +159,6 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Policy = Constante.UsuariorCanCreate)]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -282,16 +239,9 @@ namespace Inafocam.Web.Areas.Identity.Controllers
             return View(model);
         }
 
-        //public async Task<IActionResult> LogOut()
-        //{
-        //    await _signInManager.SignOutAsync();
-
-        //    return RedirectToAction("Index", "Home", new { area = "" });
-        //}
-
+     
 
         [AllowAnonymous]
-        //[ReturnVista("Perfil Usuario"), ReturnViewAtttribute("ResetPassword")]
         [ReturnVista("Perfil Usuario"), ReturnViewAtttribute("PerfilUsuario")]
         public async Task<IActionResult> PerfilUsuario(string id)
         {
@@ -348,7 +298,6 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Policy = Constante.UsuarioCanUpdate)]
         public async Task<IActionResult> Editar(PerfilUsuario model, IFormFile imagen)
         {
             var size = 3145728;
@@ -436,7 +385,6 @@ namespace Inafocam.Web.Areas.Identity.Controllers
 
         [AllowAnonymous]
         [ReturnVista("Reiniciar Contraseña"), ReturnViewAtttribute("ResetPassword")]
-        //[Authorize(Policy = Constante.UsuarioCanRead)]
         public async Task<ResetPasswordViewModel> ResetPassword(string id)
         {
             //code = "12346AASS";
@@ -466,7 +414,6 @@ namespace Inafocam.Web.Areas.Identity.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        //[Authorize(Policy = Constante.UsuarioCanUpdate)]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
 
@@ -559,22 +506,6 @@ namespace Inafocam.Web.Areas.Identity.Controllers
             return RedirectToAction("Home", "Home", new { area = "" });
         }
 
-
-
-        //public void  Url()
-        //{
-
-        //    var prueba = string.IsNullOrEmpty(Request.Path) ? "~/" : $"~{Request.Path.Value}";
-        //    SetLanguage( string.IsNullOrEmpty(Request.Path) ? "~/" : $"~{Request.Path.Value}");
-
-        //}
-
-        //public IActionResult SetLanguage(string returnUrl)
-        //{
-
-        //    return LocalRedirect(returnUrl);
-        //    //return View(nameof(Index));
-
-        //}
+       
     }
 }

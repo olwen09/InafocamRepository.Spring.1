@@ -167,7 +167,8 @@
                                             <i class="material-icons">attach_file</i>
                                         </a>
 
-                                   
+                                    @if (!Model.IsGestionUniversitariaRole)
+                                    {
                                             <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
                                                asp-area="SeguimientoDeUniversidades"
                                                asp-controller="SeguimientoDeUniversida"
@@ -179,7 +180,7 @@
                                                asp-route-description="@item.CourseName">
                                                 <i class="material-icons">comment</i>
                                             </a>
-                                      
+                                    }
                                     </td>
                                 </tr>
                             }

@@ -132,27 +132,32 @@
 
                                         @if (Model.IsGestionUniversitariaRole)
                                         {
-                                    <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida"
-                                       asp-action="EditarConveniosConLosCentrosDePráctica" asp-route-tracingId="@Model.TracingId"
-                                       asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
-                                       asp-route-agreementsWithPracticeCenterId="@item.AgreementsWithPracticeCenterId"
-                                       class="tooltipped" data-position="top" data-tooltip="Editar">
-                                        <i class="material-icons">edit</i>
-                                    </a>}
-
-                                        <span class="badge flow-text">
-                                            <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
-                                               asp-area="SeguimientoDeUniversidades"
-                                               asp-controller="SeguimientoDeUniversida"
-                                               asp-action="AgregarComentario"
-                                               asp-route-tracingId="@Model?.TracingId"
-                                               asp-route-scholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId"
-                                               asp-route-screenComment="@PantallasModel.ConveniosConLosCentrosDePráctica"
-                                               asp-route-description="@item?.Institution"
-                                               asp-route-actionName="@ActionsNames.ConveniosConLosCentrosDePráctica">
-                                                <i class="material-icons">comment</i>
+                                            <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida"
+                                               asp-action="EditarConveniosConLosCentrosDePráctica" asp-route-tracingId="@Model.TracingId"
+                                               asp-route-scholarshipProgramUniversityId="@Model.ScholarshipProgramUniversityId"
+                                               asp-route-agreementsWithPracticeCenterId="@item.AgreementsWithPracticeCenterId"
+                                               class="tooltipped" data-position="top" data-tooltip="Editar">
+                                                <i class="material-icons">edit</i>
                                             </a>
-                                        </span>
+                                        }
+
+
+                                        @if (!Model.IsGestionUniversitariaRole)
+                                        {
+                                            <span class="badge flow-text">
+                                                <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
+                                                   asp-area="SeguimientoDeUniversidades"
+                                                   asp-controller="SeguimientoDeUniversida"
+                                                   asp-action="AgregarComentario"
+                                                   asp-route-tracingId="@Model?.TracingId"
+                                                   asp-route-scholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId"
+                                                   asp-route-screenComment="@PantallasModel.ConveniosConLosCentrosDePráctica"
+                                                   asp-route-description="@item?.Institution"
+                                                   asp-route-actionName="@ActionsNames.ConveniosConLosCentrosDePráctica">
+                                                    <i class="material-icons">comment</i>
+                                                </a>
+                                            </span>
+                                        }
                                     </td>
 
 

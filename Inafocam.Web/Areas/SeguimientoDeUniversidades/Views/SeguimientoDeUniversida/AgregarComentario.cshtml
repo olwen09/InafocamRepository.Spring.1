@@ -38,6 +38,7 @@
 
 <div class="row">
     <form class="col s12 formValidate" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="GuardarComentario" >
+        <input asp-for="CommentId" type="hidden" />
         <input asp-for="CreatorUserId" type="hidden" />
         <input asp-for="CreatorName" type="hidden" />
         <input asp-for="CreationDate"  type="hidden"/>
@@ -48,6 +49,7 @@
         <input asp-for="ScholarshipProgramTracingId" type="hidden" />
         <input asp-for="ScholarshipProgramUniversityId" type="hidden" />
         <input asp-for="ActionName" type="hidden" />
+        <input asp-for="StatusId" type="hidden" />
    
      
         <div>

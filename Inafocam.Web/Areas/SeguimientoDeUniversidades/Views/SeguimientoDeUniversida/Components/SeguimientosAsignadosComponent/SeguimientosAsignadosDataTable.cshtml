@@ -1,4 +1,4 @@
-﻿@using Inafocam.core.Modelos
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.IndexViewModel
 @using System.Globalization;
 
 <table id="page-length-option" class="display">
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (ScholarshipProgramTracing item in Model)
+        @foreach (var item in Model.AveliableScholarshipProgramTracingList)
         {
             var today = DateTime.Today;
             var days = item.EndDate - today;
@@ -32,48 +32,54 @@
             var time = days.Value.Days > 1 ? days.Value.TotalDays : 0;
 
 <tr>
-        
-            <td>@item?.ScholarshipProgramUniversity?.ScatProgramCode</td>
-            <td>@item?.ScholarshipProgramUniversity?.ContractNumber</td>
-            <td>@item?.University.UniversityName</td>
-            <td>@item?.ScholarshipProgramUniversity?.ScholarshipProgram?.ScholarshipProgramName</td>
-            <td>@item?.Coordinator?.Contact?.ContactName</td>
-            <td>@item?.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
-            <td>@item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
-    
-                <td>
-        
-                <span class="@text">@time</span>
-                </td>
 
-            <td>
-                @if (item?.Status?.StatusName == "Activo")
-                {
+    <td>@item?.ScholarshipProgramUniversity?.ScatProgramCode</td>
+    <td>@item?.ScholarshipProgramUniversity?.ContractNumber</td>
+    <td>@item?.University.UniversityName</td>
+    <td>@item?.ScholarshipProgramUniversity?.ScholarshipProgram?.ScholarshipProgramName</td>
+    <td>@item?.Coordinator?.Contact?.ContactName</td>
+    <td>@item?.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+    <td>@item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
 
-                 <span class="badge green  white-text text-accent-2">@item?.Status?.StatusName</span>            
+    <td>
 
-                }
-                else
-                {
-                 <span class="badge red  white-text text-accent-2">@item?.Status?.StatusName</span>            
-                }
+        <span class="@text">@time</span>
+    </td>
 
-            </td>
-            <td>
-                <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Comenzar">
-                    <i class="material-icons">edit</i>
-                </a>
+    <td>
+        @if (item?.Status?.StatusName == "Activo")
+        {
+
+<span class="badge green  white-text text-accent-2">@item?.Status?.StatusName</span>
+
+}
+else
+{
+<span class="badge red  white-text text-accent-2">@item?.Status?.StatusName</span>
+}
+
+    </td>
+    <td>
+        <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Comenzar">
+            <i class="material-icons">edit</i>
+        </a>
 
 
-                <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Informes" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Agregar informe">
-                    <i class="material-icons">add</i>
-                </a>
+        <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Informes" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Lista de informes">
+            <i class="material-icons">report</i>
+        </a>
 
-                <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Comentarios" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Ver la lista de comentarios">
-                    <i class="material-icons">remove_red_eye</i>
-                </a>
-            </td>
-</tr>}
+        @if (!Model.IsGestionUniversitariaRole)
+        {
+            <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Comentarios" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Ver la lista de comentarios">
+                <i class="material-icons">remove_red_eye</i>
+            </a>
+        }
+
+
+    </td>
+</tr>
+}
 
 
 

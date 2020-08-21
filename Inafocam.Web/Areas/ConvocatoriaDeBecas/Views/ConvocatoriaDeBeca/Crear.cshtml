@@ -41,9 +41,7 @@
         <input asp-for="ScholarshipProgramUniversityId" type="hidden" />
         <input asp-for="CreationDate" type="hidden" />
         <input asp-for="StatusId" type="hidden" />
-        @*<input asp-for="CoordinatorId" type="hidden" />
-            <input asp-for="TechnicalId" type="hidden" />*@
-        @* Detalles del programa*@
+
         <div>
             <span asp-validation-sumary=""></span>
         </div>
@@ -199,10 +197,6 @@
                 Ir a La Lista
             </a>
 
-            @*<a class="white btn waves-effect waves-light black-text" asp-controller="ConvocatoriaDeBeca" asp-action="Crear">
-                    <i class="material-icons left">cleaning_services</i>
-                    Limpiar
-                </a>*@
 
         </div>
 
@@ -232,20 +226,13 @@
     <script src="~/app-assets/vendors/jquery-validation/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/app-assets/vendors/jquery-validation/additional-methods.js"></script>
-    @*<script src="~/app-assets/js/scripts/form-elements.js"></script>
-        <script src="~/app-assets/js/scripts/form-masks.js"></script>
-        @*<script src="~/app-assets/js/scripts/form-layouts.js" type="text/javascript"></script>*@
-    @*<script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
+
 
     <script src="~/app-assets/js/scripts/extra-components-sweetalert.js" type="text/javascript"></script>
     <script src="~/lib/jquery-confirm/dist/jquery-confirm.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <!-- END PAGE LEVEL JS-->
     <script>
-        @*$('#descripcionTxtArea').val('@Model.Descripcion');
-        M.textareaAutoResize($('#textarea2'));*@
 
 
         $(document).ready(function () {
@@ -283,7 +270,7 @@
 
         }
 
-        // Or with jQuery
+
 
         $(document).ready(function () {
             $('.datepicker').datepicker();

@@ -181,6 +181,8 @@
                                             <td>@item.Comment</td>
                                             <td>@item.CreationDate</td>
                                             <td>
+                                       @if (!Model.IsGestionUniversitariaRole)
+                                       {
                                                 <span class="badge flow-text">
                                                     <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
                                                        asp-area="SeguimientoDeUniversidades"
@@ -194,6 +196,7 @@
                                                         <i class="material-icons">comment</i>
                                                     </a>
                                                 </span>
+                                       }
                                             </td>
                                         </tr>
                        }

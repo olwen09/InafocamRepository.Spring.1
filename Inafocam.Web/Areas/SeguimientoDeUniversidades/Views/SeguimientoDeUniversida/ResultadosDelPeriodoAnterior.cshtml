@@ -148,19 +148,23 @@
                                     <td>
                                         <a class="left" href="\app-assets\documentos\resultadosdelperiodoanterior\@item?.File?.FilePath" target="_blank">Ver</a>
 
-                                        <span class="badge flow-text">
-                                            <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
-                                               asp-area="SeguimientoDeUniversidades"
-                                               asp-controller="SeguimientoDeUniversida"
-                                               asp-action="AgregarComentario"
-                                               asp-route-tracingId="@Model?.TracingId"
-                                               asp-route-scholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId"
-                                               asp-route-screenComment="@PantallasModel.ResultadosDelPeriodoAnterior"
-                                               asp-route-description="@item?.ComponentFileType?.ComponentFileTypeName"
-                                               asp-route-actionName="@ActionsNames.ResultadosDelPeriodoAnterior">
-                                                <i class="material-icons">comment</i>
-                                            </a>
-                                        </span>
+
+                                         @if (!Model.IsGestionUniversitariaRole)
+                                         {
+                                                <span class="badge flow-text">
+                                                    <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
+                                                       asp-area="SeguimientoDeUniversidades"
+                                                       asp-controller="SeguimientoDeUniversida"
+                                                       asp-action="AgregarComentario"
+                                                       asp-route-tracingId="@Model?.TracingId"
+                                                       asp-route-scholarshipProgramUniversityId="@Model?.ScholarshipProgramUniversityId"
+                                                       asp-route-screenComment="@PantallasModel.ResultadosDelPeriodoAnterior"
+                                                       asp-route-description="@item?.ComponentFileType?.ComponentFileTypeName"
+                                                       asp-route-actionName="@ActionsNames.ResultadosDelPeriodoAnterior">
+                                                        <i class="material-icons">comment</i>
+                                                    </a>
+                                                </span>
+                                         }
                                     </td>
                                 </tr>
                             }

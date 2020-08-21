@@ -1,18 +1,19 @@
-﻿using Inafocam.core.Modelos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
+namespace Inafocam.core.Modelos
 {
-    public class ScholarshipProgramTracingAgreementModel
+   public class ScholarshipProgramTracingAgreementDescription
     {
-        public long ScholarshipProgramTracingAgreementId { get; set; }
+
+
+        public long ScholarshipProgramTracingAgreementDescriptionId { get; set; }
+
         public long? ScholarshipProgramTracingId { get; set; }
         public long? ScholarshipProgramUniversityAgreementId { get; set; }
-        public string ScholarshipProgramTracingAgreementDescription { get; set; }
+        public string ScholarshipProgramTracingAgreementDescription1 { get; set; }
         public string ScholarshipProgramTracingAgreementDescription2 { get; set; }
         public string ScholarshipProgramTracingAgreementDescription3 { get; set; }
 
