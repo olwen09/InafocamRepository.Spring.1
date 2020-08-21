@@ -26,7 +26,7 @@ CREATE TABLE `__efmigrationshistory` (
   `MigrationId` varchar(150) NOT NULL,
   `ProductVersion` varchar(32) NOT NULL,
   PRIMARY KEY (`MigrationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,58 +43,58 @@ UNLOCK TABLES;
 -- Table structure for table `actiontype`
 --
 
-DROP TABLE IF EXISTS `actiontype`;
+DROP TABLE IF EXISTS `ActionType`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `actiontype` (
-  `ActionTypeId` bigint NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ActionType` (
+  `ActionTypeId` bigint(20) NOT NULL AUTO_INCREMENT,
   `ActionTypeName` text,
   `CreationDate` datetime DEFAULT NULL,
   `UpgradeDate` datetime DEFAULT NULL,
-  `StatusId` bigint DEFAULT NULL,
+  `StatusId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ActionTypeId`),
   KEY `IX_ActionType_StatusId` (`StatusId`),
-  CONSTRAINT `FK_ActionType_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_ActionType_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `actiontype`
+-- Dumping data for table `ActionType`
 --
 
-LOCK TABLES `actiontype` WRITE;
-/*!40000 ALTER TABLE `actiontype` DISABLE KEYS */;
-INSERT INTO `actiontype` VALUES (1,'Distribución de los estudiantes por los centros',NULL,NULL,1),(2,'Asignación de  supervisores',NULL,NULL,1),(3,'Establecimiento de días y horas de práctica',NULL,NULL,1),(4,'Plan de seguimiento a las prácticas',NULL,NULL,1),(5,'Coordinación con los docentes de aula',NULL,NULL,1);
-/*!40000 ALTER TABLE `actiontype` ENABLE KEYS */;
+LOCK TABLES `ActionType` WRITE;
+/*!40000 ALTER TABLE `ActionType` DISABLE KEYS */;
+INSERT INTO `ActionType` VALUES (1,'Distribución de los estudiantes por los centros',NULL,NULL,1),(2,'Asignación de  supervisores',NULL,NULL,1),(3,'Establecimiento de días y horas de práctica',NULL,NULL,1),(4,'Plan de seguimiento a las prácticas',NULL,NULL,1),(5,'Coordinación con los docentes de aula',NULL,NULL,1);
+/*!40000 ALTER TABLE `ActionType` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Table structure for table `activitytype`
 --
 
-DROP TABLE IF EXISTS `activitytype`;
+DROP TABLE IF EXISTS `ActivityType`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `activitytype` (
-  `ActivityTypeId` bigint NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ActivityType` (
+  `ActivityTypeId` bigint(20) NOT NULL AUTO_INCREMENT,
   `ActivityTypeName` text,
   `CreationDate` datetime DEFAULT NULL,
   `UpgradeDate` datetime DEFAULT NULL,
-  `StatusId` bigint DEFAULT NULL,
+  `StatusId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ActivityTypeId`),
   KEY `IX_ActivityType_StatusId` (`StatusId`),
-  CONSTRAINT `FK_ActivityType_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_ActivityType_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `activitytype`
+-- Dumping data for table `ActivityType`
 --
 
-LOCK TABLES `activitytype` WRITE;
-/*!40000 ALTER TABLE `activitytype` DISABLE KEYS */;
-INSERT INTO `activitytype` VALUES (1,'Coordina con el centro de práctica',NULL,NULL,1),(2,'Distribuye a los estudiantes por los centros',NULL,NULL,1),(3,'Coordina la práctica con los docentes de aula',NULL,NULL,1),(4,'Lleva el control de asistencia de los estudiantes',NULL,NULL,1),(5,'Gestiona aspectos logísticos (transporte, viáticos, etc.',NULL,NULL,1),(6,'Evalúa la práctica',NULL,NULL,1),(7,'Sistematiza el desarrollo de las prácticas',NULL,NULL,1);
-/*!40000 ALTER TABLE `activitytype` ENABLE KEYS */;
+LOCK TABLES `ActivityType` WRITE;
+/*!40000 ALTER TABLE `ActivityType` DISABLE KEYS */;
+INSERT INTO `ActivityType` VALUES (1,'Coordina con el centro de práctica',NULL,NULL,1),(2,'Distribuye a los estudiantes por los centros',NULL,NULL,1),(3,'Coordina la práctica con los docentes de aula',NULL,NULL,1),(4,'Lleva el control de asistencia de los estudiantes',NULL,NULL,1),(5,'Gestiona aspectos logísticos (transporte, viáticos, etc.',NULL,NULL,1),(6,'Evalúa la práctica',NULL,NULL,1),(7,'Sistematiza el desarrollo de las prácticas',NULL,NULL,1);
+/*!40000 ALTER TABLE `ActivityType` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -141,9 +141,6 @@ CREATE TABLE `address` (
 --
 
 LOCK TABLES `address` WRITE;
-/*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,1,1,2,2,'Prueba','Prueba','8',NULL,NULL,'2019-03-17 21:44:32',NULL,2),(2,1,1,1,1,'Prueba','Prueba','8',NULL,NULL,'2019-03-17 21:44:33',NULL,2),(3,1,1,2,2,'Prueba','Prueba','8',NULL,NULL,'2019-03-17 21:49:31','2019-03-18 04:33:56',1),(4,1,1,1,1,'Prueba','Prueba','8',NULL,NULL,'2019-03-17 21:49:33','2019-05-22 23:39:12',1),(5,1,1,2,3,'Prueba','Prueba','205',NULL,NULL,'2019-03-18 04:23:13','2019-05-22 23:39:13',1),(7,NULL,1,6,5,'Prueba','Prueba','14',NULL,NULL,NULL,NULL,NULL),(8,1,1,6,5,'Prueba','Prueba','14',NULL,NULL,NULL,NULL,NULL),(9,1,1,6,5,'Prueba','Prueba','14',NULL,NULL,NULL,NULL,NULL),(10,1,1,6,5,'Prueba','Prueba','14',NULL,NULL,NULL,NULL,NULL),(11,1,1,6,5,'Prueba','Prueba','14',NULL,NULL,NULL,NULL,NULL),(12,1,1,1,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,NULL,NULL),(13,1,1,1,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,NULL,NULL),(14,1,1,6,5,'Prueba','Prueba','14',NULL,NULL,NULL,NULL,NULL),(15,1,1,1,148,'Prueba','Prueba',NULL,NULL,NULL,NULL,NULL,NULL),(16,1,1,1,148,'Prueba','Prueba',NULL,NULL,NULL,NULL,NULL,NULL),(17,1,1,1,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,NULL,NULL),(18,1,1,1,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,NULL,NULL),(19,1,1,6,5,'Prueba','Prueba','14',NULL,NULL,NULL,NULL,NULL),(20,1,1,2,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,NULL,NULL),(21,NULL,NULL,NULL,NULL,'Prueba','Prueba',NULL,NULL,NULL,NULL,NULL,NULL),(23,NULL,3,3,6,'Prueba','Prueba','5',NULL,NULL,NULL,NULL,NULL),(24,NULL,1,1,1,'Prueba','Prueba','8',NULL,NULL,NULL,NULL,NULL),(25,NULL,1,1,1,'Prueba','Prueba','8',NULL,NULL,NULL,NULL,NULL),(26,NULL,3,3,6,'Prueba','Prueba','5',NULL,NULL,NULL,NULL,NULL),(27,NULL,1,1,1,'Prueba','Prueba','8',NULL,NULL,NULL,NULL,NULL),(28,NULL,3,3,6,'Prueba','Prueba','5',NULL,NULL,NULL,NULL,NULL),(29,NULL,3,3,6,'Prueba','Prueba','5',NULL,NULL,NULL,NULL,NULL),(30,NULL,3,3,6,'Prueba','Prueba','5',NULL,NULL,NULL,NULL,NULL),(31,NULL,3,3,6,'Prueba','Prueba','5',NULL,NULL,NULL,NULL,NULL),(32,NULL,NULL,NULL,NULL,'Prueba','Prueba',NULL,NULL,NULL,'2020-08-10 14:56:34',NULL,NULL),(33,NULL,1,1,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,'2020-08-13 09:51:42',NULL),(34,NULL,1,1,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,'2020-08-13 09:54:42',NULL),(35,NULL,65,1,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,'2020-08-13 09:56:23',NULL),(36,NULL,4,1,1,'Prueba','Prueba',NULL,NULL,NULL,NULL,'2020-08-13 09:43:47',NULL),(37,NULL,4,1,1,'k,yy','yyyk,k',NULL,NULL,NULL,NULL,'2020-08-13 09:57:48',NULL);
-/*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -211,9 +208,6 @@ CREATE TABLE `agent` (
 --
 
 LOCK TABLES `agent` WRITE;
-/*!40000 ALTER TABLE `agent` DISABLE KEYS */;
-INSERT INTO `agent` VALUES (1,1,1,1,NULL,NULL,'2019-03-29 19:52:39','2020-08-10 14:05:10',1),(2,2,0,3,NULL,NULL,'2019-03-29 20:00:34',NULL,1),(3,1,1,9,NULL,NULL,'2020-07-09 10:45:42','2020-07-15 10:02:53',1),(4,1,1,21,NULL,NULL,NULL,'2020-08-10 14:54:44',9);
-/*!40000 ALTER TABLE `agent` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -295,7 +289,7 @@ CREATE TABLE `agreementsinstitutionrelatedcocurricularactivities` (
   KEY `IX_AgreementsInstitutionRelatedCoCurricularActivities_TracingSc~` (`TracingScholarshipProgramTracingId`),
   CONSTRAINT `FK_AgreementsInstitutionRelatedCoCurricularActivities_scholarsh~` FOREIGN KEY (`TracingScholarshipProgramTracingId`) REFERENCES `scholarship_program_tracing` (`scholarship_program_tracing_id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_AgreementsInstitutionRelatedCoCurricularActivities_status_St~` FOREIGN KEY (`StatusId1`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,13 +302,13 @@ LOCK TABLES `agreementsinstitutionrelatedcocurricularactivities` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `agreementwithinstitutionsrelatedtocurricularactivities`
+-- Table structure for table `AgreementWithInstitutionsRelatedToCurricularActivities`
 --
 
-DROP TABLE IF EXISTS `agreementwithinstitutionsrelatedtocurricularactivities`;
+DROP TABLE IF EXISTS `AgreementWithInstitutionsRelatedToCurricularActivities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `agreementwithinstitutionsrelatedtocurricularactivities` (
+CREATE TABLE `AgreementWithInstitutionsRelatedToCurricularActivities` (
   `AgreementWithInstitutionsRelatedToCurricularActivitiesId` int NOT NULL AUTO_INCREMENT,
   `Institution` text,
   `ActivityDescription` text,
@@ -332,54 +326,51 @@ CREATE TABLE `agreementwithinstitutionsrelatedtocurricularactivities` (
   KEY `IX_AgreementWithInstitutionsRelatedToCurricularActivities_Traci~` (`TracingScholarshipProgramTracingId`),
   CONSTRAINT `FK_AgreementWithInstitutionsRelatedToCurricularActivities_schol~` FOREIGN KEY (`TracingScholarshipProgramTracingId`) REFERENCES `scholarship_program_tracing` (`scholarship_program_tracing_id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_AgreementWithInstitutionsRelatedToCurricularActivities_statu~` FOREIGN KEY (`StatusId1`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `agreementwithinstitutionsrelatedtocurricularactivities`
+-- Dumping data for table `AgreementWithInstitutionsRelatedToCurricularActivities`
 --
 
-LOCK TABLES `agreementwithinstitutionsrelatedtocurricularactivities` WRITE;
-/*!40000 ALTER TABLE `agreementwithinstitutionsrelatedtocurricularactivities` DISABLE KEYS */;
-INSERT INTO `agreementwithinstitutionsrelatedtocurricularactivities` VALUES (1,'test3','test3','2020-07-30 00:00:00',NULL,5,'2020-07-22 11:16:30','2020-08-11 10:21:18',1,1,NULL,NULL),(2,'test','test','2020-07-30 00:00:00',NULL,7,'2020-07-22 11:20:38',NULL,7,1,NULL,NULL);
-/*!40000 ALTER TABLE `agreementwithinstitutionsrelatedtocurricularactivities` ENABLE KEYS */;
+LOCK TABLES `AgreementWithInstitutionsRelatedToCurricularActivities` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `aspnetroleclaims`
+-- Table structure for table `AspNetRoleClaims`
 --
 
-DROP TABLE IF EXISTS `aspnetroleclaims`;
+DROP TABLE IF EXISTS `AspNetRoleClaims`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `aspnetroleclaims` (
+CREATE TABLE `AspNetRoleClaims` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `RoleId` varchar(250) NOT NULL,
   `ClaimType` text,
   `ClaimValue` text,
   PRIMARY KEY (`Id`),
   KEY `FK_AspNetRoleClaims_role_RoleId` (`RoleId`),
-  CONSTRAINT `FK_AspNetRoleClaims_role_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `roles` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_AspNetRoleClaims_role_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `Roles` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `aspnetroleclaims`
+-- Dumping data for table `AspNetRoleClaims`
 --
 
-LOCK TABLES `aspnetroleclaims` WRITE;
-/*!40000 ALTER TABLE `aspnetroleclaims` DISABLE KEYS */;
-/*!40000 ALTER TABLE `aspnetroleclaims` ENABLE KEYS */;
+LOCK TABLES `AspNetRoleClaims` WRITE;
+/*!40000 ALTER TABLE `AspNetRoleClaims` DISABLE KEYS */;
+/*!40000 ALTER TABLE `AspNetRoleClaims` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `aspnetuserclaims`
+-- Table structure for table `AspNetUserClaims`
 --
 
-DROP TABLE IF EXISTS `aspnetuserclaims`;
+DROP TABLE IF EXISTS `AspNetUserClaims`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `aspnetuserclaims` (
+CREATE TABLE `AspNetUserClaims` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `UserId` varchar(767) NOT NULL,
   `ClaimType` text,
@@ -387,16 +378,16 @@ CREATE TABLE `aspnetuserclaims` (
   PRIMARY KEY (`Id`),
   KEY `FK_AspNetUserClaims_usuario_UserId` (`UserId`),
   CONSTRAINT `FK_AspNetUserClaims_usuario_UserId` FOREIGN KEY (`UserId`) REFERENCES `usuarios` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `aspnetuserclaims`
+-- Dumping data for table `AspNetUserClaims`
 --
 
-LOCK TABLES `aspnetuserclaims` WRITE;
-/*!40000 ALTER TABLE `aspnetuserclaims` DISABLE KEYS */;
-/*!40000 ALTER TABLE `aspnetuserclaims` ENABLE KEYS */;
+LOCK TABLES `AspNetUserClaims` WRITE;
+/*!40000 ALTER TABLE `AspNetUserClaims` DISABLE KEYS */;
+/*!40000 ALTER TABLE `AspNetUserClaims` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -414,7 +405,7 @@ CREATE TABLE `aspnetuserlogins` (
   PRIMARY KEY (`LoginProvider`,`ProviderKey`),
   KEY `FK_AspNetUserLogins_usuario_UserId` (`UserId`),
   CONSTRAINT `FK_AspNetUserLogins_usuario_UserId` FOREIGN KEY (`UserId`) REFERENCES `usuarios` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,30 +418,30 @@ LOCK TABLES `aspnetuserlogins` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `aspnetuserroles`
+-- Table structure for table `AspNetUserRoles`
 --
 
-DROP TABLE IF EXISTS `aspnetuserroles`;
+DROP TABLE IF EXISTS `AspNetUserRoles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `aspnetuserroles` (
+CREATE TABLE `AspNetUserRoles` (
   `UserId` varchar(250) NOT NULL,
   `RoleId` varchar(250) NOT NULL,
   PRIMARY KEY (`UserId`,`RoleId`),
   KEY `FK_AspNetUserRoles_role_RoleId` (`RoleId`),
-  CONSTRAINT `FK_AspNetUserRoles_role_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `roles` (`Id`),
+  CONSTRAINT `FK_AspNetUserRoles_role_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `Roles` (`Id`),
   CONSTRAINT `FK_AspNetUserRoles_usuario_UserId` FOREIGN KEY (`UserId`) REFERENCES `usuarios` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `aspnetuserroles`
+-- Dumping data for table `AspNetUserRoles`
 --
 
-LOCK TABLES `aspnetuserroles` WRITE;
-/*!40000 ALTER TABLE `aspnetuserroles` DISABLE KEYS */;
-INSERT INTO `aspnetuserroles` VALUES ('7062a917-b7ad-4918-9d3b-753c49670ade','72556015-cb72-4b89-a0ac-b902fbc4fd51'),('d460a177-dc06-43ac-a862-d82c35cc718c','72556015-cb72-4b89-a0ac-b902fbc4fd51'),('436668eb-ae2d-4153-a9f7-9e600357980b','7b9b75fc-efe9-4a41-84d5-add4ee1a6bd6'),('7062a917-b7ad-4918-9d3b-753c49670ade','817fe320-e3f5-4509-8d7a-a2e8ed8773af'),('d460a177-dc06-43ac-a862-d82c35cc718c','817fe320-e3f5-4509-8d7a-a2e8ed8773af'),('f82e26ab-ab78-4f06-a34e-2a964e886a59','817fe320-e3f5-4509-8d7a-a2e8ed8773af'),('52950434-522b-46a2-8712-54d9195ef981','b4c12dc2-14f1-4171-af8d-87aca893c366'),('7062a917-b7ad-4918-9d3b-753c49670ade','b4c12dc2-14f1-4171-af8d-87aca893c366'),('d460a177-dc06-43ac-a862-d82c35cc718c','b4c12dc2-14f1-4171-af8d-87aca893c366');
-/*!40000 ALTER TABLE `aspnetuserroles` ENABLE KEYS */;
+LOCK TABLES `AspNetUserRoles` WRITE;
+/*!40000 ALTER TABLE `AspNetUserRoles` DISABLE KEYS */;
+INSERT INTO `AspNetUserRoles` VALUES ('7062a917-b7ad-4918-9d3b-753c49670ade','72556015-cb72-4b89-a0ac-b902fbc4fd51'),('d460a177-dc06-43ac-a862-d82c35cc718c','72556015-cb72-4b89-a0ac-b902fbc4fd51'),('436668eb-ae2d-4153-a9f7-9e600357980b','7b9b75fc-efe9-4a41-84d5-add4ee1a6bd6'),('7062a917-b7ad-4918-9d3b-753c49670ade','817fe320-e3f5-4509-8d7a-a2e8ed8773af'),('d460a177-dc06-43ac-a862-d82c35cc718c','817fe320-e3f5-4509-8d7a-a2e8ed8773af'),('f82e26ab-ab78-4f06-a34e-2a964e886a59','817fe320-e3f5-4509-8d7a-a2e8ed8773af'),('52950434-522b-46a2-8712-54d9195ef981','b4c12dc2-14f1-4171-af8d-87aca893c366'),('7062a917-b7ad-4918-9d3b-753c49670ade','b4c12dc2-14f1-4171-af8d-87aca893c366'),('d460a177-dc06-43ac-a862-d82c35cc718c','b4c12dc2-14f1-4171-af8d-87aca893c366');
+/*!40000 ALTER TABLE `AspNetUserRoles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -467,7 +458,7 @@ CREATE TABLE `aspnetusertokens` (
   `Value` text,
   PRIMARY KEY (`UserId`,`LoginProvider`,`Name`),
   CONSTRAINT `FK_AspNetUserTokens_usuario_UserId` FOREIGN KEY (`UserId`) REFERENCES `usuarios` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -540,7 +531,7 @@ CREATE TABLE `comment` (
   CONSTRAINT `FK_Comment_scholarship_program_tracing_ScholarshipProgramTracin~` FOREIGN KEY (`ScholarshipProgramTracingId`) REFERENCES `scholarship_program_tracing` (`scholarship_program_tracing_id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_Comment_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`),
   CONSTRAINT `FK_Comment_Usuarios_CreatorUserId` FOREIGN KEY (`CreatorUserId`) REFERENCES `usuarios` (`Id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -548,9 +539,6 @@ CREATE TABLE `comment` (
 --
 
 LOCK TABLES `comment` WRITE;
-/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (49,'Comentario de prueba','Acuedo 2','ACUEDO 2','Acuerdos','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-20 00:00:00','0001-01-01 00:00:00',1),(50,'Comentario de prueba 3','Acuerdo Infantil ','ACUERDO INFANTIL ','Acuerdos','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-20 00:00:00','0001-01-01 00:00:00',1),(51,'Comentario de prueba 2','Acuerdo Infantil ','ACUERDO INFANTIL ','Acuerdos','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-20 00:00:00','0001-01-01 00:00:00',1),(52,'Prueba 210820','Acuerdo Infantil ','ACUERDO INFANTIL ','Acuerdos','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-20 00:00:00','0001-01-01 00:00:00',17),(53,'Comentario de Prueba','test7','TEST7','Desarrollo del Plan de Estudio','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',1),(54,'Comentario de Prueba','Prueba','PRUEBA','Actividades Co-Curriculares','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17),(55,'Comentario de Prueba','Fragmento del documento institucional que posea la política de calidad','FRAGMENTO DEL DOCUMENTO INSTITUCIONAL QUE POSEA LA POLÍTICA DE CALIDAD','Documentos para el Sistema de Calidad','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17),(56,'Comentario de Prueba','Estrategias de intervención para el apoyo de los alumnos puestas en marcha','ESTRATEGIAS DE INTERVENCIÓN PARA EL APOYO DE LOS ALUMNOS PUESTAS EN MARCHA','Apoyo al estudiante','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17),(57,'Comentario de Prueba','Práctica IV','PRÁCTICA IV','Estudiantes en practica','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17),(58,'Comentario de Prueba','Distribución de los estudiantes por los centros','DISTRIBUCIÓN DE LOS ESTUDIANTES POR LOS CENTROS','Planificación de la práctica','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17),(59,'Comentario de Prueba','Distribuye a los estudiantes por los centros','DISTRIBUYE A LOS ESTUDIANTES POR LOS CENTROS','Seguimiento a la práctica','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17),(60,'Comentario de Prueba','test','TEST','Formalización de convenios con los centros de práctica','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17),(61,'Comentario de Prueba','test3','TEST3','Formalización de convenios con instituciones afines a los programas para actividades co-curriculares','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17),(62,'Comentario de Prueba','Estudiantes que promovieron su práctica','ESTUDIANTES QUE PROMOVIERON SU PRÁCTICA','Resultados del período anterior','7062a917-b7ad-4918-9d3b-753c49670ade',1,'2020-08-21 00:00:00','0001-01-01 00:00:00',17);
-/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -586,9 +574,6 @@ CREATE TABLE `communication` (
 --
 
 LOCK TABLES `communication` WRITE;
-/*!40000 ALTER TABLE `communication` DISABLE KEYS */;
-INSERT INTO `communication` VALUES (1,'(809) 888-8888','(809) 222-2222',NULL,NULL,NULL,NULL,'2019-03-17 21:44:33',NULL,2),(2,'(829) 531-3625','','yenfri01@gmail.com',NULL,NULL,NULL,'2019-03-17 21:44:33',NULL,2),(3,'(809) 888-8888','(809) 221-5625',NULL,NULL,NULL,NULL,'2019-03-17 21:49:32','2019-03-18 04:33:56',1),(4,'(829) 531-3625','','yenfri01@gmail.com',NULL,NULL,NULL,'2019-03-17 21:49:33','2019-05-22 23:39:13',1),(5,'(809) 522-2552','(809) 633-6633','yenfri01@gmail.com',NULL,NULL,NULL,'2019-03-18 04:23:41','2019-05-22 23:39:13',1),(6,NULL,NULL,'o&m@gmail.com','WWW.O&M.com',NULL,NULL,NULL,NULL,NULL),(7,NULL,NULL,'o&m@gmail.com','WWW.O&M.com',NULL,NULL,NULL,NULL,NULL),(8,NULL,NULL,'uasd@gmail.com','WWW.uasd.com',NULL,NULL,NULL,NULL,NULL),(9,NULL,NULL,'uasd@gmail.com','WWW.uasd.com',NULL,NULL,NULL,NULL,NULL),(10,NULL,NULL,'prueba@gmail.com','google.com',NULL,NULL,NULL,NULL,NULL),(11,NULL,NULL,'yenfri01@gmail.com','google.com',NULL,NULL,NULL,NULL,NULL),(12,NULL,NULL,'o&m@gmail.com','google.com',NULL,NULL,NULL,NULL,NULL),(13,'555555','8095555555','yenfri01@gmail.com',NULL,NULL,NULL,'2020-08-13 10:13:14',NULL,NULL),(14,NULL,NULL,'test@gmail.com','test',NULL,NULL,NULL,NULL,NULL),(15,'Prueba','Prueba','Prueba@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL),(16,'27272727','27272727','Prueba@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `communication` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -639,7 +624,6 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2018-09-05 17:41:10',NULL,1);
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -686,7 +670,7 @@ CREATE TABLE `component_file_type` (
   `upgrade_date` datetime DEFAULT NULL,
   `status_id` bigint DEFAULT NULL,
   PRIMARY KEY (`ComponentFileTypeId`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -699,13 +683,13 @@ LOCK TABLES `component_file_type` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `componentfiletypes`
+-- Table structure for table `ComponentFileTypes`
 --
 
-DROP TABLE IF EXISTS `componentfiletypes`;
+DROP TABLE IF EXISTS `ComponentFileTypes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `componentfiletypes` (
+CREATE TABLE `ComponentFileTypes` (
   `ComponentFileTypeId` int NOT NULL AUTO_INCREMENT,
   `ComponentFileTypeName` text,
   `CreationDate` datetime DEFAULT NULL,
@@ -714,17 +698,17 @@ CREATE TABLE `componentfiletypes` (
   PRIMARY KEY (`ComponentFileTypeId`),
   KEY `FK_ComponentFileTypes_status_StatusId` (`StatusId`),
   CONSTRAINT `FK_ComponentFileTypes_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `componentfiletypes`
+-- Dumping data for table `ComponentFileTypes`
 --
 
-LOCK TABLES `componentfiletypes` WRITE;
-/*!40000 ALTER TABLE `componentfiletypes` DISABLE KEYS */;
-INSERT INTO `componentfiletypes` VALUES (1,'Estudiantes que realizaron su práctica','2020-07-20 12:28:36',NULL,NULL),(2,'Estudiantes que promovieron su práctica','2020-07-20 12:31:51',NULL,NULL),(3,'Centros que recibieron practicantes','2020-07-20 12:32:33',NULL,NULL),(4,'Supervisores de prácticas','2020-07-20 12:33:17',NULL,NULL),(5,'Capacitaciones al personal de práctica','2020-07-20 12:33:50',NULL,NULL),(6,'Docentes de aulas que recibieron practicantes','2020-07-20 12:34:25',NULL,NULL),(7,'Convenios nuevos  firmados','2020-07-20 12:34:51',NULL,NULL),(8,'Convenios actualizados','2020-07-20 12:35:18',NULL,NULL),(9,'Divulgación de resultados','2020-07-20 12:35:44',NULL,NULL);
-/*!40000 ALTER TABLE `componentfiletypes` ENABLE KEYS */;
+LOCK TABLES `ComponentFileTypes` WRITE;
+/*!40000 ALTER TABLE `ComponentFileTypes` DISABLE KEYS */;
+INSERT INTO `ComponentFileTypes` VALUES (1,'Estudiantes que realizaron su práctica','2020-07-20 12:28:36',NULL,NULL),(2,'Estudiantes que promovieron su práctica','2020-07-20 12:31:51',NULL,NULL),(3,'Centros que recibieron practicantes','2020-07-20 12:32:33',NULL,NULL),(4,'Supervisores de prácticas','2020-07-20 12:33:17',NULL,NULL),(5,'Capacitaciones al personal de práctica','2020-07-20 12:33:50',NULL,NULL),(6,'Docentes de aulas que recibieron practicantes','2020-07-20 12:34:25',NULL,NULL),(7,'Convenios nuevos  firmados','2020-07-20 12:34:51',NULL,NULL),(8,'Convenios actualizados','2020-07-20 12:35:18',NULL,NULL),(9,'Divulgación de resultados','2020-07-20 12:35:44',NULL,NULL);
+/*!40000 ALTER TABLE `ComponentFileTypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -778,9 +762,6 @@ CREATE TABLE `contact` (
 --
 
 LOCK TABLES `contact` WRITE;
-/*!40000 ALTER TABLE `contact` DISABLE KEYS */;
-INSERT INTO `contact` VALUES (1,1,'402-2215618-0','Kelvin','HERRERA FELIZ',NULL,1,NULL,'2019-05-12','Santo Domingo',0,NULL,NULL,1,NULL,NULL,'2020-08-10 14:05:10',NULL,'Dominicano',NULL,NULL),(2,2,'1-300-0001-5','NULO','',NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-03-17 21:44:32','2019-03-18 04:33:55',1,NULL,NULL,NULL),(3,1,'011-2022552-2','VICTOR','DE LA ROSA VALDEZ','male',1,NULL,'1993-02-10',NULL,NULL,NULL,NULL,NULL,NULL,'2019-03-29 20:00:34',NULL,1,NULL,NULL,NULL),(4,1,'545-2555222-2','JUAN CARLOS','DE MOTA','male',1,NULL,'2016-03-11','Santo Domingo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL),(5,1,'222-2222222-2','LOPEZ','DOMINGO','male',1,NULL,'2019-05-21','SANTO DOMINGO',1,1,NULL,NULL,NULL,'2019-05-09 05:41:34','2019-05-21 15:09:07',1,NULL,NULL,NULL),(6,1,'530-2522555-5','DOLORES','DOMINGUEZ','female',1,NULL,'2019-05-22','SANTO DOMINGO',0,0,NULL,NULL,NULL,'2019-05-22 23:28:34',NULL,1,NULL,NULL,NULL),(7,1,'232-2222222-2','FF','FF','male',1,NULL,'2019-05-10','',0,0,NULL,NULL,NULL,'2019-05-22 23:29:30',NULL,1,NULL,NULL,NULL),(8,1,'233-3333333-3','33332','33333','female',1,NULL,'2019-05-08','',0,0,NULL,NULL,NULL,'2019-05-22 23:39:55',NULL,1,NULL,NULL,NULL),(9,1,'233-3353333-3','Fernardo ','Henriquez',NULL,1,NULL,'2020-07-26','Santo Domingo',NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-15 10:02:53',NULL,NULL,NULL,NULL),(10,NULL,NULL,'juan ','palotes',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(11,NULL,NULL,'julian ','henriquez',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(12,1,'01201257340','Pedro','Juan','male',1,NULL,'2020-07-29','Santo Domingo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dominicano',NULL,NULL),(13,1,'233-3555333-3','Olwen','Henriquez',NULL,1,NULL,'2020-07-28','Santo Domingo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(14,1,'test','test','test',NULL,1,NULL,'2020-07-28','test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(15,1,'test2','test2','test2',NULL,1,NULL,'2020-07-21','test2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(16,1,'test3','test3','test3',NULL,1,NULL,'2020-07-27','test3',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(17,1,'prueba','prueba','prueba',NULL,1,NULL,'2020-07-28','prueba',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(19,1,'33333333','Raul','Perez','male',1,NULL,'2020-07-29','Santo Domingo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(21,1,'233-3355333-3','Prueba','Prueba',NULL,2,NULL,'2020-08-13','Santo Domingo',NULL,NULL,NULL,NULL,NULL,NULL,'2020-08-10 14:54:44',NULL,'Dominicano',8,NULL);
-/*!40000 ALTER TABLE `contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -813,9 +794,6 @@ CREATE TABLE `contact_address` (
 --
 
 LOCK TABLES `contact_address` WRITE;
-/*!40000 ALTER TABLE `contact_address` DISABLE KEYS */;
-INSERT INTO `contact_address` VALUES (1,2,1,'','2019-03-17 21:44:32',NULL,2),(2,1,27,'Com.',NULL,NULL,NULL),(3,2,3,'','2019-03-17 21:49:32','2019-03-18 04:33:56',1),(4,1,4,'Com.','2019-03-17 21:49:33','2019-05-22 23:39:12',1),(5,1,5,'','2019-03-18 04:23:13','2019-05-22 23:39:13',1),(6,9,19,'prueba ',NULL,NULL,NULL),(7,21,31,'Prueba',NULL,NULL,NULL),(8,10,36,'Prueba',NULL,'2020-08-13 09:43:47',NULL),(9,11,33,'Probando',NULL,'2020-08-13 09:51:42',NULL),(10,12,34,'Probando',NULL,'2020-08-13 09:54:42',NULL),(11,13,35,'Probandoccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc',NULL,'2020-08-13 09:56:23',NULL),(12,14,37,'k,yyy',NULL,'2020-08-13 09:57:48',NULL);
-/*!40000 ALTER TABLE `contact_address` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -848,9 +826,6 @@ CREATE TABLE `contact_communication` (
 --
 
 LOCK TABLES `contact_communication` WRITE;
-/*!40000 ALTER TABLE `contact_communication` DISABLE KEYS */;
-INSERT INTO `contact_communication` VALUES (1,2,1,'','2019-03-17 21:44:33',NULL,2),(2,NULL,2,'Com.','2019-03-17 21:44:33',NULL,2),(3,2,3,'','2019-03-17 21:49:32','2019-03-18 04:33:56',1),(4,NULL,4,'Com.','2019-03-17 21:49:33','2019-05-22 23:39:13',1),(5,NULL,5,'','2019-03-18 04:23:41','2019-05-22 23:39:13',1),(6,7,13,'Probando ','2020-08-13 10:13:14',NULL,NULL),(7,NULL,15,'Prueba',NULL,NULL,NULL),(8,21,16,'Prueba',NULL,NULL,NULL);
-/*!40000 ALTER TABLE `contact_communication` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1010,9 +985,6 @@ CREATE TABLE `file` (
 --
 
 LOCK TABLES `file` WRITE;
-/*!40000 ALTER TABLE `file` DISABLE KEYS */;
-INSERT INTO `file` VALUES (1,1,'file_2019-04-12_OhiGxWNdmKgfeYUBDVbvjCFyapAMQsEu.pdf','C:/xampp/htdocs/softgoodlife.com/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-04-12 21:18:06',NULL,1),(2,1,'file_2019-04-13_YvKewrfIcukHEaRTqFbgAQdtLPOxlyMS.pdf','C:/xampp/htdocs/softgoodlife.com/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-04-13 03:52:57',NULL,1),(3,1,'file_2019-04-13_IwrhWLmqyDkfTCxldcgMvOtVBizZsAaH.PDF','C:/xampp/htdocs/softgoodlife.com/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-04-13 03:55:30',NULL,1),(4,1,'file_2019-04-13_dLReyXvSkboICiPnEWrpcAfTKDwhuJlj.pdf','C:/xampp/htdocs/softgoodlife.com/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-04-13 04:09:44',NULL,1),(5,1,'file_2019-04-13_sMinSIjEHJDVqyRNrCeOglQLdGpZWhom.pdf','C:/xampp/htdocs/softgoodlife.com/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-04-13 16:49:27',NULL,1),(6,1,'file_2019-04-13_JODNKSTvGUCnzkdMrqHhwjfybcIFgmLV.pdf','C:/xampp/htdocs/softgoodlife.com/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-04-13 16:52:01',NULL,1),(7,1,'file_2019-04-15_IdGwVNeSQZqRxAYHJaiXmhKDFrTvfyzb.pdf','C:/xampp/htdocs/softgoodlife.com/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-04-15 01:41:53',NULL,1),(8,1,'file_2019-04-23_xqgKaALBTwMoplQZtJSjmORuXnFWdvhN.pdf','C:/xampp/htdocs/softgoodlife.com/private/uploads/','/private/uploads/',NULL,1,NULL,'2019-04-23 16:17:47',NULL,1),(9,1,'file_2019-05-08_RGQSvLwHloXBKzInYMuipycdteADfEqC.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 03:22:31',NULL,1),(10,1,'file_2019-05-08_BrXCQUGAsaizkOexjmDbuVfRHFvWJwZY.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 03:24:12',NULL,1),(11,1,'file_2019-05-08_JemzERwKxNQqWCYjGdSkTVLtUanMBpvA.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 03:24:43',NULL,1),(12,1,'file_2019-05-08_BxoYVDzTnMAsiNCmkyrEJgWcPRFKOGvI.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 03:25:34',NULL,1),(13,1,'file_2019-05-08_jNBZGsOLSCYTqyAmcRWheKnvHPUJQrFM.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 03:25:39',NULL,1),(14,1,'file_2019-05-08_PHMSEeAZlYWBipfvQDXrIFhjagcTwtJC.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 03:26:25',NULL,1),(15,1,'file_2019-05-08_pfyLiXWsEgRqKtoTjdBnUCYFrlVcAPwS.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 16:29:57',NULL,1),(16,10,'file_2019-05-08_esmzlCPZrYoSbhjgQGwqBUpaVDkEiKTI.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 16:43:17',NULL,1),(17,1,'file_2019-05-08_dFVcYrbfQJnyIxkMjGBeZAqTmwLESDKC.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 17:11:31',NULL,1),(18,1,'file_2019-05-08_yhbFGgtLRpzaCPmeWkKUnEAiXDlOHvTx.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 17:16:41',NULL,1),(19,10,'file_2019-05-08_EAVrIvuUDCsRfaTQtOGjMlZwBHpNSYeq.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/','/private/uploads/',NULL,NULL,NULL,'2019-05-08 17:22:20',NULL,1),(20,10,'file_2019-05-08_bSmhgQjOWRtvdoZXpxBiqHLJAENGuKec.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-08','/private/uploads/2019-05-08',NULL,NULL,NULL,'2019-05-08 18:11:45',NULL,1),(21,10,'file_2019-05-08_weIKROidJUyWcgzVYtluGAafQEqLpHrj.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-08','/private/uploads/2019-05-08',NULL,NULL,NULL,'2019-05-08 18:18:43',NULL,1),(22,10,'file_2019-05-08_UHpLwrCEQlvFmZITbJVKAXgBtNcyisOh.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-08','/private/uploads/2019-05-08',NULL,NULL,NULL,'2019-05-08 20:38:41',NULL,1),(23,11,'file_2019-05-09_kVtREebUJcmMqXpQIZHGrPACzKuOBxnw.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:17:57',NULL,1),(24,11,'file_2019-05-09_jxVEglQPRHbwWSKmOFzXZsINGyaTtiAC.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:18:25',NULL,1),(25,11,'file_2019-05-09_dicOJwsIfHLnkuGNmXCPWTBMyUqxDgtp.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:19:34',NULL,1),(26,11,'file_2019-05-09_UklDtWhiqvZuodsPbHLSYejKVOQxzJMr.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:20:19',NULL,1),(27,11,'file_2019-05-09_YXLxhwcRCjKVNZaOWJQfPdsymuFteDpo.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:20:25',NULL,1),(28,11,'file_2019-05-09_GieKCgwaJXAEhrSvxyTPlmNfYRsuMpcd.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:20:31',NULL,1),(29,11,'file_2019-05-09_EdjWXQoPUMwYBaeqOlyKsgtpTIvkSZHG.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:27:49',NULL,1),(30,11,'file_2019-05-09_IZYoRyAUHkQEacBNxVdWlDqwnPfTsShX.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:27:54',NULL,1),(31,11,'file_2019-05-09_WnvOBeCDSgmuNrFViIKdaJQRXLyYwEzc.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:29:52',NULL,1),(32,11,'file_2019-05-09_pnZvFuVblKQIriHqXCeLEWomUwxjgGDN.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:29:58',NULL,1),(33,11,'file_2019-05-09_hSoPviqEBNOrKMAIQVzFJgWbDTcYswfm.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:44:29',NULL,1),(34,11,'file_2019-05-09_oNvgEMqPpzFTQSjytJuWYKOBwinVlrxe.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:44:35',NULL,1),(35,11,'file_2019-05-09_ToPFYxRNWkiJSyufqarGKLwdOUmpvgBQ.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:45:05',NULL,1),(36,11,'file_2019-05-09_IiQpbfDhxonsBTyHNvqSgOJEZUrMluWe.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:45:08',NULL,1),(37,11,'file_2019-05-09_DvZEVQfbnodPtpRkhjucAqBGyaTizXNS.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:53:59',NULL,1),(38,11,'file_2019-05-09_SByepmTdluEYrhzGOZVAjkiDWCxwUNaP.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:54:03',NULL,1),(39,11,'file_2019-05-09_CUQPRfaFVKjTnAciNeMduYyBkWEZvwgs.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 03:54:07',NULL,1),(40,12,'file_2019-05-09_CnPDfNtTKUSZFsBhIYOJajWozgMGxvqd.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:09:01',NULL,1),(41,12,'file_2019-05-09_JPFvzVsgxfemoUdqRNSLCAtykhQXbBOI.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:09:22',NULL,1),(42,12,'file_2019-05-09_gACZxPzSwHEfqDXbYmpUeWTKRiknujvQ.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:10:10',NULL,1),(43,12,'file_2019-05-09_fGJuOvjIVSqZUYLtkCAhpdRHNsQEWDBo.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:10:32',NULL,1),(44,12,'file_2019-05-09_FzhNQwcnTfyXUeDVxLigPdYpksBIMHKa.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:12:47',NULL,1),(45,12,'file_2019-05-09_UomiXdcCgBxYzWnJEhTMAHSLVvsyqPGw.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:13:34',NULL,1),(46,12,'file_2019-05-09_YZxgvHtMpmnjyBceIbLdiEolONzXKTCr.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:13:44',NULL,1),(47,12,'file_2019-05-09_IxFkrMcaVQPZXwONDGpmYKngWHiJEUdh.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:14:03',NULL,1),(48,12,'file_2019-05-09_qnFvOcxNlokPtTQMYbpdIGhEsUzCaime.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:14:07',NULL,1),(49,12,'file_2019-05-09_EfXuGaSNlWMmvPxYHIstdAizObqDVZcr.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:14:10',NULL,1),(50,12,'file_2019-05-09_YkQJmNHFtgcnSvCLsoGfWpzahVbejUXq.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:50:17',NULL,1),(51,12,'file_2019-05-09_ogrJqDjMimpBaWAZbHUkLNfyzsPlVKuw.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:50:36',NULL,1),(52,12,'file_2019-05-09_GbdPMjztJBIuoxXgrYeLhyHECnKcNwaq.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:50:39',NULL,1),(53,12,'file_2019-05-09_ZwvMqntChiEQRDysalVPojUXgLWmTBkJ.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:50:40',NULL,1),(54,12,'file_2019-05-09_HuqYrsJTMKOAjyXxIvGLoWbtRenZaSgf.PDF','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:50:43',NULL,1),(55,12,'file_2019-05-09_bdwVCgkPeRvtcsYiWhpNjmAfarZUxqzK.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:56:12',NULL,1),(56,12,'file_2019-05-09_fqcHoVslheOFjSpmgYkBawEZtQRiLCDn.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:56:14',NULL,1),(57,12,'file_2019-05-09_ZBxumAEwzrlRDbCHVTWOYadMKsNXcnJU.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:56:16',NULL,1),(58,12,'file_2019-05-09_rqsYpVGhdWXwzDbkoLjmyvgSCPIZlNJa.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:56:18',NULL,1),(59,12,'file_2019-05-09_PVpGdQcZXRiKgMSJbwumkevCBoNlEhAf.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 08:56:21',NULL,1),(60,11,'file_2019-05-09_BTehKrjYNCiuWsFoPgQGXLqdAEafkwRz.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 09:54:40',NULL,1),(61,11,'file_2019-05-09_LyCUxInDlevrEAbdqpNYmaSghzXoPOfT.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 09:54:45',NULL,1),(62,12,'file_2019-05-09_OYQAFTmnwpISdWMlbPickEsGjLDVvhXJ.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 10:05:06',NULL,1),(63,12,'file_2019-05-09_CRHOFANJiVsUGmvxLIoBQzyqaDpedtEM.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 10:05:09',NULL,1),(64,12,'file_2019-05-09_ZNIJyErVPRgbMswecjkqKWYFXtofBOlh.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 10:05:11',NULL,1),(65,12,'file_2019-05-09_qdifRYzOSsNoAyEZVLeBbIHlFJnMcuDQ.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 10:05:52',NULL,1),(66,12,'file_2019-05-09_EzjCtOwNxevUZDyIlJMsQLAgTiBRVYFm.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 10:05:54',NULL,1),(67,12,'file_2019-05-09_NVPlkBJYyvFQKCXdaHMxgTuqWOocRUjh.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 10:05:57',NULL,1),(68,12,'file_2019-05-09_mLpsVhktcAbzgorEyIlZDaxBNneFKUvi.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 10:06:01',NULL,1),(69,12,'file_2019-05-09_YOyXhFoUnDJTjeGBtvxPasQbdupSmZVC.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 10:06:04',NULL,1),(70,11,'file_2019-05-09_CIkDmruXEqxalcBPnhfOdptWTjZwReNF.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 15:20:15',NULL,1),(71,11,'file_2019-05-09_gVaCGNdqHEKnyliXrUWcbRYJkPutxsAh.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 15:20:53',NULL,1),(72,11,'file_2019-05-09_cEBiAfdyHwoROYneUaLXFPqbNJWgvMzp.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 15:21:10',NULL,1),(73,11,'file_2019-05-09_cLVOlUuInxoEkdPNzyXsAtDvFaweHKWm.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 15:21:19',NULL,1),(74,11,'file_2019-05-09_mtHVfnbdIDgMuYRpyrZLEAekcjFaJvTx.pdf','C:/xampp/htdocs/inafocam-tracking/private/uploads/2019-05-09','/private/uploads/2019-05-09',NULL,NULL,NULL,'2019-05-09 15:21:22',NULL,1),(75,10,'file_2019-05-21_jlxdFZJnaqriugTbBWAmztsIoSUcCQyL.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-21','/private/uploads/2019-05-21',NULL,NULL,NULL,'2019-05-21 21:03:26',NULL,1),(76,10,'file_2019-05-21_cClpKaJkNSxYBEVwdHfzIjAbqPUMXsOo.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-21','/private/uploads/2019-05-21',NULL,NULL,NULL,'2019-05-21 21:03:27',NULL,1),(77,10,'file_2019-05-21_McYbAEiRndsWSgxBTpyFXqPklumUzeNQ.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-21','/private/uploads/2019-05-21',NULL,NULL,NULL,'2019-05-21 21:03:27',NULL,1),(78,10,'file_2019-05-21_KZMReJDbGFyYlrcBfujgWHaUiSOzVkwp.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-21','/private/uploads/2019-05-21',NULL,NULL,NULL,'2019-05-21 21:03:27',NULL,1),(79,13,'file_2019-05-22_PLIYrZcDoAdTJfFiQNOGzjBhbpEHnumW.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:28:44',NULL,1),(80,13,'file_2019-05-22_biuakgSVsRpMYGCxqBZeAdtjINTQHOfn.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:34:08',NULL,1),(81,13,'file_2019-05-22_dClwSxuRspQToWhUkgIOeHLEVabYctPy.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:34:14',NULL,1),(82,13,'file_2019-05-22_XkCMYcWZNHJFALolwGOfsypESrueDtRx.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:34:28',NULL,1),(83,13,'file_2019-05-22_ldncZrXfMkVFmqNAewYOyuKoQIaJgRis.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:35:28',NULL,1),(84,13,'file_2019-05-22_yvWquwxlCfITSgcopENDizGURKmrLZAH.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:35:37',NULL,1),(85,13,'file_2019-05-22_FoNuBnWEDZJVpizgSPyCswKIUhOvxcqT.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:36:03',NULL,1),(86,13,'file_2019-05-22_CyjQfLURbupvgsiZIlStFaOhBmwkVPYx.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:36:19',NULL,1),(87,13,'file_2019-05-22_swcUaJDuTOqiAMyzBNZXKSPHWVnxkehY.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:37:20',NULL,1),(88,13,'file_2019-05-22_wWbIfRZsKaQGuevjdnMLFhrkitTAgqJz.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:38:02',NULL,1),(89,13,'file_2019-05-22_XdaVcqAElJRpMBxhWjFeQNDnvZySOKIr.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:38:31',NULL,1),(90,13,'file_2019-05-22_GeiJWtkVpmxRSYjflbMHNchFgQvronLK.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:38:42',NULL,1),(91,13,'file_2019-05-22_lWmPAwEhOHjqYMeRDbFZuvnrCoszKBxQ.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:38:44',NULL,1),(92,13,'file_2019-05-22_RqoMWKETZlaBcOGIQuftvmSiwxXDnLrU.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:39:04',NULL,1),(93,13,'file_2019-05-22_ubrAapfdBFRsWKNLUwxIhZEGeyYJcvXz.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:39:29',NULL,1),(94,13,'file_2019-05-22_YjzVkaiEPMbNfKGvdFRqIZpJmlcOywsA.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:39:50',NULL,1),(95,13,'file_2019-05-22_xqpKEhFGQUPkStJRYByjWClHvXVgZmAD.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:41:06',NULL,1),(96,13,'file_2019-05-22_EvduRmyfOSjIPqtZgHexGQkNLwhlDWcK.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:41:18',NULL,1),(97,13,'file_2019-05-22_sAVIOoyCBiUkuLZRHgxSqXWmzQdYeDFv.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:41:30',NULL,1),(98,13,'file_2019-05-22_WuXdfeTMYgzOcPwJGZyvUjDrhItRFSsC.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:42:03',NULL,1),(99,13,'file_2019-05-22_SQqDrbnGAmixByhOgMYCuUpJtkXdZzHv.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:46:53',NULL,1),(100,13,'file_2019-05-22_CsoPAHbVquItWwdBpTELnSDFxaONGyRQ.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 21:47:16',NULL,1),(101,12,'file_2019-05-22_OwIikbVCLNZryGFvXocHEQdWASapYhTx.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:12:06',NULL,1),(102,12,'file_2019-05-22_SejBtJICrzmMfswYKyOUkgqVbuWEDTcZ.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:12:30',NULL,1),(103,12,'file_2019-05-22_KQhMdFZtOsDXGrzklvLBnijNWxJwCoVm.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:12:30',NULL,1),(104,12,'file_2019-05-22_ymiarbAupPJBHDgwxcFMICskUNGEZdYo.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:12:31',NULL,1),(105,12,'file_2019-05-22_axXEHWrGgRYAJkLdvDbmfVZlwBTeMsuj.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:12:42',NULL,1),(106,12,'file_2019-05-22_ihYPlxeCRgtdAczNMboLquEGUySBakwF.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:12:42',NULL,1),(107,12,'file_2019-05-22_FCHUrsVqjzXPElZRSgNpIYifOavQewoy.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:12:42',NULL,1),(108,12,'file_2019-05-22_uXpIsiPjkQNHahyeFntlOoZYMRxCcmwr.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:13:25',NULL,1),(109,12,'file_2019-05-22_NwSQeYBdnkUtOoKuqiagpWZGChlbjsDr.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:13:26',NULL,1),(110,12,'file_2019-05-22_TkFfzpAVyPnODwUtcNvQBumjdCsliSJa.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:13:26',NULL,1),(111,12,'file_2019-05-22_JSMWoiFnfkQVvHlmzZgeswpjrTUNcCGD.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:15:08',NULL,1),(112,12,'file_2019-05-22_soIUSdMyNGCtlbrmaTOYHnLJfhXEckxu.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:15:08',NULL,1),(113,12,'file_2019-05-22_MdLuhtfjSYigVvOeDNXmCnsPyaHkclQA.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:15:08',NULL,1),(114,12,'file_2019-05-22_OzoIhyFqWCiUmkYudRatcPGSTXAQBKfr.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:15:42',NULL,1),(115,12,'file_2019-05-22_VNqnYgIBdyouGhjzmCtsaAifklxpMTZv.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:15:42',NULL,1),(116,12,'file_2019-05-22_zvjOXreAdFWsPTgkMQHEnmIwVKCqoDUh.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:15:43',NULL,1),(117,12,'file_2019-05-22_ToUmaOsNFgShJzctKkeWRBbwxpjuiZlC.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:16:51',NULL,1),(118,1,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\0-caeed004-4341-42cd-9bb3-26648fe52d43.pdf','0-caeed004-4341-42cd-9bb3-26648fe52d43.pdf',NULL,NULL,NULL,NULL,'2020-07-30 00:47:20',NULL),(119,12,'file_2019-05-22_RQiVKSrvOsHmBlEnAWeyJFkYUqPMhocg.png','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:19:47',NULL,1),(120,12,'file_2019-05-22_WRzANfkmsDbwMagUYIKcBLidTjPEGlQx.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:19:47',NULL,1),(121,12,'file_2019-05-22_KZIFLdBUihTtugnazEbeORcJmlypXkPG.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:20:14',NULL,1),(122,14,'file_2019-05-22_HGePqOJfwLQUcNomuiRyZjYradDpIXxk.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:39:49',NULL,1),(123,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\1-d2a0af0d-5e63-45ba-890e-5844643d2a0b.pdf','1-d2a0af0d-5e63-45ba-890e-5844643d2a0b.pdf',NULL,NULL,NULL,NULL,'2020-07-17 15:24:43',NULL),(124,14,'file_2019-05-22_gdNjThLUAlRzDncbmvOiqJtuGkSQCosP.jpg','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:39:49',NULL,1),(125,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\1-48aa68db-0029-4dd7-9408-3d327832937c.pdf','1-48aa68db-0029-4dd7-9408-3d327832937c.pdf',NULL,NULL,NULL,NULL,'2020-07-17 15:25:24',NULL),(126,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\1-67a04b13-3ebb-4056-96b4-b2b63da0f729.pdf','1-67a04b13-3ebb-4056-96b4-b2b63da0f729.pdf',NULL,NULL,NULL,NULL,'2020-07-17 15:25:38',NULL),(127,14,'file_2019-05-22_KIiueODZomdvYNnSzJxaTcWkfpwGLFEr.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:40:09',NULL,1),(128,14,'file_2019-05-22_LOWEkgRqwHzvyrxaBFUcsXtJnDioIKZM.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-05-22','/private/uploads/2019-05-22',NULL,NULL,NULL,'2019-05-22 22:40:47',NULL,1),(129,14,'Curriculum Olwen Henriquez Diaz.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\1-aa6c5212-f7de-4c38-801c-4540784095e4.pdf','1-aa6c5212-f7de-4c38-801c-4540784095e4.pdf',NULL,NULL,NULL,NULL,'2020-07-21 10:42:04',NULL),(130,11,'file_2019-08-01_UbXiSrRHgpJzteVjBCFWxDmsyIkwAcal.pdf','C:/xampp/htdocs/inafocam_tracing/private/uploads/2019-08-01','/private/uploads/2019-08-01',NULL,5,NULL,'2019-08-01 15:33:40',NULL,1),(131,5,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/teacher\\10-635ea42a-291e-41d4-b891-6bec812e8fff.pdf','10-635ea42a-291e-41d4-b891-6bec812e8fff.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(132,2,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/teacher\\10-6b6d59d9-0079-48ce-956e-7bc75ffb7929.pdf','10-6b6d59d9-0079-48ce-956e-7bc75ffb7929.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(133,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\1-f17862b0-d6aa-4f38-89f2-feb597568d93.pdf','1-f17862b0-d6aa-4f38-89f2-feb597568d93.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(134,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\2-9957c040-cc24-4bb5-a641-0c9f26c7ea9e.pdf','2-9957c040-cc24-4bb5-a641-0c9f26c7ea9e.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(135,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\5-7e759fe7-a3b4-450b-800f-eaab8b9dda11.pdf','5-7e759fe7-a3b4-450b-800f-eaab8b9dda11.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(136,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\1-8ab0f46f-330f-43e6-bc00-63a8ac16d8d7.pdf','1-8ab0f46f-330f-43e6-bc00-63a8ac16d8d7.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(137,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\3-a4330a5b-4ab2-4586-8da5-0c3538d1149c.pdf','3-a4330a5b-4ab2-4586-8da5-0c3538d1149c.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(138,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\4-4873901d-b291-4ff8-95a1-27f91dc23603.pdf','4-4873901d-b291-4ff8-95a1-27f91dc23603.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(139,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\3-a4de6f20-5aba-4199-8b2b-c2e56a55d0f7.pdf','3-a4de6f20-5aba-4199-8b2b-c2e56a55d0f7.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(140,5,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/teacher\\10-ca42dd23-f9b1-42a4-926f-f7fd9cc62dd6.pdf','10-ca42dd23-f9b1-42a4-926f-f7fd9cc62dd6.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(141,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\5-1e95ef07-ba0d-4de6-9af1-b68e62be472f.pdf','5-1e95ef07-ba0d-4de6-9af1-b68e62be472f.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(142,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\7-b14717bc-5edd-47d7-817b-a8b4de5adb31.pdf','7-b14717bc-5edd-47d7-817b-a8b4de5adb31.pdf',NULL,NULL,NULL,'2020-07-20 15:48:59',NULL,NULL),(143,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\7-b305d4d7-990b-4c4e-a33b-bf3cbe1cdf25.pdf','7-b305d4d7-990b-4c4e-a33b-bf3cbe1cdf25.pdf',NULL,NULL,NULL,NULL,'2020-07-20 16:07:50',NULL),(144,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\7-f8a8027e-2b36-4ce9-a21f-a0e5c1cd01b5.pdf','7-f8a8027e-2b36-4ce9-a21f-a0e5c1cd01b5.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(145,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\7-7277fa5f-8333-4646-a8d6-f0f8f40c1487.pdf','7-7277fa5f-8333-4646-a8d6-f0f8f40c1487.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(146,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\7-c6672377-c399-4722-998c-01d2dd05f6bf.pdf','7-c6672377-c399-4722-998c-01d2dd05f6bf.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(147,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\7-8ba760f9-a1cc-45dc-8c8d-8a2471f4ea97.pdf','7-8ba760f9-a1cc-45dc-8c8d-8a2471f4ea97.pdf',NULL,NULL,NULL,NULL,'2020-07-20 16:17:45',NULL),(148,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\1-4dc5c5ed-c782-4299-8cde-016a7ee15955.pdf','1-4dc5c5ed-c782-4299-8cde-016a7ee15955.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(149,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\6-b647230a-6d66-40d7-9240-c09f4a79a008.pdf','6-b647230a-6d66-40d7-9240-c09f4a79a008.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(150,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\7-947eddbe-7fce-45b9-ae9e-6ea3dda042b5.pdf','7-947eddbe-7fce-45b9-ae9e-6ea3dda042b5.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(151,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\3-d874ae4a-b97d-4e8a-b7c1-188062d3c295.pdf','3-d874ae4a-b97d-4e8a-b7c1-188062d3c295.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(152,12,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/resultadosdelperiodoanterior\\0-09c47f9d-2fa9-4a84-908e-66c4985715fd.pdf','0-09c47f9d-2fa9-4a84-908e-66c4985715fd.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(153,12,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/resultadosdelperiodoanterior\\0-62131ba4-6ef2-4f4e-8dc2-4c43d96d5dc1.pdf','0-62131ba4-6ef2-4f4e-8dc2-4c43d96d5dc1.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(154,12,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/resultadosdelperiodoanterior\\0-e028c3ee-88ca-4200-8202-e65bc2319c5b.pdf','0-e028c3ee-88ca-4200-8202-e65bc2319c5b.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(155,12,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/resultadosdelperiodoanterior\\1-44be8536-d971-48da-b46c-71dc3aa21c8c.pdf','1-44be8536-d971-48da-b46c-71dc3aa21c8c.pdf',NULL,NULL,NULL,NULL,'2020-07-23 11:13:09',NULL),(156,12,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/resultadosdelperiodoanterior\\2-d94c4704-3405-4fbb-afa8-fbf2cc811723.pdf','2-d94c4704-3405-4fbb-afa8-fbf2cc811723.pdf',NULL,NULL,NULL,NULL,'2020-07-27 22:00:33',NULL),(157,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\16-e4e2f7ee-d9a4-44dc-bc72-463ad2484ebf.pdf','16-e4e2f7ee-d9a4-44dc-bc72-463ad2484ebf.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(158,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\17-5709fca2-3901-42da-b56a-6b968fde9f8c.pdf','17-5709fca2-3901-42da-b56a-6b968fde9f8c.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(159,1,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/teacher\\1-2b3ce3ca-2f4c-49b7-9843-f98ba979b114.pdf','1-2b3ce3ca-2f4c-49b7-9843-f98ba979b114.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(160,1,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/teacher\\1-4e8dd1bc-8db0-4fed-a061-a8a298f7c004.pdf','1-4e8dd1bc-8db0-4fed-a061-a8a298f7c004.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(161,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\-51804788-a881-4929-9b87-bc0ae097db79.pdf','-51804788-a881-4929-9b87-bc0ae097db79.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(162,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\15-540a1d6a-d42e-418a-b117-ec8afd349723.pdf','15-540a1d6a-d42e-418a-b117-ec8afd349723.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(163,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\15-978b196f-44b6-4a90-b3b3-0bd6c91d87d0.pdf','15-978b196f-44b6-4a90-b3b3-0bd6c91d87d0.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(164,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\-6dfe3f7d-6add-41b5-b3c6-c58047bc6c80.pdf','-6dfe3f7d-6add-41b5-b3c6-c58047bc6c80.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(165,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\-cfdef0ff-6d23-4107-be8b-b24259b8ea95.pdf','-cfdef0ff-6d23-4107-be8b-b24259b8ea95.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(166,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\20-019138eb-73ca-49b5-ba5a-5f4f060d79da.pdf','20-019138eb-73ca-49b5-ba5a-5f4f060d79da.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(167,1,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/documentosparaelSistemadecalidad\\0-09eb5772-eddf-4813-aed0-ddfe1b9e2a34.pdf','0-09eb5772-eddf-4813-aed0-ddfe1b9e2a34.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(168,1,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/DocumentosActividadesCoCurriculares\\-bcf01803-a995-4d28-9949-f76a4da36e10.pdf','-bcf01803-a995-4d28-9949-f76a4da36e10.pdf',NULL,NULL,NULL,NULL,'2020-07-30 09:03:53',NULL),(169,2,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/DocumentosActividadesCoCurriculares\\-1b108757-8fdd-4034-8289-a91af96c3b25.pdf','-1b108757-8fdd-4034-8289-a91af96c3b25.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(170,1,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/DocumentosActividadesCoCurriculares\\-e6e2c9e2-2830-42cf-93a4-58b5d288701a.pdf','-e6e2c9e2-2830-42cf-93a4-58b5d288701a.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(171,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\1-d1a35145-c5fe-4b36-b023-07e098ee1bf5.pdf','1-d1a35145-c5fe-4b36-b023-07e098ee1bf5.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(172,3,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/DocumentosActividadesCoCurriculares\\-d1c41e46-d2e5-40ea-95af-ee606ddaf5fb.pdf','-d1c41e46-d2e5-40ea-95af-ee606ddaf5fb.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(173,2,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/DocumentosActividadesCoCurriculares\\-fbd57286-b51c-4ecb-9dc2-b150ff8a0deb.pdf','-fbd57286-b51c-4ecb-9dc2-b150ff8a0deb.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(174,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\15-0a7e9842-38a4-41af-bbfd-ff0b17d7281b.pdf','15-0a7e9842-38a4-41af-bbfd-ff0b17d7281b.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(175,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/plandeestudio/subjectmatterscorereportfile\\15-29057ec4-ee32-4307-b4d1-75bb4ac08176.pdf','15-29057ec4-ee32-4307-b4d1-75bb4ac08176.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(176,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\20-8d186de6-d1d8-4d94-8d00-32acfdfd9fb1.pdf','20-8d186de6-d1d8-4d94-8d00-32acfdfd9fb1.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(177,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/desarrollodelplandeestudio\\15-7ecddee3-d75c-4b62-bd9f-ebbde21b09ab.pdf','15-7ecddee3-d75c-4b62-bd9f-ebbde21b09ab.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(178,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/plandeestudio/studentreportfile\\15-2c596497-5d46-4562-88f3-baccaff9ad1a.pdf','15-2c596497-5d46-4562-88f3-baccaff9ad1a.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(179,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/plandeestudio/studentreportfile\\16-76bd2cbd-b6fb-4cb4-8854-b272b05e539e.pdf','16-76bd2cbd-b6fb-4cb4-8854-b272b05e539e.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(180,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/plandeestudio/subjectmatterscorereportfile\\16-79d5f7e7-38a1-40cb-899f-82e216893569.pdf','16-79d5f7e7-38a1-40cb-899f-82e216893569.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(181,8,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/DocumentosActividadesCoCurriculares\\-d39f1829-b0eb-41e0-a458-071ae8febafa.pdf','-d39f1829-b0eb-41e0-a458-071ae8febafa.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(182,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\3-60e62b9e-6aa8-4532-bef1-3213c1fa6f3d.pdf','3-60e62b9e-6aa8-4532-bef1-3213c1fa6f3d.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(183,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\2-92907ab8-da56-4f53-b4f2-3f300f23a88b.pdf','2-92907ab8-da56-4f53-b4f2-3f300f23a88b.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(184,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\2-ca722fdb-91ef-4b96-8cb9-752d982d97c1.pdf','2-ca722fdb-91ef-4b96-8cb9-752d982d97c1.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(185,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\3-0a3e0e65-d22e-4352-a33f-f4d34aeb7615.pdf','3-0a3e0e65-d22e-4352-a33f-f4d34aeb7615.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(186,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-f15005c8-b923-46b2-8a57-fb0e4270f145.pdf','1-f15005c8-b923-46b2-8a57-fb0e4270f145.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(187,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-ba283a0d-218e-4d4c-929d-8bb8f7cf7bdb.pdf','1-ba283a0d-218e-4d4c-929d-8bb8f7cf7bdb.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(188,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-b6335f82-14fb-4101-bd27-6fa30368c210.pdf','1-b6335f82-14fb-4101-bd27-6fa30368c210.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(189,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-2f1b04b9-6496-4b88-8357-2df24a7e5a93.pdf','1-2f1b04b9-6496-4b88-8357-2df24a7e5a93.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(190,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-743c4be3-1750-402d-a5cd-8ae59c1f1da7.pdf','1-743c4be3-1750-402d-a5cd-8ae59c1f1da7.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(191,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-643d0262-e55a-4dd5-9fef-0d4a9110d2fe.pdf','1-643d0262-e55a-4dd5-9fef-0d4a9110d2fe.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(192,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-e4746675-7e7a-46dc-81a6-65f6c7302af2.pdf','1-e4746675-7e7a-46dc-81a6-65f6c7302af2.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(193,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-9c837762-0893-4345-be57-edaf56f54bab.pdf','1-9c837762-0893-4345-be57-edaf56f54bab.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(194,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\1-37241bc8-f989-46b7-b32e-41affa7aba1d.pdf','1-37241bc8-f989-46b7-b32e-41affa7aba1d.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(195,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\4-e47ec89c-508e-4e7a-b2ed-c5cf833a90b6.pdf','4-e47ec89c-508e-4e7a-b2ed-c5cf833a90b6.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(196,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(197,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/plandeestudio/studentreportfile\\15-617f1705-f6c9-46b7-8502-95d6286c4d40.pdf','15-617f1705-f6c9-46b7-8502-95d6286c4d40.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(198,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/plandeestudio/subjectmatterscorereportfile\\15-81b64c1e-3030-4bda-b5e5-e0841ae34262.pdf','15-81b64c1e-3030-4bda-b5e5-e0841ae34262.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(199,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/plandeestudio/studentreportfile\\16-97016130-2661-42c9-8607-e09b7753a132.pdf','16-97016130-2661-42c9-8607-e09b7753a132.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(200,13,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/plandeestudio/subjectmatterscorereportfile\\16-19464c8b-a856-4126-b10c-c656ac3c076a.pdf','16-19464c8b-a856-4126-b10c-c656ac3c076a.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(201,12,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/resultadosdelperiodoanterior\\0-54aa1897-718a-45c1-accb-99707f2aada4.pdf','0-54aa1897-718a-45c1-accb-99707f2aada4.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(202,2,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/DocumentosActividadesCoCurriculares\\-f57ec4a8-6fe1-4174-9d9f-bfd535b7c080.pdf','-f57ec4a8-6fe1-4174-9d9f-bfd535b7c080.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(203,2,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/DocumentosActividadesCoCurriculares\\-c16cabd2-398e-444e-9a09-9d41ade1db3e.pdf','-c16cabd2-398e-444e-9a09-9d41ade1db3e.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(204,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/InformesFiles\\7062a917-b7ad-4918-9d3b-753c49670ade-859769ed-0cfe-4569-9de7-acaf2cb0f03c.pdf','7062a917-b7ad-4918-9d3b-753c49670ade-859769ed-0cfe-4569-9de7-acaf2cb0f03c.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(205,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/InformesFiles\\7062a917-b7ad-4918-9d3b-753c49670ade-138581b1-f2aa-4daf-b492-b7b98cda559f.pdf','7062a917-b7ad-4918-9d3b-753c49670ade-138581b1-f2aa-4daf-b492-b7b98cda559f.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(206,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/InformesFiles\\7062a917-b7ad-4918-9d3b-753c49670ade-12df067b-7cd0-4f33-9732-0d21689a838e.pdf','7062a917-b7ad-4918-9d3b-753c49670ade-12df067b-7cd0-4f33-9732-0d21689a838e.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(207,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\4-5efa6e8a-9df0-4af4-bba7-678eb48e0c9c.pdf','4-5efa6e8a-9df0-4af4-bba7-678eb48e0c9c.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(208,14,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/acuerdos\\5-e857a7b1-9c40-4d6f-b026-8331b00f369f.pdf','5-e857a7b1-9c40-4d6f-b026-8331b00f369f.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(209,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/EstudiantesEnPracticaFiles\\4-60f8f30c-afb2-42ce-9d90-91e24add568b.pdf','4-60f8f30c-afb2-42ce-9d90-91e24add568b.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(210,NULL,'Control de lectura #2.pdf','wwwroot/app-assets/documentos/InformesFiles\\52950434-522b-46a2-8712-54d9195ef981-3c2a75d5-d04f-4078-9e2c-0a3128675a8e.pdf','52950434-522b-46a2-8712-54d9195ef981-3c2a75d5-d04f-4078-9e2c-0a3128675a8e.pdf',NULL,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `file` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1349,7 +1321,7 @@ CREATE TABLE `report` (
   CONSTRAINT `FK_Report_file_FileId` FOREIGN KEY (`FileId`) REFERENCES `file` (`file_id`) ON DELETE CASCADE,
   CONSTRAINT `FK_Report_scholarship_program_tracing_TracingId` FOREIGN KEY (`TracingId`) REFERENCES `scholarship_program_tracing` (`scholarship_program_tracing_id`) ON DELETE CASCADE,
   CONSTRAINT `FK_Report_Usuarios_CreatorUserId` FOREIGN KEY (`CreatorUserId`) REFERENCES `usuarios` (`Id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1357,19 +1329,16 @@ CREATE TABLE `report` (
 --
 
 LOCK TABLES `report` WRITE;
-/*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES (1,'Prueba','2020-08-17 17:01:50','0001-01-01 00:00:00','7062a917-b7ad-4918-9d3b-753c49670ade',8,204,21),(2,'Comentario de prueba','2020-08-18 09:51:37','0001-01-01 00:00:00','7062a917-b7ad-4918-9d3b-753c49670ade',8,205,1),(3,'Comentario de prueba','2020-08-18 09:57:15','0001-01-01 00:00:00','7062a917-b7ad-4918-9d3b-753c49670ade',8,206,1),(4,'Comentario de prueba','2020-08-19 10:00:10','0001-01-01 00:00:00','52950434-522b-46a2-8712-54d9195ef981',1,210,1);
-/*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `resultsfromthepreviousperiod`
+-- Table structure for table `ResultsFromThePreviousPeriod`
 --
 
-DROP TABLE IF EXISTS `resultsfromthepreviousperiod`;
+DROP TABLE IF EXISTS `ResultsFromThePreviousPeriod`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `resultsfromthepreviousperiod` (
+CREATE TABLE `ResultsFromThePreviousPeriod` (
   `PreviousPeriodId` bigint NOT NULL AUTO_INCREMENT,
   `Quantity` int DEFAULT NULL,
   `Observations` text,
@@ -1385,48 +1354,45 @@ CREATE TABLE `resultsfromthepreviousperiod` (
   KEY `IX_ResultsFromThePreviousPeriod_StatusId` (`StatusId`),
   KEY `IX_ResultsFromThePreviousPeriod_TracingId` (`TracingId`),
   KEY `IX_ResultsFromThePreviousPeriod_ComponentFileTypeId` (`ComponentFileTypeId`),
-  CONSTRAINT `FK_ResultsFromThePreviousPeriod_ComponentFileTypes_ComponentFil~` FOREIGN KEY (`ComponentFileTypeId`) REFERENCES `componentfiletypes` (`ComponentFileTypeId`) ON DELETE RESTRICT,
+  CONSTRAINT `FK_ResultsFromThePreviousPeriod_ComponentFileTypes_ComponentFil~` FOREIGN KEY (`ComponentFileTypeId`) REFERENCES `ComponentFileTypes` (`ComponentFileTypeId`) ON DELETE RESTRICT,
   CONSTRAINT `FK_ResultsFromThePreviousPeriod_file_FileId` FOREIGN KEY (`FileId`) REFERENCES `file` (`file_id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_ResultsFromThePreviousPeriod_scholarship_program_tracing_Tra~` FOREIGN KEY (`TracingId`) REFERENCES `scholarship_program_tracing` (`scholarship_program_tracing_id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_ResultsFromThePreviousPeriod_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `resultsfromthepreviousperiod`
+-- Dumping data for table `ResultsFromThePreviousPeriod`
 --
 
-LOCK TABLES `resultsfromthepreviousperiod` WRITE;
-/*!40000 ALTER TABLE `resultsfromthepreviousperiod` DISABLE KEYS */;
-INSERT INTO `resultsfromthepreviousperiod` VALUES (1,1,'InstitucionesAfinesALosProgramasParaActividades','test',1,1,1,155,'2020-07-22 12:53:46','2020-07-23 11:13:12'),(2,6,'Prueba','Prueba',1,2,1,156,'2020-07-22 12:57:09','2020-07-27 22:00:34'),(3,4,'	Prueba','	Prueba',1,5,1,201,'2020-08-11 15:35:34',NULL);
-/*!40000 ALTER TABLE `resultsfromthepreviousperiod` ENABLE KEYS */;
+LOCK TABLES `ResultsFromThePreviousPeriod` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `roles`
+-- Table structure for table `Roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
+DROP TABLE IF EXISTS `Roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `roles` (
+CREATE TABLE `Roles` (
   `Id` varchar(767) NOT NULL,
   `Name` text,
   `NormalizedName` text,
   `ConcurrencyStamp` text,
   `Descripcion` text,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `roles`
+-- Dumping data for table `Roles`
 --
 
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES ('72556015-cb72-4b89-a0ac-b902fbc4fd51','USUARIO EJECUTIVO UNIVERSITARIO','USUARIO EJECUTIVO UNIVERSITARIO','6dbca2c0-633e-4d82-9cc1-16e447ce7cb3','Encargados del area de consulta'),('7b9b75fc-efe9-4a41-84d5-add4ee1a6bd6','USUARIO EJECUTIVO INAFOCAM','USUARIO EJECUTIVO INAFOCAM','d54d5f93-0b08-45eb-944e-a4d6d396544c','Encargados del area de consulta inafocam'),('817fe320-e3f5-4509-8d7a-a2e8ed8773af','ADMINISTRADOR INAFOCAM','ADMINISTRADOR INAFOCAM','c1b610b2-0b40-40da-9dc1-eacaf4147df4','Este Usuario Crea los Acuerdos Contractuales, Informacion Relacionada con la Universidad'),('b4c12dc2-14f1-4171-af8d-87aca893c366','GESTIÓN UNIVERSITARIA','GESTIÓN UNIVERSITARIA','2615c0bf-a6dd-461e-a011-7ad8ccf4327f','Este usuario completa la informacion en funcion a los acuerdos contractuales ya creados');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+LOCK TABLES `Roles` WRITE;
+/*!40000 ALTER TABLE `Roles` DISABLE KEYS */;
+INSERT INTO `Roles` VALUES ('72556015-cb72-4b89-a0ac-b902fbc4fd51','USUARIO EJECUTIVO UNIVERSITARIO','USUARIO EJECUTIVO UNIVERSITARIO','6dbca2c0-633e-4d82-9cc1-16e447ce7cb3','Encargados del area de consulta'),('7b9b75fc-efe9-4a41-84d5-add4ee1a6bd6','USUARIO EJECUTIVO INAFOCAM','USUARIO EJECUTIVO INAFOCAM','d54d5f93-0b08-45eb-944e-a4d6d396544c','Encargados del area de consulta inafocam'),('817fe320-e3f5-4509-8d7a-a2e8ed8773af','ADMINISTRADOR INAFOCAM','ADMINISTRADOR INAFOCAM','c1b610b2-0b40-40da-9dc1-eacaf4147df4','Este Usuario Crea los Acuerdos Contractuales, Informacion Relacionada con la Universidad'),('b4c12dc2-14f1-4171-af8d-87aca893c366','GESTIÓN UNIVERSITARIA','GESTIÓN UNIVERSITARIA','2615c0bf-a6dd-461e-a011-7ad8ccf4327f','Este usuario completa la informacion en funcion a los acuerdos contractuales ya creados');
+/*!40000 ALTER TABLE `Roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1547,9 +1513,6 @@ CREATE TABLE `scholarship_program` (
 --
 
 LOCK TABLES `scholarship_program` WRITE;
-/*!40000 ALTER TABLE `scholarship_program` DISABLE KEYS */;
-INSERT INTO `scholarship_program` VALUES (1,'Desarrollo de Software',1,'2019-03-29 15:02:57',NULL,1),(3,'Literatura orientada',1,NULL,NULL,1),(4,'LIcenciatura en Quimica',1,NULL,NULL,1),(5,'Ingeniería en Sistemas',1,'2020-07-09 11:52:22',NULL,1),(6,'Test02',3,'2020-07-09 12:20:52','2020-07-09 12:21:18',1),(7,'Programa de Lengua Espanol',1,'2020-07-09 15:46:15',NULL,1),(8,'TEST4',1,'2020-07-16 08:25:19',NULL,1),(9,'Prueba',1,'2020-07-23 16:12:19',NULL,1),(10,'Prueba',NULL,'2020-07-27 09:50:43',NULL,NULL);
-/*!40000 ALTER TABLE `scholarship_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1595,9 +1558,6 @@ CREATE TABLE `scholarship_program_tracing` (
 --
 
 LOCK TABLES `scholarship_program_tracing` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing` VALUES (1,1,5,3,2,'2019-05-09 00:00:00','2020-08-28 00:00:00',NULL,NULL,'2019-05-09 14:58:03','2020-08-17 00:00:00',1),(2,1,20,1,2,'2019-05-27 00:00:00','2020-12-24 00:00:00',NULL,NULL,'2019-05-09 15:17:07','2020-08-11 00:00:00',1),(3,1,3,1,2,'2020-07-27 00:00:00','2020-07-28 00:00:00',NULL,NULL,'2020-07-09 12:26:43','2020-07-28 00:00:00',9),(4,3,15,1,2,'2020-07-22 00:00:00','2020-07-31 00:00:00',NULL,NULL,'2020-07-09 16:02:00','2020-07-31 00:00:00',9),(5,5,14,3,2,'2020-07-30 00:00:00','2020-07-31 00:00:00',NULL,NULL,'2020-07-16 08:09:23','2020-07-31 00:00:00',9),(6,3,14,1,2,'2020-07-30 00:00:00','2020-07-31 00:00:00',NULL,NULL,'2020-07-16 08:10:15','2020-07-31 00:00:00',9),(7,1,19,1,2,'2020-07-31 00:00:00','2020-07-31 00:00:00',NULL,NULL,'2020-07-16 08:29:57','2020-07-31 00:00:00',9),(8,4,22,NULL,2,'2020-07-31 00:00:00','2020-08-28 00:00:00',NULL,NULL,'2020-07-23 16:15:28',NULL,1),(9,2,8,1,2,'2020-08-27 00:00:00','2020-08-21 00:00:00',NULL,NULL,NULL,'2020-08-21 00:00:00',9);
-/*!40000 ALTER TABLE `scholarship_program_tracing` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1670,9 +1630,6 @@ CREATE TABLE `scholarship_program_tracing_agreement_file` (
 --
 
 LOCK TABLES `scholarship_program_tracing_agreement_file` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing_agreement_file` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing_agreement_file` VALUES (1,1,'Reporte de Caja para desarrollar programa',130,'2019-08-01 15:33:44',NULL,21),(2,1,'Reporte de Caja para desarrollar programa',130,'2019-08-01 15:34:25',NULL,21),(3,1,'Reporte de Caja para desarrollar programa',130,'2019-08-01 15:35:38','2019-08-01 15:37:24',21),(4,1,'aaaaaaaaaaaa',133,'2020-07-15 12:13:23',NULL,21),(5,2,'scsac',134,'2020-07-15 12:20:52',NULL,1),(6,5,'Prueba',135,'2020-07-15 12:25:53',NULL,1),(7,1,'rrrrrrrrr',136,'2020-07-15 12:29:40',NULL,1),(8,1,'prueba',148,'2020-07-20 16:33:53',NULL,1),(9,16,'test',157,'2020-07-23 11:43:34',NULL,1),(10,17,'test',158,'2020-07-23 11:44:26',NULL,1),(11,1,'Foto grafia de la sillas pintadas ',171,'2020-07-31 10:58:19',NULL,1),(12,3,'Prueba',182,'2020-08-04 10:51:59',NULL,1),(13,5,'Comentario de prueba',208,'2020-08-19 09:55:55',NULL,21);
-/*!40000 ALTER TABLE `scholarship_program_tracing_agreement_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1708,9 +1665,6 @@ CREATE TABLE `scholarship_program_tracing_course` (
 --
 
 LOCK TABLES `scholarship_program_tracing_course` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing_course` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing_course` VALUES (13,1,'Prueba',7,'2020-07-31','2020-07-31',5,'2020-07-29 23:00:44',NULL,NULL,NULL,1),(14,1,'Prueba',7,'2020-07-31','2020-07-31',8,'2020-07-30 09:06:04',NULL,NULL,NULL,1),(15,2,'Prueba2',8,'2020-08-31','2020-08-31',8,'2020-08-14 09:53:09','2020-08-14 11:56:29',NULL,NULL,1),(16,2,'Prueba',4,'2020-08-06','2020-07-31',4,'2020-08-14 11:18:34','2020-08-14 11:57:51',NULL,NULL,1);
-/*!40000 ALTER TABLE `scholarship_program_tracing_course` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1748,9 +1702,6 @@ CREATE TABLE `scholarship_program_tracing_course_file` (
 --
 
 LOCK TABLES `scholarship_program_tracing_course_file` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing_course_file` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing_course_file` VALUES (5,1,1,168,'2020-07-30 01:01:15',NULL,NULL,13),(6,1,2,169,'2020-07-30 08:56:32',NULL,NULL,13),(7,1,1,170,'2020-07-30 09:45:16',NULL,NULL,14),(8,1,3,172,'2020-07-31 11:44:12',NULL,NULL,13),(9,1,2,173,'2020-07-31 11:44:53',NULL,NULL,14),(10,1,8,181,'2020-08-03 16:20:37',NULL,NULL,13),(11,2,2,202,'2020-08-14 11:20:06',NULL,NULL,15),(12,2,2,203,'2020-08-14 11:57:27',NULL,NULL,16);
-/*!40000 ALTER TABLE `scholarship_program_tracing_course_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1813,9 +1764,6 @@ CREATE TABLE `scholarship_program_tracing_practice` (
 --
 
 LOCK TABLES `scholarship_program_tracing_practice` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing_practice` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing_practice` VALUES (1,7,1,'test','test','test','test',NULL,'7/22/2020 10:32:58 AM',NULL),(2,1,5,'test','test','test','test',NULL,'8/11/2020 11:32:42 AM',NULL),(3,1,2,'test','test','test','test','7/21/2020 3:07:43 PM',NULL,1);
-/*!40000 ALTER TABLE `scholarship_program_tracing_practice` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1850,9 +1798,6 @@ CREATE TABLE `scholarship_program_tracing_practice_planning` (
 --
 
 LOCK TABLES `scholarship_program_tracing_practice_planning` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing_practice_planning` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing_practice_planning` VALUES (5,1,1,_binary '',_binary '','test',NULL,'2020-07-21 12:19:20',NULL),(6,7,2,_binary '',_binary '','Fecha','2020-07-21 12:14:19','2020-07-22 10:32:41',NULL),(7,1,4,_binary '',NULL,'Prueba de presentación','2020-07-21 12:19:39','2020-07-31 12:02:14',NULL);
-/*!40000 ALTER TABLE `scholarship_program_tracing_practice_planning` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1885,9 +1830,6 @@ CREATE TABLE `scholarship_program_tracing_quality_system` (
 --
 
 LOCK TABLES `scholarship_program_tracing_quality_system` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing_quality_system` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing_quality_system` VALUES (1,1,1,129,'2019-05-22 22:39:50','2020-07-21 10:42:05',1),(2,1,2,123,'2019-05-22 22:39:50','2020-07-17 15:24:44',1),(3,1,3,129,'2019-05-22 22:39:50','2020-07-17 15:25:09',1),(4,1,4,125,'2019-05-22 22:39:50','2020-07-17 15:25:25',1),(5,1,5,126,'2019-05-22 22:39:50','2020-07-17 15:25:39',1),(6,7,1,143,'2020-07-20 15:49:06','2020-07-20 16:07:53',1),(7,7,4,144,'2020-07-20 15:57:25',NULL,1),(8,7,2,145,'2020-07-20 16:10:56',NULL,1),(9,7,3,146,'2020-07-20 16:14:21',NULL,1),(10,7,5,147,'2020-07-20 16:14:50','2020-07-20 16:17:46',1),(11,3,2,151,'2020-07-20 16:37:53',NULL,1);
-/*!40000 ALTER TABLE `scholarship_program_tracing_quality_system` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1940,7 +1882,7 @@ CREATE TABLE `scholarship_program_tracing_student_practice` (
   KEY `FK_scholarship_program_tracing_student_practice_status` (`status_id`) USING BTREE,
   KEY `IX_scholarship_program_tracing_student_practice_practice_type` (`practice_type`),
   CONSTRAINT `FK_scholarship_program_tracing_student_practice_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_scholarship_program_tracing_student_practice_StudentPractice~` FOREIGN KEY (`practice_type`) REFERENCES `studentpracticetype` (`StudentPracticeTypeId`) ON DELETE RESTRICT,
+  CONSTRAINT `FK_scholarship_program_tracing_student_practice_StudentPractice~` FOREIGN KEY (`practice_type`) REFERENCES `StudentPracticeType` (`StudentPracticeTypeId`) ON DELETE RESTRICT,
   CONSTRAINT `FK_student_practice_tracing` FOREIGN KEY (`tracing_id`) REFERENCES `scholarship_program_tracing` (`scholarship_program_tracing_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1950,9 +1892,6 @@ CREATE TABLE `scholarship_program_tracing_student_practice` (
 --
 
 LOCK TABLES `scholarship_program_tracing_student_practice` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing_student_practice` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing_student_practice` VALUES (1,2,2,7,4,5,6,NULL,'2020-08-06 22:14:28',NULL),(2,2,1,6,6,6,6,NULL,'2020-08-06 21:56:50',NULL),(3,2,6,5,5,5,5,NULL,'2020-08-06 22:28:27',NULL),(4,1,4,5,5,5,5,NULL,'2020-08-11 11:39:06',NULL),(5,1,5,5,5,6,7,'2020-08-06 19:50:07',NULL,1);
-/*!40000 ALTER TABLE `scholarship_program_tracing_student_practice` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1988,9 +1927,6 @@ CREATE TABLE `scholarship_program_tracing_student_support` (
 --
 
 LOCK TABLES `scholarship_program_tracing_student_support` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_tracing_student_support` DISABLE KEYS */;
-INSERT INTO `scholarship_program_tracing_student_support` VALUES (32,1,1,NULL,'2020-07-23 15:59:58',NULL,1,'prueba1','prueba1','prueba1','prueba1',NULL),(33,1,3,NULL,'2020-07-23 16:03:35',NULL,1,'prueba3','prueba3','prueba3','prueba3',NULL),(34,1,2,NULL,'2020-07-23 16:09:43',NULL,1,'prueba2','prueba2','prueba2','prueba2',NULL),(35,5,3,NULL,'2020-07-23 16:10:46',NULL,1,'prueba3','prueba3','prueba3','prueba3',NULL),(36,5,1,NULL,'2020-07-23 16:11:12',NULL,1,'prueba1','prueba1','prueba1','prueba1',NULL),(37,1,4,NULL,'2020-08-11 11:02:28',NULL,1,NULL,NULL,'Prueba',NULL,NULL);
-/*!40000 ALTER TABLE `scholarship_program_tracing_student_support` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2039,9 +1975,6 @@ CREATE TABLE `scholarship_program_university` (
 --
 
 LOCK TABLES `scholarship_program_university` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_university` DISABLE KEYS */;
-INSERT INTO `scholarship_program_university` VALUES (1,2,1,3,NULL,'prueba',NULL,'CT-0052',1,2,'1970-01-01','1970-01-01','2019-03-29','2019-03-29','2019-03-29 15:03:31','2020-08-11 16:48:39',NULL),(2,2,1,1,NULL,'SCAT-05',NULL,'CONT-0',1,2,'1970-01-01','1970-01-01','2019-05-07','2019-05-08','2019-05-07 00:00:00','2019-05-21 00:00:00',4),(3,1,1,1,NULL,'SCAT-27',NULL,'CONTR-255',1,2,'0000-00-00','0000-00-00','2019-05-07','2019-05-12','2019-05-07 00:00:00','2019-05-20 00:00:00',1),(4,1,3,1,NULL,'w21a32s1f',NULL,'asfdas',1,2,'0000-00-00','0000-00-00','2019-05-09','2019-05-09','2019-05-09 00:00:00','2019-05-20 00:00:00',1),(5,1,4,1,NULL,'SACT050505',NULL,'CONT-005050',1,2,'0000-00-00','0000-00-00','2019-05-09','2019-05-10','2019-05-09 00:00:00','2019-05-20 00:00:00',1),(6,1,1,1,NULL,'SCAT-055050',NULL,'CONTR-055050505',NULL,NULL,'2019-05-19','2019-05-19','2019-05-19','2019-05-19','2019-05-20 00:00:00','2019-05-20 00:00:00',1),(7,2,1,2,NULL,'03251',NULL,'0123',NULL,NULL,'2020-07-10','2020-07-16','2020-07-17','2020-07-09','2020-07-09 09:24:50','2020-07-09 11:00:42',1),(8,3,4,2,NULL,'SACT050529',NULL,'CONT-005027',NULL,NULL,'2020-07-31','2020-07-26','2020-07-28','2020-07-31','2020-07-09 11:03:11','2020-07-09 11:51:34',NULL),(9,1,5,2,NULL,'SCAT-2525',NULL,'CONT-2525',NULL,NULL,'2020-07-26','2020-07-31','2020-07-29','2020-07-31','2020-07-09 11:53:18',NULL,1),(10,2,5,2,NULL,'SCAT-2525',NULL,'CONT-3030',1,2,'2020-07-19','2020-07-24','2020-07-28','2020-07-30','2020-07-09 12:13:13','2020-07-09 12:17:17',1),(11,2,3,NULL,NULL,'0122',NULL,'0125',1,2,'2020-07-18','2020-07-15','2020-07-17','2020-07-23','2020-07-09 12:23:10','2020-07-09 12:24:29',5),(12,NULL,6,NULL,NULL,'SACT0501',NULL,'CONT-00512',NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-09 12:25:10',NULL,NULL),(13,NULL,6,NULL,NULL,'SACT0502',NULL,'CONT-005013',NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-09 12:25:11',NULL,NULL),(14,NULL,7,NULL,NULL,'SCAT-2525',NULL,'CONT-005027',NULL,NULL,'2020-07-26','2020-07-20','2020-07-23','2020-07-24','2020-07-09 15:47:41',NULL,NULL),(15,NULL,7,NULL,NULL,'SACT050527',NULL,'CONT-005027',1,2,'2020-07-31','2020-06-30','2020-07-27','2020-07-16','2020-07-09 15:48:09','2020-07-09 15:50:17',1),(16,NULL,7,2,NULL,'SACT050527',NULL,'CONT-005027',NULL,NULL,'2020-07-25','2020-07-30','2020-07-30','2020-07-31','2020-07-09 16:26:23',NULL,NULL),(17,NULL,7,1,NULL,'SACT050527',NULL,'CONT-005027',NULL,NULL,'2020-07-28','2020-07-31','2020-07-30','2020-07-31','2020-07-09 16:39:59',NULL,NULL),(18,1,6,2,NULL,'SCAT-02',NULL,'CONT-0125',1,2,'2020-07-28','2020-07-31','2020-07-27','2020-07-30','2020-07-16 08:24:05',NULL,1),(19,1,8,1,NULL,'SACT050527',NULL,'CONT-005027',1,2,'2020-07-28','2020-07-28','2020-07-29','2020-07-30','2020-07-16 08:25:43','2020-07-16 08:29:00',1),(20,NULL,8,2,NULL,'SACT050527',NULL,'CONT-005027',NULL,NULL,'2020-07-15','2020-07-22','2020-07-22','2020-07-30','2020-07-16 08:26:06',NULL,NULL),(21,1,8,2,NULL,'SACT0505',NULL,'CONT-00502',1,2,'2020-07-30','2020-07-29','2020-07-29','2020-07-31','2020-07-16 08:26:37','2020-07-16 08:27:13',1),(22,1,9,4,NULL,'prueba1',NULL,'prueba1',1,2,'2020-07-20','2020-07-30','2020-07-30','2020-07-31','2020-07-23 16:13:20','2020-07-23 16:13:49',1),(23,NULL,1,NULL,NULL,'SACT0503',NULL,'CONT-00501',NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-24 11:25:06',NULL,NULL),(24,NULL,7,NULL,NULL,'SACT0504',NULL,'CONT-00503',NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-24 11:31:00',NULL,NULL),(25,NULL,7,NULL,NULL,'SACT0506',NULL,'CONT-005088',NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-24 11:32:12',NULL,NULL),(26,NULL,1,NULL,NULL,'prueba',NULL,'CONT-005000',NULL,NULL,'2020-07-20','2020-07-29','2020-07-21','2020-07-29','2020-07-24 11:36:12',NULL,NULL),(27,NULL,1,NULL,NULL,'prueba',NULL,'CONT-005077',NULL,NULL,'2020-07-27','2020-07-29','2020-07-28','2020-07-31','2020-07-24 11:41:48',NULL,NULL),(28,NULL,1,NULL,NULL,'prueba',NULL,'CONT-005088',NULL,NULL,'2020-07-28','2020-07-30','2019-05-30','2020-07-31','2020-07-24 11:48:32',NULL,NULL),(29,NULL,1,NULL,NULL,'prueba',NULL,'CONT-005029',NULL,NULL,'2020-07-28','2020-07-30','2019-05-30','2020-07-31','2020-07-24 11:50:52',NULL,NULL),(30,1,1,NULL,NULL,'prueba',NULL,'CONT-005030',NULL,NULL,'2020-07-26','2020-07-30','2020-07-28','2020-07-31','2020-07-24 11:52:16',NULL,NULL),(31,1,1,1,NULL,'Prueba test',NULL,'Prueba test',1,2,'2020-07-31','2020-07-31','2020-07-27','2020-07-31',NULL,'2020-07-27 10:51:27',1),(32,1,1,1,NULL,'Prueba test',NULL,'Prueba test',1,2,'2020-07-31','2020-07-31','2020-07-31','2020-07-31',NULL,'2020-07-27 10:52:16',1),(33,NULL,1,NULL,NULL,'SACT0507',NULL,'CONT-00503',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(34,1,4,2,NULL,'pruebagyjgy',NULL,'0125',1,2,'2020-07-31','2020-08-26','2020-08-29','2020-07-31',NULL,'2020-08-12 07:32:33',1);
-/*!40000 ALTER TABLE `scholarship_program_university` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2116,9 +2049,6 @@ CREATE TABLE `scholarship_program_university_agreement` (
 --
 
 LOCK TABLES `scholarship_program_university_agreement` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_university_agreement` DISABLE KEYS */;
-INSERT INTO `scholarship_program_university_agreement` VALUES (1,5,NULL,1,'2019-08-01 14:51:35','2020-08-21 13:24:43',NULL,1,17,'Prueba Sr victor','Prueba Sr victor','Prueba'),(2,5,'Acuedo 2',2,'2019-08-01 14:51:35','2019-08-01 14:54:40',1,1,19,NULL,NULL,NULL),(3,5,NULL,1,'2019-08-01 14:51:48','2020-08-21 10:44:35',NULL,1,17,'Prueba2','Prueba2','Prueba2'),(4,5,NULL,2,'2019-08-01 14:53:23','2020-08-21 10:52:00',NULL,1,17,'Detalles','Detalles','Detalles'),(5,5,'Acuerdo 5',1,'2019-08-01 14:53:41','2020-08-21 10:55:43',NULL,1,1,'Prueba','Prueba','Prueba'),(6,5,'Acuerdo 6',2,'2019-08-01 14:54:28','2020-08-21 10:55:57',NULL,1,20,'Prueba','Prueba','Prueba'),(7,5,'Acuerdo 7',1,'2019-08-01 14:54:40',NULL,1,NULL,1,NULL,NULL,NULL),(8,9,'Mantener las aulas limpias ',2,'2020-07-09 11:53:43',NULL,1,NULL,1,NULL,NULL,NULL),(9,9,'Mantener el aula en orden',2,'2020-07-09 11:54:23',NULL,1,NULL,1,NULL,NULL,NULL),(10,15,'Mantener las aulas organizadas ',1,'2020-07-09 15:55:47',NULL,1,NULL,1,NULL,NULL,NULL),(11,4,'Mantener las aulas limpias ',2,'2020-07-11 13:31:39',NULL,1,NULL,1,NULL,NULL,NULL),(12,1,'Acuerdo de Prueba Pactado 27',1,NULL,'2020-08-07 14:50:53',NULL,NULL,20,NULL,NULL,NULL),(13,1,'Acuerdo de Prueba Convenido 27',2,NULL,'2020-08-07 14:43:17',NULL,NULL,17,NULL,NULL,NULL),(14,21,'MANTENER LAS AULAS LIMPIAS',1,'2020-07-16 08:27:42',NULL,1,NULL,1,NULL,NULL,NULL),(15,21,'MANTENER EL ORDEN ',1,'2020-07-16 08:27:52',NULL,1,NULL,1,NULL,NULL,NULL),(16,19,'Matener Las Aulas Organizadas',2,'2020-07-16 08:59:16',NULL,1,NULL,1,NULL,NULL,NULL),(17,19,'Mantener el orden ',1,'2020-07-16 08:59:32',NULL,1,NULL,1,NULL,NULL,NULL),(18,22,'prueba1',1,'2020-07-23 16:14:17',NULL,1,NULL,1,NULL,NULL,NULL),(19,22,'prueba1',2,'2020-07-23 16:14:22',NULL,1,NULL,1,NULL,NULL,NULL),(20,5,'Acuerdo Infantil ',1,'2020-08-20 09:44:49',NULL,NULL,NULL,17,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `scholarship_program_university_agreement` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2157,9 +2087,6 @@ CREATE TABLE `scholarship_program_university_subject_matter` (
 --
 
 LOCK TABLES `scholarship_program_university_subject_matter` WRITE;
-/*!40000 ALTER TABLE `scholarship_program_university_subject_matter` DISABLE KEYS */;
-INSERT INTO `scholarship_program_university_subject_matter` VALUES (1,4,1,1,1,33,NULL,NULL,1),(2,4,2,1,1,55,NULL,NULL,1),(3,4,3,1,NULL,2,NULL,NULL,1),(4,5,5,1,NULL,55,NULL,NULL,1),(5,5,6,2,NULL,36,NULL,NULL,1),(6,19,2,11,NULL,6,NULL,NULL,NULL),(7,19,2,11,NULL,6,NULL,NULL,NULL),(8,19,3,1,NULL,6,NULL,NULL,NULL),(9,22,2,1,NULL,0,NULL,NULL,NULL),(10,5,17,1,NULL,0,NULL,NULL,NULL),(11,22,1,2,NULL,0,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `scholarship_program_university_subject_matter` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2222,7 +2149,7 @@ CREATE TABLE `scholarshipprogramtracingagreementdescription` (
   CONSTRAINT `FK_ScholarshipProgramTracingAgreementDescription_Usuarios_Comme~` FOREIGN KEY (`CommentedUserId`) REFERENCES `usuarios` (`Id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_ScholarshipProgramTracingAgreementDescription_Usuarios_Creat~` FOREIGN KEY (`CreationUserId`) REFERENCES `usuarios` (`Id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_ScholarshipProgramTracingAgreementDescription_Usuarios_Upgra~` FOREIGN KEY (`UpgradeUserId`) REFERENCES `usuarios` (`Id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2235,13 +2162,13 @@ LOCK TABLES `scholarshipprogramtracingagreementdescription` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `scholarshipprogramtracingagreementswithpracticecenter`
+-- Table structure for table `ScholarshipProgramTracingAgreementsWithPracticeCenter`
 --
 
-DROP TABLE IF EXISTS `scholarshipprogramtracingagreementswithpracticecenter`;
+DROP TABLE IF EXISTS `ScholarshipProgramTracingAgreementsWithPracticeCenter`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `scholarshipprogramtracingagreementswithpracticecenter` (
+CREATE TABLE `ScholarshipProgramTracingAgreementsWithPracticeCenter` (
   `AgreementsWithPracticeCenterId` int NOT NULL AUTO_INCREMENT,
   `ActivityDescription` text,
   `Date` datetime DEFAULT NULL,
@@ -2259,27 +2186,24 @@ CREATE TABLE `scholarshipprogramtracingagreementswithpracticecenter` (
   KEY `IX_ScholarshipProgramTracingAgreementsWithPracticeCenter_Status~` (`StatusId1`),
   CONSTRAINT `FK_ScholarshipProgramTracingAgreementsWithPracticeCenter_schola~` FOREIGN KEY (`TracingScholarshipProgramTracingId`) REFERENCES `scholarship_program_tracing` (`scholarship_program_tracing_id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_ScholarshipProgramTracingAgreementsWithPracticeCenter_status~` FOREIGN KEY (`StatusId1`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `scholarshipprogramtracingagreementswithpracticecenter`
+-- Dumping data for table `ScholarshipProgramTracingAgreementsWithPracticeCenter`
 --
 
-LOCK TABLES `scholarshipprogramtracingagreementswithpracticecenter` WRITE;
-/*!40000 ALTER TABLE `scholarshipprogramtracingagreementswithpracticecenter` DISABLE KEYS */;
-INSERT INTO `scholarshipprogramtracingagreementswithpracticecenter` VALUES (1,'Prueba de Presentacion','2020-07-28 00:00:00',NULL,26,'2020-07-21 16:34:50','2020-08-11 17:05:01',1,NULL,'Prueba de Presentacion',1,NULL),(2,'test','2020-07-24 00:00:00',NULL,7,'2020-07-22 10:30:04',NULL,1,NULL,'test',1,NULL),(3,'test','2020-07-31 00:00:00',NULL,6,'2020-07-22 10:33:08',NULL,7,NULL,'test',1,NULL),(4,'PruebaEditar','2020-08-27 00:00:00',NULL,8,'2020-08-04 12:04:30','2020-08-11 09:55:05',1,NULL,'PruebaEditar',1,NULL);
-/*!40000 ALTER TABLE `scholarshipprogramtracingagreementswithpracticecenter` ENABLE KEYS */;
+LOCK TABLES `ScholarshipProgramTracingAgreementsWithPracticeCenter` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `scholarshipprogramtracingstudentpracticefile`
+-- Table structure for table `ScholarshipProgramTracingStudentPracticeFile`
 --
 
-DROP TABLE IF EXISTS `scholarshipprogramtracingstudentpracticefile`;
+DROP TABLE IF EXISTS `ScholarshipProgramTracingStudentPracticeFile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `scholarshipprogramtracingstudentpracticefile` (
+CREATE TABLE `ScholarshipProgramTracingStudentPracticeFile` (
   `ScholarshipProgramTracingStudentPracticeFileId` bigint NOT NULL AUTO_INCREMENT,
   `ScholarshipProgramTracingStudentPracticeId` bigint DEFAULT NULL,
   `FileDescription` text,
@@ -2295,17 +2219,14 @@ CREATE TABLE `scholarshipprogramtracingstudentpracticefile` (
   CONSTRAINT `FK_ScholarshipProgramTracingStudentPracticeFile_file_FileId` FOREIGN KEY (`FileId`) REFERENCES `file` (`file_id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_ScholarshipProgramTracingStudentPracticeFile_scholarship_pro~` FOREIGN KEY (`ScholarshipProgramTracingStudentPracticeId`) REFERENCES `scholarship_program_tracing_student_practice` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `FK_ScholarshipProgramTracingStudentPracticeFile_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `scholarshipprogramtracingstudentpracticefile`
+-- Dumping data for table `ScholarshipProgramTracingStudentPracticeFile`
 --
 
-LOCK TABLES `scholarshipprogramtracingstudentpracticefile` WRITE;
-/*!40000 ALTER TABLE `scholarshipprogramtracingstudentpracticefile` DISABLE KEYS */;
-INSERT INTO `scholarshipprogramtracingstudentpracticefile` VALUES (1,2,'Prueba',183,'2020-08-04 00:00:00',NULL,1,1),(2,2,'Prueba',184,'2020-08-04 00:00:00',NULL,1,NULL),(3,3,'Prueba',185,'2020-08-04 00:00:00',NULL,1,NULL),(4,1,'Prueba',186,'2020-08-04 00:00:00',NULL,1,NULL),(5,1,'	Prueba',187,'2020-08-06 00:00:00',NULL,1,NULL),(6,1,'	Prueba',188,'2020-08-06 00:00:00',NULL,1,NULL),(7,1,'Prueba',189,'2020-08-06 00:00:00',NULL,1,NULL),(8,1,'	Descripcion',190,'2020-08-06 00:00:00',NULL,1,NULL),(9,1,'	Descripcion',191,'2020-08-06 00:00:00',NULL,1,NULL),(10,1,'Descripcion',192,'2020-08-06 00:00:00',NULL,1,NULL),(11,1,'Prueba',193,'2020-08-06 00:00:00',NULL,1,2),(12,1,'Prueba',194,'2020-08-06 00:00:00',NULL,1,2),(13,4,'Descripcion',195,'2020-08-11 00:00:00',NULL,21,4),(14,4,'Comentario de prueba',207,'2020-08-18 00:00:00',NULL,21,4),(15,4,'Prueba',209,'2020-08-19 00:00:00',NULL,21,4);
-/*!40000 ALTER TABLE `scholarshipprogramtracingstudentpracticefile` ENABLE KEYS */;
+LOCK TABLES `ScholarshipProgramTracingStudentPracticeFile` WRITE;
 UNLOCK TABLES;
 
 --
@@ -2358,13 +2279,13 @@ INSERT INTO `status` VALUES (1,'Activo',NULL,'all'),(2,'Inactivo',NULL,'all'),(3
 UNLOCK TABLES;
 
 --
--- Table structure for table `studentpracticetype`
+-- Table structure for table `StudentPracticeType`
 --
 
-DROP TABLE IF EXISTS `studentpracticetype`;
+DROP TABLE IF EXISTS `StudentPracticeType`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `studentpracticetype` (
+CREATE TABLE `StudentPracticeType` (
   `StudentPracticeTypeId` int NOT NULL AUTO_INCREMENT,
   `StudentPracticeTypeTypeName` text,
   `CreationDate` datetime DEFAULT NULL,
@@ -2373,17 +2294,17 @@ CREATE TABLE `studentpracticetype` (
   PRIMARY KEY (`StudentPracticeTypeId`),
   KEY `IX_StudentPracticeType_StatusId` (`StatusId`),
   CONSTRAINT `FK_StudentPracticeType_status_StatusId` FOREIGN KEY (`StatusId`) REFERENCES `status` (`status_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `studentpracticetype`
+-- Dumping data for table `StudentPracticeType`
 --
 
-LOCK TABLES `studentpracticetype` WRITE;
-/*!40000 ALTER TABLE `studentpracticetype` DISABLE KEYS */;
-INSERT INTO `studentpracticetype` VALUES (1,'Práctica I',NULL,NULL,1),(2,'Práctica II',NULL,NULL,1),(3,'Práctica III',NULL,NULL,1),(4,'Práctica IV',NULL,NULL,1),(5,'Práctica V',NULL,NULL,1),(6,'Práctica VI',NULL,NULL,1);
-/*!40000 ALTER TABLE `studentpracticetype` ENABLE KEYS */;
+LOCK TABLES `StudentPracticeType` WRITE;
+/*!40000 ALTER TABLE `StudentPracticeType` DISABLE KEYS */;
+INSERT INTO `StudentPracticeType` VALUES (1,'Práctica I',NULL,NULL,1),(2,'Práctica II',NULL,NULL,1),(3,'Práctica III',NULL,NULL,1),(4,'Práctica IV',NULL,NULL,1),(5,'Práctica V',NULL,NULL,1),(6,'Práctica VI',NULL,NULL,1);
+/*!40000 ALTER TABLE `StudentPracticeType` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2458,9 +2379,6 @@ CREATE TABLE `subject_matter` (
 --
 
 LOCK TABLES `subject_matter` WRITE;
-/*!40000 ALTER TABLE `subject_matter` DISABLE KEYS */;
-INSERT INTO `subject_matter` VALUES (1,'MATH-023552','MATEMATICA',1,NULL,'2019-04-15 14:28:49','2019-05-09 14:31:14',1,NULL,NULL,NULL,NULL,NULL,NULL),(2,'LENG-2665','LENGUA ESPAÑOLA',1,NULL,'2019-04-15 14:29:08','2019-05-09 14:31:14',1,NULL,NULL,NULL,NULL,NULL,NULL),(3,'ASDF','ASDF',NULL,NULL,'2019-05-09 14:31:14',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL),(5,'FFFFFFF','MATEMATICA',NULL,NULL,'2019-05-09 15:30:00',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL),(6,'LENG','LENGUA ESPAÑOLA',NULL,NULL,NULL,'2020-07-08 21:24:20',1,NULL,NULL,NULL,NULL,NULL,NULL),(7,'inf','Informática ',NULL,NULL,'2020-07-09 15:37:20',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL),(8,'prb','prueba ',NULL,NULL,'2020-07-23 16:56:32',NULL,1,NULL,NULL,NULL,NULL,NULL,NULL),(9,'Prueba','Prueba',NULL,NULL,'2020-07-24 12:07:46',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(16,'Prueba2','Prueba2',NULL,NULL,'2020-07-24 12:14:01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(17,'Prueba3','Prueba3',NULL,NULL,'2020-07-24 12:16:01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(19,'Prueba34','Prueba34',NULL,NULL,'2020-07-24 12:17:21',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(25,'Prueba5','Prueba5',NULL,NULL,'2020-07-28 16:01:07',NULL,NULL,'Prueba',NULL,NULL,NULL,NULL,NULL),(26,'Pruebatest','Pruebatest',NULL,NULL,'2020-07-28 16:03:18',NULL,NULL,'Pruebatest',NULL,NULL,NULL,NULL,NULL),(27,'Soc','Sociales',NULL,NULL,'2020-07-28 16:30:08','2020-07-28 16:30:30',NULL,'Prueba',NULL,NULL,NULL,NULL,NULL),(28,'test4','test4',NULL,NULL,'2020-07-29 12:23:29',NULL,NULL,'test4',33,12,NULL,NULL,NULL),(29,'test5','test5',NULL,NULL,'2020-07-29 12:37:04','2020-07-30 13:33:27',NULL,'test5',1,13,7,1,1),(30,'test6','test6',NULL,NULL,'2020-07-29 12:54:23','2020-07-31 15:59:17',NULL,'Primer semestre',1,14,5,1,NULL),(31,'test7','test7',NULL,NULL,'2020-07-29 13:27:58','2020-08-11 15:00:03',NULL,'test7',5,15,5,13,NULL),(32,'test8','test8',NULL,NULL,'2020-07-29 13:28:59','2020-08-11 14:46:10',NULL,'test8',5,16,4,1,NULL),(33,'MATH 1','MATEMATICA 1',NULL,NULL,'2020-07-29 14:43:23','2020-08-11 14:47:16',NULL,'PRIMER TRIMESTRE',5,20,7,12,NULL),(34,'prueba6','prueba6',NULL,NULL,'2020-08-05 16:33:09',NULL,NULL,'prueba6',22,23,9,15,NULL),(37,'Prueba','Prueba',NULL,NULL,'2020-08-07 10:15:17',NULL,NULL,'Primer semestre',10,26,5,17,NULL);
-/*!40000 ALTER TABLE `subject_matter` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2502,9 +2420,6 @@ CREATE TABLE `teacher` (
 --
 
 LOCK TABLES `teacher` WRITE;
-/*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
-INSERT INTO `teacher` VALUES (1,4,NULL,1,'ING','0001-01-01',_binary '',_binary '',_binary '',NULL,25,32,'2019-04-15 14:30:32','2020-07-30 12:39:22',1,1),(2,NULL,NULL,1,'','0000-00-00',_binary '',_binary '',_binary '',NULL,5,10,'2019-05-08 20:38:53','2019-05-22 23:39:13',1,NULL),(3,5,NULL,NULL,NULL,NULL,_binary '',NULL,NULL,NULL,0,0,'2019-05-09 05:41:34','2019-05-21 15:08:30',1,NULL),(4,5,NULL,NULL,NULL,NULL,_binary '',NULL,NULL,NULL,0,0,'2019-05-09 05:41:34','2019-05-21 15:09:07',1,NULL),(5,6,NULL,1,'','0000-00-00',_binary '',_binary '',_binary '',NULL,0,0,'2019-05-22 23:28:34',NULL,1,NULL),(6,7,NULL,1,'','0000-00-00',_binary '',_binary '',_binary '',NULL,0,0,'2019-05-22 23:29:30',NULL,1,NULL),(7,8,NULL,1,'','0000-00-00',_binary '',_binary '',_binary '',NULL,0,0,'2019-05-22 23:39:55',NULL,1,NULL),(8,10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-09 12:27:16','2020-07-13 10:01:49',NULL,NULL),(9,11,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-09 12:27:22','2020-07-13 10:02:08',NULL,NULL),(10,12,NULL,3,'Prueba','2020-07-31',_binary '',_binary '',_binary '',NULL,11,5,'2020-07-09 12:29:13','2020-08-07 10:08:07',NULL,3),(11,13,NULL,2,'Ingeniero ','2020-07-31',_binary '',_binary '\0',_binary '',NULL,32,24,'2020-07-09 15:31:49',NULL,NULL,NULL),(12,14,NULL,1,'test','2020-07-31',_binary '',_binary '',_binary '',NULL,5,5,NULL,'2020-07-27 14:26:47',NULL,1),(13,15,NULL,1,'test2','2020-07-30',_binary '',_binary '',_binary '',NULL,6,6,NULL,'2020-07-27 14:28:52',NULL,1),(14,16,NULL,1,'test3','2020-07-31',_binary '',_binary '',_binary '',NULL,6,5,NULL,'2020-07-27 14:36:45',NULL,1),(15,17,NULL,1,'prueba','2020-07-30',_binary '',_binary '',_binary '',NULL,4,5,NULL,'2020-07-27 14:51:37',NULL,4),(17,19,NULL,2,'Prueba','2020-07-31',_binary '',_binary '',_binary '',NULL,5,6,NULL,'2020-07-30 17:09:22',NULL,2);
-/*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2539,9 +2454,6 @@ CREATE TABLE `teacher_education` (
 --
 
 LOCK TABLES `teacher_education` WRITE;
-/*!40000 ALTER TABLE `teacher_education` DISABLE KEYS */;
-INSERT INTO `teacher_education` VALUES (1,1,'Licenciado en Educacion',1,'0001-01-01','Prueba','2019-04-15 14:30:53','2020-08-13 09:23:57',1),(2,1,'Doctorado en Todologia',4,'0000-00-00','','2019-04-15 14:31:07','2019-07-31 13:47:21',1),(3,1,'Maestria en maestros',3,NULL,NULL,NULL,NULL,2),(4,1,'Maestria en maestros',3,NULL,NULL,NULL,'2019-05-08 18:18:58',2),(5,2,'Ingeniero en Sistemas',1,'0000-00-00','','2019-05-08 20:38:53','2019-05-22 23:39:13',1),(6,2,'Doctorado en Programacion',2,'0000-00-00','','2019-05-08 20:38:53','2019-05-22 23:39:13',1),(7,1,'Especialidad en Ejecucion de Presupuestos y Mas',2,NULL,NULL,'2019-05-21 23:52:40',NULL,2),(8,1,'Especialidad en Ejecucion de Presupuestos y Mas',2,NULL,NULL,'2019-05-21 23:54:01',NULL,2),(9,1,'Especialidad en Ejecucion de Presupuestos y Mas',2,NULL,NULL,'2019-05-21 23:54:53',NULL,2),(10,1,'Especialidad',2,'2019-05-14','UAPA','2019-05-21 23:56:28','2019-07-31 13:47:21',1),(11,10,'ewcwe',2,'2020-07-21','jhgjghjg','2020-07-09 12:30:59',NULL,NULL),(12,10,'Ingeniero en Sistemas ',1,'2020-09-25','O&M','2020-07-09 15:32:48',NULL,NULL),(13,10,'Sistemas ',1,'2020-07-23','Ingeniero','2020-07-16 12:06:25',NULL,NULL),(14,1,'prueba',1,'2020-07-21','prueba','2020-07-27 09:18:01',NULL,NULL),(15,1,'prueba',2,'2020-08-20','prueba','2020-08-10 16:54:25',NULL,NULL);
-/*!40000 ALTER TABLE `teacher_education` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2580,9 +2492,6 @@ CREATE TABLE `teacher_file` (
 --
 
 LOCK TABLES `teacher_file` WRITE;
-/*!40000 ALTER TABLE `teacher_file` DISABLE KEYS */;
-INSERT INTO `teacher_file` VALUES (2,1,NULL,NULL,1,'','2019-05-08 17:23:39','2019-07-31 13:47:21',21),(3,1,NULL,19,1,'Comentario','2019-05-08 17:23:48','2019-05-08 18:18:58',21),(4,1,NULL,20,1,'asdf','2019-05-08 18:12:45','2019-05-09 05:52:00',2),(5,1,NULL,21,1,'Titulo','2019-05-08 18:18:59','2019-05-09 05:52:00',2),(6,2,NULL,22,1,'','2019-05-08 20:38:53','2019-05-22 23:39:14',1),(7,1,NULL,NULL,2,'','2019-05-21 21:03:28','2019-07-31 13:47:21',1),(8,1,NULL,NULL,3,'','2019-05-21 21:03:28','2019-07-31 13:47:21',21),(9,1,NULL,NULL,4,'','2019-05-21 21:03:28','2019-07-31 13:47:21',1),(10,1,NULL,NULL,NULL,'','2019-05-21 21:03:28',NULL,21),(11,1,NULL,NULL,5,'','2019-05-21 23:52:40','2019-07-31 13:47:22',21),(12,2,NULL,NULL,2,'','2019-05-22 23:14:39','2019-05-22 23:39:14',1),(13,2,NULL,NULL,3,'','2019-05-22 23:14:39','2019-05-22 23:39:14',1),(14,2,NULL,NULL,4,'','2019-05-22 23:14:40','2019-05-22 23:39:14',1),(15,2,NULL,NULL,5,'','2019-05-22 23:14:40','2019-05-22 23:39:14',1),(16,5,NULL,NULL,1,'','2019-05-22 23:28:34',NULL,1),(17,5,NULL,NULL,2,'','2019-05-22 23:28:34',NULL,1),(18,5,NULL,NULL,3,'','2019-05-22 23:28:34',NULL,1),(19,5,NULL,NULL,4,'','2019-05-22 23:28:34',NULL,1),(20,5,NULL,NULL,5,'','2019-05-22 23:28:35',NULL,1),(21,6,NULL,NULL,1,'','2019-05-22 23:29:30',NULL,1),(22,6,NULL,NULL,2,'','2019-05-22 23:29:30',NULL,1),(23,6,NULL,NULL,3,'','2019-05-22 23:29:30',NULL,1),(24,6,NULL,NULL,4,'','2019-05-22 23:29:30',NULL,1),(25,6,NULL,NULL,5,'','2019-05-22 23:29:30',NULL,1),(26,7,NULL,NULL,1,'','2019-05-22 23:39:55',NULL,1),(27,7,NULL,NULL,2,'','2019-05-22 23:39:55',NULL,1),(28,7,NULL,NULL,3,'','2019-05-22 23:39:56',NULL,1),(29,7,NULL,NULL,4,'','2019-05-22 23:39:56',NULL,1),(30,7,NULL,NULL,5,'','2019-05-22 23:39:56',NULL,1),(31,10,NULL,131,5,'nada','2020-07-09 12:32:51',NULL,1),(32,10,NULL,132,2,'Prueba ','2020-07-09 15:34:47',NULL,1),(33,10,NULL,140,5,'Comentario de prueba ','2020-07-16 12:11:49',NULL,21),(34,1,NULL,159,1,'prueba',NULL,'2020-07-27 09:21:23',NULL),(35,1,NULL,160,1,'prueba',NULL,'2020-07-27 09:22:27',NULL);
-/*!40000 ALTER TABLE `teacher_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2730,9 +2639,6 @@ CREATE TABLE `tracing_study_plan_development` (
 --
 
 LOCK TABLES `tracing_study_plan_development` WRITE;
-/*!40000 ALTER TABLE `tracing_study_plan_development` DISABLE KEYS */;
-INSERT INTO `tracing_study_plan_development` VALUES (3,1,5,1,NULL,NULL,22,23,24,0,NULL,139,NULL,NULL,'2019-05-20 06:46:07','2020-07-15 22:45:11',NULL,NULL,1,10,NULL,NULL,NULL,NULL),(4,1,6,1,NULL,NULL,0,0,0,0,NULL,138,NULL,NULL,'2019-05-20 06:46:07','2020-07-15 16:41:27',NULL,NULL,1,10,NULL,NULL,NULL,NULL),(5,7,2,1,NULL,NULL,22,23,24,0,NULL,141,NULL,NULL,'2020-07-16 08:30:29','2020-07-16 15:13:55',NULL,NULL,NULL,10,NULL,NULL,NULL,NULL),(6,7,2,1,NULL,NULL,22,23,24,0,NULL,149,NULL,NULL,'2020-07-16 08:30:20','2020-07-20 16:36:31',NULL,NULL,NULL,10,NULL,NULL,NULL,NULL),(7,7,3,1,NULL,NULL,22,23,24,22,NULL,150,NULL,NULL,'2020-07-16 08:32:21','2020-07-20 16:37:01',NULL,NULL,NULL,10,NULL,NULL,NULL,NULL),(8,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,10,NULL,NULL,NULL,NULL),(9,8,2,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-23 17:02:32',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(10,1,17,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-27 14:46:50',NULL,NULL,NULL,NULL,5,NULL,NULL,NULL,NULL),(11,8,1,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-07-27 14:47:30',NULL,NULL,NULL,NULL,3,NULL,NULL,NULL,NULL),(12,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5,NULL,NULL,NULL,NULL),(13,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(14,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(15,NULL,NULL,1,NULL,NULL,7,6,4,6,NULL,198,NULL,NULL,NULL,'2020-08-11 14:59:27',NULL,NULL,NULL,NULL,6,4,197,'Primer semestre'),(16,NULL,NULL,1,NULL,NULL,9,4,6,6,NULL,200,NULL,NULL,NULL,'2020-08-11 14:58:47',NULL,NULL,NULL,NULL,7,5,199,'Primer semestre'),(17,NULL,NULL,NULL,NULL,NULL,7,8,5,6,NULL,161,NULL,NULL,NULL,'2020-07-29 14:32:16',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(18,NULL,NULL,NULL,NULL,NULL,5,5,5,5,NULL,164,NULL,NULL,NULL,'2020-07-29 14:54:38',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(19,NULL,NULL,NULL,NULL,NULL,22,23,24,4,NULL,165,NULL,NULL,NULL,'2020-07-29 14:55:28',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(21,NULL,NULL,12,NULL,NULL,5,5,5,5,NULL,175,NULL,NULL,NULL,'2020-08-05 15:27:40',NULL,NULL,NULL,NULL,5,5,178,NULL),(22,NULL,NULL,1,NULL,NULL,5,5,5,5,NULL,175,NULL,NULL,NULL,'2020-08-05 15:50:52',NULL,NULL,NULL,NULL,5,5,178,NULL),(23,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(26,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `tracing_study_plan_development` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2767,9 +2673,6 @@ CREATE TABLE `university` (
 --
 
 LOCK TABLES `university` WRITE;
-/*!40000 ALTER TABLE `university` DISABLE KEYS */;
-INSERT INTO `university` VALUES (1,'Instituto Tecnológico de Santo Domingo','INTEC','San Pedro de Macoris',18,11,'2019-05-09 14:58:03','2020-07-15 09:45:04',1),(2,'Universidad dominicana ','O&M','Feria ',13,7,'2020-07-09 10:57:42','2020-07-09 10:57:54',1),(3,'Universidad autonoma ','UASD','Principal',16,9,'2020-07-09 15:17:11','2020-07-09 15:21:47',2),(4,'Prueba','prueba ','San Pedro de Macoris',17,10,'2020-07-10 15:52:04',NULL,1),(5,'Instituto Tecnológico de Santo Domingo','INTEC','San Pedro de Macoris',20,12,'2020-07-15 16:58:51','2020-07-15 16:59:18',1),(6,'test','test','test',21,14,NULL,'2020-07-27 11:52:16',1);
-/*!40000 ALTER TABLE `university` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -3018,7 +2921,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`Id`),
   KEY `fk_UniversityId` (`UniversityId`),
   CONSTRAINT `fk_UniversityId` FOREIGN KEY (`UniversityId`) REFERENCES `university` (`university_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3040,4 +2943,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-21 16:10:59
+-- Dump completed on 2020-08-21 15:44:12
