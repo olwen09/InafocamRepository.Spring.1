@@ -140,7 +140,10 @@
 
                     <form class="col s12 formValidate" enctype="multipart/form-data" method="post" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="SaveAcuerdos" asp-route-universityAgreementId="@item.ScholarshipProgramUniversityAgreementId" asp-route-agremmentId="@item.ScholarshipProgramUniversityAgreementId" asp-route-tracingId="@Model.ScholarshipProgramTracingId">
 
-
+                        <input type="hidden" asp-for="@item.ScholarshipProgramUniversityAgreementId" />
+                        @* <input type="hidden" asp-for="ScholarshipProgramTracingAgreementDescriptionModel.ScholarshipProgramTracingAgreementDescriptionId" />*@
+                        <input type="hidden" asp-for="ScholarshipProgramUniversityId" />
+                        <input type="hidden" asp-for="ScholarshipProgramTracingId" />
 
                         <span class="card-title">Seleccionar Evidencia</span>
                         <div class="divider"></div>
@@ -161,10 +164,9 @@
                         </div>
 
                         <div class="file-field input-field col s12 m6 l1">
-                       @if (Model.IsGestionUniversitariaRole && item.Status.StatusName != "Completado")
-                       {
-                            <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>
-                       }
+                            @if (Model.IsGestionUniversitariaRole && item.Status.StatusName != "Completado")
+                            {
+                    <button class="teal btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar"><i class="material-icons">arrow_forward</i></button>}
                         </div>
                         <br />
                         <div class="divider"></div>
@@ -185,22 +187,22 @@
                                 @foreach (var file in AgreementFile.GetAllByscholarshipPogramTracingAgreementId(id))
                                 {
 
-                                        <tr>
-                                            <td>@file.File.FileName</td>
-                                            <td>@file.AgreementFileDescription</td>
-                                            <td>
-                                                <a class="tooltipped" data-position="top" data-tooltip="Ver documento" href="\app-assets\documentos\acuerdos\@file?.File?.FilePath" target="_blank">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                </a>
+                    <tr>
+                        <td>@file.File.FileName</td>
+                        <td>@file.AgreementFileDescription</td>
+                        <td>
+                            <a class="tooltipped" data-position="top" data-tooltip="Ver documento" href="\app-assets\documentos\acuerdos\@file?.File?.FilePath" target="_blank">
+                                <i class="material-icons">remove_red_eye</i>
+                            </a>
 
 
-                                                <a class="tooltipped red-text ml-2" href="#" data-position="top" data-tooltip="Eliminar" onclick="eliminar('@Url.Action("EliminarEvidenciaAcuerdos", "SeguimientoDeUniversida", new { area = "SeguimientoDeUniversidades", evidenciaId= file.ScholarshipProgramTracingAgreementFileId })')">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </td>
+                            <a class="tooltipped red-text ml-2" href="#" data-position="top" data-tooltip="Eliminar" onclick="eliminar('@Url.Action("EliminarEvidenciaAcuerdos", "SeguimientoDeUniversida", new { area = "SeguimientoDeUniversidades", evidenciaId= file.ScholarshipProgramTracingAgreementFileId })')">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
 
-                                        </tr>               
-                                }
+                    </tr>
+}
 
                             </tbody>
                         </table>
