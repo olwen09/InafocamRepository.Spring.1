@@ -15,6 +15,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public short? Started { get; set; }
         public short? Finished { get; set; }
 
+        public bool CanAddComment { get; set; }
         public IEnumerable<ScholarshipProgramTracingPracticePlanning> PracticePlanningList{ get; set; }
         public ScholarshipProgramTracingPracticePlanningModel PracticePlanningModel { get; set; }
 

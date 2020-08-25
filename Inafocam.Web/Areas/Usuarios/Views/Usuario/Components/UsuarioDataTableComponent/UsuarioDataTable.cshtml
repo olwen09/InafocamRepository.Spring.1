@@ -11,6 +11,7 @@
             @*<th>Codigo</th>*@
             <th>Usuario</th>
             <th>Nombre</th>
+            <th>Role</th>
             <th>Email</th>
           
             <th>Estado</th>
@@ -22,6 +23,9 @@
     <tbody>
         @foreach (Usuario usuario in Model)
         {
+             
+                var role = usuario.Role == null ? "No asignado" : usuario.Role;
+            
     <tr>
         @*<td>
             <div class="row">
@@ -37,6 +41,7 @@
         </td>*@
         <td>@usuario?.UserName</td>
         <td>@usuario?.Nombre @usuario?.Apellido</td>
+        <td>@role</td>
         <td>@usuario?.Email</td>
         @*<td><a class=" modal-trigger" href="#permisosmodal_@usuario.Id">@usuario.Role</a></td>*@
         @if (usuario.Estado)
@@ -90,6 +95,7 @@
             @*<th>Codigo</th>*@
             <th>Usuario</th>
             <th>Nombre</th>
+            <th>Role</th>
             <th>Email</th>
 
             <th>Estado</th>

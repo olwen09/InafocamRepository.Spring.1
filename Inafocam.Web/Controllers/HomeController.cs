@@ -4,19 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
-using Andamios.Web.Areas.Usuarios.Models;
 using Andamios.Web.Helpers;
 using Andamios.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
 using Inafocam.core.Modelos;
-using System.Security.Claims;
 using Inafocam.Web.Models;
 
 namespace Andamios.Web.Controllers {
@@ -38,16 +33,26 @@ namespace Andamios.Web.Controllers {
         public async Task<IActionResult> Index () 
         {
 
-            //var claims = User.Claims.Select (c =>
-            //    new {
-            //        c.Type,
-            //            c.Value
-            //    }).ToList ();
+            //var claims = User.Claims.Select(c =>
+            //   new
+            //   {
+            //       c.Type,
+            //       c.Value
+            //   }).ToList();
 
+            //var claims = User.Claims.ToList();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
 
-            if(user == null)
+
+
+          
+
+
+
+
+
+            if (user == null)
             {
                 return View("StartPage");
             }
@@ -64,7 +69,17 @@ namespace Andamios.Web.Controllers {
         [Layout ("_layout")]
         public IActionResult Home () 
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var claims = User.Claims.Select(c =>
+            // new
+            // {
+            //     c.Type,
+            //     c.Value
+            // }).ToList();
+
+            
+
+
+             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Usuario user = _userManager.FindByIdAsync(userId).Result;
 
             if (user.Role == RoleName.UsuarioEjecutivoUniversitario || 

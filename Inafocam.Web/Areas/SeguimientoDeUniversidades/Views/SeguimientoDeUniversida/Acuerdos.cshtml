@@ -64,8 +64,8 @@
         <div class="collapsible-header" style="background-color:#eeeeee ">
             @item.ScholarshipProgramUniversityAgreement1 - @item.AgreementType.AgreementTypeName  <span class="badge @badgeColor flow-text"> @item.Status.StatusName </span>
 
-            @if (!Model.IsGestionUniversitariaRole)
-            {
+            @if (Model.CanAddComment())
+             {
                 <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
                    asp-area="SeguimientoDeUniversidades"
                    asp-controller="SeguimientoDeUniversida"

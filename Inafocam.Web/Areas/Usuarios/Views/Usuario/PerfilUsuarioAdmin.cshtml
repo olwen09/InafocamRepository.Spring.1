@@ -165,8 +165,13 @@
                                     <div class="row">
                                         <label for="select2User" class="col s12">   <i class="material-icons" >school</i>Universidades</label>
                                     </div>
+                                    @{ 
+                                        object noUniversidad = null;
+                                    }
+
                                     <select asp-for="EditarUsuarioModel.UniversityId"  class="form-control js-example-basic-single" style="width: 100%" asp-items="@(new SelectList(Model.Universidades,"UniversityId","UniversityName"))">
                                         <option value="" selected disabled>Seleccione una Opción</option>
+                                        <option value="@noUniversidad" >Ninguna</option>
                                     </select>
 
                                 </div>
@@ -195,8 +200,12 @@
                                         <label for="select2User" class="col s12">   <i class="material-icons">verified_user</i>Roles</label>
                                     </div>
 
+                                    @{ 
+                                        object noRole = null;
+                                    }
                                     <select asp-for="EditarUsuarioModel.Role" class="form-control js-example-basic-single" style="width: 100%" asp-items="ViewBag.Role">
                                         <option value="" selected disabled>Seleccione una Opción</option>
+                                        <option value="@noRole" >Ninguno</option>
                                     </select>
 
                                 </div>
@@ -318,47 +327,7 @@
 
     <script>
 
-        //$(document).ready(function() {
-        //    $('.tooltipped').tooltip();
-        //});
-
-
-
-
-//        $('#userInformations').on("submit", function (event) {
-
-
-//            var Password = $("#Password").val();
-//            var ConfirmPassword = $("#ConfirmPassword").val();
-
-//            //var diferentes = $("#diferentes").val();
-//            //var contraseña = $("#contraseña").val()
-
-//            //if (diferentes != "") {
-//            //    diferentes = ""
-//            //}
-//            $('#diferentes').text('');
-//            $('#contraseña').text('');
-
-
-
-//            if (Password != ConfirmPassword) {
-//                $( "#diferentes" ).append( "<strong>Las Contraseñas no coinciden</strong>" );
-
-//                event.preventDefault();
-
-
-//            }
-
-
-//            if (Password.length < 6 || Password == '') {
-//                    $( "#contraseña" ).append( "<strong>La contraseñas debe ser de por lo menos 6 caracteres de longitud</strong>" );
-
-//                event.preventDefault();
-
-//            }
-
-//});
+   
 
 
 
@@ -395,7 +364,7 @@
             $('.modal').modal();
 
             $('.js-example-basic-single').select2({
-                placeholder: "Seleccione una Opción",
+                //placeholder: "Seleccione una Opción",
             });
 
             $('.phone').formatter({

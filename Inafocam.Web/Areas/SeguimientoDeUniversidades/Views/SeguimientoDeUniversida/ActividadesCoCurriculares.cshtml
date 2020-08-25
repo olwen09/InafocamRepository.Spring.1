@@ -167,7 +167,7 @@
                                             <i class="material-icons">attach_file</i>
                                         </a>
 
-                                    @if (!Model.IsGestionUniversitariaRole)
+                                    @if (Model.CanAddComment)
                                     {
                                             <a class="tooltipped" data-position="top" data-tooltip="Agregar comentario"
                                                asp-area="SeguimientoDeUniversidades"

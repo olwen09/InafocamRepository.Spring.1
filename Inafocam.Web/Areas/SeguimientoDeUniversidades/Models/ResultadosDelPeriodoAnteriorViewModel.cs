@@ -11,7 +11,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public int? ScholarshipProgramUniversityId { get; set; }
         public int? TracingId { get; set; }
         public bool IsGestionUniversitariaRole { get; set; }
-
+        public bool CanAddComment { get; set; }
         public IEnumerable<ResultsFromThePreviousPeriod> PreviousPeriodList { get; set; }
         public ResultsFromThePreviousPeriodModel PreviousPeriodModel { get; set; }
     }

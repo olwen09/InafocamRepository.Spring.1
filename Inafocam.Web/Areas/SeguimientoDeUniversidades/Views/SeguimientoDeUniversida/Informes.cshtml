@@ -55,7 +55,7 @@
 
                         <div class="col s1 ">
 
-                            @if (!Model.IsGestionUniversitariaRole)
+                            @if (Model.IsAdministradorInafocamRole)
                             {
 
                                 <a class="teal mb-1 btn-small waves-effect waves-light " data-position="top" asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="AgregarInformes"
@@ -84,8 +84,10 @@
 
                         </div>
                         
-                        
-
+                       @{ 
+                           var prueba = ViewBag.Prueba;
+                           var prue = "";
+                       }
 
                     </div>
                     <div class="col s12 ">

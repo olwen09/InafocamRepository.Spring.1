@@ -501,7 +501,7 @@ namespace Inafocam.Web.Areas.Identity.Controllers
         {
             //string baseUrl = string.Format("{0}://{1}{2}", Request..Url.Scheme, Request.Url.Authority, Url.Content("~"));
             var returnUrl = string.IsNullOrEmpty(Request.Path) ? "~/" : $"~{Request.Path.Value}";
-            TempData.AccesoDenegado("Acceso denegado", "No tiene permisos para entrar a esta área", "red");
+            //TempData.AccesoDenegado("Acceso denegado", "No tiene permisos para entrar a esta área", "red");
 
             return RedirectToAction("Home", "Home", new { area = "" });
         }

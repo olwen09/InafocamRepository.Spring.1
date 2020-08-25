@@ -13,6 +13,8 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
         public bool IsGestionUniversitariaRole { get; set; }
         public long? TeacherId { get; set; }
 
+        public bool CanAddComment { get; set; }
+
         //public IEnumerable<string> GetTeacherId { get; set; }
         public long? UniversityId { get; set; }
         public TracingStudyPlanDevelopment TracingStudyPlanDevelopmentModel { get; set; }

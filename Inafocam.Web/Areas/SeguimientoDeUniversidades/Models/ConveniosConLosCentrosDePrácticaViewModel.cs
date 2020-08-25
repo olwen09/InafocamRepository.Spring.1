@@ -13,7 +13,7 @@ namespace Inafocam.Web.Areas.SeguimientoDeUniversidades.Models
 
         public bool IsGestionUniversitariaRole { get; set; }
 
-
+        public bool CanAddComment { get; set; }
         public IEnumerable<ScholarshipProgramTracingAgreementsWithPracticeCenter> AgreementsWithPracticeCenterList { get; set; }
         public ScholarshipProgramTracingAgreementsWithPracticeCenterModel AgreementsWithPracticeCenterModel { get; set; }
     }

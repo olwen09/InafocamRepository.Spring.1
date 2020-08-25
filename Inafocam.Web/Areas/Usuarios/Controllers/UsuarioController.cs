@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Andamios.Web.Areas.Usuarios.Models;
 using Andamios.Web.Helpers;
@@ -154,8 +155,36 @@ namespace Inafocam.Web.Areas.Usuarios.Controllers
             {
 
                 var usuarioCreado = _usuario.GetUsuarioById(model.EditarUsuarioModel.Id);
+                //var roleslist = _roleManger.Roles.ToList();
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Usuario user = _userManager.FindByIdAsync(userId).Result;
 
-               
+
+                //var claims = User.Claims.ToList();
+                //var claimsPrueba = User.Claims.ToList().FirstOrDefault(x=> x.Value == usuarioCreado.Role);
+
+                //foreach (var role in roleslist)
+                //{
+
+                //    foreach(var claim in claims)
+                //    {
+                //    await _roleManger.RemoveClaimAsync(role, claim);
+
+                //    }
+
+                //}
+
+                var claims = User.Claims.ToList(); ;
+                var lastAccessedClaim = claims.ToList();
+
+                foreach (var claim in claims)
+                {
+                    var resDelete = (lastAccessedClaim == null) ? null : await _userManager.RemoveClaimAsync(user, claim);
+                    var prueba = "";
+                }
+
+
+                var claimsPrueba = User.Claims.ToList();
 
                 PropertiesParser<EditarUsuarioModel, Usuario>
                     .CopyPropertiesTo<EditarUsuarioModel, Usuario>(model.EditarUsuarioModel, usuarioCreado);

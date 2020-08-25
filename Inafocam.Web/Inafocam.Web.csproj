@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Remove="Data\**" />
+    <Compile Remove="Helpers\NewFolder\**" />
     <Compile Remove="Views\Clientes\**" />
     <Compile Remove="Views\Contratos\**" />
     <Compile Remove="Views\CuentasPorCobrar\**" />
@@ -20,6 +21,7 @@
     <Compile Remove="Views\Suplidores\**" />
     <Compile Remove="Views\Usuario\**" />
     <Content Remove="Data\**" />
+    <Content Remove="Helpers\NewFolder\**" />
     <Content Remove="Views\Clientes\**" />
     <Content Remove="Views\Contratos\**" />
     <Content Remove="Views\CuentasPorCobrar\**" />
@@ -30,6 +32,7 @@
     <Content Remove="Views\Suplidores\**" />
     <Content Remove="Views\Usuario\**" />
     <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Helpers\NewFolder\**" />
     <EmbeddedResource Remove="Views\Clientes\**" />
     <EmbeddedResource Remove="Views\Contratos\**" />
     <EmbeddedResource Remove="Views\CuentasPorCobrar\**" />
@@ -39,7 +42,9 @@
     <EmbeddedResource Remove="Views\Seguridad\**" />
     <EmbeddedResource Remove="Views\Suplidores\**" />
     <EmbeddedResource Remove="Views\Usuario\**" />
+    <None Remove="C:\Users\olwen\.nuget\packages\microsoft.net.compilers\1.0.0\build\..\tools\**" />
     <None Remove="Data\**" />
+    <None Remove="Helpers\NewFolder\**" />
     <None Remove="Views\Clientes\**" />
     <None Remove="Views\Contratos\**" />
     <None Remove="Views\CuentasPorCobrar\**" />
@@ -54,6 +59,7 @@
 
   <ItemGroup>
     <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="Fluent.Infrastructure" Version="2.0.0-beta-01" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.1" />
     <PackageReference Include="Humanizer" Version="2.8.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
@@ -70,7 +76,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Helpers\NewFolder\" />
     <Folder Include="wwwroot\app-assets\documentos\Acuerdos\" />
     <Folder Include="wwwroot\app-assets\documentos\DocumentosParaElSistemaDeCalidad\" />
     <Folder Include="wwwroot\app-assets\documentos\EstudiantesEnPracticaFiles\" />

@@ -1,13 +1,15 @@
-﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.IndexViewModel
+﻿@using Microsoft.AspNetCore.Identity;
+@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.IndexViewModel
+
 
 @{ MensajesViewModel mensaje = new MensajesViewModel();
 
-                if (TempData["mensaje"] != null)
-                {
-                    mensaje = TempData.Get<MensajesViewModel>("mensaje");
+    if (TempData["mensaje"] != null)
+    {
+        mensaje = TempData.Get<MensajesViewModel>("mensaje");
 
-                }
-                var num = 1; }
+    }
+    var num = 1; }
 
 
 @section Style
@@ -40,7 +42,7 @@
     vista = (string)ViewData["vista"]
 })
 
-    <div class="12"></div>
+<div class="12"></div>
 <div class="section section-data-tables ">
     <div class="row">
         <div class="col s12">
@@ -53,6 +55,8 @@
                         </div>
 
                     </div>
+
+
                     <div class="col s12 ">
 
                         <div class="row">
